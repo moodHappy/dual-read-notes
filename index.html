@@ -103,7 +103,6 @@
             const savedToken = localStorage.getItem('gh_token_distributor');
             if (savedToken) document.getElementById('gh-token').value = savedToken;
 
-            // 恢复上次填写的文件夹路径
             const savedFolder = localStorage.getItem('gh_folder_distributor');
             if (savedFolder) document.getElementById('folder-name').value = savedFolder;
         };
@@ -124,10 +123,8 @@
                 return;
             }
 
-            // 如果没有单独填标题，默认使用页面名称作为标题
             if (!pageTitle) pageTitle = pageName;
 
-            // 保存 Token 和文件夹路径，方便下次使用
             localStorage.setItem('gh_token_distributor', token);
             localStorage.setItem('gh_folder_distributor', folderRaw);
 
@@ -143,6 +140,7 @@
             const fullHtmlPath = folderPath ? `${folderPath}/${htmlFileName}` : htmlFileName;
             const fullJsonPath = folderPath ? `${folderPath}/${jsonFileName}` : jsonFileName;
 
+            // 注入模板，含同步逻辑核心修复
             const htmlTemplate = `<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -213,7 +211,6 @@
 </head>
 <body>
     <div id="content-container">
-        <!-- 这里注入了独立的标题变量 -->
         <input type="text" id="page-title" class="title-input" value="${pageTitle}" oninput="saveToLocal()">
         <div class="meta-info">发布时间: <input type="text" id="publish-time" value="" oninput="saveToLocal()"></div>
         <hr class="title-divider">
@@ -401,7 +398,6 @@
             if (saved) {
                 try {
                     const state = JSON.parse(saved);
-                    // 优先读取本地缓存的标题，否则回退到生成的默认独立标题
                     document.getElementById('page-title').value = state.title || '${pageTitle}';
                     if(state.time) document.getElementById('publish-time').value = state.time;
                     if (state.data && state.data.length > 0) { state.data.forEach(item => addGroup(item.eng, item.chn, item.anno)); return; }
@@ -456,18 +452,40 @@
                 const apiUrl = \`https://api.github.com/repos/\${config.owner}/\${config.repo}/contents/\${config.path}\`;
 
                 let sha = null;
-                const getRes = await fetch(apiUrl, { headers: { 'Authorization': \`token \${config.token}\`, 'Accept': 'application/vnd.github.v3+json' }});
-                if (getRes.ok) sha = (await getRes.json()).sha;
+                // [核心修复]: 强制加时间戳防缓存，确保能获取真实存在的 SHA
+                const getRes = await fetch(apiUrl + "?t=" + new Date().getTime(), { 
+                    headers: { 
+                        'Authorization': \`token \${config.token}\`, 
+                        'Accept': 'application/vnd.github.v3+json',
+                        'Cache-Control': 'no-cache'
+                    }
+                });
+                
+                if (getRes.ok) {
+                    sha = (await getRes.json()).sha;
+                } else if (getRes.status !== 404) {
+                    throw new Error("无法读取远程文件状态: " + getRes.statusText);
+                }
 
                 const putBody = { message: "Sync immersive reading notes", content: base64Content };
                 if (sha) putBody.sha = sha;
 
-                const putRes = await fetch(apiUrl, { method: 'PUT', headers: { 'Authorization': \`token \${config.token}\`, 'Content-Type': 'application/json' }, body: JSON.stringify(putBody) });
+                const putRes = await fetch(apiUrl, { 
+                    method: 'PUT', 
+                    headers: { 
+                        'Authorization': \`token \${config.token}\`, 
+                        'Content-Type': 'application/json' 
+                    }, 
+                    body: JSON.stringify(putBody) 
+                });
 
                 if (putRes.ok) {
                     btn.innerText = "同步成功！"; btn.style.background = "#4CAF50";
                     setTimeout(() => { btn.innerText = "将本地数据同步至 GitHub"; btn.style.background = "#007acc"; btn.disabled = false; }, 2000);
-                } else throw new Error((await putRes.json()).message);
+                } else {
+                    const err = await putRes.json();
+                    throw new Error(err.message || "未知错误");
+                }
             } catch (e) {
                 alert("同步失败: " + e.message);
                 btn.innerText = "将本地数据同步至 GitHub"; btn.style.background = "#007acc"; btn.disabled = false;
@@ -499,7 +517,6 @@
                         <a href="${pageUrl}" class="success-link" target="_blank">👉 前往新页面阅读</a>
                         <span style="font-size:12px; color:#999; margin-top:5px; display:block;">(注: GitHub Pages 更新可能有几十秒延迟)</span>
                     `;
-                    // 清空页面名称和标题，但保留其他参数方便连续创建
                     document.getElementById('page-name').value = ''; 
                     document.getElementById('display-title').value = ''; 
                 } else {
