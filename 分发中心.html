@@ -140,7 +140,8 @@
             const fullHtmlPath = folderPath ? `${folderPath}/${htmlFileName}` : htmlFileName;
             const fullJsonPath = folderPath ? `${folderPath}/${jsonFileName}` : jsonFileName;
 
-            // 这里注入的代码已经集成了针对 422 (sha wasn't supplied) 错误的底层降维查询修复方案
+            // 核心修复：新生成的页面在 window.onload 时，会优先尝试从 GitHub Pages (或 API) 抓取 JSON。
+            // 只要检测到远程有新数据，就会自动下载并覆盖本地空缓存，实现多设备秒同步。
             const htmlTemplate = `<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -211,7 +212,6 @@
 </head>
 <body>
     <div id="content-container">
-        <!-- 注入了独立的标题变量 -->
         <input type="text" id="page-title" class="title-input" value="${pageTitle}" oninput="saveToLocal()">
         <div class="meta-info">发布时间: <input type="text" id="publish-time" value="" oninput="saveToLocal()"></div>
         <hr class="title-divider">
@@ -293,14 +293,14 @@
             if (deltaX < -40 && Math.abs(deltaX) > Math.abs(deltaY)) annoBlock.style.display = 'none';
         }, { passive: true });
 
-        window.onload = () => {
+        window.onload = async () => {
             const timeInput = document.getElementById('publish-time');
             if (!timeInput.value) {
                 const now = new Date();
                 timeInput.value = \`\${now.getFullYear()}/\${now.getMonth()+1}/\${now.getDate()} \${now.getHours()}:\${String(now.getMinutes()).padStart(2, '0')}:\${String(now.getSeconds()).padStart(2, '0')}\`;
             }
             loadSettings();
-            loadFromLocal();
+            await fetchRemoteDataFirst(); // [跨设备修复核心]：初始化时强行向远程拉取 JSON
         };
 
         function addGroup(eng = "", chn = "", anno = "") {
@@ -332,6 +332,66 @@
             saveToLocal();
         }
 
+        // [跨设备同步引擎函数]：跨新设备进入时，强制去拉取已保存在 GitHub 的最新 JSON 数据
+        async function fetchRemoteDataFirst() {
+            const config = JSON.parse(localStorage.getItem(SETTINGS_KEY));
+            if (!config || !config.owner || !config.repo || !config.path) {
+                loadFromLocal();
+                return;
+            }
+
+            // 优先通过公开的 Pages 服务获取文件（Pages 无需 Token，任何新设备免配 Token 即可跨设备读数据）
+            const pagesUrl = \`https://\${config.owner}.github.io/\${config.repo}/\${config.path}?t=\` + Date.now();
+            
+            try {
+                const res = await fetch(pagesUrl, { cache: 'no-store' });
+                if (res.ok) {
+                    const remoteState = await res.json();
+                    if (remoteState && remoteState.data) {
+                        console.log("成功拉取远程跨设备同步数据！");
+                        // 覆盖并保存到本地
+                        localStorage.setItem(LOCAL_KEY, JSON.stringify(remoteState));
+                        renderState(remoteState);
+                        return;
+                    }
+                }
+            } catch (e) {
+                console.log("Pages 读数据失败，尝试切换至 API 读取...", e);
+            }
+
+            // 如果 Pages 没刷新或读取失败，且本地配置了 Token，则走 API 直接抓取
+            if (config.token) {
+                try {
+                    const apiUrl = \`https://api.github.com/repos/\${config.owner}/\${config.repo}/contents/\${config.path}?t=\` + Date.now();
+                    const res = await fetch(apiUrl, {
+                        headers: { 'Authorization': \`token \${config.token}\`, 'Accept': 'application/vnd.github.v3+json', 'Cache-Control': 'no-cache' }
+                    });
+                    if (res.ok) {
+                        const fileData = await res.json();
+                        const remoteState = JSON.parse(decodeURIComponent(escape(atob(fileData.content))));
+                        localStorage.setItem('gh_file_sha_' + config.path, fileData.sha); // 顺便锁死 SHA 防止保存出错
+                        localStorage.setItem(LOCAL_KEY, JSON.stringify(remoteState));
+                        renderState(remoteState);
+                        return;
+                    }
+                } catch(e) { console.error("远程 API 读取也失败，降级读取本地旧缓存", e); }
+            }
+
+            // 如果全网都拉取失败了，无奈降维读取本地已有的 LocalStorage 缓存
+            loadFromLocal();
+        }
+
+        function renderState(state) {
+            document.getElementById('groups-container').innerHTML = ''; 
+            document.getElementById('page-title').value = state.title || '${pageTitle}';
+            if(state.time) document.getElementById('publish-time').value = state.time;
+            if (state.data && state.data.length > 0) {
+                state.data.forEach(item => addGroup(item.eng, item.chn, item.anno));
+            } else {
+                addGroup();
+            }
+        }
+
         function handleDotClick(index) {
             const group = document.getElementById('group-' + index);
             const anno = group.dataset.anno || "";
@@ -355,7 +415,6 @@
             const val = document.getElementById('anno-input').value;
             const group = document.getElementById('group-' + currentGroupIndex);
             group.dataset.anno = val;
-            
             const dot = group.querySelector('.dot-btn');
             const display = group.querySelector('.anno-display');
             
@@ -395,14 +454,8 @@
 
         function loadFromLocal() {
             const saved = localStorage.getItem(LOCAL_KEY);
-            document.getElementById('groups-container').innerHTML = ''; 
             if (saved) {
-                try {
-                    const state = JSON.parse(saved);
-                    document.getElementById('page-title').value = state.title || '${pageTitle}';
-                    if(state.time) document.getElementById('publish-time').value = state.time;
-                    if (state.data && state.data.length > 0) { state.data.forEach(item => addGroup(item.eng, item.chn, item.anno)); return; }
-                } catch (e) {}
+                try { renderState(JSON.parse(saved)); return; } catch (e) {}
             }
             addGroup(); 
         }
@@ -439,7 +492,6 @@
             toggleEditMode();
         }
 
-        // ================= 终极同步防御机制 =================
         async function syncToGitHub() {
             saveSettings(); 
             const config = JSON.parse(localStorage.getItem(SETTINGS_KEY));
@@ -453,79 +505,50 @@
                 const base64Content = btoa(unescape(encodeURIComponent(contentStr)));
                 const apiUrl = \`https://api.github.com/repos/\${config.owner}/\${config.repo}/contents/\${config.path}\`;
                 
-                // 本地锁死 SHA (优先使用上次成功同步返回的 sha，避免去请求缓存节点)
                 const shaKey = 'gh_file_sha_' + config.path;
                 let sha = localStorage.getItem(shaKey) || null;
 
-                // 尝试常规获取最新 SHA
                 try {
                     const getRes = await fetch(apiUrl + "?t=" + Date.now(), { 
                         headers: { 'Authorization': \`token \${config.token}\`, 'Accept': 'application/vnd.github.v3+json', 'Cache-Control': 'no-cache' }
                     });
-                    if (getRes.ok) {
-                        sha = (await getRes.json()).sha;
-                    }
+                    if (getRes.ok) sha = (await getRes.json()).sha;
                 } catch(e) {}
 
                 const putBody = { message: "Sync immersive reading notes", content: base64Content };
                 if (sha) putBody.sha = sha;
 
-                // 第一轮发送同步请求
-                let putRes = await fetch(apiUrl, { 
-                    method: 'PUT', 
-                    headers: { 'Authorization': \`token \${config.token}\`, 'Content-Type': 'application/json' }, 
-                    body: JSON.stringify(putBody) 
-                });
-                
+                let putRes = await fetch(apiUrl, { method: 'PUT', headers: { 'Authorization': \`token \${config.token}\`, 'Content-Type': 'application/json' }, body: JSON.stringify(putBody) });
                 let resData = await putRes.json();
 
-                // 【核心穿透代码】：如果 GitHub 抛出 422 sha wasn't supplied 错误
                 if (!putRes.ok && putRes.status === 422 && resData.message && resData.message.includes('sha')) {
-                    console.log("拦截到 GitHub CDN 缓存欺骗，启动目录穿透查找...");
-                    
                     const pathParts = config.path.split('/');
                     const fileName = pathParts.pop();
-                    const parentDir = pathParts.join('/'); // 提取上级文件夹
-                    
-                    // 请求整个文件夹的列表结构 (文件夹列表的缓存机制不同)
+                    const parentDir = pathParts.join('/');
                     const dirUrl = \`https://api.github.com/repos/\${config.owner}/\${config.repo}/contents/\${parentDir}?t=\` + Date.now();
                     const dirRes = await fetch(dirUrl, { headers: { 'Authorization': \`token \${config.token}\` } });
                     
                     if (dirRes.ok) {
-                        const dirData = await dirRes.json();
-                        // 从文件夹列表里生生找出这个文件的真实 SHA
-                        const fileObj = dirData.find(f => f.name === fileName);
-                        
+                        const fileObj = (await dirRes.json()).find(f => f.name === fileName);
                         if (fileObj && fileObj.sha) {
-                            sha = fileObj.sha;
-                            putBody.sha = sha; // 赋上真实 SHA
-                            
-                            // 第二轮强制重试
-                            putRes = await fetch(apiUrl, { 
-                                method: 'PUT', 
-                                headers: { 'Authorization': \`token \${config.token}\`, 'Content-Type': 'application/json' }, 
-                                body: JSON.stringify(putBody) 
-                            });
+                            putBody.sha = fileObj.sha;
+                            putRes = await fetch(apiUrl, { method: 'PUT', headers: { 'Authorization': \`token \${config.token}\`, 'Content-Type': 'application/json' }, body: JSON.stringify(putBody) });
                             resData = await putRes.json();
                         }
                     }
                 }
 
                 if (putRes.ok) {
-                    // 同步成功，将最新的真 SHA 永久刻在本地，下次直接用！
                     localStorage.setItem(shaKey, resData.content.sha); 
-                    
                     btn.innerText = "同步成功！"; btn.style.background = "#4CAF50";
                     setTimeout(() => { btn.innerText = "将本地数据同步至 GitHub"; btn.style.background = "#007acc"; btn.disabled = false; }, 2000);
-                } else {
-                    throw new Error(resData.message || "未知异常，请检查网络");
-                }
+                } else throw new Error(resData.message || "未知错误");
             } catch (e) {
                 alert("同步失败: " + e.message);
                 btn.innerText = "将本地数据同步至 GitHub"; btn.style.background = "#007acc"; btn.disabled = false;
             }
         }
-    <\/script>
+    </script>
 </body>
 </html>`;
 
