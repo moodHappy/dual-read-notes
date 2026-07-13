@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>阅读仓库控制中心</title>
+    <style>
+        body {
+            background-color: #121212; color: #e0e0e0;
+            font-family: system-ui, sans-serif;
+            display: flex; flex-direction: column; align-items: center;
+            padding: 50px 20px; margin: 0;
+        }
+        .manager-box {
+            background: #1e1e1e; border: 1px solid #333;
+            padding: 30px; border-radius: 12px; width: 100%; max-width: 500px;
+            display: flex; flex-direction: column; gap: 15px;
+        }
+        h2 { margin-top: 0; text-align: center; }
+        input {
+            background: #2a2a2a; color: #fff;
+            border: 1px solid #444; padding: 12px;
+            border-radius: 6px; font-size: 16px;
+        }
+        button {
+            background: #007acc; color: white; border: none;
+            padding: 14px; border-radius: 6px; font-size: 16px;
+            cursor: pointer; font-weight: bold; margin-top: 10px;
+        }
+        button:hover { background: #005f9e; }
+        #status { text-align: center; font-size: 14px; color: #aaa; min-height: 20px;}
+    </style>
+</head>
+<body>
+
+    <div class="manager-box">
+        <h2>一键生成新阅读页</h2>
+        
+        <input type="password" id="gh-token" placeholder="GitHub Token (PAT)">
+        <input type="text" id="gh-owner" placeholder="GitHub 用户名" value="moodHappy">
+        <input type="text" id="gh-repo" placeholder="仓库名称" value="dual-read-notes">
+        
+        <hr style="border-color: #333; width: 100%; margin: 10px 0;">
+        
+        <input type="text" id="page-name" placeholder="新页面文件名 (例如: chapter1)">
+        
+        <button id="create-btn" onclick="createNewPage()">创建并发布空白页</button>
+        <div id="status"></div>
+    </div>
+
+    <script>
+        // 页面加载时恢复历史 Token
+        window.onload = () => {
+            const savedToken = localStorage.getItem('gh_token');
+            if (savedToken) document.getElementById('gh-token').value = savedToken;
+        };
+
+        async function createNewPage() {
+            const token = document.getElementById('gh-token').value.trim();
+            const owner = document.getElementById('gh-owner').value.trim();
+            const repo = document.getElementById('gh-repo').value.trim();
+            const pageName = document.getElementById('page-name').value.trim();
+            const statusEl = document.getElementById('status');
+            const btn = document.getElementById('create-btn');
+
+            if (!token || !pageName) {
+                statusEl.innerText = "请填写 Token 和 新页面文件名！";
+                statusEl.style.color = "#ff4444";
+                return;
+            }
+
+            // 保存 Token 方便下次使用
+            localStorage.setItem('gh_token', token);
+
+            btn.disabled = true;
+            btn.innerText = "生成并推送中...";
+            statusEl.innerText = "";
+            statusEl.style.color = "#aaa";
+
+            const fileName = pageName.endsWith('.html') ? pageName : pageName + '.html';
+            const dataFileName = fileName.replace('.html', '.json');
+
+            // 注入到新页面的模板代码
+            const htmlTemplate = `<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${fileName} - 阅读与批注</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"><\/script>
+    <style>
+        :root {
+            --bg-color: #121212; --container-bg: #1e1e1e; --text-color: #e0e0e0;
+            --red-box-bg: rgba(255, 68, 68, 0.1); --red-box-border: rgba(255, 68, 68, 0.5);
+            --blue-box-bg: rgba(51, 181, 229, 0.1); --blue-box-border: rgba(51, 181, 229, 0.5);
+        }
+        body { background-color: var(--bg-color); color: var(--text-color); margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; }
+        .header { width: 100%; max-width: 800px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+        button { background: #007acc; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; }
+        .add-btn { background: #28a745; width: 100%; max-width: 800px; padding: 15px; margin-top: 20px; font-size: 16px; }
+        #groups-container { width: 100%; max-width: 800px; display: flex; flex-direction: column; }
+        .group { display: flex; flex-direction: column; position: relative; }
+        textarea { width: 100%; box-sizing: border-box; background: transparent; color: var(--text-color); border: none; padding: 20px 20px 30px 20px; font-size: 18px; line-height: 1.6; resize: vertical; min-height: 120px; font-family: 'Times New Roman', serif; }
+        textarea:focus { outline: none; }
+        .red-area { background-color: var(--red-box-bg); border-top-left-radius: 12px; border-top-right-radius: 12px; border-bottom: 2px solid var(--red-box-border); position: relative; }
+        .blue-area { background-color: var(--blue-box-bg); border-bottom-left-radius: 12px; border-bottom-right-radius: 12px; border-top: 2px solid var(--blue-box-border); }
+        .annotation-btn { position: absolute; bottom: 12px; right: 50%; transform: translateX(50%); width: 12px; height: 12px; background-color: #ff4444; border-radius: 50%; cursor: pointer; border: 2px solid var(--bg-color); }
+        .emoji-separator { text-align: center; font-size: 20px; margin: 0; }
+        #modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); justify-content: center; align-items: center; z-index: 1000; }
+        .modal-content { background: var(--container-bg); width: 90%; max-width: 600px; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 15px; }
+        .modal-content textarea { background: #121212; border: 1px solid #333; min-height: 150px; font-family: system-ui; padding: 10px; }
+        .preview-area { background: #2a2a2a; padding: 15px; border-radius: 8px; min-height: 50px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h3 style="margin:0;">${fileName}</h3>
+        <button id="sync-btn" onclick="syncData()">保存同步数据</button>
+    </div>
+    <div id="groups-container"></div>
+    <button class="add-btn" onclick="addGroup()">+ 添加新对照组</button>
+
+    <div id="modal">
+        <div class="modal-content">
+            <h3>编辑批注</h3>
+            <textarea id="modal-input"></textarea>
+            <div class="preview-area" id="modal-preview"></div>
+            <div style="text-align: right; margin-top: 10px;">
+                <button style="background: #555;" onclick="closeModal()">取消</button>
+                <button onclick="saveModal()">保存批注</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const OWNER = '${owner}';
+        const REPO = '${repo}';
+        const DATA_PATH = '${dataFileName}';
+        let currentGroupIndex = null;
+        let fileSha = null;
+
+        window.onload = async () => {
+            document.getElementById('modal-input').addEventListener('input', function() {
+                document.getElementById('modal-preview').innerHTML = marked.parse(this.value);
+            });
+            await loadData();
+        };
+
+        function addGroup(eng = "", chn = "", anno = "") {
+            const container = document.getElementById('groups-container');
+            const index = container.children.length / 2; // 因为有分隔符，除以2
+            
+            // 插入组
+            const groupDiv = document.createElement('div');
+            groupDiv.className = 'group';
+            groupDiv.id = 'group-' + index;
+            groupDiv.dataset.annotation = anno;
+            
+            const dotStyle = anno.trim() ? "box-shadow: 0 0 8px 2px rgba(255, 68, 68, 0.8);" : "";
+            
+            groupDiv.innerHTML = \`
+                <div class="red-area">
+                    <textarea placeholder="英文原文区域...">\${eng}</textarea>
+                    <div class="annotation-btn" style="\${dotStyle}" onclick="openModal(\${index})"></div>
+                </div>
+                <div class="blue-area">
+                    <textarea placeholder="中文翻译区域...">\${chn}</textarea>
+                </div>
+            \`;
+            container.appendChild(groupDiv);
+
+            // 插入 Emoji 分隔符 (上下各留一个空行)
+            const separatorDiv = document.createElement('div');
+            separatorDiv.className = 'emoji-separator';
+            separatorDiv.innerHTML = '<br>🌿<br><br>'; 
+            container.appendChild(separatorDiv);
+        }
+
+        function openModal(index) {
+            currentGroupIndex = index;
+            const anno = document.getElementById('group-' + index).dataset.annotation || "";
+            document.getElementById('modal-input').value = anno;
+            document.getElementById('modal-preview').innerHTML = marked.parse(anno);
+            document.getElementById('modal').style.display = 'flex';
+        }
+
+        function closeModal() { document.getElementById('modal').style.display = 'none'; }
+
+        function saveModal() {
+            const val = document.getElementById('modal-input').value;
+            const group = document.getElementById('group-' + currentGroupIndex);
+            group.dataset.annotation = val;
+            const dot = group.querySelector('.annotation-btn');
+            dot.style.boxShadow = val.trim() ? "0 0 8px 2px rgba(255, 68, 68, 0.8)" : "none";
+            closeModal();
+        }
+
+        async function loadData() {
+            const token = localStorage.getItem('gh_token');
+            if(!token) { addGroup(); return; }
+            
+            try {
+                const res = await fetch(\`https://api.github.com/repos/\${OWNER}/\${REPO}/contents/\${DATA_PATH}\`, {
+                    headers: { 'Authorization': 'token ' + token, 'Accept': 'application/vnd.github.v3+json' }
+                });
+                if (res.ok) {
+                    const fileData = await res.json();
+                    fileSha = fileData.sha;
+                    const content = JSON.parse(decodeURIComponent(escape(atob(fileData.content))));
+                    content.forEach(item => addGroup(item.eng, item.chn, item.anno));
+                } else {
+                    addGroup(); // 文件不存在，加载一个空白组
+                }
+            } catch (e) { addGroup(); }
+        }
+
+        async function syncData() {
+            const token = localStorage.getItem('gh_token');
+            if(!token) return alert("请先在控制中心配置 Token！");
+            
+            const btn = document.getElementById('sync-btn');
+            btn.innerText = "同步中...";
+            
+            const data = [];
+            document.querySelectorAll('.group').forEach(g => {
+                const textareas = g.querySelectorAll('textarea');
+                data.push({
+                    eng: textareas[0].value, chn: textareas[1].value, anno: g.dataset.annotation
+                });
+            });
+
+            const base64Content = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
+            const body = { message: "Update reading data", content: base64Content };
+            if (fileSha) body.sha = fileSha;
+
+            try {
+                const res = await fetch(\`https://api.github.com/repos/\${OWNER}/\${REPO}/contents/\${DATA_PATH}\`, {
+                    method: 'PUT',
+                    headers: { 'Authorization': 'token ' + token, 'Content-Type': 'application/json' },
+                    body: JSON.stringify(body)
+                });
+                if(res.ok) {
+                    const resData = await res.json();
+                    fileSha = resData.content.sha;
+                    btn.innerText = "同步成功！";
+                    setTimeout(() => btn.innerText = "保存同步数据", 2000);
+                } else { throw new Error("同步失败"); }
+            } catch (e) {
+                alert(e.message);
+                btn.innerText = "保存同步数据";
+            }
+        }
+    <\/script>
+</body>
+</html>`;
+
+            try {
+                // 使用 GitHub API 创建 HTML 文件
+                const base64Content = btoa(unescape(encodeURIComponent(htmlTemplate)));
+                
+                const putResponse = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${fileName}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${token}`,
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        message: `Create new blank reading page: ${fileName}`,
+                        content: base64Content
+                    })
+                });
+
+                if (putResponse.ok) {
+                    statusEl.style.color = "#4CAF50";
+                    const pageUrl = `https://${owner}.github.io/${repo}/${fileName}`;
+                    statusEl.innerHTML = `创建成功！<br><a href="${pageUrl}" target="_blank" style="color: #58a6ff; text-decoration: none;">👉 点击这里打开新页面</a><br><span style="font-size:12px; color:#888;">(注: GitHub Pages 生效可能需要几十秒)</span>`;
+                    document.getElementById('page-name').value = '';
+                } else {
+                    const err = await putResponse.json();
+                    statusEl.style.color = "#ff4444";
+                    statusEl.innerText = "创建失败: " + (err.message || "未知错误");
+                }
+            } catch (error) {
+                statusEl.style.color = "#ff4444";
+                statusEl.innerText = "网络错误: " + error.message;
+            } finally {
+                btn.disabled = false;
+                btn.innerText = "创建并发布空白页";
+            }
+        }
+    </script>
+</body>
+</html>
