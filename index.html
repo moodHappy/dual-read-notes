@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>阅读引擎 - 分发中心</title>
     <style>
-        /* 核心修复：强制所有元素计算边框和内边距，防止撑爆容器 */
         * { box-sizing: border-box; } 
 
         body {
@@ -34,7 +33,6 @@
         }
         input:focus { outline: none; border-color: #e53935; background: #fff; }
         
-        /* 修复排版：允许在窄屏手机上自动折行叠放 */
         .row { display: flex; flex-wrap: wrap; gap: 15px; width: 100%; }
         .row .input-group { flex: 1; min-width: 140px; }
         
@@ -87,8 +85,13 @@
         </div>
 
         <div class="input-group">
-            <label>新页面名称 (无需加后缀)</label>
+            <label>新页面名称 (URL路径用，无需加后缀)</label>
             <input type="text" id="page-name" placeholder="例如: page-01">
+        </div>
+
+        <div class="input-group">
+            <label>页面显示标题 (页面内的大标题)</label>
+            <input type="text" id="display-title" placeholder="例如: 第一章：百年孤独">
         </div>
         
         <button id="create-btn" onclick="createNewPage()">一键生成沉浸阅读页</button>
@@ -99,6 +102,10 @@
         window.onload = () => {
             const savedToken = localStorage.getItem('gh_token_distributor');
             if (savedToken) document.getElementById('gh-token').value = savedToken;
+
+            // 恢复上次填写的文件夹路径
+            const savedFolder = localStorage.getItem('gh_folder_distributor');
+            if (savedFolder) document.getElementById('folder-name').value = savedFolder;
         };
 
         async function createNewPage() {
@@ -107,6 +114,7 @@
             const repo = document.getElementById('gh-repo').value.trim();
             const folderRaw = document.getElementById('folder-name').value.trim();
             const pageName = document.getElementById('page-name').value.trim();
+            let pageTitle = document.getElementById('display-title').value.trim();
             
             const statusEl = document.getElementById('status');
             const btn = document.getElementById('create-btn');
@@ -116,7 +124,13 @@
                 return;
             }
 
+            // 如果没有单独填标题，默认使用页面名称作为标题
+            if (!pageTitle) pageTitle = pageName;
+
+            // 保存 Token 和文件夹路径，方便下次使用
             localStorage.setItem('gh_token_distributor', token);
+            localStorage.setItem('gh_folder_distributor', folderRaw);
+
             btn.disabled = true;
             btn.innerText = "正在构建并发布...";
             statusEl.innerHTML = "";
@@ -129,13 +143,12 @@
             const fullHtmlPath = folderPath ? `${folderPath}/${htmlFileName}` : htmlFileName;
             const fullJsonPath = folderPath ? `${folderPath}/${jsonFileName}` : jsonFileName;
 
-            // 这里注入的是修复手势和 UI 后的最新版阅读引擎代码
             const htmlTemplate = `<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>${baseFileName} - 深度精读</title>
+    <title>${pageTitle} - 深度精读</title>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"><\/script>
     <style>
         :root {
@@ -200,7 +213,8 @@
 </head>
 <body>
     <div id="content-container">
-        <input type="text" id="page-title" class="title-input" value="${baseFileName}" oninput="saveToLocal()">
+        <!-- 这里注入了独立的标题变量 -->
+        <input type="text" id="page-title" class="title-input" value="${pageTitle}" oninput="saveToLocal()">
         <div class="meta-info">发布时间: <input type="text" id="publish-time" value="" oninput="saveToLocal()"></div>
         <hr class="title-divider">
         <div id="groups-container"></div>
@@ -387,7 +401,8 @@
             if (saved) {
                 try {
                     const state = JSON.parse(saved);
-                    document.getElementById('page-title').value = state.title || '${baseFileName}';
+                    // 优先读取本地缓存的标题，否则回退到生成的默认独立标题
+                    document.getElementById('page-title').value = state.title || '${pageTitle}';
                     if(state.time) document.getElementById('publish-time').value = state.time;
                     if (state.data && state.data.length > 0) { state.data.forEach(item => addGroup(item.eng, item.chn, item.anno)); return; }
                 } catch (e) {}
@@ -484,7 +499,9 @@
                         <a href="${pageUrl}" class="success-link" target="_blank">👉 前往新页面阅读</a>
                         <span style="font-size:12px; color:#999; margin-top:5px; display:block;">(注: GitHub Pages 更新可能有几十秒延迟)</span>
                     `;
+                    // 清空页面名称和标题，但保留其他参数方便连续创建
                     document.getElementById('page-name').value = ''; 
+                    document.getElementById('display-title').value = ''; 
                 } else {
                     const err = await putResponse.json();
                     statusEl.innerHTML = `<span style='color:#e53935;'>创建失败: ${err.message || "未知错误"}</span>`;
