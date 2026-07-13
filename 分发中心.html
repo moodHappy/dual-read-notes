@@ -20,10 +20,10 @@
             box-shadow: 0 10px 40px rgba(0,0,0,0.05);
         }
         h2 { margin: 0 0 10px 0; text-align: center; color: #222; font-family: 'Times New Roman', serif; font-size: 28px; }
-
+        
         .input-group { display: flex; flex-direction: column; gap: 8px; width: 100%; }
         .input-group label { font-size: 14px; color: #666; font-weight: 500; }
-
+        
         input {
             width: 100%;
             background: #f9f9f9; color: #333;
@@ -32,10 +32,10 @@
             transition: border-color 0.2s;
         }
         input:focus { outline: none; border-color: #e53935; background: #fff; }
-
+        
         .row { display: flex; flex-wrap: wrap; gap: 15px; width: 100%; }
         .row .input-group { flex: 1; min-width: 140px; }
-
+        
         button {
             width: 100%;
             background: #222; color: white; border: none;
@@ -45,10 +45,10 @@
         }
         button:hover { background: #444; }
         button:disabled { background: #ccc; cursor: not-allowed; }
-
+        
         #status { text-align: center; font-size: 14px; color: #666; min-height: 40px; margin-top: 10px; line-height: 1.6; word-break: break-all; }
         .divider { border-top: 1px dashed #ddd; margin: 10px 0; }
-
+        
         .success-link {
             display: inline-block; background: #e53935; color: #fff;
             text-decoration: none; padding: 10px 20px; border-radius: 6px;
@@ -60,12 +60,12 @@
 
     <div class="manager-box">
         <h2>Dual Read Generator</h2>
-
+        
         <div class="input-group">
             <label>GitHub Token (PAT)</label>
             <input type="password" id="gh-token" placeholder="输入 ghp_ 开头的 Token">
         </div>
-
+        
         <div class="row">
             <div class="input-group">
                 <label>用户名</label>
@@ -76,9 +76,9 @@
                 <input type="text" id="gh-repo" value="dual-read-notes">
             </div>
         </div>
-
+        
         <div class="divider"></div>
-
+        
         <div class="input-group">
             <label>存放文件夹 (留空则放根目录，例: books/100years)</label>
             <input type="text" id="folder-name" placeholder="例如: novel/chapter">
@@ -93,7 +93,7 @@
             <label>页面显示标题 (页面内的大标题)</label>
             <input type="text" id="display-title" placeholder="例如: 第一章：百年孤独">
         </div>
-
+        
         <button id="create-btn" onclick="createNewPage()">一键生成沉浸阅读页</button>
         <div id="status"></div>
     </div>
@@ -114,7 +114,7 @@
             const folderRaw = document.getElementById('folder-name').value.trim();
             const pageName = document.getElementById('page-name').value.trim();
             let pageTitle = document.getElementById('display-title').value.trim();
-
+            
             const statusEl = document.getElementById('status');
             const btn = document.getElementById('create-btn');
 
@@ -140,7 +140,7 @@
             const fullHtmlPath = folderPath ? `${folderPath}/${htmlFileName}` : htmlFileName;
             const fullJsonPath = folderPath ? `${folderPath}/${jsonFileName}` : jsonFileName;
 
-            // 注入模板，含同步逻辑核心修复
+            // 这里注入的代码已经集成了针对 422 (sha wasn't supplied) 错误的底层降维查询修复方案
             const htmlTemplate = `<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -211,6 +211,7 @@
 </head>
 <body>
     <div id="content-container">
+        <!-- 注入了独立的标题变量 -->
         <input type="text" id="page-title" class="title-input" value="${pageTitle}" oninput="saveToLocal()">
         <div class="meta-info">发布时间: <input type="text" id="publish-time" value="" oninput="saveToLocal()"></div>
         <hr class="title-divider">
@@ -438,6 +439,7 @@
             toggleEditMode();
         }
 
+        // ================= 终极同步防御机制 =================
         async function syncToGitHub() {
             saveSettings(); 
             const config = JSON.parse(localStorage.getItem(SETTINGS_KEY));
@@ -450,41 +452,73 @@
                 const contentStr = JSON.stringify(JSON.parse(localStorage.getItem(LOCAL_KEY)), null, 2);
                 const base64Content = btoa(unescape(encodeURIComponent(contentStr)));
                 const apiUrl = \`https://api.github.com/repos/\${config.owner}/\${config.repo}/contents/\${config.path}\`;
-
-                let sha = null;
-                // [核心修复]: 强制加时间戳防缓存，确保能获取真实存在的 SHA
-                const getRes = await fetch(apiUrl + "?t=" + new Date().getTime(), { 
-                    headers: { 
-                        'Authorization': \`token \${config.token}\`, 
-                        'Accept': 'application/vnd.github.v3+json',
-                        'Cache-Control': 'no-cache'
-                    }
-                });
                 
-                if (getRes.ok) {
-                    sha = (await getRes.json()).sha;
-                } else if (getRes.status !== 404) {
-                    throw new Error("无法读取远程文件状态: " + getRes.statusText);
-                }
+                // 本地锁死 SHA (优先使用上次成功同步返回的 sha，避免去请求缓存节点)
+                const shaKey = 'gh_file_sha_' + config.path;
+                let sha = localStorage.getItem(shaKey) || null;
+
+                // 尝试常规获取最新 SHA
+                try {
+                    const getRes = await fetch(apiUrl + "?t=" + Date.now(), { 
+                        headers: { 'Authorization': \`token \${config.token}\`, 'Accept': 'application/vnd.github.v3+json', 'Cache-Control': 'no-cache' }
+                    });
+                    if (getRes.ok) {
+                        sha = (await getRes.json()).sha;
+                    }
+                } catch(e) {}
 
                 const putBody = { message: "Sync immersive reading notes", content: base64Content };
                 if (sha) putBody.sha = sha;
 
-                const putRes = await fetch(apiUrl, { 
+                // 第一轮发送同步请求
+                let putRes = await fetch(apiUrl, { 
                     method: 'PUT', 
-                    headers: { 
-                        'Authorization': \`token \${config.token}\`, 
-                        'Content-Type': 'application/json' 
-                    }, 
+                    headers: { 'Authorization': \`token \${config.token}\`, 'Content-Type': 'application/json' }, 
                     body: JSON.stringify(putBody) 
                 });
+                
+                let resData = await putRes.json();
+
+                // 【核心穿透代码】：如果 GitHub 抛出 422 sha wasn't supplied 错误
+                if (!putRes.ok && putRes.status === 422 && resData.message && resData.message.includes('sha')) {
+                    console.log("拦截到 GitHub CDN 缓存欺骗，启动目录穿透查找...");
+                    
+                    const pathParts = config.path.split('/');
+                    const fileName = pathParts.pop();
+                    const parentDir = pathParts.join('/'); // 提取上级文件夹
+                    
+                    // 请求整个文件夹的列表结构 (文件夹列表的缓存机制不同)
+                    const dirUrl = \`https://api.github.com/repos/\${config.owner}/\${config.repo}/contents/\${parentDir}?t=\` + Date.now();
+                    const dirRes = await fetch(dirUrl, { headers: { 'Authorization': \`token \${config.token}\` } });
+                    
+                    if (dirRes.ok) {
+                        const dirData = await dirRes.json();
+                        // 从文件夹列表里生生找出这个文件的真实 SHA
+                        const fileObj = dirData.find(f => f.name === fileName);
+                        
+                        if (fileObj && fileObj.sha) {
+                            sha = fileObj.sha;
+                            putBody.sha = sha; // 赋上真实 SHA
+                            
+                            // 第二轮强制重试
+                            putRes = await fetch(apiUrl, { 
+                                method: 'PUT', 
+                                headers: { 'Authorization': \`token \${config.token}\`, 'Content-Type': 'application/json' }, 
+                                body: JSON.stringify(putBody) 
+                            });
+                            resData = await putRes.json();
+                        }
+                    }
+                }
 
                 if (putRes.ok) {
+                    // 同步成功，将最新的真 SHA 永久刻在本地，下次直接用！
+                    localStorage.setItem(shaKey, resData.content.sha); 
+                    
                     btn.innerText = "同步成功！"; btn.style.background = "#4CAF50";
                     setTimeout(() => { btn.innerText = "将本地数据同步至 GitHub"; btn.style.background = "#007acc"; btn.disabled = false; }, 2000);
                 } else {
-                    const err = await putRes.json();
-                    throw new Error(err.message || "未知错误");
+                    throw new Error(resData.message || "未知异常，请检查网络");
                 }
             } catch (e) {
                 alert("同步失败: " + e.message);
@@ -497,7 +531,7 @@
 
             try {
                 const base64Content = btoa(unescape(encodeURIComponent(htmlTemplate)));
-
+                
                 const putResponse = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${fullHtmlPath}`, {
                     method: 'PUT',
                     headers: {
