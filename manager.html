@@ -140,7 +140,7 @@
             const fullHtmlPath = folderPath ? `${folderPath}/${htmlFileName}` : htmlFileName;
             const fullJsonPath = folderPath ? `${folderPath}/${jsonFileName}` : jsonFileName;
 
-            // 核心修复区：利用 ${'<'}/script> 进行字符串隔离打断，完美绕过浏览器 HTML 解析器的误杀
+            // 核心修改区：引入了 GLOBAL_TOKEN_KEY 实现跨章节共享 Token，并焊死文件路径防止缓存污染
             const htmlTemplate = `<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -239,9 +239,12 @@
             </div>
             <h3 style="margin-top:10px;">同步设置</h3>
             <div class="setting-row"><label>GitHub Token (PAT)</label><input type="password" id="set-token"></div>
+            
+            <!-- 设置区依然可以看路径，但是默认加载时只读取底层硬编码的路径 -->
             <div class="setting-row"><label>GitHub 用户名</label><input type="text" id="set-owner"></div>
             <div class="setting-row"><label>仓库名称</label><input type="text" id="set-repo"></div>
             <div class="setting-row"><label>保存路径</label><input type="text" id="set-path"></div>
+            
             <button class="btn-sync" id="sync-btn" onclick="syncToGitHub()">将本地数据同步至 GitHub</button>
             <div class="modal-actions">
                 <button class="btn-cancel" onclick="closeModal('settings-modal')">关闭</button>
@@ -251,8 +254,12 @@
     </div>
 
     <script>
-        const LOCAL_KEY = 'read_data_${baseFileName}';
-        const SETTINGS_KEY = 'read_settings_${baseFileName}';
+        // 利用带有完整路径的 KEY 进行数据隔离
+        const LOCAL_KEY = 'read_data_${fullJsonPath}';
+        // 全局通用缓存 Key：同一域名下所有的阅读页共享此 Token 和开关状态
+        const GLOBAL_TOKEN_KEY = 'gh_sync_token_v3';
+        const GLOBAL_EDIT_KEY = 'gh_sync_edit_mode_v3';
+        
         let currentGroupIndex = null;
         let touchStartX = 0, touchStartY = 0;
         let lastTwoFingerTime = 0;
@@ -332,13 +339,18 @@
         }
 
         async function fetchRemoteDataFirst() {
-            const config = JSON.parse(localStorage.getItem(SETTINGS_KEY));
-            if (!config || !config.owner || !config.repo || !config.path) {
+            // 直接从页面节点获取刚刚 loadSettings 初始化好的必定正确的配置
+            const owner = document.getElementById('set-owner').value.trim();
+            const repo = document.getElementById('set-repo').value.trim();
+            const path = document.getElementById('set-path').value.trim();
+            const token = document.getElementById('set-token').value.trim();
+
+            if (!owner || !repo || !path) {
                 loadFromLocal();
                 return;
             }
 
-            const pagesUrl = \`https://\${config.owner}.github.io/\${config.repo}/\${config.path}?t=\` + Date.now();
+            const pagesUrl = \`https://\${owner}.github.io/\${repo}/\${path}?t=\` + Date.now();
             
             try {
                 const res = await fetch(pagesUrl, { cache: 'no-store' });
@@ -352,16 +364,16 @@
                 }
             } catch (e) { }
 
-            if (config.token) {
+            if (token) {
                 try {
-                    const apiUrl = \`https://api.github.com/repos/\${config.owner}/\${config.repo}/contents/\${config.path}?t=\` + Date.now();
+                    const apiUrl = \`https://api.github.com/repos/\${owner}/\${repo}/contents/\${path}?t=\` + Date.now();
                     const res = await fetch(apiUrl, {
-                        headers: { 'Authorization': \`token \${config.token}\`, 'Accept': 'application/vnd.github.v3+json', 'Cache-Control': 'no-cache' }
+                        headers: { 'Authorization': \`token \${token}\`, 'Accept': 'application/vnd.github.v3+json', 'Cache-Control': 'no-cache' }
                     });
                     if (res.ok) {
                         const fileData = await res.json();
                         const remoteState = JSON.parse(decodeURIComponent(escape(atob(fileData.content))));
-                        localStorage.setItem('gh_file_sha_' + config.path, fileData.sha);
+                        localStorage.setItem('gh_file_sha_' + path, fileData.sha);
                         localStorage.setItem(LOCAL_KEY, JSON.stringify(remoteState));
                         renderState(remoteState);
                         return;
@@ -455,38 +467,34 @@
         function closeModal(id) { document.getElementById(id).style.display = 'none'; }
 
         function saveSettings() {
-            localStorage.setItem(SETTINGS_KEY, JSON.stringify({
-                editMode: document.getElementById('edit-mode-toggle').checked,
-                token: document.getElementById('set-token').value.trim(),
-                owner: document.getElementById('set-owner').value.trim(),
-                repo: document.getElementById('set-repo').value.trim(),
-                path: document.getElementById('set-path').value.trim()
-            }));
+            // 只将用户的授权凭证(Token)和全局偏好(EditMode)进行跨页面长效保存
+            localStorage.setItem(GLOBAL_TOKEN_KEY, document.getElementById('set-token').value.trim());
+            localStorage.setItem(GLOBAL_EDIT_KEY, document.getElementById('edit-mode-toggle').checked);
             closeModal('settings-modal');
         }
 
         function loadSettings() {
-            const saved = localStorage.getItem(SETTINGS_KEY);
-            if (saved) {
-                const config = JSON.parse(saved);
-                document.getElementById('edit-mode-toggle').checked = config.editMode !== false; 
-                document.getElementById('set-token').value = config.token || '';
-                document.getElementById('set-owner').value = config.owner || '${owner}';
-                document.getElementById('set-repo').value = config.repo || '${repo}';
-                document.getElementById('set-path').value = config.path || '${fullJsonPath}';
-            } else {
-                document.getElementById('edit-mode-toggle').checked = true;
-                document.getElementById('set-owner').value = '${owner}';
-                document.getElementById('set-repo').value = '${repo}';
-                document.getElementById('set-path').value = '${fullJsonPath}';
-            }
+            // 获取全站共享的 Token 和编辑偏好
+            document.getElementById('set-token').value = localStorage.getItem(GLOBAL_TOKEN_KEY) || '';
+            const savedEditMode = localStorage.getItem(GLOBAL_EDIT_KEY);
+            document.getElementById('edit-mode-toggle').checked = (savedEditMode !== 'false');
+
+            // 【核心防缓存防污染拦截】：强制写入模板分发时设定的绝对参数，永不读取旧仓库和路径缓存
+            document.getElementById('set-owner').value = '${owner}';
+            document.getElementById('set-repo').value = '${repo}';
+            document.getElementById('set-path').value = '${fullJsonPath}';
+            
             toggleEditMode();
         }
 
         async function syncToGitHub() {
             saveSettings(); 
-            const config = JSON.parse(localStorage.getItem(SETTINGS_KEY));
-            if (!config.token || !config.owner || !config.repo || !config.path) return alert("请填写同步参数！");
+            const token = document.getElementById('set-token').value.trim();
+            const owner = document.getElementById('set-owner').value.trim();
+            const repo = document.getElementById('set-repo').value.trim();
+            const path = document.getElementById('set-path').value.trim();
+            
+            if (!token || !owner || !repo || !path) return alert("请填写同步参数！");
 
             const btn = document.getElementById('sync-btn');
             btn.innerText = "数据同步中..."; btn.disabled = true;
@@ -494,14 +502,14 @@
             try {
                 const contentStr = JSON.stringify(JSON.parse(localStorage.getItem(LOCAL_KEY)), null, 2);
                 const base64Content = btoa(unescape(encodeURIComponent(contentStr)));
-                const apiUrl = \`https://api.github.com/repos/\${config.owner}/\${config.repo}/contents/\${config.path}\`;
+                const apiUrl = \`https://api.github.com/repos/\${owner}/\${repo}/contents/\${path}\`;
                 
-                const shaKey = 'gh_file_sha_' + config.path;
+                const shaKey = 'gh_file_sha_' + path;
                 let sha = localStorage.getItem(shaKey) || null;
 
                 try {
                     const getRes = await fetch(apiUrl + "?t=" + Date.now(), { 
-                        headers: { 'Authorization': \`token \${config.token}\`, 'Accept': 'application/vnd.github.v3+json', 'Cache-Control': 'no-cache' }
+                        headers: { 'Authorization': \`token \${token}\`, 'Accept': 'application/vnd.github.v3+json', 'Cache-Control': 'no-cache' }
                     });
                     if (getRes.ok) sha = (await getRes.json()).sha;
                 } catch(e) {}
@@ -509,21 +517,21 @@
                 const putBody = { message: "Sync immersive reading notes", content: base64Content };
                 if (sha) putBody.sha = sha;
 
-                let putRes = await fetch(apiUrl, { method: 'PUT', headers: { 'Authorization': \`token \${config.token}\`, 'Content-Type': 'application/json' }, body: JSON.stringify(putBody) });
+                let putRes = await fetch(apiUrl, { method: 'PUT', headers: { 'Authorization': \`token \${token}\`, 'Content-Type': 'application/json' }, body: JSON.stringify(putBody) });
                 let resData = await putRes.json();
 
                 if (!putRes.ok && putRes.status === 422 && resData.message && resData.message.includes('sha')) {
-                    const pathParts = config.path.split('/');
+                    const pathParts = path.split('/');
                     const fileName = pathParts.pop();
                     const parentDir = pathParts.join('/');
-                    const dirUrl = \`https://api.github.com/repos/\${config.owner}/\${config.repo}/contents/\${parentDir}?t=\` + Date.now();
-                    const dirRes = await fetch(dirUrl, { headers: { 'Authorization': \`token \${config.token}\` } });
+                    const dirUrl = \`https://api.github.com/repos/\${owner}/\${repo}/contents/\${parentDir}?t=\` + Date.now();
+                    const dirRes = await fetch(dirUrl, { headers: { 'Authorization': \`token \${token}\` } });
                     
                     if (dirRes.ok) {
                         const fileObj = (await dirRes.json()).find(f => f.name === fileName);
                         if (fileObj && fileObj.sha) {
                             putBody.sha = fileObj.sha;
-                            putRes = await fetch(apiUrl, { method: 'PUT', headers: { 'Authorization': \`token \${config.token}\`, 'Content-Type': 'application/json' }, body: JSON.stringify(putBody) });
+                            putRes = await fetch(apiUrl, { method: 'PUT', headers: { 'Authorization': \`token \${token}\`, 'Content-Type': 'application/json' }, body: JSON.stringify(putBody) });
                             resData = await putRes.json();
                         }
                     }
