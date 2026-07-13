@@ -3,168 +3,574 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>chapter1.html - 阅读与批注</title>
+    <title>Dual Read - 深度精读</title>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
         :root {
-            --bg-color: #121212; --container-bg: #1e1e1e; --text-color: #e0e0e0;
-            --red-box-bg: rgba(255, 68, 68, 0.1); --red-box-border: rgba(255, 68, 68, 0.5);
-            --blue-box-bg: rgba(51, 181, 229, 0.1); --blue-box-border: rgba(51, 181, 229, 0.5);
+            --bg-color: #fafafa;
+            --eng-text: #222222;
+            --chn-text: #555555;
+            --meta-text: #999999;
+            --accent: #e53935;       /* 激活后的红点 */
+            --dot-empty: #e0e0e0;    /* 未编辑的灰点 */
+            --anno-bg: #f5f4fa;      /* 批注区浅紫背景 */
+            --anno-border: #8c7ae6;  /* 批注区左侧紫边 */
+            --anno-title: #7d65b5;   /* 批注区标题颜色 */
+            --divider: #eeeeee;
         }
-        body { background-color: var(--bg-color); color: var(--text-color); margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; }
-        .header { width: 100%; max-width: 800px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
-        button { background: #007acc; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; }
-        .add-btn { background: #28a745; width: 100%; max-width: 800px; padding: 15px; margin-top: 20px; font-size: 16px; }
-        #groups-container { width: 100%; max-width: 800px; display: flex; flex-direction: column; }
-        .group { display: flex; flex-direction: column; position: relative; }
-        textarea { width: 100%; box-sizing: border-box; background: transparent; color: var(--text-color); border: none; padding: 20px 20px 30px 20px; font-size: 18px; line-height: 1.6; resize: vertical; min-height: 120px; font-family: 'Times New Roman', serif; }
-        textarea:focus { outline: none; }
-        .red-area { background-color: var(--red-box-bg); border-top-left-radius: 12px; border-top-right-radius: 12px; border-bottom: 2px solid var(--red-box-border); position: relative; }
-        .blue-area { background-color: var(--blue-box-bg); border-bottom-left-radius: 12px; border-bottom-right-radius: 12px; border-top: 2px solid var(--blue-box-border); }
-        .annotation-btn { position: absolute; bottom: 12px; right: 50%; transform: translateX(50%); width: 12px; height: 12px; background-color: #ff4444; border-radius: 50%; cursor: pointer; border: 2px solid var(--bg-color); }
-        .emoji-separator { text-align: center; font-size: 20px; margin: 0; }
-        #modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); justify-content: center; align-items: center; z-index: 1000; }
-        .modal-content { background: var(--container-bg); width: 90%; max-width: 600px; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 15px; }
-        .modal-content textarea { background: #121212; border: 1px solid #333; min-height: 150px; font-family: system-ui; padding: 10px; }
-        .preview-area { background: #2a2a2a; padding: 15px; border-radius: 8px; min-height: 50px; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--eng-text);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-bottom: 120px;
+        }
+
+        /* 纯净阅读模式：隐藏无内容的灰点 */
+        body.read-only-mode .dot-btn:not(.has-content) {
+            display: none !important;
+        }
+
+        #content-container {
+            width: 100%;
+            max-width: 720px;
+            padding: 0 25px;
+            box-sizing: border-box;
+        }
+
+        /* 标题与元数据 */
+        .title-input {
+            width: 100%; box-sizing: border-box; background: transparent; border: none; outline: none;
+            font-size: 36px; font-weight: bold; font-family: 'Times New Roman', Georgia, serif;
+            color: var(--eng-text); margin-top: 50px; margin-bottom: 10px;
+        }
+        .meta-info {
+            font-size: 14px; color: var(--meta-text); font-family: system-ui, -apple-system, sans-serif;
+            margin-bottom: 25px; display: flex; align-items: center; gap: 10px;
+        }
+        .meta-info input {
+            background: transparent; border: none; outline: none; color: var(--meta-text); font-size: 14px; width: 200px;
+        }
+        .title-divider { border: 0; border-top: 1px solid var(--divider); margin-bottom: 40px; }
+
+        /* 核心组排版 (沉浸式可编辑文本) */
+        .group {
+            margin-bottom: 50px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .eng-wrapper {
+            font-family: 'Times New Roman', Georgia, serif;
+            font-size: 21px; line-height: 1.8; color: var(--eng-text);
+            text-indent: 2em; /* 首行缩进 */
+        }
+
+        .chn-wrapper {
+            font-family: system-ui, -apple-system, sans-serif;
+            font-size: 17px; line-height: 1.8; color: var(--chn-text);
+            text-indent: 2em; margin-top: 15px;
+        }
+
+        /* 修复后的可编辑 inline span */
+        .editable-text {
+            outline: none;
+            white-space: pre-wrap; /* 保持换行 */
+            display: inline;
+            -webkit-user-select: auto;
+            user-select: auto;
+        }
+        
+        .editable-text[contenteditable="true"]:empty {
+            display: inline-block;
+            min-width: 60px;
+            min-height: 1.2em;
+            vertical-align: bottom;
+        }
+        .editable-text[contenteditable="true"]:empty::before {
+            content: attr(data-placeholder);
+            color: #ccc;
+            pointer-events: none;
+        }
+
+        /* 紧跟在句尾的圆点 */
+        .dot-btn {
+            display: inline-block;
+            width: 12px; height: 12px;
+            background-color: var(--dot-empty); /* 默认淡灰 */
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-left: 8px; /* 和文字保持一点距离 */
+            vertical-align: middle;
+            position: relative;
+            top: -2px;
+        }
+        .dot-btn:hover { transform: scale(1.3); }
+        .dot-btn.has-content { background-color: var(--accent); } /* 编辑后变红 */
+
+        /* 行内批注展示区块 */
+        .anno-display {
+            display: none; /* 强制默认折叠 */
+            background-color: var(--anno-bg);
+            border-left: 4px solid var(--anno-border);
+            padding: 20px;
+            margin-top: 15px;
+            position: relative;
+            font-family: system-ui, -apple-system, sans-serif;
+            font-size: 16px;
+            color: #444;
+            line-height: 1.7;
+            border-radius: 0 8px 8px 0;
+            user-select: none; /* 防止滑动手势触发文本选中 */
+        }
+        
+        .anno-display .edit-trigger {
+            position: absolute;
+            top: 10px; right: 15px;
+            font-size: 13px; color: var(--anno-border);
+            cursor: pointer; opacity: 0.6;
+            transition: opacity 0.2s;
+            font-weight: bold;
+            user-select: auto;
+        }
+        .anno-display .edit-trigger:hover { opacity: 1; }
+        
+        .anno-content { user-select: auto; }
+
+        /* Markdown 样式复刻 */
+        .anno-content h1, .anno-content h2, .anno-content h3 {
+            color: var(--anno-title); font-size: 18px; margin-top: 25px; margin-bottom: 15px;
+            padding-bottom: 8px; border-bottom: 1px dashed #d1c8eb;
+        }
+        .anno-content h1:first-child, .anno-content h2:first-child, .anno-content h3:first-child { margin-top: 0; }
+        .anno-content p { margin: 10px 0; }
+        .anno-content ul { padding-left: 20px; margin: 10px 0; }
+        .anno-content li { margin-bottom: 8px; }
+        .anno-content strong { color: #333; }
+
+        /* 底部操作 */
+        .add-btn {
+            background: transparent; color: var(--meta-text); border: 1px dashed #ccc;
+            width: 100%; padding: 15px; border-radius: 8px; font-size: 15px;
+            cursor: pointer; margin-top: 20px; transition: all 0.3s;
+        }
+        .add-btn:hover { border-color: #999; color: #666; }
+        
+        /* 设置齿轮 (默认隐藏，双指呼出) */
+        .settings-fab {
+            display: none; /* 默认隐藏 */
+            position: fixed; bottom: 30px; right: 30px; width: 45px; height: 45px;
+            background: #fff; border-radius: 50%; justify-content: center;
+            align-items: center; font-size: 22px; cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1); border: 1px solid #eee; z-index: 100;
+        }
+
+        /* 模态框 */
+        .modal-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6); justify-content: center; align-items: center; z-index: 1000;
+        }
+        .modal-content {
+            background: #fff; width: 90%; max-width: 500px; border-radius: 12px;
+            padding: 25px; display: flex; flex-direction: column; gap: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .modal-content h3 { margin: 0; color: #333; font-family: system-ui; font-size: 18px;}
+        #anno-input {
+            background: #f9f9f9; color: #333; border: 1px solid #ddd; padding: 15px;
+            min-height: 180px; font-family: monospace; border-radius: 6px;
+            resize: vertical; outline: none; line-height: 1.6;
+        }
+        #anno-input:focus { border-color: var(--anno-border); }
+        
+        .setting-row { display: flex; flex-direction: column; gap: 5px; }
+        .setting-row label { font-size: 13px; color: #777; font-family: system-ui;}
+        .setting-row input[type="text"], .setting-row input[type="password"] { 
+            background: #f9f9f9; border: 1px solid #ddd; padding: 10px; border-radius: 6px; outline: none; 
+        }
+        .setting-row input:focus { border-color: #007acc; }
+
+        /* Switch 开关样式 */
+        .switch-container { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid #eee; margin-bottom: 10px; }
+        .switch-container label.switch-label { font-size: 16px; color: #333; font-weight: bold; }
+        .switch { position: relative; display: inline-block; width: 44px; height: 24px; }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 24px; }
+        .slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; }
+        input:checked + .slider { background-color: #4CAF50; }
+        input:checked + .slider:before { transform: translateX(20px); }
+
+        .modal-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px; }
+        .modal-actions button { padding: 10px 20px; border-radius: 6px; border: none; cursor: pointer; font-family: system-ui; }
+        .btn-cancel { background: #eee; color: #333; }
+        .btn-save { background: #333; color: #fff; }
+        .btn-sync { background: #007acc; color: #fff; width: 100%; margin-top: 10px; padding: 12px;}
     </style>
 </head>
 <body>
-    <div class="header">
-        <h3 style="margin:0;">chapter1.html</h3>
-        <button id="sync-btn" onclick="syncData()">保存同步数据</button>
-    </div>
-    <div id="groups-container"></div>
-    <button class="add-btn" onclick="addGroup()">+ 添加新对照组</button>
 
-    <div id="modal">
+    <div id="content-container">
+        <!-- 标题区域 -->
+        <input type="text" id="page-title" class="title-input" value="Chapter 1" oninput="saveToLocal()">
+        <div class="meta-info">
+            发布时间: <input type="text" id="publish-time" value="" oninput="saveToLocal()">
+        </div>
+        <hr class="title-divider">
+
+        <!-- 段落组容器 -->
+        <div id="groups-container"></div>
+        
+        <button class="add-btn" id="add-btn" onclick="addGroup()">+ 添加新段落</button>
+    </div>
+
+    <!-- 悬浮设置按钮 (默认隐藏) -->
+    <div class="settings-fab" id="settings-fab" onclick="openSettings()">⚙️</div>
+
+    <!-- Markdown 编辑弹窗 -->
+    <div id="anno-modal" class="modal-overlay">
         <div class="modal-content">
-            <h3>编辑批注</h3>
-            <textarea id="modal-input"></textarea>
-            <div class="preview-area" id="modal-preview"></div>
-            <div style="text-align: right; margin-top: 10px;">
-                <button style="background: #555;" onclick="closeModal()">取消</button>
-                <button onclick="saveModal()">保存批注</button>
+            <h3>编辑批注 (支持 Markdown)</h3>
+            <textarea id="anno-input" placeholder="例如：&#10;📌 完整翻译&#10;...&#10;&#10;📘 英语教学式讲解&#10;..."></textarea>
+            <div class="modal-actions">
+                <button class="btn-cancel" onclick="closeModal('anno-modal')">取消</button>
+                <button class="btn-save" onclick="saveAnnotation()">保存并渲染</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 设置与同步弹窗 -->
+    <div id="settings-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="switch-container">
+                <label class="switch-label">开启编辑模式</label>
+                <label class="switch">
+                    <input type="checkbox" id="edit-mode-toggle" onchange="toggleEditMode()">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            
+            <h3 style="margin-top:10px;">同步设置</h3>
+            <div class="setting-row">
+                <label>GitHub Token (PAT)</label>
+                <input type="password" id="set-token" placeholder="ghp_xxxxxx">
+            </div>
+            <div class="setting-row">
+                <label>GitHub 用户名</label>
+                <input type="text" id="set-owner" value="moodHappy">
+            </div>
+            <div class="setting-row">
+                <label>仓库名称</label>
+                <input type="text" id="set-repo" value="dual-read-notes">
+            </div>
+            <div class="setting-row">
+                <label>保存路径 (例: data/chapter1.json)</label>
+                <input type="text" id="set-path" value="chapter1.json">
+            </div>
+            
+            <button class="btn-sync" id="sync-btn" onclick="syncToGitHub()">将本地数据同步至 GitHub</button>
+            
+            <div class="modal-actions">
+                <button class="btn-cancel" onclick="closeModal('settings-modal')">关闭面板</button>
+                <button class="btn-save" onclick="saveSettings()">保存设置</button>
             </div>
         </div>
     </div>
 
     <script>
-        const OWNER = 'moodHappy';
-        const REPO = 'dual-read-notes';
-        const DATA_PATH = 'chapter1.json';
+        const LOCAL_KEY = 'dual_read_temp_data';
+        const SETTINGS_KEY = 'dual_read_settings';
         let currentGroupIndex = null;
-        let fileSha = null;
+        let touchStartX = 0;
+        let touchStartY = 0;
+        let lastTwoFingerTime = 0; // 用于防抖
 
-        window.onload = async () => {
-            document.getElementById('modal-input').addEventListener('input', function() {
-                document.getElementById('modal-preview').innerHTML = marked.parse(this.value);
-            });
-            await loadData();
+        // 全局拦截：强制粘贴纯文本，防止破坏内联排版
+        document.addEventListener('paste', function (e) {
+            if (e.target.classList.contains('editable-text')) {
+                e.preventDefault();
+                const text = (e.originalEvent || e).clipboardData.getData('text/plain');
+                document.execCommand('insertText', false, text);
+            }
+        });
+
+        // 监听双指触摸切换齿轮显示 / 单指左滑关闭批注
+        document.addEventListener('touchstart', function(e) {
+            // 双指操作：呼出/隐藏设置按钮
+            if (e.touches.length === 2) {
+                const now = Date.now();
+                if (now - lastTwoFingerTime > 500) { // 500ms 防抖，防止手抖触发多次
+                    const fab = document.getElementById('settings-fab');
+                    fab.style.display = (fab.style.display === 'flex') ? 'none' : 'flex';
+                    lastTwoFingerTime = now;
+                }
+                return;
+            }
+
+            // 单指操作：记录坐标用于左滑检测
+            if (e.touches.length === 1) {
+                const annoBlock = e.target.closest('.anno-display');
+                if (annoBlock) {
+                    touchStartX = e.changedTouches[0].screenX;
+                    touchStartY = e.changedTouches[0].screenY;
+                }
+            }
+        }, { passive: true });
+
+        // 左滑检测结束
+        document.addEventListener('touchend', function(e) {
+            const annoBlock = e.target.closest('.anno-display');
+            if (!annoBlock) return;
+            let touchEndX = e.changedTouches[0].screenX;
+            let touchEndY = e.changedTouches[0].screenY;
+
+            let deltaX = touchEndX - touchStartX;
+            let deltaY = touchEndY - touchStartY;
+
+            // 左滑距离超过 40px，且横向移动大于纵向移动
+            if (deltaX < -40 && Math.abs(deltaX) > Math.abs(deltaY)) {
+                annoBlock.style.display = 'none';
+            }
+        }, { passive: true });
+
+
+        window.onload = () => {
+            const timeInput = document.getElementById('publish-time');
+            if (!timeInput.value) {
+                const now = new Date();
+                timeInput.value = `${now.getFullYear()}/${now.getMonth()+1}/${now.getDate()} ${now.getHours()}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
+            }
+            loadSettings();
+            loadFromLocal();
         };
 
+        // 添加段落组
         function addGroup(eng = "", chn = "", anno = "") {
             const container = document.getElementById('groups-container');
-            const index = container.children.length / 2; // 因为有分隔符，除以2
+            const index = container.children.length;
+            const isEditMode = document.getElementById('edit-mode-toggle').checked;
             
-            // 插入组
-            const groupDiv = document.createElement('div');
-            groupDiv.className = 'group';
-            groupDiv.id = 'group-' + index;
-            groupDiv.dataset.annotation = anno;
-            
-            const dotStyle = anno.trim() ? "box-shadow: 0 0 8px 2px rgba(255, 68, 68, 0.8);" : "";
-            
-            groupDiv.innerHTML = `
-                <div class="red-area">
-                    <textarea placeholder="英文原文区域...">${eng}</textarea>
-                    <div class="annotation-btn" style="${dotStyle}" onclick="openModal(${index})"></div>
+            const group = document.createElement('div');
+            group.className = 'group';
+            group.id = 'group-' + index;
+            group.dataset.anno = anno;
+
+            const hasAnnoClass = anno.trim() ? "has-content" : "";
+            const displayStyle = "display: none;"; 
+            const editTriggerStyle = isEditMode ? "display: inline;" : "display: none;";
+
+            group.innerHTML = `
+                <div class="eng-wrapper">
+                    <span class="editable-text eng-text" contenteditable="${isEditMode}" data-placeholder="输入英文原文..." oninput="saveToLocal()">${eng}</span><span class="dot-btn ${hasAnnoClass}" onclick="handleDotClick(${index})" title="点击查看/编辑批注"></span>
                 </div>
-                <div class="blue-area">
-                    <textarea placeholder="中文翻译区域...">${chn}</textarea>
+                
+                <div class="anno-display" style="${displayStyle}">
+                    <span class="edit-trigger" style="${editTriggerStyle}" onclick="openEditor(${index})">[编辑]</span>
+                    <div class="anno-content">${marked.parse(anno)}</div>
+                </div>
+
+                <div class="chn-wrapper">
+                    <span class="editable-text chn-text" contenteditable="${isEditMode}" data-placeholder="输入中文翻译..." oninput="saveToLocal()">${chn}</span>
                 </div>
             `;
-            container.appendChild(groupDiv);
-
-            // 插入 Emoji 分隔符 (上下各留一个空行)
-            const separatorDiv = document.createElement('div');
-            separatorDiv.className = 'emoji-separator';
-            separatorDiv.innerHTML = '<br>🌿<br><br>'; 
-            container.appendChild(separatorDiv);
+            
+            container.appendChild(group);
+            saveToLocal();
         }
 
-        function openModal(index) {
+        // 处理圆点点击逻辑
+        function handleDotClick(index) {
+            const group = document.getElementById('group-' + index);
+            const anno = group.dataset.anno || "";
+            const isEditMode = document.getElementById('edit-mode-toggle').checked;
+            const display = group.querySelector('.anno-display');
+            
+            if (!anno.trim()) {
+                if (isEditMode) openEditor(index);
+            } else {
+                display.style.display = (display.style.display === 'none' || display.style.display === '') ? 'block' : 'none';
+            }
+        }
+
+        function openEditor(index) {
             currentGroupIndex = index;
-            const anno = document.getElementById('group-' + index).dataset.annotation || "";
-            document.getElementById('modal-input').value = anno;
-            document.getElementById('modal-preview').innerHTML = marked.parse(anno);
-            document.getElementById('modal').style.display = 'flex';
+            const anno = document.getElementById('group-' + index).dataset.anno || "";
+            document.getElementById('anno-input').value = anno;
+            document.getElementById('anno-modal').style.display = 'flex';
         }
 
-        function closeModal() { document.getElementById('modal').style.display = 'none'; }
-
-        function saveModal() {
-            const val = document.getElementById('modal-input').value;
+        // 保存并实时渲染批注
+        function saveAnnotation() {
+            const val = document.getElementById('anno-input').value;
             const group = document.getElementById('group-' + currentGroupIndex);
-            group.dataset.annotation = val;
-            const dot = group.querySelector('.annotation-btn');
-            dot.style.boxShadow = val.trim() ? "0 0 8px 2px rgba(255, 68, 68, 0.8)" : "none";
-            closeModal();
+            group.dataset.anno = val;
+            
+            const dot = group.querySelector('.dot-btn');
+            const display = group.querySelector('.anno-display');
+            const contentDiv = display.querySelector('.anno-content');
+
+            if (val.trim()) {
+                dot.classList.add('has-content');
+                contentDiv.innerHTML = marked.parse(val);
+                display.style.display = 'block'; 
+            } else {
+                dot.classList.remove('has-content');
+                contentDiv.innerHTML = "";
+                display.style.display = 'none';
+            }
+            
+            saveToLocal();
+            closeModal('anno-modal');
         }
 
-        async function loadData() {
-            const token = localStorage.getItem('gh_token');
-            if(!token) { addGroup(); return; }
+        // --- 控制编辑模式开关 ---
+        function toggleEditMode() {
+            const isEdit = document.getElementById('edit-mode-toggle').checked;
             
-            try {
-                const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${DATA_PATH}`, {
-                    headers: { 'Authorization': 'token ' + token, 'Accept': 'application/vnd.github.v3+json' }
-                });
-                if (res.ok) {
-                    const fileData = await res.json();
-                    fileSha = fileData.sha;
-                    const content = JSON.parse(decodeURIComponent(escape(atob(fileData.content))));
-                    content.forEach(item => addGroup(item.eng, item.chn, item.anno));
-                } else {
-                    addGroup(); // 文件不存在，加载一个空白组
-                }
-            } catch (e) { addGroup(); }
-        }
+            // 为 body 添加/移除只读 class，控制灰点是否隐藏
+            if (isEdit) {
+                document.body.classList.remove('read-only-mode');
+            } else {
+                document.body.classList.add('read-only-mode');
+            }
 
-        async function syncData() {
-            const token = localStorage.getItem('gh_token');
-            if(!token) return alert("请先在控制中心配置 Token！");
+            document.querySelectorAll('.editable-text').forEach(el => {
+                el.setAttribute('contenteditable', isEdit);
+            });
             
-            const btn = document.getElementById('sync-btn');
-            btn.innerText = "同步中...";
+            document.getElementById('page-title').readOnly = !isEdit;
+            document.getElementById('publish-time').readOnly = !isEdit;
+            document.getElementById('add-btn').style.display = isEdit ? 'block' : 'none';
             
-            const data = [];
-            document.querySelectorAll('.group').forEach(g => {
-                const textareas = g.querySelectorAll('textarea');
-                data.push({
-                    eng: textareas[0].value, chn: textareas[1].value, anno: g.dataset.annotation
-                });
+            document.querySelectorAll('.edit-trigger').forEach(el => {
+                el.style.display = isEdit ? 'inline' : 'none';
             });
 
-            const base64Content = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))));
-            const body = { message: "Update reading data", content: base64Content };
-            if (fileSha) body.sha = fileSha;
+            saveSettings();
+        }
+
+        // --- 本地存储逻辑 ---
+        function saveToLocal() {
+            const title = document.getElementById('page-title').value;
+            const time = document.getElementById('publish-time').value;
+            const data = [];
+            
+            document.querySelectorAll('.group').forEach(group => {
+                data.push({ 
+                    eng: group.querySelector('.eng-text').innerText, 
+                    chn: group.querySelector('.chn-text').innerText, 
+                    anno: group.dataset.anno 
+                });
+            });
+            localStorage.setItem(LOCAL_KEY, JSON.stringify({ title, time, data }));
+        }
+
+        function loadFromLocal() {
+            const saved = localStorage.getItem(LOCAL_KEY);
+            document.getElementById('groups-container').innerHTML = ''; 
+            if (saved) {
+                try {
+                    const state = JSON.parse(saved);
+                    document.getElementById('page-title').value = state.title || 'Chapter 1';
+                    if(state.time) document.getElementById('publish-time').value = state.time;
+                    if (state.data && state.data.length > 0) {
+                        state.data.forEach(item => addGroup(item.eng, item.chn, item.anno));
+                        return;
+                    }
+                } catch (e) { console.error("读取缓存失败", e); }
+            }
+            addGroup(); 
+        }
+
+        // --- 设置与同步逻辑 ---
+        function openSettings() { document.getElementById('settings-modal').style.display = 'flex'; }
+        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+
+        function saveSettings() {
+            const config = {
+                editMode: document.getElementById('edit-mode-toggle').checked,
+                token: document.getElementById('set-token').value.trim(),
+                owner: document.getElementById('set-owner').value.trim(),
+                repo: document.getElementById('set-repo').value.trim(),
+                path: document.getElementById('set-path').value.trim()
+            };
+            localStorage.setItem(SETTINGS_KEY, JSON.stringify(config));
+            closeModal('settings-modal');
+        }
+
+        function loadSettings() {
+            const saved = localStorage.getItem(SETTINGS_KEY);
+            if (saved) {
+                const config = JSON.parse(saved);
+                document.getElementById('edit-mode-toggle').checked = config.editMode !== false; 
+                document.getElementById('set-token').value = config.token || '';
+                document.getElementById('set-owner').value = config.owner || 'moodHappy';
+                document.getElementById('set-repo').value = config.repo || 'dual-read-notes';
+                document.getElementById('set-path').value = config.path || 'chapter1.json';
+            } else {
+                document.getElementById('edit-mode-toggle').checked = true; 
+            }
+            toggleEditMode(); // 初始化时应用状态
+        }
+
+        async function syncToGitHub() {
+            saveSettings(); 
+            const config = JSON.parse(localStorage.getItem(SETTINGS_KEY));
+            
+            if (!config.token || !config.owner || !config.repo || !config.path) {
+                return alert("请填写完整的 GitHub 同步参数！");
+            }
+
+            const btn = document.getElementById('sync-btn');
+            btn.innerText = "数据同步中...";
+            btn.disabled = true;
+            btn.style.background = "#555";
 
             try {
-                const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${DATA_PATH}`, {
-                    method: 'PUT',
-                    headers: { 'Authorization': 'token ' + token, 'Content-Type': 'application/json' },
-                    body: JSON.stringify(body)
+                const state = JSON.parse(localStorage.getItem(LOCAL_KEY));
+                const contentStr = JSON.stringify(state, null, 2);
+                const base64Content = btoa(unescape(encodeURIComponent(contentStr)));
+                const apiUrl = `https://api.github.com/repos/${config.owner}/${config.repo}/contents/${config.path}`;
+
+                let sha = null;
+                const getRes = await fetch(apiUrl, {
+                    headers: { 'Authorization': `token ${config.token}`, 'Accept': 'application/vnd.github.v3+json' }
                 });
-                if(res.ok) {
-                    const resData = await res.json();
-                    fileSha = resData.content.sha;
+                if (getRes.ok) {
+                    const fileData = await getRes.json();
+                    sha = fileData.sha;
+                }
+
+                const putBody = { message: "Sync immersive reading notes", content: base64Content };
+                if (sha) putBody.sha = sha;
+
+                const putRes = await fetch(apiUrl, {
+                    method: 'PUT',
+                    headers: { 'Authorization': `token ${config.token}`, 'Content-Type': 'application/json' },
+                    body: JSON.stringify(putBody)
+                });
+
+                if (putRes.ok) {
                     btn.innerText = "同步成功！";
-                    setTimeout(() => btn.innerText = "保存同步数据", 2000);
-                } else { throw new Error("同步失败"); }
+                    btn.style.background = "#4CAF50";
+                    setTimeout(() => { 
+                        btn.innerText = "将本地数据同步至 GitHub"; 
+                        btn.style.background = "#007acc";
+                        btn.disabled = false; 
+                    }, 2000);
+                } else {
+                    const err = await putRes.json();
+                    throw new Error(err.message);
+                }
             } catch (e) {
-                alert(e.message);
-                btn.innerText = "保存同步数据";
+                alert("同步失败: " + e.message);
+                btn.innerText = "将本地数据同步至 GitHub";
+                btn.style.background = "#007acc";
+                btn.disabled = false;
             }
         }
     </script>
