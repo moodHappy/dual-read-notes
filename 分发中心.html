@@ -140,15 +140,14 @@
             const fullHtmlPath = folderPath ? `${folderPath}/${htmlFileName}` : htmlFileName;
             const fullJsonPath = folderPath ? `${folderPath}/${jsonFileName}` : jsonFileName;
 
-            // 核心修复：新生成的页面在 window.onload 时，会优先尝试从 GitHub Pages (或 API) 抓取 JSON。
-            // 只要检测到远程有新数据，就会自动下载并覆盖本地空缓存，实现多设备秒同步。
+            // 核心修复区：利用 ${'<'}/script> 进行字符串隔离打断，完美绕过浏览器 HTML 解析器的误杀
             const htmlTemplate = `<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>${pageTitle} - 深度精读</title>
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"><\/script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js">${'<'}/script>
     <style>
         :root {
             --bg-color: #fafafa; --eng-text: #222222; --chn-text: #555555;
@@ -300,7 +299,7 @@
                 timeInput.value = \`\${now.getFullYear()}/\${now.getMonth()+1}/\${now.getDate()} \${now.getHours()}:\${String(now.getMinutes()).padStart(2, '0')}:\${String(now.getSeconds()).padStart(2, '0')}\`;
             }
             loadSettings();
-            await fetchRemoteDataFirst(); // [跨设备修复核心]：初始化时强行向远程拉取 JSON
+            await fetchRemoteDataFirst();
         };
 
         function addGroup(eng = "", chn = "", anno = "") {
@@ -332,7 +331,6 @@
             saveToLocal();
         }
 
-        // [跨设备同步引擎函数]：跨新设备进入时，强制去拉取已保存在 GitHub 的最新 JSON 数据
         async function fetchRemoteDataFirst() {
             const config = JSON.parse(localStorage.getItem(SETTINGS_KEY));
             if (!config || !config.owner || !config.repo || !config.path) {
@@ -340,7 +338,6 @@
                 return;
             }
 
-            // 优先通过公开的 Pages 服务获取文件（Pages 无需 Token，任何新设备免配 Token 即可跨设备读数据）
             const pagesUrl = \`https://\${config.owner}.github.io/\${config.repo}/\${config.path}?t=\` + Date.now();
             
             try {
@@ -348,18 +345,13 @@
                 if (res.ok) {
                     const remoteState = await res.json();
                     if (remoteState && remoteState.data) {
-                        console.log("成功拉取远程跨设备同步数据！");
-                        // 覆盖并保存到本地
                         localStorage.setItem(LOCAL_KEY, JSON.stringify(remoteState));
                         renderState(remoteState);
                         return;
                     }
                 }
-            } catch (e) {
-                console.log("Pages 读数据失败，尝试切换至 API 读取...", e);
-            }
+            } catch (e) { }
 
-            // 如果 Pages 没刷新或读取失败，且本地配置了 Token，则走 API 直接抓取
             if (config.token) {
                 try {
                     const apiUrl = \`https://api.github.com/repos/\${config.owner}/\${config.repo}/contents/\${config.path}?t=\` + Date.now();
@@ -369,15 +361,14 @@
                     if (res.ok) {
                         const fileData = await res.json();
                         const remoteState = JSON.parse(decodeURIComponent(escape(atob(fileData.content))));
-                        localStorage.setItem('gh_file_sha_' + config.path, fileData.sha); // 顺便锁死 SHA 防止保存出错
+                        localStorage.setItem('gh_file_sha_' + config.path, fileData.sha);
                         localStorage.setItem(LOCAL_KEY, JSON.stringify(remoteState));
                         renderState(remoteState);
                         return;
                     }
-                } catch(e) { console.error("远程 API 读取也失败，降级读取本地旧缓存", e); }
+                } catch(e) { }
             }
 
-            // 如果全网都拉取失败了，无奈降维读取本地已有的 LocalStorage 缓存
             loadFromLocal();
         }
 
@@ -548,7 +539,7 @@
                 btn.innerText = "将本地数据同步至 GitHub"; btn.style.background = "#007acc"; btn.disabled = false;
             }
         }
-    </script>
+    ${'<'}/script>
 </body>
 </html>`;
 
