@@ -151,6 +151,7 @@
         :root {
             --bg-color: #fafafa; --eng-text: #222222; 
             --meta-text: #999999; --accent: #e53935;
+            --eng-bg: #f0f2f5; --eng-border: #9ca3af;
             --anno-bg: #f5f4fa; --anno-border: #8c7ae6; --anno-title: #7d65b5;
             --divider: #eeeeee;
         }
@@ -166,14 +167,25 @@
         .title-divider { border: 0; border-top: 1px solid var(--divider); margin-bottom: 40px; margin-top: 20px;}
         .group { margin-bottom: 50px; display: flex; flex-direction: column; }
         
-        .eng-wrapper { font-family: 'Times New Roman', Georgia, serif; font-size: 21px; line-height: 1.8; color: var(--eng-text); text-indent: 2em; }
+        .eng-wrapper { 
+            background-color: var(--eng-bg); 
+            border-left: 4px solid var(--eng-border); 
+            border-radius: 0 8px 8px 0; 
+            padding: 18px 20px;
+        }
+        .eng-text { 
+            font-family: 'Times New Roman', Georgia, serif; 
+            font-size: 21px; 
+            line-height: 1.8; 
+            color: var(--eng-text); 
+        }
         
         .source-wrapper { margin-top: 12px; font-family: system-ui, -apple-system, sans-serif; font-size: 14px; }
         .source-text { color: var(--meta-text); font-style: italic; word-break: break-all; }
         .source-link-display { display: inline-block; background: var(--accent); color: #fff; text-decoration: none; padding: 4px 12px; border-radius: 6px; font-weight: bold; font-size: 13px; }
         .source-link-display:hover { opacity: 0.8; }
 
-        .editable-text { outline: none; white-space: pre-wrap; display: inline-block; -webkit-user-select: auto; user-select: auto; min-width: 60px;}
+        .editable-text { outline: none; white-space: pre-wrap; display: block; -webkit-user-select: auto; user-select: auto; min-width: 60px;}
         .editable-text[contenteditable="true"]:empty { min-height: 1.2em; vertical-align: bottom; }
         .editable-text[contenteditable="true"]:empty::before { content: attr(data-placeholder); color: #ccc; pointer-events: none; }
         
@@ -303,7 +315,6 @@
             await fetchRemoteDataFirst();
         };
 
-        // 修改点：这里的参数固定为 eng(原文), source(来源), anno(笔记)
         function addGroup(eng = "", source = "", anno = "") {
             const container = document.getElementById('groups-container');
             const index = container.children.length;
@@ -451,7 +462,7 @@
                 const sourceDisplay = group.querySelector('.source-link-display');
                 
                 if (isEdit) {
-                    sourceText.style.display = 'inline-block';
+                    sourceText.style.display = 'block';
                     sourceDisplay.style.display = 'none';
                 } else {
                     const linkText = sourceText.innerText.trim();
@@ -460,7 +471,7 @@
                         sourceDisplay.href = linkText;
                         sourceDisplay.style.display = 'inline-block';
                     } else {
-                        sourceText.style.display = linkText ? 'inline-block' : 'none';
+                        sourceText.style.display = linkText ? 'block' : 'none';
                         sourceDisplay.style.display = 'none';
                     }
                 }
