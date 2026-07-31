@@ -390,7 +390,7 @@
                     continue; 
                 }
 
-                // 修改部分：在这里排除了以 .md 和 .json 结尾的文件
+                // 排除以 .md 和 .json 结尾的文件
                 if (item.name === 'index.html' || item.name === 'admin.html' || item.name.startsWith('.') || item.name.endsWith('.md') || item.name.endsWith('.json')) continue;
 
                 currentItems.push(item);
@@ -474,6 +474,7 @@
                     </div>`;
             } else {
                 const isSelected = selectedFilesMap.has(item.sha);
+                // 修改点：直接将 onclick 事件留给外部的 list-item div 处理跳转，并移除预览按钮中自身的 onclick 和 inline-script
                 li.innerHTML = `
                     <div class="list-item ${isSelected && isBatchMode ? 'selected' : ''}" onclick="handleFileClick(event, '${item.sha}')">
                         <span class="drag-handle" onclick="event.stopPropagation()">☰</span>
@@ -485,7 +486,7 @@
                                 <div class="item-meta">${(item.size / 1024).toFixed(1)} KB</div>
                             </div>
                         </div>
-                        ${!isBatchMode ? `<span class="arrow-icon" style="font-size:14px; color:var(--primary)" onclick="event.stopPropagation(); window.open('https://${config.user}.github.io/${config.repo}/${item.path}', '_blank')">预览 ↗</span>` : ''}
+                        ${!isBatchMode ? `<span class="arrow-icon" style="font-size:14px; color:var(--primary)">预览 ↗</span>` : ''}
                     </div>`;
             }
             ul.appendChild(li);
@@ -535,8 +536,15 @@
     }
 
     function handleFileClick(e, sha) {
-        if (!isBatchMode) return;
         const file = currentItems.find(f => f.sha === sha);
+        
+        // 修改点：如果不是批量模式，点击整行（包括标题区域）直接打开对应文件的预览链接
+        if (!isBatchMode) {
+            window.open(`https://${config.user}.github.io/${config.repo}/${file.path}`, '_blank');
+            return;
+        }
+
+        // 批量模式下则执行选中逻辑
         if (selectedFilesMap.has(sha)) selectedFilesMap.delete(sha);
         else selectedFilesMap.set(sha, file);
         updateActionBar(); renderList(); 
