@@ -390,7 +390,8 @@
                     continue; 
                 }
 
-                if (item.name === 'index.html' || item.name === 'admin.html' || item.name.startsWith('.')) continue;
+                // 修改部分：在这里排除了以 .md 和 .json 结尾的文件
+                if (item.name === 'index.html' || item.name === 'admin.html' || item.name.startsWith('.') || item.name.endsWith('.md') || item.name.endsWith('.json')) continue;
 
                 currentItems.push(item);
             }
