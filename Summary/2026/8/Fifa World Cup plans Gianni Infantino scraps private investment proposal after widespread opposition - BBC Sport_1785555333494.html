@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style id="core-style">
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            padding: 16px; margin: 0 auto; max-width: 800px; background: #ffffff;
+            color: #2d3748; line-height: 1.8; font-size: 16px; word-wrap: break-word; overflow-x: hidden;
+        }
+        * { box-sizing: border-box; max-width: 100%; }
+        img { max-width: 100%; height: auto; border-radius: 8px; }
+
+        /* AI 批注组件样式 */
+        .anno-toggle, .ai-toggle {
+            display: inline-block; padding: 2px 6px; margin-left: 6px; cursor: pointer;
+            opacity: 0.4; font-size: 0.85rem; vertical-align: middle; transition: all 0.2s;
+            user-select: none; -webkit-tap-highlight-color: transparent;
+        }
+        .anno-toggle:hover, .ai-toggle:hover { opacity: 0.95; transform: scale(1.15); }
+        .anno-toggle.has-anno { opacity: 1; }
+        .anno-toggle::after { content: "🔴"; }
+        .ai-toggle { opacity: 0.7; padding: 2px 4px; }
+        .ai-toggle::after { content: "🤖"; }
+        .ai-toggle.loading::after { content: "⏳"; display: inline-block; animation: spin 1s linear infinite; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        .anno-box {
+            display: none; margin-top: 10px; background: #f8f6ff; border-left: 4px solid #8e7cc3;
+            padding: 12px 16px; border-radius: 0 8px 8px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.03); text-align: left;
+        }
+        .anno-view { font-size: 0.95rem; line-height: 1.6; color: #4a4a4a; min-height: 24px; }
+        .anno-edit {
+            width: 100%; min-height: 120px; padding: 10px; font-family: monospace; font-size: 0.95rem;
+            border: 1px dashed #8e7cc3; border-radius: 6px; box-sizing: border-box; resize: vertical;
+            display: none; background: #fff; color: #333; outline: none;
+        }
+        .anno-edit:focus { border: 1px solid #8e7cc3; box-shadow: 0 0 0 3px rgba(142,124,195,0.15); }
+
+        .markdown-body p { margin-top: 0; margin-bottom: 8px; }
+        .markdown-body p:last-child { margin-bottom: 0; }
+        .markdown-body h1, .markdown-body h2, .markdown-body h3 {
+            color: #6b46c1; font-size: 1.1rem; margin: 10px 0 8px 0; border-bottom: 1px dashed #e9d8fd; padding-bottom: 4px;
+        }
+        .markdown-body ul, .markdown-body ol { margin: 0 0 8px 0; padding-left: 20px; }
+        .markdown-body blockquote { margin: 0 0 10px 0; padding: 8px 12px; background: rgba(142,124,195,0.1); border-left: 4px solid #8e7cc3; color: #555; }
+
+        @media (max-width: 600px) {
+            body { padding: 12px; font-size: 15px; }
+            h1 { font-size: 22px !important; }
+            h2 { font-size: 16px !important; }
+        }
+    </style>
+</head>
+<body>
+    <div class="litit-report" style="width:100%; max-width:100%; box-sizing:border-box; overflow-x:hidden;">
+    <!-- 1. 标题与标签 -->
+    <h1 style="color:#1a202c; font-size: 24px; line-height: 1.4; border-bottom: 3px solid #667eea; padding-bottom: 12px; margin-top:0; word-break:break-word;">国际足联改革计划遭全球抵制：英凡蒂诺连任之路危机重重</h1>
+    <p style="color:#4a5568; font-size: 15px; line-height: 1.6; margin-bottom:18px; font-weight:500;">欧洲、亚洲、美洲等多大洲足球协会集体反对国际足联商业改革，英凡蒂诺连任总统面临前所未有压力。</p>
+    <div style="margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+        <div style="display:flex; flex-wrap:wrap; gap:8px;">
+            <span style="background:#edf2f7; color:#2d3748; padding:5px 10px; border-radius:6px; font-size:13px; font-weight:600;">国际足联</span>
+            <span style="background:#edf2f7; color:#2d3748; padding:5px 10px; border-radius:6px; font-size:13px; font-weight:600;">全球足球治理</span>
+        </div>
+        <a href="https://www.bbc.com/sport/football/articles/czekr6kn58po" target="_blank" style="font-size: 13px; color: #5a67d8; text-decoration: none; font-weight: bold; background: #ebf4ff; padding: 6px 14px; border-radius: 6px; transition: all 0.2s; border: 1px solid #c3dafe; display:inline-block;">🔗 阅读原文</a>
+    </div>
+
+    <!-- 2. 最佳金句 -->
+    <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #ed8936; margin:0 0 12px 0; border-radius: 0 6px 6px 0;">💬 最佳金句</h2>
+    <blockquote style="border-left: 4px solid #667eea; background: #f8fafc; padding: 14px; margin: 12px 0 24px 0; font-style: italic; color: #2d3748; border-radius: 0 8px 8px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+        <p style="margin:0 0 8px 0; font-weight:600; font-size: 16px; line-height: 1.6; word-break:break-word;">"A president must bring people together, unite them, and inspire them, but this was the opposite. 如果这意味着我失去工作，那就这样吧。至少今晚我能睡得安稳。"</p>
+        <footer style="text-align:right; font-size:13px; color:#718096; font-style:normal; font-weight:500;">—— 凯文·拉穆尔（国际足联首席运营官）</footer>
+    </blockquote>
+
+    <!-- 3. 关键数字 -->
+    <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #38a169; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">📊 关键数字</h2>
+    <div style="display:flex; flex-wrap:wrap; gap:12px; margin:14px 0 24px 0;">
+        <div style="flex:1 1 140px; min-width:130px; background:#fff; border:1px solid #e2e8f0; padding:16px; border-radius:10px; text-align:center; box-shadow:0 2px 5px rgba(0,0,0,0.04); box-sizing:border-box;">
+            <div style="font-size:26px; color:#5a67d8; font-weight:900; margin-bottom:4px;">55</div>
+            <div style="font-size:13px; color:#4a5568; font-weight:500;">欧洲足球协会成员数，集体投票抵制世界杯改革</div>
+        </div>
+        <div style="flex:1 1 140px; min-width:130px; background:#fff; border:1px solid #e2e8f0; padding:16px; border-radius:10px; text-align:center; box-shadow:0 2px 5px rgba(0,0,0,0.04); box-sizing:border-box;">
+            <div style="font-size:26px; color:#5a67d8; font-weight:900; margin-bottom:4px;">100亿</div>
+            <div style="font-size:13px; color:#4a5568; font-weight:500;">改革计划预计可筹集资金（美元）</div>
+        </div>
+    </div>
+
+    <!-- 4. 事件时间线 -->
+    <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #3182ce; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">⏱️ 事件时间线</h2>
+    <ul style="padding-left:20px; line-height:1.8; color:#2d3748; font-size: 15px; margin-bottom:24px; word-break:break-word;">
+        <li><strong style="color:#2b6cb0;">2024年6月：</strong>欧洲足球协会联盟（欧足联）55个成员投票抵制世界杯改革计划。</li>
+        <li><strong style="color:#2b6cb0;">2024年6月：</strong>国际足联首席运营官凯文·拉穆尔公开表示管理层被“蒙骗”，并批评改革方案。</li>
+        <li><strong style="color:#2b6cb0;">2024年6月：</strong>卡洛斯·科尔德罗（英凡蒂诺全球战略顾问）因反对改革辞职。</li>
+        <li><strong style="color:#2b6cb0;">2024年6月：</strong>北美、中美洲及加勒比海足球协会（Concacaf）与亚洲足球联合会（AFC）公开反对改革。</li>
+        <li><strong style="color:#2b6cb0;">2024年6月：</strong>英国首相安迪·伯纳姆称英凡蒂诺“不适合”领导国际足联。</li>
+        <li><strong style="color:#2b6cb0;">2025年：</strong>唐纳德·特朗普与英凡蒂诺关系密切，特朗普第二次就任美国总统。</li>
+        <li><strong style="color:#2b6cb0;">2025年9月19日：</strong>英凡蒂诺设定改革方案接受截止日期。</li>
+        <li><strong style="color:#2b6cb0;">2025年11月18日：</strong>国际足联主席候选人报名截止。</li>
+        <li><strong style="color:#2b6cb0;">2026年3月：</strong>国际足联第77届大会将在摩洛哥举行，确认新任主席。</li>
+    </ul>
+
+    <!-- 5. 本篇亮点 (双语与生词精读 - 带有交互批注结构) -->
+    <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #805ad5; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">✨ 本篇亮点与精读</h2>
+    <div style="margin:14px 0 24px 0;">
+        <div class="litit-highlight-block content-wrap" style="position:relative; margin-bottom:20px; padding-bottom:16px; border-bottom:1px dashed #cbd5e0;">
+            <h3 style="font-size:16px; color:#2d3748; margin:0 0 8px 0; font-weight:700;">全球足球协会罕见集体抵制，改革方案引发分裂</h3>
+            <div class="content" style="position:relative; margin:0 0 6px 0; color:#1a202c; font-family:Georgia, serif; line-height:1.7; font-size:15px; word-break:break-word;">
+                European football's 55 member associations, Uefa, voted on Thursday to boycott World Cups if the plans went ahead. Fifa's chief operating officer Kevin Lamour said the governing body's own administration had been "deceived" about the project. Carlos Cordeiro - Infantino's senior adviser on global strategy and governance - resigned over the matter, saying the proposal was "a bad deal for football" and would "mortgage football's future".
+                <span class="anno-toggle" title="手写批注/笔记"></span>
+                <span class="ai-toggle" title="AI智能二次解析"></span>
+            </div>
+            <p style="margin:0 0 10px 0; color:#4a5568; font-size:14px; line-height:1.6; word-break:break-word;">欧足联55个成员协会投票抵制世界杯改革计划。国际足联首席运营官凯文·拉穆尔称管理层被“蒙骗”，而英凡蒂诺全球战略顾问卡洛斯·科尔德罗则因认为该提案“损害足球利益、抵押足球未来”而辞职。</p>
+            <div style="background:#fffaf0; padding:10px 12px; border-radius:8px; font-size:14px; color:#c05621; border:1px solid #feebc8; word-break:break-word; margin-bottom:10px;">
+                <strong>mortgage football's future</strong>：将足球的未来抵押出去，意指以短期利益换取长期风险，语境中指改革方案可能危害足球运动的可持续发展。
+            </div>
+            <div class="anno-box" style="display:none;">
+                <div class="anno-view markdown-body"></div>
+                <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea>
+            </div>
+        </div>
+
+        <div class="litit-highlight-block content-wrap" style="position:relative; margin-bottom:20px; padding-bottom:16px; border-bottom:1px dashed #cbd5e0;">
+            <h3 style="font-size:16px; color:#2d3748; margin:0 0 8px 0; font-weight:700;">英凡蒂诺改革遭多方反对，连任前景骤变</h3>
+            <div class="content" style="position:relative; margin:0 0 6px 0; color:#1a202c; font-family:Georgia, serif; line-height:1.7; font-size:15px; word-break:break-word;">
+                Infantino, 56, is now under immense pressure as he seeks re-election for a fourth term as president at the Fifa Congress in March. He said he now intends to "bring all interested parties back together" in the "spirit of shared interest" in football. Fifa and Infantino wanted to create a commercial subsidiary to run its main events, including its World Cups, with external investors able to buy stakes in it.
+                <span class="anno-toggle" title="手写批注/笔记"></span>
+                <span class="ai-toggle" title="AI智能二次解析"></span>
+            </div>
+            <p style="margin:0 0 10px 0; color:#4a5568; font-size:14px; line-height:1.6; word-break:break-word;">英凡蒂诺在谋求第四任国际足联主席连任时，面临巨大压力。他表示将以“共同利益”的精神让各方重新团结，但他的商业改革方案——允许外部投资者参与世界杯等赛事运营——引发了全球足球界的强烈反对。</p>
+            <div style="background:#fffaf0; padding:10px 12px; border-radius:8px; font-size:14px; color:#c05621; border:1px solid #feebc8; word-break:break-word; margin-bottom:10px;">
+                <strong>commercial subsidiary</strong>：商业子公司，指国际足联计划设立专门负责赛事运营的公司，并允许外部资本参股，语境中暗示足球商业化加剧。
+            </div>
+            <div class="anno-box" style="display:none;">
+                <div class="anno-view markdown-body"></div>
+                <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea>
+            </div>
+        </div>
+    </div>
+
+    <!-- 6. Fun Facts -->
+    <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #319795; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">💡 Fun Facts</h2>
+    <ul style="padding-left:20px; line-height:1.8; color:#2d3748; font-size:15px; margin-bottom:24px; word-break:break-word;">
+        <li>国际足联的改革文件由摩根大通投资银行起草，预计2035-2039周期每个成员协会可获2400万欧元分红。</li>
+        <li>美国风险投资公司Thrive Eternal由约书亚·库什纳创立，他是美国前总统唐纳德·特朗普女婿贾里德·库什纳的兄弟。</li>
+    </ul>
+
+    <!-- 7. 全片锐评 -->
+    <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #e53e3e; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">🎯 全片锐评</h2>
+    <p style="line-height:1.7; color:#1a202c; font-weight:600; background:#fff5f5; padding:14px; border-radius:10px; font-size:15px; margin:0 0 24px 0; border:1px solid #fed7d7; word-break:break-word;">国际足联的商业化改革本意是提升赛事价值、扩大收益，但全球足球协会的集体抵制暴露出治理结构与利益分配的深层矛盾。英凡蒂诺的领导力与透明度遭到质疑，足球运动的未来亟需回归团结与公平。此事件不仅是体育治理的分水岭，更是全球体育商业化与社会责任的典型案例。</p>
+</div>
+
+    <script id="core-engine">
+        let syncTimeout = null;
+        const AI_PROMPT = "请分析以下英文段落，并严格按照以下 Markdown 格式输出（不要输出任何额外的废话）：\n\n### 📌 完整翻译\n\n[此处填写完整翻译]\n\n### 📌 Key Expressions\n\n- **[单词或短语]**\n  = [中文释义]\n  （[可选的补充说明，如倒装结构或语境等]）\n\n段落内容：\n";
+
+        async function fetchGroq(text, apiKey, modelName) {
+            const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+                method: 'POST',
+                headers: { 'Authorization': 'Bearer ' + apiKey, 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    model: modelName || 'llama-3.3-70b-versatile',
+                    messages: [
+                        { role: 'system', content: 'You are an English teacher. Output EXACTLY in the requested Markdown format.' },
+                        { role: 'user', content: AI_PROMPT + '"' + text + '"' }
+                    ],
+                    temperature: 0.3
+                })
+            });
+            if (!res.ok) throw new Error('Groq Error: ' + res.status);
+            const json = await res.json();
+            return json.choices[0].message.content.trim();
+        }
+
+        async function fetchCustomAI(text, url, apiKey, modelName) {
+            let headers = { 'Content-Type': 'application/json' };
+            let bodyData = {};
+
+            if (url.includes('anthropic.com')) {
+                headers['x-api-key'] = apiKey;
+                headers['anthropic-version'] = '2023-06-01';
+                headers['anthropic-dangerous-direct-browser-access'] = 'true';
+                bodyData = {
+                    model: modelName || 'claude-3-5-sonnet-20241022',
+                    max_tokens: 2000,
+                    messages: [{ role: 'user', content: AI_PROMPT + '"' + text + '"' }]
+                };
+            } else if (url.includes('generativelanguage.googleapis.com')) {
+                let targetUrl = url;
+                if (!targetUrl.includes('key=')) {
+                    targetUrl += (targetUrl.includes('?') ? '&' : '?') + 'key=' + apiKey;
+                }
+                const res = await fetch(targetUrl, {
+                    method: 'POST', headers: headers,
+                    body: JSON.stringify({ contents: [{ parts: [{ text: AI_PROMPT + '"' + text + '"' }] }] })
+                });
+                if (!res.ok) throw new Error('Gemini Error: ' + res.status);
+                const json = await res.json();
+                return json.candidates[0].content.parts[0].text.trim();
+            } else {
+                headers['Authorization'] = 'Bearer ' + apiKey;
+                bodyData = {
+                    model: modelName || 'gpt-4o-mini',
+                    messages: [
+                        { role: 'system', content: 'You are an English teacher. Output EXACTLY in the requested Markdown format.' },
+                        { role: 'user', content: AI_PROMPT + '"' + text + '"' }
+                    ],
+                    temperature: 0.3
+                };
+            }
+
+            const res = await fetch(url, { method: 'POST', headers: headers, body: JSON.stringify(bodyData) });
+            if (!res.ok) throw new Error('AI Interface Error: ' + res.status);
+            const json = await res.json();
+            if (json.choices && json.choices.length > 0) return json.choices[0].message.content.trim();
+            throw new Error('AI 返回数据异常');
+        }
+
+        async function executeAIPipeline(text) {
+            const customUrl = localStorage.getItem('CUSTOM_API_URL') || '';
+            const customKey = localStorage.getItem('CUSTOM_API_KEY') || '';
+            const customModel = localStorage.getItem('CUSTOM_MODEL') || '';
+            const groqKey = localStorage.getItem('GROQ_API_KEY') || '';
+            const groqModel = localStorage.getItem('GROQ_MODEL') || '';
+
+            if (customUrl && customKey) {
+                try {
+                    return await fetchCustomAI(text, customUrl, customKey, customModel);
+                } catch (err) {
+                    if (groqKey) return await fetchGroq(text, groqKey, groqModel);
+                    throw err;
+                }
+            } else if (groqKey) {
+                return await fetchGroq(text, groqKey, groqModel);
+            } else {
+                const userKey = prompt('⚠️ 当前页面未检测到 AI Key！\n为了安全，密匙只储存在您本地浏览器中。\n\n请输入您的 API Key (如 sk-xxx 或 gsk_xxx):');
+                if (userKey && userKey.trim()) {
+                    const cleanKey = userKey.trim();
+                    if (cleanKey.startsWith('gsk_')) {
+                        localStorage.setItem('GROQ_API_KEY', cleanKey);
+                    } else {
+                        localStorage.setItem('CUSTOM_API_KEY', cleanKey);
+                        localStorage.setItem('CUSTOM_API_URL', 'https://api.chatanywhere.tech/v1/chat/completions');
+                    }
+                }
+                throw new Error('未设置 AI API Key');
+            }
+        }
+
+        // --- 100% 后台静默同步函数，没有任何浮动弹窗与横幅 ---
+        async function syncToCloud() {
+            const ghToken = localStorage.getItem('LITIT_GH_TOKEN') || localStorage.getItem('GH_TOKEN');
+            const ghOwner = 'moodHappy';
+            const ghRepo  = 'dual-read-notes';
+
+            if (!ghToken) return;
+
+            const pathParts = window.location.pathname.split('/');
+            const fileName = pathParts.pop();
+            const month = pathParts.pop();
+            const year = pathParts.pop();
+
+            if(!fileName || !month || !year) return;
+            const fileRelPath = 'Summary/' + year + '/' + month + '/' + fileName;
+
+            try {
+                const clone = document.documentElement.cloneNode(true);
+                clone.querySelectorAll('.anno-edit').forEach(ta => {
+                    ta.textContent = ta.value;
+                    const box = ta.closest('.anno-box');
+                    if (box) box.style.display = 'none';
+                    const view = box ? box.querySelector('.anno-view') : null;
+                    if (view) view.innerHTML = '';
+                });
+
+                const cleanHTML = '<!DOCTYPE html>\n<html lang="zh-CN">\n' + clone.innerHTML + '\n</html>';
+
+                const getRes = await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath, {
+                    headers: { 'Authorization': 'Bearer ' + ghToken }, cache: 'no-store'
+                });
+
+                let sha = '';
+                if (getRes.ok) {
+                    const fileData = await getRes.json();
+                    sha = fileData.sha;
+                }
+
+                await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath, {
+                    method: 'PUT',
+                    headers: { 'Authorization': 'Bearer ' + ghToken, 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        message: 'Silent auto-save interactive annotation',
+                        content: btoa(unescape(encodeURIComponent(cleanHTML))),
+                        sha: sha || undefined
+                    })
+                });
+                console.log('✅ [My Litit] 静默同步成功');
+            } catch(e) {
+                console.warn('❌ [My Litit] 后台同步跳过或失败:', e);
+            }
+        }
+
+        function scheduleSync() {
+            if (syncTimeout) clearTimeout(syncTimeout);
+            syncTimeout = setTimeout(() => { syncToCloud(); }, 3000);
+        }
+
+        function initAnnotations() {
+            document.querySelectorAll('.litit-highlight-block, .content-wrap').forEach(wrap => {
+                let content = wrap.querySelector('.content');
+                if (!content) {
+                    const pText = wrap.querySelector('p');
+                    if (pText) {
+                        content = document.createElement('div');
+                        content.className = 'content';
+                        content.style.cssText = 'position:relative; margin:0 0 6px 0; color:#1a202c; font-family:Georgia, serif; line-height:1.7; font-size:15px; word-break:break-word;';
+                        content.innerHTML = pText.innerHTML;
+                        pText.parentNode.replaceChild(content, pText);
+                    }
+                }
+                if (!content) return;
+
+                if (!content.querySelector('.anno-toggle')) {
+                    const toggle = document.createElement('span');
+                    toggle.className = 'anno-toggle';
+                    toggle.title = '手写批注/笔记';
+                    content.appendChild(toggle);
+                }
+                if (!content.querySelector('.ai-toggle')) {
+                    const aiToggle = document.createElement('span');
+                    aiToggle.className = 'ai-toggle';
+                    aiToggle.title = 'AI智能二次解析';
+                    content.appendChild(aiToggle);
+                }
+
+                let box = wrap.querySelector('.anno-box');
+                if (!box) {
+                    box = document.createElement('div');
+                    box.className = 'anno-box';
+                    box.style.display = 'none';
+                    box.innerHTML = '<div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 解析..."></textarea>';
+                    wrap.appendChild(box);
+                }
+
+                const view = box.querySelector('.anno-view');
+                const edit = box.querySelector('.anno-edit');
+                const toggle = content.querySelector('.anno-toggle');
+                const aiToggle = content.querySelector('.ai-toggle');
+
+                if (edit && edit.value.trim()) {
+                    toggle.classList.add('has-anno');
+                    try { view.innerHTML = (typeof marked !== 'undefined') ? marked.parse(edit.value.trim()) : edit.value.trim(); } catch(e){}
+                }
+
+                if (aiToggle) {
+                    aiToggle.onclick = async (e) => {
+                        e.preventDefault(); e.stopPropagation();
+                        if (aiToggle.classList.contains('loading')) return;
+
+                        const pClone = content.cloneNode(true);
+                        pClone.querySelectorAll('.anno-toggle, .ai-toggle').forEach(el => el.remove());
+                        let pText = pClone.textContent.replace(/https?:\/\/\S+/g, '').trim();
+
+                        if (!pText) return;
+
+                        aiToggle.classList.add('loading');
+
+                        try {
+                            const aiContent = await executeAIPipeline(pText);
+                            box.style.display = 'block';
+                            view.style.display = 'none';
+                            edit.style.display = 'block';
+                            edit.value = aiContent;
+                            edit.focus(); edit.blur();
+                        } catch (err) {
+                            console.error(err);
+                        } finally {
+                            aiToggle.classList.remove('loading');
+                        }
+                    };
+                }
+
+                if (toggle) {
+                    toggle.onclick = (e) => {
+                        e.preventDefault(); e.stopPropagation();
+                        if (box.style.display === 'block') {
+                            box.style.display = 'none';
+                        } else {
+                            box.style.display = 'block';
+                            if (!edit.value.trim()) {
+                                view.style.display = 'none'; edit.style.display = 'block';
+                                setTimeout(() => { edit.focus(); }, 150);
+                            } else {
+                                view.style.display = 'block'; edit.style.display = 'none';
+                            }
+                        }
+                    };
+                }
+
+                const triggerEdit = (e) => {
+                    if(e) { e.preventDefault(); e.stopPropagation(); }
+                    view.style.display = 'none'; edit.style.display = 'block';
+                    edit.value = edit.value;
+                    setTimeout(() => { edit.focus(); }, 150);
+                };
+
+                view.addEventListener('dblclick', triggerEdit);
+
+                let lastTap = 0;
+                view.addEventListener('touchstart', e => {
+                    if (e.touches.length === 2) { triggerEdit(e); }
+                    else if (e.touches.length === 1) {
+                        const currentTime = new Date().getTime();
+                        if (currentTime - lastTap < 500 && currentTime - lastTap > 0) {
+                            e.preventDefault();
+                            box.style.display = 'none';
+                        }
+                        lastTap = currentTime;
+                    }
+                }, {passive: false});
+
+                if (edit && view) {
+                    edit.onblur = () => {
+                        setTimeout(() => {
+                            const newVal = edit.value.trim();
+                            try { view.innerHTML = newVal ? ((typeof marked !== 'undefined') ? marked.parse(newVal) : newVal) : ''; } catch(e){}
+                            edit.style.display = 'none';
+                            if (newVal) { view.style.display = 'block'; toggle.classList.add('has-anno'); }
+                            else { view.style.display = 'none'; box.style.display = 'none'; toggle.classList.remove('has-anno'); }
+
+                            if (edit.getAttribute('data-old-val') !== newVal) {
+                                edit.setAttribute('data-old-val', newVal);
+                                scheduleSync();
+                            }
+                        }, 150);
+                    };
+                    edit.setAttribute('data-old-val', edit.value.trim());
+                }
+            });
+        }
+        window.addEventListener('DOMContentLoaded', initAnnotations);
+        window.addEventListener('load', initAnnotations);
+    </script>
+</body>
+</html>
