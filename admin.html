@@ -390,8 +390,11 @@
                     continue; 
                 }
 
-                // 排除以 .md 和 .json 结尾的文件
-                if (item.name === 'index.html' || item.name === 'admin.html' || item.name.startsWith('.') || item.name.endsWith('.md') || item.name.endsWith('.json')) continue;
+                // 排除特定保留文件和隐藏文件
+                if (item.name === 'index.html' || item.name === 'admin.html' || item.name.startsWith('.')) continue;
+                
+                // 仅保留 HTML 文件（非目录类型时验证后缀）
+                if (item.type !== 'dir' && !item.name.endsWith('.html')) continue;
 
                 currentItems.push(item);
             }
@@ -474,7 +477,6 @@
                     </div>`;
             } else {
                 const isSelected = selectedFilesMap.has(item.sha);
-                // 修改点：直接将 onclick 事件留给外部的 list-item div 处理跳转，并移除预览按钮中自身的 onclick 和 inline-script
                 li.innerHTML = `
                     <div class="list-item ${isSelected && isBatchMode ? 'selected' : ''}" onclick="handleFileClick(event, '${item.sha}')">
                         <span class="drag-handle" onclick="event.stopPropagation()">☰</span>
@@ -538,13 +540,11 @@
     function handleFileClick(e, sha) {
         const file = currentItems.find(f => f.sha === sha);
 
-        // 修改点：如果不是批量模式，点击整行（包括标题区域）直接打开对应文件的预览链接
         if (!isBatchMode) {
             window.open(`https://${config.user}.github.io/${config.repo}/${file.path}`, '_blank');
             return;
         }
 
-        // 批量模式下则执行选中逻辑
         if (selectedFilesMap.has(sha)) selectedFilesMap.delete(sha);
         else selectedFilesMap.set(sha, file);
         updateActionBar(); renderList(); 
