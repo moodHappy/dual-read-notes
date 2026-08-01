@@ -1,0 +1,28 @@
+name: Auto Update Reading Calendar Index
+
+on:
+  push:
+    paths:
+      - 'Summary/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/python-version@v4
+        with:
+          python-version: '3.x'
+
+      - name: Run calendar index generator
+        run: python generate_litit_hub.py
+
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add index.html
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-update calendar index.html" && git push)
