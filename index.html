@@ -147,7 +147,7 @@
                 </div>
                 <div style="flex:1;">
                     <label>GitHub 仓库名</label>
-                    <input type="text" id="cfgGhRepo" placeholder="dual-read-notes">
+                    <input type="text" id="cfgGhRepo" value="dual-read-notes" placeholder="dual-read-notes">
                 </div>
             </div>
 
@@ -176,7 +176,7 @@
     </div>
 
     <script>
-        const archiveData = /*DATA_START*/{"2026": {"7": {"31": [{"time": "21:28", "path": "Summary/2026/7/Fifa rapidly accelerates plan to expand World Cup to 64 teams from 2030 tournament  World Cup  The Guardian_1785504536913.html", "title": "📄 21:28 Fifa rapidly accelerates plan to expand World Cup to 64 teams from 2030 tournament  World Cup  The Guardian", "rawTitle": "Fifa rapidly accelerates plan to expand World Cup to 64 teams from 2030 tournament  World Cup  The Guardian"}, {"time": "20:20", "path": "Summary/2026/7/About 60,000 migrants arrive in Ceuta in 24 hours, Spanish territory's leader says_1785500400658.html", "title": "📄 20:20 About 60,000 migrants arrive in Ceuta in 24 hours, Spanish territory's leader says", "rawTitle": "About 60,000 migrants arrive in Ceuta in 24 hours, Spanish territory's leader says"}]}, "8": {"1": [{"time": "00:37", "path": "Summary/2026/8/The Chinese robot army transforming the UK's retail industry_1785515871772.html", "title": "📄 00:37 The Chinese robot army transforming the UK's retail industry", "rawTitle": "The Chinese robot army transforming the UK's retail industry"}, {"time": "00:15", "path": "Summary/2026/8/Nirmal Purja Four climbers killed and six feared missing after avalanche hit Nirmal Purja's team_1785514537478.html", "title": "📄 00:15 Nirmal Purja Four climbers killed and six feared missing after avalanche hit Nirmal Purja's team", "rawTitle": "Nirmal Purja Four climbers killed and six feared missing after avalanche hit Nirmal Purja's team"}, {"time": "00:28", "path": "Summary/2026/8/Millions opposed military rule in Myanmar. Is their dream of a revolution over_1785515318556.html", "title": "📄 00:28 Millions opposed military rule in Myanmar. Is their dream of a revolution over", "rawTitle": "Millions opposed military rule in Myanmar. Is their dream of a revolution over"}, {"time": "00:37", "path": "Summary/2026/8/Fifa executive joins Burnham in questioning Infantino_1785515871837.html", "title": "📄 00:37 Fifa executive joins Burnham in questioning Infantino", "rawTitle": "Fifa executive joins Burnham in questioning Infantino"}, {"time": "09:57", "path": "Summary/2026/8/Fifa World Cup plans Gianni Infantino scraps private investment proposal after widespread opposition - BBC Sport_1785549447659.html", "title": "📄 09:57 Fifa World Cup plans Gianni Infantino scraps private investment proposal after widespread opposition - BBC Sport", "rawTitle": "Fifa World Cup plans Gianni Infantino scraps private investment proposal after widespread opposition - BBC Sport"}]}}}/*DATA_END*/;
+        const archiveData = /*DATA_START*/{"2026": {"7": {"31": [{"time": "21:28", "timestamp": 1785504536913, "path": "Summary/2026/7/Fifa rapidly accelerates plan to expand World Cup to 64 teams from 2030 tournament  World Cup  The Guardian_1785504536913.html", "title": "📄 21:28 Fifa rapidly accelerates plan to expand World Cup to 64 teams from 2030 tournament  World Cup  The Guardian", "rawTitle": "Fifa rapidly accelerates plan to expand World Cup to 64 teams from 2030 tournament  World Cup  The Guardian"}, {"time": "20:20", "timestamp": 1785500400658, "path": "Summary/2026/7/About 60,000 migrants arrive in Ceuta in 24 hours, Spanish territory's leader says_1785500400658.html", "title": "📄 20:20 About 60,000 migrants arrive in Ceuta in 24 hours, Spanish territory's leader says", "rawTitle": "About 60,000 migrants arrive in Ceuta in 24 hours, Spanish territory's leader says"}]}, "8": {"1": [{"time": "09:57", "timestamp": 1785549447659, "path": "Summary/2026/8/Fifa World Cup plans Gianni Infantino scraps private investment proposal after widespread opposition - BBC Sport_1785549447659.html", "title": "📄 09:57 Fifa World Cup plans Gianni Infantino scraps private investment proposal after widespread opposition - BBC Sport", "rawTitle": "Fifa World Cup plans Gianni Infantino scraps private investment proposal after widespread opposition - BBC Sport"}, {"time": "00:37", "timestamp": 1785515871837, "path": "Summary/2026/8/Fifa executive joins Burnham in questioning Infantino_1785515871837.html", "title": "📄 00:37 Fifa executive joins Burnham in questioning Infantino", "rawTitle": "Fifa executive joins Burnham in questioning Infantino"}, {"time": "00:37", "timestamp": 1785515871772, "path": "Summary/2026/8/The Chinese robot army transforming the UK's retail industry_1785515871772.html", "title": "📄 00:37 The Chinese robot army transforming the UK's retail industry", "rawTitle": "The Chinese robot army transforming the UK's retail industry"}, {"time": "00:28", "timestamp": 1785515318556, "path": "Summary/2026/8/Millions opposed military rule in Myanmar. Is their dream of a revolution over_1785515318556.html", "title": "📄 00:28 Millions opposed military rule in Myanmar. Is their dream of a revolution over", "rawTitle": "Millions opposed military rule in Myanmar. Is their dream of a revolution over"}, {"time": "00:15", "timestamp": 1785514537478, "path": "Summary/2026/8/Nirmal Purja Four climbers killed and six feared missing after avalanche hit Nirmal Purja's team_1785514537478.html", "title": "📄 00:15 Nirmal Purja Four climbers killed and six feared missing after avalanche hit Nirmal Purja's team", "rawTitle": "Nirmal Purja Four climbers killed and six feared missing after avalanche hit Nirmal Purja's team"}]}}}/*DATA_END*/;
         const today = new Date();
         
         const AppState = {
@@ -187,11 +187,17 @@
             filterText: ''
         };
 
+        // 🔑 修复点1：生成过去 5 年至未来 50 年的年份范围下拉菜单
         function initSelects() {
             const yearSelect = document.getElementById('yearSelect');
             yearSelect.innerHTML = '';
+            const currentYear = today.getFullYear();
             const allYears = new Set(Object.keys(archiveData).map(Number));
-            allYears.add(today.getFullYear());
+            
+            // 加入过去 5 年到未来 50 年范围
+            for (let y = currentYear - 5; y <= currentYear + 50; y++) {
+                allYears.add(y);
+            }
             
             Array.from(allYears).sort((a, b) => b - a).forEach(y => { 
                 const opt = document.createElement('option'); 
@@ -240,6 +246,9 @@
                 }
                 
                 if (dayData && Array.isArray(dayData) && dayData.length > 0) {
+                    // 🔑 修复点2：确保展现时始终按 timestamp 降序排列，最新时间的文章排最上面
+                    dayData.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+
                     let filtered = dayData;
                     if (AppState.filterText) {
                         filtered = dayData.filter(item => item.title.toLowerCase().includes(AppState.filterText.toLowerCase()));
@@ -300,7 +309,7 @@
 
         initSelects(); forceRender();
 
-        // ⚙️ 设置面板控制
+        // 🔑 修复点3：设置面板控制（默认仓库名死锁定 dual-read-notes）
         document.getElementById('openSettingsBtn').addEventListener('click', () => {
             document.getElementById('cfgGhToken').value = localStorage.getItem('GH_TOKEN') || '';
             document.getElementById('cfgGhOwner').value = localStorage.getItem('GH_OWNER') || 'moodHappy';
@@ -314,7 +323,7 @@
         document.getElementById('saveSettingsBtn').addEventListener('click', () => {
             localStorage.setItem('GH_TOKEN', document.getElementById('cfgGhToken').value.trim());
             localStorage.setItem('GH_OWNER', document.getElementById('cfgGhOwner').value.trim());
-            localStorage.setItem('GH_REPO', document.getElementById('cfgGhRepo').value.trim());
+            localStorage.setItem('GH_REPO', document.getElementById('cfgGhRepo').value.trim() || 'dual-read-notes');
             localStorage.setItem('CUSTOM_API_URL', document.getElementById('cfgCustomUrl').value.trim());
             localStorage.setItem('CUSTOM_API_KEY', document.getElementById('cfgCustomKey').value.trim());
             localStorage.setItem('CUSTOM_MODEL', document.getElementById('cfgCustomModel').value.trim());
@@ -325,7 +334,7 @@
         async function syncDeleteToGithub(fileRelPath) {
             const ghToken = localStorage.getItem('GH_TOKEN');
             const ghOwner = localStorage.getItem('GH_OWNER') || 'moodHappy';
-            const ghRepo = localStorage.getItem('GH_REPO') || 'dual-read-notes';
+            const ghRepo = 'dual-read-notes'; // 死锁定 dual-read-notes 仓库
             if (!ghToken) return alert('本地已移出索引，但未配置 GitHub Token，远端文件未删除。');
             try {
                 const loadingBar = document.getElementById('loadingBar'); loadingBar.style.width = '30%';
