@@ -3,721 +3,351 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="theme-color" content="#ffffff">
-    <title>Dual Read Admin - 云端控制台</title>
-    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
-
+    <title>My Litit - 网页精读日历枢纽</title>
     <style>
         :root {
-            --primary: #0969da;
-            --danger: #cf222e;
-            --success: #2da44e;
-            --bg: #f6f8fa;
-            --card-bg: #ffffff;
-            --border: #d0d7de;
-            --text-main: #1f2328;
-            --text-muted: #656d76;
-            --selected-bg: #e6f6ff;
+            --primary: #667eea;
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --bg: #f8fafc;
+            --card: #ffffff;
+            --text: #2d3748;
+            --muted: #718096;
+            --border: #e2e8f0;
+        }
+        body, html {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            background: var(--bg); margin: 0; padding: 0; color: var(--text); -webkit-font-smoothing: antialiased;
+        }
+        .container { max-width: 640px; margin: 0 auto; padding-bottom: 30px; }
+
+        /* 顶部导航与搜索框 */
+        .top-bar {
+            background: var(--card); padding: 14px 18px; display: flex; gap: 10px; align-items: center;
+            border-bottom: 1px solid var(--border); sticky: top: 0; z-index: 50; box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+        }
+        .search-input {
+            flex: 1; padding: 10px 16px; border: 1.5px solid var(--border); border-radius: 20px;
+            font-size: 14px; outline: none; background: #f8fafc; transition: all 0.2s;
+        }
+        .search-input:focus { border-color: var(--primary); background: #fff; box-shadow: 0 0 0 3px rgba(102,126,234,0.15); }
+        .settings-btn { background: none; border: none; font-size: 22px; cursor: pointer; padding: 4px; border-radius: 50%; }
+
+        /* 控制器 */
+        .controls {
+            padding: 15px 20px; display: flex; justify-content: center; align-items: center; gap: 10px;
+            background: var(--bg); border-bottom: 1px solid var(--border);
+        }
+        .control-btn {
+            background: var(--primary-gradient); color: #fff; border: none; border-radius: 8px;
+            padding: 8px 14px; font-size: 14px; cursor: pointer; font-weight: bold; transition: all 0.2s;
+            box-shadow: 0 2px 6px rgba(102,126,234,0.3);
+        }
+        .control-btn:active { transform: scale(0.95); opacity: 0.9; }
+        .select-box {
+            padding: 6px 12px; border: 1.5px solid var(--border); border-radius: 8px;
+            font-size: 15px; background: #fff; outline: none; font-weight: bold; cursor: pointer; color: var(--text);
         }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-            background-color: var(--bg);
-            color: var(--text-main);
-            margin: 0;
-            padding: 15px;
-            padding-bottom: 120px;
-            -webkit-tap-highlight-color: transparent;
+        /* 日历区域 */
+        .calendar-wrapper { background: var(--card); padding: 16px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
+        .weekdays {
+            display: grid; grid-template-columns: repeat(7, 1fr); text-align: center;
+            font-weight: bold; font-size: 13px; color: var(--muted); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px dashed var(--border);
+        }
+        .days-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+        .day-cell {
+            aspect-ratio: 1; display: flex; flex-direction: column; justify-content: center; align-items: center;
+            font-size: 15px; font-weight: 600; border-radius: 12px; cursor: pointer; position: relative; transition: all 0.2s;
+        }
+        .day-cell.empty { visibility: hidden; }
+        .day-cell.has-notes { color: var(--text); font-weight: 700; }
+        .day-cell.no-notes { color: #cbd5e0; }
+        .day-cell.selected { background: #ebf4ff; border: 2px solid var(--primary); color: var(--primary); font-weight: bold; }
+        .day-cell.today { background: #edf2f7; color: var(--text); }
+        .dot { width: 6px; height: 6px; background-color: var(--primary); border-radius: 50%; position: absolute; bottom: 6px; display: none; }
+        .day-cell.has-notes .dot { display: block; }
+
+        /* 文章列表 */
+        .notes-section { padding: 0 16px; }
+        .note-item-wrapper { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+        .note-item {
+            flex: 1; background: var(--card); border-radius: 14px; padding: 16px; display: flex;
+            justify-content: space-between; align-items: center; text-decoration: none; color: var(--text);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03); border-left: 4px solid var(--primary); transition: all 0.2s; overflow: hidden;
+        }
+        .note-item:active { transform: scale(0.98); background: #f7fafc; }
+        .note-title { font-size: 15px; color: #2d3748; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: left; font-weight: bold; flex: 1; }
+        .delete-btn {
+            background: #e53e3e; color: white; border: none; border-radius: 10px; padding: 0 16px;
+            height: 52px; font-size: 16px; cursor: pointer; display: none; transition: all 0.2s; flex-shrink: 0;
         }
 
-        *, *::before, *::after {
-            box-sizing: border-box;
-        }
+        .empty-state { text-align: center; padding: 40px 20px; color: var(--muted); font-size: 14px; background: var(--card); border-radius: 14px; }
+        #loadingBar { height: 3px; background: var(--primary-gradient); width: 0%; transition: width 0.3s; position: fixed; top: 0; left: 0; z-index: 100; }
 
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            overflow: hidden;
-        }
-
-        /* ================= Header ================= */
-        header { 
-            display: flex; justify-content: space-between; align-items: center; 
-            padding: 15px 20px; border-bottom: 1px solid var(--border); background: #fff; 
-        }
-        h1 { margin: 0; font-size: 18px; font-weight: 700; display: flex; align-items: center; gap: 8px; color: #24292f; }
-
-        .header-actions { display: flex; gap: 8px; align-items: center; }
-
-        .icon-btn {
-            background: #f6f8fa; border: 1px solid var(--border);
-            border-radius: 6px; padding: 0 12px; height: 34px; 
-            font-size: 14px; color: var(--text-main); cursor: pointer; margin: 0;
-            transition: all 0.2s; display: inline-flex; align-items: center; justify-content: center; font-weight: 600;
-            white-space: nowrap; user-select: none;
-        }
-        .icon-btn:hover { background: #eaeef2; }
-        .icon-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
-
-        .sort-select {
-            background: #f6f8fa; border: 1px solid var(--border);
-            border-radius: 6px; padding: 0 8px; height: 34px;
-            font-size: 13px; color: var(--text-main); cursor: pointer; outline: none;
-        }
-
-        /* ================= Breadcrumb ================= */
-        .breadcrumb {
-            background: #f3f4f6; padding: 12px 20px; border-bottom: 1px solid var(--border);
-            font-size: 14px; overflow-x: auto; white-space: nowrap; display: flex; align-items: center;
-            -ms-overflow-style: none; scrollbar-width: none;
-        }
-        .breadcrumb::-webkit-scrollbar { display: none; }
-        .breadcrumb-item { color: var(--primary); text-decoration: none; font-weight: 600; cursor: pointer; }
-        .breadcrumb-separator { margin: 0 6px; color: #999; }
-        .breadcrumb-current { color: var(--text-muted); font-weight: 600; }
-
-        /* ================= List Area ================= */
-        ul { list-style: none; padding: 0; margin: 0; }
-        li { border-bottom: 1px solid #eaecef; background: #fff;}
-        li:last-child { border-bottom: none; }
-
-        .list-item {
-            display: flex; align-items: center; padding: 14px 20px; 
-            text-decoration: none; color: var(--text-main);
-            cursor: pointer; position: relative; background: #fff;
-            transition: background 0.15s; user-select: none;
-        }
-        .list-item:hover { background-color: #f8f9fa; }
-        .list-item.selected { background-color: var(--selected-bg); }
-        .list-item.selected::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--primary); }
-
-        .drag-handle { padding: 0 12px 0 0; font-size: 18px; color: #d0d7de; cursor: grab; }
-        body:not(.sort-mode-custom) .drag-handle { display: none; }
-        .selection-mode .drag-handle { display: none; }
-
-        .sortable-ghost { opacity: 0.5; background: #e6f6ff !important; border: 1px dashed var(--primary); }
-
-        .item-content { flex: 1; min-width: 0; display: flex; align-items: center; }
-        .item-icon { margin-right: 12px; font-size: 20px; flex-shrink: 0; }
-        .item-info { flex: 1; min-width: 0; }
-        .item-name { font-weight: 600; font-size: 15px; display: block; word-break: break-all; line-height: 1.3;}
-        .item-meta { font-size: 12px; color: var(--text-muted); margin-top: 4px; font-family: monospace; }
-
-        .select-checkbox { margin-right: 15px; width: 18px; height: 18px; display: none; pointer-events: none; accent-color: var(--primary); flex-shrink: 0;}
-        .selection-mode .select-checkbox { display: block; }
-        .arrow-icon { color: #d0d7de; font-size: 18px; font-weight: bold; }
-        .selection-mode .arrow-icon { display: none; }
-
-        /* ================= Action Bar (PC 端样式) ================= */
-        .action-bar {
-            position: fixed; 
-            bottom: 30px; 
-            left: 50%; 
-            transform: translate(-50%, 150px);
-            background: rgba(36, 41, 47, 0.95);
-            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-            color: white; padding: 12px 20px; border-radius: 50px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.4); display: flex; align-items: center; gap: 15px;
-            z-index: 999; transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); 
-            width: max-content;
-        }
-        .action-bar.visible { transform: translate(-50%, 0); }
-        .action-count { font-weight: bold; white-space: nowrap; }
-
-        .action-btn { 
-            border: none; color: white; padding: 8px 16px; border-radius: 20px; 
-            font-size: 13px; font-weight: 600; cursor: pointer; white-space: nowrap;
-            transition: transform 0.1s, opacity 0.2s;
-        }
-        .action-btn:active:not(:disabled) { transform: scale(0.95); }
-        .btn-edit { background: #9e6a03; }
-        .btn-rename { background: var(--primary); }
-        .btn-move { background: #8a2be2; }
-        .btn-del { background: var(--danger); }
-        .action-btn:disabled { background: #57606a !important; opacity: 0.5; cursor: not-allowed; }
-
-        /* ================= Toast ================= */
-        .toast {
-            position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
-            color: white; padding: 10px 20px; border-radius: 20px; font-size: 14px; font-weight: bold;
-            z-index: 10001; display: none; opacity: 0; transition: opacity 0.3s;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
-
-        /* ================= Modals ================= */
-        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 10000; justify-content: center; align-items: center; backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px); }
-        .modal { background: white; padding: 25px; border-radius: 12px; width: 90%; max-width: 500px; box-shadow: 0 20px 40px rgba(0,0,0,0.2); max-height: 90vh; display: flex; flex-direction: column; }
-        .modal h3 { margin: 0 0 15px 0; border-bottom: 1px solid #eee; padding-bottom: 10px; }
-
+        /* 设置 Modal */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 100; justify-content: center; align-items: center; padding: 20px; backdrop-filter: blur(4px); }
+        .modal-content { background: var(--card); border-radius: 16px; padding: 22px; width: 100%; max-width: 420px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); max-height: 85vh; overflow-y: auto; }
+        .modal-title { margin: 0 0 15px 0; font-size: 18px; font-weight: bold; color: #1a202c; }
         .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; margin-bottom: 6px; font-weight: 600; font-size: 14px; }
-        .form-group input { width: 100%; padding: 10px; border: 1px solid #d0d7de; border-radius: 6px; font-size: 14px; font-family: inherit; }
-
-        #content-editor { width: 100%; height: 40vh; padding: 10px; border: 1px solid #d0d7de; border-radius: 6px; font-family: 'Courier New', Courier, monospace; font-size: 13px; line-height: 1.5; resize: vertical; background: #f6f8fa; }
-
-        .btn-group { display: flex; justify-content: flex-end; gap: 10px; margin-top: 15px; }
-        .btn { padding: 10px 18px; border-radius: 6px; border: none; font-size: 14px; font-weight: 600; cursor: pointer; transition: opacity 0.2s; }
-        .btn:active { opacity: 0.8; }
-        .btn-secondary { background: #f3f4f6; color: #24292f; border: 1px solid #d0d7de; }
-        .btn-primary { background: var(--primary); color: white; }
-
-        .loading { padding: 40px; text-align: center; color: #666; font-size: 15px; font-weight: 500; }
-
-        /* ================= 移动端拦截 ================= */
-        @media (max-width: 768px) {
-            body { padding: 10px; padding-bottom: 200px; } 
-            header { flex-direction: column; align-items: stretch; gap: 12px; padding: 15px; }
-            .header-actions { width: 100%; justify-content: space-between; gap: 8px; }
-            .sort-select { flex: 1; min-width: 0; }
-            .icon-btn { flex: 1; padding: 0 5px; }
-            .list-item { padding: 12px 15px; }
-            .action-bar { width: 100%; max-width: 100%; left: 0; bottom: 0; transform: translate(0, 350%); border-radius: 20px 20px 0 0; flex-wrap: wrap; padding: 15px 20px 25px 20px; gap: 10px; justify-content: space-between; }
-            .action-bar.visible { transform: translate(0, 0); }
-            .action-count { width: 100%; text-align: center; font-size: 14px; border-bottom: 1px solid rgba(255, 255, 255, 0.15); padding-bottom: 8px; margin-bottom: 5px; }
-            .action-btn { width: calc(50% - 5px); margin: 0; padding: 12px 0; font-size: 14px; border-radius: 12px; text-align: center; display: flex; justify-content: center; align-items: center; }
-            .modal { padding: 20px; }
-            .btn-group { flex-direction: column; gap: 10px; }
-            .btn-group .btn { width: 100%; }
-            #content-editor { height: 50vh; }
-        }
+        .form-group label { display: block; font-size: 13px; color: var(--muted); margin-bottom: 6px; font-weight: bold; }
+        .form-group input, .form-group select { width: 100%; box-sizing: border-box; padding: 10px 12px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 14px; outline: none; background: #fff; }
+        .modal-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; border-top: 1px solid var(--border); padding-top: 12px; }
+        .btn { padding: 8px 16px; border-radius: 8px; border: none; font-size: 14px; font-weight: bold; cursor: pointer; }
+        .btn-cancel { background: #edf2f7; color: #4a5568; }
+        .btn-save { background: var(--primary-gradient); color: #fff; }
     </style>
 </head>
 <body>
+    <div id="loadingBar"></div>
 
-<div id="toast" class="toast">操作成功</div>
+    <div class="top-bar">
+        <input type="text" id="searchInput" class="search-input" placeholder="🔍 搜索网页精读标题..." autocomplete="off">
+        <button class="settings-btn" id="openSettingsBtn" title="配置中心">⚙️</button>
+    </div>
 
-<div class="container">
-    <header>
-        <h1><span style="cursor:pointer;" onclick="loadPath('')">📚</span> Dual Read Admin</h1>
-        <div class="header-actions">
-            <select id="sort-select" class="sort-select" onchange="changeSortMode()">
-                <option value="custom">☰ 自定义排序</option>
-                <option value="name_asc">🔤 名称升序</option>
-                <option value="name_desc">🔤 名称降序</option>
+    <div class="container">
+        <div class="controls">
+            <button class="control-btn" id="prevBtn">&lt;</button>
+            <select class="select-box" id="yearSelect"></select>
+            <select class="select-box" id="monthSelect">
+                <option value="1">01月</option><option value="2">02月</option><option value="3">03月</option>
+                <option value="4">04月</option><option value="5">05月</option><option value="6">06月</option>
+                <option value="7">07月</option><option value="8">08月</option><option value="9">09月</option>
+                <option value="10">10月</option><option value="11">11月</option><option value="12">12月</option>
             </select>
-            <button id="batch-btn" class="icon-btn" onclick="toggleBatchMode()">✅ 批量操作</button>
-            <button class="icon-btn" onclick="openSettings()">⚙️ 配置</button>
+            <button class="control-btn" id="nextBtn">&gt;</button>
+            <button class="control-btn" id="todayBtn">今天</button>
         </div>
-    </header>
 
-    <div id="breadcrumb" class="breadcrumb"></div>
-
-    <div id="file-list">
-        <div class="loading">正在接驳 GitHub 数据库...</div>
-    </div>
-</div>
-
-<div id="action-bar" class="action-bar">
-    <span class="action-count">已选 0</span>
-    <button id="edit-content-btn" class="action-btn btn-edit" onclick="openContentModal()" disabled>✍️ 修改正文</button>
-    <button id="rename-btn" class="action-btn btn-rename" onclick="openRenameModal()" disabled>🔄 重命名</button>
-    <button id="move-btn" class="action-btn btn-move" onclick="openMoveModal()" disabled>📂 移动</button>
-    <button id="del-btn" class="action-btn btn-del" onclick="execDelete()" disabled>🗑️ 删除</button>
-</div>
-
-<div id="settings-modal" class="modal-overlay">
-    <div class="modal">
-        <h3>⚙️ 系统核心配置</h3>
-        <div class="form-group">
-            <label>GitHub Token (必填)</label>
-            <input type="password" id="cfg-token" placeholder="ghp_...">
+        <div class="calendar-wrapper">
+            <div class="weekdays"><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span><span>日</span></div>
+            <div class="days-grid" id="daysGrid"></div>
         </div>
-        <div class="form-group">
-            <label>GitHub 用户名</label>
-            <input type="text" id="cfg-user">
-        </div>
-        <div class="form-group">
-            <label>仓库名称</label>
-            <input type="text" id="cfg-repo">
-        </div>
-        <div class="btn-group">
-            <button class="btn btn-secondary" onclick="closeModal('settings-modal')">取消</button>
-            <button class="btn btn-primary" onclick="saveSettings()">保存并重载</button>
+
+        <div class="notes-section">
+            <div id="notesList"></div>
         </div>
     </div>
-</div>
 
-<div id="content-modal" class="modal-overlay">
-    <div class="modal" style="max-width: 800px; width: 95%;">
-        <h3>✍️ 正文/代码编辑器</h3>
-        <div class="form-group" style="flex: 1; display: flex; flex-direction: column;">
-            <label id="content-file-name" style="color: var(--primary);">filename.html</label>
-            <textarea id="content-editor" spellcheck="false" placeholder="Loading content..."></textarea>
-        </div>
-        <div class="btn-group">
-            <button class="btn btn-secondary" onclick="closeModal('content-modal')">放弃修改</button>
-            <button id="btn-save-content" class="btn btn-primary" onclick="execSaveContent()">保存提交</button>
+    <!-- 设置 Modal -->
+    <div class="modal-overlay" id="settingsModal">
+        <div class="modal-content">
+            <h3 class="modal-title">⚙️ 核心配置中心</h3>
+            <p style="font-size:12px; color:#888; margin-top:-10px; margin-bottom:15px;">设置后在精读页面中点击 🤖 AI解析 即可自动同步保存。</p>
+            
+            <div class="form-group">
+                <label>GitHub Personal Token</label>
+                <input type="password" id="cfgGhToken" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
+            </div>
+            <div class="form-group" style="display:flex; gap:10px;">
+                <div style="flex:1;">
+                    <label>GitHub 用户名</label>
+                    <input type="text" id="cfgGhOwner" placeholder="moodHappy">
+                </div>
+                <div style="flex:1;">
+                    <label>GitHub 仓库名</label>
+                    <input type="text" id="cfgGhRepo" placeholder="dual-read-notes">
+                </div>
+            </div>
+
+            <div style="border-top: 1px dashed #e2e8f0; margin: 15px 0;"></div>
+
+            <div class="form-group">
+                <label>自定义 AI Endpoint URL</label>
+                <input type="text" id="cfgCustomUrl" placeholder="如: https://api.chatanywhere.tech/v1/chat/completions">
+            </div>
+            <div class="form-group" style="display:flex; gap:10px;">
+                <div style="flex:1;">
+                    <label>API Key</label>
+                    <input type="password" id="cfgCustomKey" placeholder="sk-xxxxxx">
+                </div>
+                <div style="flex:1;">
+                    <label>模型名称</label>
+                    <input type="text" id="cfgCustomModel" placeholder="gpt-4.1">
+                </div>
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn btn-cancel" id="closeSettingsBtn">取消</button>
+                <button class="btn btn-save" id="saveSettingsBtn">保存本地配置</button>
+            </div>
         </div>
     </div>
-</div>
 
-<div id="rename-modal" class="modal-overlay">
-    <div class="modal">
-        <h3>🔄 文件重命名</h3>
-        <div class="form-group">
-            <label>新文件名 (包含后缀)</label>
-            <input type="text" id="rename-input">
-        </div>
-        <div class="btn-group">
-            <button class="btn btn-secondary" onclick="closeModal('rename-modal')">取消</button>
-            <button id="btn-save-rename" class="btn btn-primary" onclick="execRename()">确认修改</button>
-        </div>
-    </div>
-</div>
-
-<div id="move-modal" class="modal-overlay">
-    <div class="modal">
-        <h3>📂 批量移动</h3>
-        <div class="form-group">
-            <label>目标路径 (如: books/chapter1)</label>
-            <input type="text" id="move-target-path">
-        </div>
-        <div class="btn-group">
-            <button class="btn btn-secondary" onclick="closeModal('move-modal')">取消</button>
-            <button id="btn-confirm-move" class="btn btn-primary" onclick="execMove()">确认移动</button>
-        </div>
-    </div>
-</div>
-
-<script>
-    // ================= 核心状态与配置 =================
-    const DEFAULTS = {
-        user: 'moodHappy',
-        repo: 'dual-read-notes', 
-        token: ''
-    };
-
-    let config = {};
-    let currentPath = '';
-    let currentItems = []; 
-    let isBatchMode = false;
-    let selectedFilesMap = new Map(); 
-    let currentSortMode = localStorage.getItem('dual_admin_sort') || 'custom';
-    let sortableInstance = null;
-    let currentSortSha = null;
-    let sortOrder = [];
-
-    // ================= 初始化与 API =================
-    function getConfig() {
-        const stored = localStorage.getItem('dual_admin_config'); 
-        return stored ? { ...DEFAULTS, ...JSON.parse(stored) } : DEFAULTS;
-    }
-
-    function showToast(msg, type = 'info') {
-        const toast = document.getElementById('toast');
-        toast.innerText = msg;
-        toast.style.background = type === 'error' ? 'rgba(207,34,46,0.95)' : (type === 'success' ? 'rgba(45,164,78,0.95)' : 'rgba(36,41,47,0.95)');
-        toast.style.display = 'block';
-        setTimeout(() => toast.style.opacity = '1', 10);
-        clearTimeout(toast.timeout);
-        toast.timeout = setTimeout(() => {
-            toast.style.opacity = '0';
-            setTimeout(() => toast.style.display = 'none', 300);
-        }, 2500);
-    }
-
-    async function ghFetch(url, options = {}) {
-        const headers = options.headers || {};
-        if (config.token) headers['Authorization'] = `token ${config.token}`;
-        const noCacheUrl = url + (url.includes('?') ? '&' : '?') + 't=' + Date.now();
-        const response = await fetch(noCacheUrl, { ...options, headers });
-
-        if (response.status === 204) return true;
-        if (!response.ok) {
-            const err = await response.json().catch(()=>({}));
-            throw new Error(err.message || `HTTP ${response.status}`);
-        }
-        return await response.json();
-    }
-
-    async function init() {
-        config = getConfig();
-        document.getElementById('sort-select').value = currentSortMode;
-        document.body.classList.add(`sort-mode-${currentSortMode}`);
-
-        const urlParams = new URLSearchParams(window.location.search);
-        const startPath = urlParams.get('path') || ''; 
-
-        if(!config.token) {
-            openSettings();
-            document.getElementById('file-list').innerHTML = '<div class="loading">⚠️ 请先配置 Token 后方可操作</div>';
-        } else {
-            await loadPath(startPath, false);
-        }
-
-        window.addEventListener('popstate', (e) => {
-            loadPath(e.state && e.state.path !== undefined ? e.state.path : '', false);
-        });
-    }
-
-    // ================= 核心加载逻辑 =================
-    async function loadPath(path, addToHistory = true) {
-        if (isBatchMode) toggleBatchMode(); 
-        currentPath = path;
-
-        if (addToHistory) {
-            history.pushState({ path: path }, '', `?path=${encodeURIComponent(path)}`);
-        }
-
-        renderBreadcrumb(path);
-        const listEl = document.getElementById('file-list');
-        listEl.innerHTML = '<div class="loading">正在拉取卷宗数据...</div>';
-
-        try {
-            const data = await ghFetch(`https://api.github.com/repos/${config.user}/${config.repo}/contents/${path}`);
-
-            if (!Array.isArray(data)) {
-                window.open(`https://${config.user}.github.io/${config.repo}/${path}`, '_blank');
-                loadPath(path.substring(0, path.lastIndexOf('/')), false); 
-                return;
-            }
-
-            currentItems = [];
-            currentSortSha = null;
-            sortOrder = [];
-
-            for (const item of data) {
-                if (item.name === '_sort_order.json') {
-                    currentSortSha = item.sha;
-                    try {
-                        const sortData = await ghFetch(`https://api.github.com/repos/${config.user}/${config.repo}/contents/${item.path}`);
-                        sortOrder = JSON.parse(decodeURIComponent(escape(atob(sortData.content))));
-                    } catch(e) {}
-                    continue; 
-                }
-
-                // 排除以 .md 和 .json 结尾的文件
-                if (item.name === 'index.html' || item.name === 'admin.html' || item.name.startsWith('.') || item.name.endsWith('.md') || item.name.endsWith('.json')) continue;
-
-                currentItems.push(item);
-            }
-
-            let dirs = currentItems.filter(i => i.type === 'dir');
-            let files = currentItems.filter(i => i.type !== 'dir');
-
-            if (currentSortMode === 'name_desc') {
-                files.sort((a,b) => b.name.localeCompare(a.name));
-                dirs.sort((a,b) => b.name.localeCompare(a.name));
-            } else if (currentSortMode === 'name_asc') {
-                files.sort((a,b) => a.name.localeCompare(b.name));
-                dirs.sort((a,b) => a.name.localeCompare(b.name));
-            } else {
-                files.sort((a,b) => a.name.localeCompare(b.name));
-                dirs.sort((a,b) => a.name.localeCompare(b.name));
-                if (sortOrder.length > 0) {
-                    const combined = [...dirs, ...files];
-                    combined.sort((a, b) => {
-                        const idxA = sortOrder.indexOf(a.name);
-                        const idxB = sortOrder.indexOf(b.name);
-                        if (idxA !== -1 && idxB !== -1) return idxA - idxB;
-                        if (idxA === -1 && idxB !== -1) return 1;
-                        if (idxA !== -1 && idxB === -1) return -1;
-                        return 0;
-                    });
-                    dirs = combined.filter(i => i.type === 'dir');
-                    files = combined.filter(i => i.type !== 'dir');
-                }
-            }
-
-            currentItems = [...dirs, ...files];
-            renderList();
-
-        } catch (e) {
-            listEl.innerHTML = `<div class="loading" style="color:var(--danger)">❌ 获取失败: ${e.message}</div>`;
-        }
-    }
-
-    function renderBreadcrumb(path) {
-        const c = document.getElementById('breadcrumb');
-        let html = `<a class="breadcrumb-item" onclick="loadPath('')">🗂️ 根目录</a>`;
-
-        if (path) {
-            const parts = path.split('/');
-            let build = '';
-            parts.forEach((p, i) => {
-                build += (i === 0 ? p : '/' + p);
-                html += `<span class="breadcrumb-separator">/</span>`;
-                if(i === parts.length - 1) html += `<span class="breadcrumb-current">${p}</span>`;
-                else html += `<a class="breadcrumb-item" onclick="loadPath('${build}')">${p}</a>`;
-            });
-        }
-        c.innerHTML = html;
-    }
-
-    function renderList() {
-        const listEl = document.getElementById('file-list');
-        if (currentItems.length === 0) {
-            listEl.innerHTML = '<div class="loading">当前目录为空</div>';
-            return;
-        }
-
-        const ul = document.createElement('ul');
-        if(isBatchMode) ul.classList.add('selection-mode');
-
-        currentItems.forEach(item => {
-            const li = document.createElement('li');
-            li.dataset.filename = item.name; 
-
-            if (item.type === 'dir') {
-                li.innerHTML = `
-                    <div class="list-item" onclick="handleDirClick(event, '${item.path}')">
-                        <span class="drag-handle" onclick="event.stopPropagation()">☰</span>
-                        <div class="item-content">
-                            <span class="item-icon">📁</span>
-                            <div class="item-info"><span class="item-name">${item.name}</span></div>
-                        </div>
-                        <span class="arrow-icon">›</span>
-                    </div>`;
-            } else {
-                const isSelected = selectedFilesMap.has(item.sha);
-                // 修改点：直接将 onclick 事件留给外部的 list-item div 处理跳转，并移除预览按钮中自身的 onclick 和 inline-script
-                li.innerHTML = `
-                    <div class="list-item ${isSelected && isBatchMode ? 'selected' : ''}" onclick="handleFileClick(event, '${item.sha}')">
-                        <span class="drag-handle" onclick="event.stopPropagation()">☰</span>
-                        <input type="checkbox" class="select-checkbox" ${isSelected ? 'checked' : ''}>
-                        <div class="item-content">
-                            <span class="item-icon">📄</span>
-                            <div class="item-info">
-                                <span class="item-name">${item.name}</span>
-                                <div class="item-meta">${(item.size / 1024).toFixed(1)} KB</div>
-                            </div>
-                        </div>
-                        ${!isBatchMode ? `<span class="arrow-icon" style="font-size:14px; color:var(--primary)">预览 ↗</span>` : ''}
-                    </div>`;
-            }
-            ul.appendChild(li);
-        });
-
-        listEl.innerHTML = '';
-        listEl.appendChild(ul);
-
-        if (sortableInstance) { try { sortableInstance.destroy(); } catch(e){} sortableInstance = null; }
-        if (currentSortMode === 'custom') {
-            sortableInstance = new Sortable(ul, {
-                handle: '.drag-handle', animation: 150, ghostClass: 'sortable-ghost',
-                onEnd: saveSortOrder
-            });
-        }
-    }
-
-    async function saveSortOrder() {
-        if (!config.token) return;
-        const ul = document.querySelector('#file-list ul');
-        const newOrder = Array.from(ul.children).map(li => li.dataset.filename).filter(Boolean);
-
-        try {
-            const path = currentPath ? currentPath + '/_sort_order.json' : '_sort_order.json';
-            const body = { message: "Update manual sort", content: btoa(unescape(encodeURIComponent(JSON.stringify(newOrder, null, 2)))) };
-            if (currentSortSha) body.sha = currentSortSha;
-
-            const res = await ghFetch(`https://api.github.com/repos/${config.user}/${config.repo}/contents/${path}`, {
-                method: 'PUT', body: JSON.stringify(body)
-            });
-            currentSortSha = res.content.sha; 
-            showToast("✅ 排序已同步", "success");
-        } catch (e) { showToast("排序保存失败", "error"); }
-    }
-
-    function changeSortMode() {
-        currentSortMode = document.getElementById('sort-select').value;
-        localStorage.setItem('dual_admin_sort', currentSortMode);
-        document.body.className = `sort-mode-${currentSortMode}`;
-        loadPath(currentPath, false);
-    }
-
-    // ================= 交互与模态框 =================
-    function handleDirClick(e, path) {
-        if (isBatchMode) return; 
-        loadPath(path);
-    }
-
-    function handleFileClick(e, sha) {
-        const file = currentItems.find(f => f.sha === sha);
+    <script>
+        const archiveData = /*DATA_START*/{"2026": {"7": {"31": [{"time": "21:28", "path": "Summary/2026/7/Fifa rapidly accelerates plan to expand World Cup to 64 teams from 2030 tournament  World Cup  The Guardian_1785504536913.html", "title": "📄 21:28 Fifa rapidly accelerates plan to expand World Cup to 64 teams from 2030 tournament  World Cup  The Guardian", "rawTitle": "Fifa rapidly accelerates plan to expand World Cup to 64 teams from 2030 tournament  World Cup  The Guardian"}, {"time": "20:20", "path": "Summary/2026/7/About 60,000 migrants arrive in Ceuta in 24 hours, Spanish territory's leader says_1785500400658.html", "title": "📄 20:20 About 60,000 migrants arrive in Ceuta in 24 hours, Spanish territory's leader says", "rawTitle": "About 60,000 migrants arrive in Ceuta in 24 hours, Spanish territory's leader says"}]}, "8": {"1": [{"time": "00:37", "path": "Summary/2026/8/The Chinese robot army transforming the UK's retail industry_1785515871772.html", "title": "📄 00:37 The Chinese robot army transforming the UK's retail industry", "rawTitle": "The Chinese robot army transforming the UK's retail industry"}, {"time": "00:15", "path": "Summary/2026/8/Nirmal Purja Four climbers killed and six feared missing after avalanche hit Nirmal Purja's team_1785514537478.html", "title": "📄 00:15 Nirmal Purja Four climbers killed and six feared missing after avalanche hit Nirmal Purja's team", "rawTitle": "Nirmal Purja Four climbers killed and six feared missing after avalanche hit Nirmal Purja's team"}, {"time": "00:28", "path": "Summary/2026/8/Millions opposed military rule in Myanmar. Is their dream of a revolution over_1785515318556.html", "title": "📄 00:28 Millions opposed military rule in Myanmar. Is their dream of a revolution over", "rawTitle": "Millions opposed military rule in Myanmar. Is their dream of a revolution over"}, {"time": "00:37", "path": "Summary/2026/8/Fifa executive joins Burnham in questioning Infantino_1785515871837.html", "title": "📄 00:37 Fifa executive joins Burnham in questioning Infantino", "rawTitle": "Fifa executive joins Burnham in questioning Infantino"}, {"time": "09:57", "path": "Summary/2026/8/Fifa World Cup plans Gianni Infantino scraps private investment proposal after widespread opposition - BBC Sport_1785549447659.html", "title": "📄 09:57 Fifa World Cup plans Gianni Infantino scraps private investment proposal after widespread opposition - BBC Sport", "rawTitle": "Fifa World Cup plans Gianni Infantino scraps private investment proposal after widespread opposition - BBC Sport"}]}}}/*DATA_END*/;
+        const today = new Date();
         
-        // 修改点：如果不是批量模式，点击整行（包括标题区域）直接打开对应文件的预览链接
-        if (!isBatchMode) {
-            window.open(`https://${config.user}.github.io/${config.repo}/${file.path}`, '_blank');
-            return;
-        }
-
-        // 批量模式下则执行选中逻辑
-        if (selectedFilesMap.has(sha)) selectedFilesMap.delete(sha);
-        else selectedFilesMap.set(sha, file);
-        updateActionBar(); renderList(); 
-    }
-
-    function toggleBatchMode() {
-        isBatchMode = !isBatchMode;
-        const btn = document.getElementById('batch-btn');
-        const bar = document.getElementById('action-bar');
-
-        if (isBatchMode) {
-            btn.classList.add('active'); btn.innerText = '取消操作';
-            bar.classList.add('visible');
-        } else {
-            btn.classList.remove('active'); btn.innerText = '✅ 批量操作';
-            bar.classList.remove('visible');
-            selectedFilesMap.clear(); updateActionBar();
-        }
-        renderList();
-    }
-
-    function updateActionBar() {
-        const c = selectedFilesMap.size;
-        document.querySelector('.action-count').innerText = `已选 ${c} 项`;
-        document.getElementById('edit-content-btn').disabled = c !== 1;
-        document.getElementById('rename-btn').disabled = c !== 1;
-        document.getElementById('move-btn').disabled = c === 0;
-        document.getElementById('del-btn').disabled = c === 0;
-    }
-
-    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
-
-    // ================= 功能：正文编辑器 =================
-    let currentEditFile = null;
-    async function openContentModal() {
-        const file = selectedFilesMap.values().next().value;
-        currentEditFile = file;
-        const btn = document.getElementById('btn-save-content');
-        const editor = document.getElementById('content-editor');
-
-        document.getElementById('content-file-name').innerText = file.path;
-        editor.value = "Fetching content from GitHub...";
-        document.getElementById('content-modal').style.display = 'flex';
-        btn.disabled = true;
-
-        try {
-            const data = await ghFetch(`https://api.github.com/repos/${config.user}/${config.repo}/contents/${file.path}`);
-            const text = decodeURIComponent(escape(atob(data.content)));
-            editor.value = text;
-            btn.disabled = false;
-        } catch (e) {
-            editor.value = "加载内容失败: " + e.message;
-        }
-    }
-
-    async function execSaveContent() {
-        const btn = document.getElementById('btn-save-content');
-        const newText = document.getElementById('content-editor').value;
-
-        btn.disabled = true; btn.innerText = "上传中...";
-        try {
-            const contentBase64 = btoa(unescape(encodeURIComponent(newText)));
-            await ghFetch(`https://api.github.com/repos/${config.user}/${config.repo}/contents/${currentEditFile.path}`, {
-                method: 'PUT', body: JSON.stringify({ message: `Update ${currentEditFile.name} via Admin`, content: contentBase64, sha: currentEditFile.sha })
-            });
-            showToast("✅ 正文修改已推送到云端", "success");
-            closeModal('content-modal');
-            toggleBatchMode();
-        } catch (e) {
-            alert("保存失败: " + e.message);
-        } finally {
-            btn.disabled = false; btn.innerText = "保存提交";
-        }
-    }
-
-    // ================= 功能：重命名 =================
-    function openRenameModal() {
-        const file = selectedFilesMap.values().next().value;
-        document.getElementById('rename-input').value = file.name;
-        document.getElementById('rename-modal').style.display = 'flex';
-    }
-
-    async function execRename() {
-        const file = selectedFilesMap.values().next().value;
-        const newName = document.getElementById('rename-input').value.trim();
-        if(!newName || newName === file.name) return;
-
-        const btn = document.getElementById('btn-save-rename');
-        btn.disabled = true; btn.innerText = "处理中...";
-
-        try {
-            const data = await ghFetch(`https://api.github.com/repos/${config.user}/${config.repo}/contents/${file.path}`);
-            const newPath = currentPath ? `${currentPath}/${newName}` : newName;
-            await ghFetch(`https://api.github.com/repos/${config.user}/${config.repo}/contents/${newPath}`, {
-                method: 'PUT', body: JSON.stringify({ message: `Rename to ${newName}`, content: data.content })
-            });
-            await ghFetch(`https://api.github.com/repos/${config.user}/${config.repo}/contents/${file.path}`, {
-                method: 'DELETE', body: JSON.stringify({ message: `Cleanup after rename`, sha: file.sha })
-            });
-
-            showToast("✅ 重命名成功", "success");
-            closeModal('rename-modal'); toggleBatchMode(); loadPath(currentPath);
-        } catch (e) { alert("重命名失败: " + e.message); } 
-        finally { btn.disabled = false; btn.innerText = "确认修改"; }
-    }
-
-    // ================= 功能：移动与删除 =================
-    function openMoveModal() {
-        document.getElementById('move-target-path').value = currentPath;
-        document.getElementById('move-modal').style.display = 'flex';
-    }
-
-    async function execMove() {
-        const targetDir = document.getElementById('move-target-path').value.trim().replace(/\/+$/, '');
-        if(targetDir === currentPath) return alert("目标路径与当前相同");
-
-        const btn = document.getElementById('btn-confirm-move');
-        btn.disabled = true; btn.innerText = "正在搬运...";
-
-        try {
-            for (const file of selectedFilesMap.values()) {
-                const data = await ghFetch(`https://api.github.com/repos/${config.user}/${config.repo}/contents/${file.path}`);
-                const newPath = targetDir ? `${targetDir}/${file.name}` : file.name;
-                await ghFetch(`https://api.github.com/repos/${config.user}/${config.repo}/contents/${newPath}`, {
-                    method: 'PUT', body: JSON.stringify({ message: `Move ${file.name}`, content: data.content })
-                });
-                await ghFetch(`https://api.github.com/repos/${config.user}/${config.repo}/contents/${file.path}`, {
-                    method: 'DELETE', body: JSON.stringify({ message: `Cleanup after move`, sha: file.sha })
-                });
-            }
-            showToast("✅ 批量移动完成", "success");
-            closeModal('move-modal'); toggleBatchMode(); loadPath(currentPath);
-        } catch(e) { alert("移动中断: " + e.message); }
-        finally { btn.disabled = false; btn.innerText = "确认移动"; }
-    }
-
-    async function execDelete() {
-        const count = selectedFilesMap.size;
-        if (!confirm(`⚠️ 危险操作：确认永久删除这 ${count} 个文件吗？`)) return;
-
-        const btn = document.getElementById('del-btn');
-        btn.disabled = true; btn.innerText = "删除中...";
-        try {
-            for (const file of selectedFilesMap.values()) {
-                await ghFetch(`https://api.github.com/repos/${config.user}/${config.repo}/contents/${file.path}`, {
-                    method: 'DELETE', body: JSON.stringify({ message: `Delete ${file.name} via Admin`, sha: file.sha })
-                });
-            }
-            showToast("🗑️ 文件已销毁", "success");
-            toggleBatchMode(); loadPath(currentPath);
-        } catch(e) { alert("删除失败: " + e.message); }
-        finally { btn.innerText = "🗑️ 删除"; }
-    }
-
-    // ================= 设置面板 =================
-    function openSettings() {
-        document.getElementById('settings-modal').style.display = 'flex';
-        document.getElementById('cfg-user').value = config.user;
-        document.getElementById('cfg-repo').value = config.repo;
-        document.getElementById('cfg-token').value = config.token;
-    }
-
-    function saveSettings() {
-        const newCfg = {
-            user: document.getElementById('cfg-user').value.trim() || DEFAULTS.user,
-            repo: document.getElementById('cfg-repo').value.trim() || DEFAULTS.repo,
-            token: document.getElementById('cfg-token').value.trim()
+        const AppState = {
+            year: today.getFullYear(),
+            month: today.getMonth() + 1,
+            day: today.getDate(),
+            deleteMode: false,
+            filterText: ''
         };
-        localStorage.setItem('dual_admin_config', JSON.stringify(newCfg));
-        location.reload();
-    }
 
-    init();
-</script>
+        function initSelects() {
+            const yearSelect = document.getElementById('yearSelect');
+            yearSelect.innerHTML = '';
+            const allYears = new Set(Object.keys(archiveData).map(Number));
+            allYears.add(today.getFullYear());
+            
+            Array.from(allYears).sort((a, b) => b - a).forEach(y => { 
+                const opt = document.createElement('option'); 
+                opt.value = y; opt.textContent = y + ' 年'; yearSelect.appendChild(opt); 
+            });
+        }
+
+        function forceRender() {
+            const maxDay = new Date(AppState.year, AppState.month, 0).getDate();
+            if (AppState.day > maxDay) AppState.day = maxDay;
+
+            document.getElementById('yearSelect').value = AppState.year;
+            document.getElementById('monthSelect').value = AppState.month;
+
+            const daysGrid = document.getElementById('daysGrid');
+            const notesList = document.getElementById('notesList');
+
+            daysGrid.innerHTML = ''; notesList.innerHTML = '';
+
+            try {
+                const firstDay = new Date(AppState.year, AppState.month - 1, 1).getDay() || 7;
+                for (let i = 1; i < firstDay; i++) { 
+                    const emptyCell = document.createElement('div'); 
+                    emptyCell.className = 'day-cell empty'; daysGrid.appendChild(emptyCell); 
+                }
+                
+                const monthData = (archiveData[AppState.year] && archiveData[AppState.year][AppState.month]) || {};
+                
+                for (let day = 1; day <= maxDay; day++) {
+                    const cell = document.createElement('div'); cell.className = 'day-cell'; cell.textContent = day;
+                    const dot = document.createElement('div'); dot.className = 'dot'; cell.appendChild(dot);
+                    
+                    if (monthData[day] && monthData[day].length > 0) cell.classList.add('has-notes'); else cell.classList.add('no-notes');
+                    if (AppState.year === today.getFullYear() && AppState.month === today.getMonth() + 1 && day === today.getDate()) cell.classList.add('today');
+                    if (day === AppState.day) cell.classList.add('selected');
+                    
+                    cell.onclick = () => { AppState.day = day; forceRender(); };
+                    daysGrid.appendChild(cell);
+                }
+            } catch (err) { console.error(err); }
+
+            try {
+                let dayData = null;
+                if (archiveData[AppState.year] && archiveData[AppState.year][AppState.month] && archiveData[AppState.year][AppState.month][AppState.day]) {
+                    dayData = archiveData[AppState.year][AppState.month][AppState.day];
+                }
+                
+                if (dayData && Array.isArray(dayData) && dayData.length > 0) {
+                    let filtered = dayData;
+                    if (AppState.filterText) {
+                        filtered = dayData.filter(item => item.title.toLowerCase().includes(AppState.filterText.toLowerCase()));
+                    }
+
+                    if (filtered.length > 0) {
+                        filtered.forEach((note, index) => {
+                            const wrapper = document.createElement('div'); wrapper.className = 'note-item-wrapper';
+                            const a = document.createElement('a'); a.href = note.path; a.className = 'note-item';
+                            a.innerHTML = `<span class="note-title">${note.title}</span>`;
+                            wrapper.appendChild(a);
+
+                            const delBtn = document.createElement('button'); delBtn.className = 'delete-btn'; delBtn.innerHTML = '🗑️';
+                            if (AppState.deleteMode) delBtn.style.display = 'block';
+                            
+                            delBtn.onclick = async (e) => {
+                                e.preventDefault();
+                                if(confirm('确认删除此篇精读笔记并同步删除 GitHub 云端文件吗？')) {
+                                    const pathToDelete = note.path;
+                                    dayData.splice(index, 1);
+                                    if (dayData.length === 0) delete archiveData[AppState.year][AppState.month][AppState.day];
+                                    forceRender();
+                                    await syncDeleteToGithub(pathToDelete);
+                                }
+                            };
+                            wrapper.appendChild(delBtn); notesList.appendChild(wrapper);
+                        });
+                    } else {
+                        notesList.innerHTML = '<div class="empty-state">未找到匹配的精读笔记 🔍</div>';
+                    }
+                } else {
+                    notesList.innerHTML = '<div class="empty-state">当日暂无精读笔记 📖</div>';
+                }
+            } catch (err) { console.error(err); }
+        }
+
+        document.getElementById('yearSelect').addEventListener('change', (e) => { AppState.year = parseInt(e.target.value, 10); forceRender(); });
+        document.getElementById('monthSelect').addEventListener('change', (e) => { AppState.month = parseInt(e.target.value, 10); forceRender(); });
+        document.getElementById('prevBtn').addEventListener('click', () => { AppState.month--; if (AppState.month < 1) { AppState.month = 12; AppState.year--; } forceRender(); });
+        document.getElementById('nextBtn').addEventListener('click', () => { AppState.month++; if (AppState.month > 12) { AppState.month = 1; AppState.year++; } forceRender(); });
+        document.getElementById('todayBtn').addEventListener('click', () => { AppState.year = today.getFullYear(); AppState.month = today.getMonth() + 1; AppState.day = today.getDate(); forceRender(); });
+
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            AppState.filterText = e.target.value.trim();
+            forceRender();
+        });
+
+        let lastTap = 0;
+        document.querySelector('.calendar-wrapper').addEventListener('click', (e) => {
+            const tapLength = new Date().getTime() - lastTap;
+            if (tapLength < 500 && tapLength > 0) {
+                AppState.deleteMode = !AppState.deleteMode;
+                document.querySelectorAll('.delete-btn').forEach(btn => btn.style.display = AppState.deleteMode ? 'block' : 'none');
+                e.preventDefault();
+            }
+            lastTap = new Date().getTime();
+        });
+
+        initSelects(); forceRender();
+
+        // ⚙️ 设置面板控制
+        document.getElementById('openSettingsBtn').addEventListener('click', () => {
+            document.getElementById('cfgGhToken').value = localStorage.getItem('GH_TOKEN') || '';
+            document.getElementById('cfgGhOwner').value = localStorage.getItem('GH_OWNER') || 'moodHappy';
+            document.getElementById('cfgGhRepo').value = localStorage.getItem('GH_REPO') || 'dual-read-notes';
+            document.getElementById('cfgCustomUrl').value = localStorage.getItem('CUSTOM_API_URL') || '';
+            document.getElementById('cfgCustomKey').value = localStorage.getItem('CUSTOM_API_KEY') || '';
+            document.getElementById('cfgCustomModel').value = localStorage.getItem('CUSTOM_MODEL') || '';
+            document.getElementById('settingsModal').style.display = 'flex';
+        });
+        document.getElementById('closeSettingsBtn').addEventListener('click', () => { document.getElementById('settingsModal').style.display = 'none'; });
+        document.getElementById('saveSettingsBtn').addEventListener('click', () => {
+            localStorage.setItem('GH_TOKEN', document.getElementById('cfgGhToken').value.trim());
+            localStorage.setItem('GH_OWNER', document.getElementById('cfgGhOwner').value.trim());
+            localStorage.setItem('GH_REPO', document.getElementById('cfgGhRepo').value.trim());
+            localStorage.setItem('CUSTOM_API_URL', document.getElementById('cfgCustomUrl').value.trim());
+            localStorage.setItem('CUSTOM_API_KEY', document.getElementById('cfgCustomKey').value.trim());
+            localStorage.setItem('CUSTOM_MODEL', document.getElementById('cfgCustomModel').value.trim());
+            document.getElementById('settingsModal').style.display = 'none';
+            alert('配置已保存在本地浏览器！');
+        });
+
+        async function syncDeleteToGithub(fileRelPath) {
+            const ghToken = localStorage.getItem('GH_TOKEN');
+            const ghOwner = localStorage.getItem('GH_OWNER') || 'moodHappy';
+            const ghRepo = localStorage.getItem('GH_REPO') || 'dual-read-notes';
+            if (!ghToken) return alert('本地已移出索引，但未配置 GitHub Token，远端文件未删除。');
+            try {
+                const loadingBar = document.getElementById('loadingBar'); loadingBar.style.width = '30%';
+                const fileRes = await fetch(`https://api.github.com/repos/${ghOwner}/${ghRepo}/contents/${fileRelPath}`, { headers: { 'Authorization': `Bearer ${ghToken}` } });
+                if (fileRes.ok) {
+                    const fileData = await fileRes.json();
+                    await fetch(`https://api.github.com/repos/${ghOwner}/${ghRepo}/contents/${fileRelPath}`, { method: 'DELETE', headers: { 'Authorization': `Bearer ${ghToken}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ message: `Delete note: ${fileRelPath}`, sha: fileData.sha }) });
+                }
+                loadingBar.style.width = '70%';
+                const idxRes = await fetch(`https://api.github.com/repos/${ghOwner}/${ghRepo}/contents/index.html`, { headers: { 'Authorization': `Bearer ${ghToken}` } });
+                const idxData = await idxRes.json();
+                const idxContent = decodeURIComponent(escape(atob(idxData.content.replace(/\n/g, ''))));
+                
+                const dataStart = idxContent.indexOf('/*DATA_START*/') + 14;
+                const dataEnd = idxContent.indexOf('/*DATA_END*/');
+                const newIdxContent = idxContent.substring(0, dataStart) + JSON.stringify(archiveData) + idxContent.substring(dataEnd);
+                
+                loadingBar.style.width = '90%';
+                await fetch(`https://api.github.com/repos/${ghOwner}/${ghRepo}/contents/index.html`, { method: 'PUT', headers: { 'Authorization': `Bearer ${ghToken}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ message: `Update index.html after deletion`, content: btoa(unescape(encodeURIComponent(newIdxContent))), sha: idxData.sha }) });
+                loadingBar.style.width = '100%'; setTimeout(() => { loadingBar.style.width = '0%'; }, 1000);
+            } catch(e) { console.error(e); alert('云端同步删除失败: ' + e.message); document.getElementById('loadingBar').style.width = '0%'; }
+        }
+    </script>
 </body>
 </html>
