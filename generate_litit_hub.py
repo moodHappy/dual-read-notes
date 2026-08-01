@@ -6,13 +6,13 @@ from datetime import datetime, timezone, timedelta
 
 # ================= 配置区 =================
 SUMMARY_DIR = "Summary"      # 网页简报存放的目录
-INDEX_OUTPUT = "index.html"  # 日历枢纽生成位置（建议仓库根目录）
+INDEX_OUTPUT = "index.html"  # 日历枢纽生成位置（仓库根目录）
 tz_utc_8 = timezone(timedelta(hours=8))
 AUTO_PUSH_GITHUB = True      # 生成后是否自动调用 git commit & push
 # ==========================================
 
 def scan_summary_notes():
-    """扫描 Summary/ 目录下的所有 HTML 简报文件，构建日历索引数据"""
+    """扫描 Summary/ 目录下的所有 HTML 简报文件，构建日历索引数据（最新在最前）"""
     archive_data = {}
     total_count = 0
 
@@ -31,7 +31,7 @@ def scan_summary_notes():
             if not os.path.isdir(month_path) or not month_dir.isdigit():
                 continue
 
-            files = sorted([f for f in os.listdir(month_path) if f.endswith('.html')], reverse=True)
+            files = [f for f in os.listdir(month_path) if f.endswith('.html')]
             for file_name in files:
                 file_full_path = os.path.join(month_path, file_name)
                 rel_path = f"{SUMMARY_DIR}/{year_dir}/{month_dir}/{file_name}"
@@ -46,6 +46,7 @@ def scan_summary_notes():
                     # 降级：使用文件系统的修改时间
                     raw_title = file_name.replace(".html", "")
                     mtime = os.path.getmtime(file_full_path)
+                    ts_ms = int(mtime * 1000)
                     dt = datetime.fromtimestamp(mtime, tz=tz_utc_8)
 
                 f_year = str(dt.year)
@@ -61,11 +62,18 @@ def scan_summary_notes():
 
                 archive_data[f_year][f_month][f_day].append({
                     "time": time_str,
+                    "timestamp": ts_ms,
                     "path": rel_path,
                     "title": display_title,
                     "rawTitle": raw_title
                 })
                 total_count += 1
+
+    # 🔑 核心对齐：按时间戳降序排列，确保当天“最新的文章排在最顶部”
+    for y in archive_data:
+        for m in archive_data[y]:
+            for d in archive_data[y][m]:
+                archive_data[y][m][d].sort(key=lambda x: x.get("timestamp", 0), reverse=True)
 
     return archive_data, total_count
 
@@ -222,7 +230,7 @@ def generate_hub_html(archive_data):
                 </div>
                 <div style="flex:1;">
                     <label>GitHub 仓库名</label>
-                    <input type="text" id="cfgGhRepo" placeholder="dual-read-notes">
+                    <input type="text" id="cfgGhRepo" value="dual-read-notes" placeholder="dual-read-notes">
                 </div>
             </div>
 
@@ -262,11 +270,17 @@ def generate_hub_html(archive_data):
             filterText: ''
         };
 
+        // 🔑 修复点1：生成过去 5 年至未来 50 年的年份范围下拉菜单
         function initSelects() {
             const yearSelect = document.getElementById('yearSelect');
             yearSelect.innerHTML = '';
+            const currentYear = today.getFullYear();
             const allYears = new Set(Object.keys(archiveData).map(Number));
-            allYears.add(today.getFullYear());
+            
+            // 加入过去 5 年到未来 50 年范围
+            for (let y = currentYear - 5; y <= currentYear + 50; y++) {
+                allYears.add(y);
+            }
             
             Array.from(allYears).sort((a, b) => b - a).forEach(y => { 
                 const opt = document.createElement('option'); 
@@ -315,6 +329,9 @@ def generate_hub_html(archive_data):
                 }
                 
                 if (dayData && Array.isArray(dayData) && dayData.length > 0) {
+                    // 🔑 修复点2：确保展现时始终按 timestamp 降序排列，最新时间的文章排最上面
+                    dayData.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+
                     let filtered = dayData;
                     if (AppState.filterText) {
                         filtered = dayData.filter(item => item.title.toLowerCase().includes(AppState.filterText.toLowerCase()));
@@ -375,7 +392,7 @@ def generate_hub_html(archive_data):
 
         initSelects(); forceRender();
 
-        // ⚙️ 设置面板控制
+        // 🔑 修复点3：设置面板控制（默认仓库名死锁定 dual-read-notes）
         document.getElementById('openSettingsBtn').addEventListener('click', () => {
             document.getElementById('cfgGhToken').value = localStorage.getItem('GH_TOKEN') || '';
             document.getElementById('cfgGhOwner').value = localStorage.getItem('GH_OWNER') || 'moodHappy';
@@ -389,7 +406,7 @@ def generate_hub_html(archive_data):
         document.getElementById('saveSettingsBtn').addEventListener('click', () => {
             localStorage.setItem('GH_TOKEN', document.getElementById('cfgGhToken').value.trim());
             localStorage.setItem('GH_OWNER', document.getElementById('cfgGhOwner').value.trim());
-            localStorage.setItem('GH_REPO', document.getElementById('cfgGhRepo').value.trim());
+            localStorage.setItem('GH_REPO', document.getElementById('cfgGhRepo').value.trim() || 'dual-read-notes');
             localStorage.setItem('CUSTOM_API_URL', document.getElementById('cfgCustomUrl').value.trim());
             localStorage.setItem('CUSTOM_API_KEY', document.getElementById('cfgCustomKey').value.trim());
             localStorage.setItem('CUSTOM_MODEL', document.getElementById('cfgCustomModel').value.trim());
@@ -400,7 +417,7 @@ def generate_hub_html(archive_data):
         async function syncDeleteToGithub(fileRelPath) {
             const ghToken = localStorage.getItem('GH_TOKEN');
             const ghOwner = localStorage.getItem('GH_OWNER') || 'moodHappy';
-            const ghRepo = localStorage.getItem('GH_REPO') || 'dual-read-notes';
+            const ghRepo = 'dual-read-notes'; // 死锁定 dual-read-notes 仓库
             if (!ghToken) return alert('本地已移出索引，但未配置 GitHub Token，远端文件未删除。');
             try {
                 const loadingBar = document.getElementById('loadingBar'); loadingBar.style.width = '30%';
@@ -435,8 +452,13 @@ def generate_hub_html(archive_data):
 
 def git_push_to_github():
     """自动提交变更并推送到 GitHub 仓库"""
+    if os.getenv("GITHUB_ACTIONS") == "true":
+        print("ℹ️ 当前处于 GitHub Actions 云端环境，交由 Workflow 执行 Commit & Push。")
+        return
+
     if not AUTO_PUSH_GITHUB:
         return
+        
     print("\n⏳ 正在自动推送变更到 GitHub...")
     if not os.path.exists(".git"):
         print("⚠️ 当前目录并非 Git 仓库，跳过 Git Push。")
