@@ -1,26 +1,44 @@
-def git_push_to_github():
-    """自动调用本地系统的 Git 指令将更新推送到 GitHub"""
-    # 🔑 核心防错：如果在 GitHub Actions 云端环境中运行，跳过 Python 内置的 Push，交给 YML 来 Push
-    if os.getenv("GITHUB_ACTIONS") == "true":
-        print("ℹ️ 当前处于 GitHub Actions 云端环境，交由 Workflow 执行 Commit & Push。")
-        return
+name: Rebuild Dual Read Calendar Index
 
-    if not AUTO_PUSH_GITHUB:
-        return
-        
-    print("\n⏳ 正在自动推送变更到 GitHub...")
-    if not os.path.exists(".git"):
-        print("⚠️ 当前目录并非 Git 仓库，跳过 Git Push。")
-        return
-    try:
-        subprocess.run(["git", "add", "."], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        status = subprocess.run(["git", "status", "--porcelain"], capture_output=True, text=True)
-        if not status.stdout.strip():
-            print("ℹ️ 没有发现需要推播的更新。")
-            return
+# 触发条件：定时触发 + 手动触发 + 新精读笔记推送时触发
+on:
+  schedule:
+    - cron: '0 0 * * 1'  # 每周一北京时间早上 8:00 (UTC 00:00) 运行
+  workflow_dispatch:     # 允许在 GitHub 网页上手动点击运行
+  push:
+    paths:
+      - 'Summary/**'     # 只要 Summary 目录下有新的精读 HTML 推送上来，自动触发更新
 
-        subprocess.run(["git", "commit", "-m", "Auto-update Litit reading calendar index"], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-        subprocess.run(["git", "push"], check=True)
-        print("✅ 本地运行成功！已推送至 GitHub。")
-    except subprocess.CalledProcessError as e:
-        print(f"❌ Git 执行失败，错误码: {e.returncode}")
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write    # 赋予机器人写入代码库的权限
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Rebuild Dual Read Calendar Index
+        # 巧妙利用管道符，给脚本发送 "q" 指令
+        # 启动 generate_litit_hub.py 扫描 Summary 目录生成最新的 index.html -> 接收到 q 信号 -> 成功退出
+        run: echo "q" | python generate_litit_hub.py
+
+      - name: Commit and Push changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          
+          # 使用 "." 追踪当前目录下的所有新增和变动，完美兼容 Summary 及其内部子文件夹
+          git add .
+          
+          # 如果 index.html 或索引有变动，提交并推送到 dual-read-notes 仓库
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto rebuild Dual Read calendar index" && git push)
