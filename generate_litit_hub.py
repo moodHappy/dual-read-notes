@@ -392,32 +392,35 @@ def generate_hub_html(archive_data):
 
         initSelects(); forceRender();
 
-        // 🔑 修复点3：设置面板控制（默认仓库名死锁定 dual-read-notes）
+        // 🔑 修复点3：将所有配置 Key 添加专属前缀，避免与其它项目冲突
         document.getElementById('openSettingsBtn').addEventListener('click', () => {
-            document.getElementById('cfgGhToken').value = localStorage.getItem('GH_TOKEN') || '';
-            document.getElementById('cfgGhOwner').value = localStorage.getItem('GH_OWNER') || 'moodHappy';
-            document.getElementById('cfgGhRepo').value = localStorage.getItem('GH_REPO') || 'dual-read-notes';
-            document.getElementById('cfgCustomUrl').value = localStorage.getItem('CUSTOM_API_URL') || '';
-            document.getElementById('cfgCustomKey').value = localStorage.getItem('CUSTOM_API_KEY') || '';
-            document.getElementById('cfgCustomModel').value = localStorage.getItem('CUSTOM_MODEL') || '';
+            document.getElementById('cfgGhToken').value = localStorage.getItem('LITIT_GH_TOKEN') || '';
+            document.getElementById('cfgGhOwner').value = localStorage.getItem('LITIT_GH_OWNER') || 'moodHappy';
+            document.getElementById('cfgGhRepo').value = localStorage.getItem('LITIT_GH_REPO') || 'dual-read-notes';
+            document.getElementById('cfgCustomUrl').value = localStorage.getItem('LITIT_CUSTOM_API_URL') || '';
+            document.getElementById('cfgCustomKey').value = localStorage.getItem('LITIT_CUSTOM_API_KEY') || '';
+            document.getElementById('cfgCustomModel').value = localStorage.getItem('LITIT_CUSTOM_MODEL') || '';
             document.getElementById('settingsModal').style.display = 'flex';
         });
+        
         document.getElementById('closeSettingsBtn').addEventListener('click', () => { document.getElementById('settingsModal').style.display = 'none'; });
+        
         document.getElementById('saveSettingsBtn').addEventListener('click', () => {
-            localStorage.setItem('GH_TOKEN', document.getElementById('cfgGhToken').value.trim());
-            localStorage.setItem('GH_OWNER', document.getElementById('cfgGhOwner').value.trim());
-            localStorage.setItem('GH_REPO', document.getElementById('cfgGhRepo').value.trim() || 'dual-read-notes');
-            localStorage.setItem('CUSTOM_API_URL', document.getElementById('cfgCustomUrl').value.trim());
-            localStorage.setItem('CUSTOM_API_KEY', document.getElementById('cfgCustomKey').value.trim());
-            localStorage.setItem('CUSTOM_MODEL', document.getElementById('cfgCustomModel').value.trim());
+            localStorage.setItem('LITIT_GH_TOKEN', document.getElementById('cfgGhToken').value.trim());
+            localStorage.setItem('LITIT_GH_OWNER', document.getElementById('cfgGhOwner').value.trim());
+            localStorage.setItem('LITIT_GH_REPO', document.getElementById('cfgGhRepo').value.trim() || 'dual-read-notes');
+            localStorage.setItem('LITIT_CUSTOM_API_URL', document.getElementById('cfgCustomUrl').value.trim());
+            localStorage.setItem('LITIT_CUSTOM_API_KEY', document.getElementById('cfgCustomKey').value.trim());
+            localStorage.setItem('LITIT_CUSTOM_MODEL', document.getElementById('cfgCustomModel').value.trim());
             document.getElementById('settingsModal').style.display = 'none';
-            alert('配置已保存在本地浏览器！');
+            alert('配置已保存在本地浏览器（已通过专属前缀隔离）！');
         });
 
         async function syncDeleteToGithub(fileRelPath) {
-            const ghToken = localStorage.getItem('GH_TOKEN');
-            const ghOwner = localStorage.getItem('GH_OWNER') || 'moodHappy';
-            const ghRepo = 'dual-read-notes'; // 死锁定 dual-read-notes 仓库
+            const ghToken = localStorage.getItem('LITIT_GH_TOKEN');
+            const ghOwner = localStorage.getItem('LITIT_GH_OWNER') || 'moodHappy';
+            const ghRepo = localStorage.getItem('LITIT_GH_REPO') || 'dual-read-notes'; // 🔑 已解除仓库名死锁定
+            
             if (!ghToken) return alert('本地已移出索引，但未配置 GitHub Token，远端文件未删除。');
             try {
                 const loadingBar = document.getElementById('loadingBar'); loadingBar.style.width = '30%';
@@ -458,7 +461,7 @@ def git_push_to_github():
 
     if not AUTO_PUSH_GITHUB:
         return
-        
+
     print("\n⏳ 正在自动推送变更到 GitHub...")
     if not os.path.exists(".git"):
         print("⚠️ 当前目录并非 Git 仓库，跳过 Git Push。")
