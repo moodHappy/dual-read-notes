@@ -259,7 +259,7 @@
     <div class="modal">
         <h3>🔄 文件重命名</h3>
         <div class="form-group">
-            <label>新文件名 (包含后缀)</label>
+            <label>新标题名称 (提交时自动追加毫秒时间戳与.html)</label>
             <input type="text" id="rename-input">
         </div>
         <div class="btn-group">
@@ -392,7 +392,7 @@
 
                 // 排除特定保留文件和隐藏文件
                 if (item.name === 'index.html' || item.name === 'admin.html' || item.name.startsWith('.')) continue;
-                
+
                 // 仅保留 HTML 文件（非目录类型时验证后缀）
                 if (item.type !== 'dir' && !item.name.endsWith('.html')) continue;
 
@@ -623,14 +623,23 @@
     // ================= 功能：重命名 =================
     function openRenameModal() {
         const file = selectedFilesMap.values().next().value;
-        document.getElementById('rename-input').value = file.name;
+        // 提取纯文件标题（自动去除现有 .html 后缀及末尾的 _毫秒时间戳）
+        let cleanName = file.name.replace(/\.html?$/i, '').replace(/_\d+$/, '');
+        document.getElementById('rename-input').value = cleanName;
         document.getElementById('rename-modal').style.display = 'flex';
     }
 
     async function execRename() {
         const file = selectedFilesMap.values().next().value;
-        const newName = document.getElementById('rename-input').value.trim();
-        if(!newName || newName === file.name) return;
+        let inputName = document.getElementById('rename-input').value.trim();
+        if(!inputName) return;
+
+        // 若用户误输入了 .html 或末尾时间戳，先予以清理
+        inputName = inputName.replace(/\.html?$/i, '').replace(/_\d+$/, '');
+
+        // 拼接当前 Unix 毫秒级时间戳，自动补全 .html
+        const newName = `${inputName}_${Date.now()}.html`;
+        if(newName === file.name) return;
 
         const btn = document.getElementById('btn-save-rename');
         btn.disabled = true; btn.innerText = "处理中...";
