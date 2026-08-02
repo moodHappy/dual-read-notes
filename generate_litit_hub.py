@@ -12,7 +12,7 @@ AUTO_PUSH_GITHUB = True      # 生成后是否自动调用 git commit & push
 # ==========================================
 
 def scan_summary_notes():
-    """扫描 Summary/ 目录下的所有 HTML 简报文件，构建日历索引数据（最新在最前）"""
+    """扫描 Summary/ 目录及其子目录下的所有 HTML 简报文件，构建日历索引数据（最新在最前）"""
     archive_data = {}
     total_count = 0
 
@@ -20,54 +20,48 @@ def scan_summary_notes():
         print(f"⚠️ 找不到 '{SUMMARY_DIR}' 目录，请确认目录路径！")
         return archive_data, 0
 
-    # 递归遍历 Summary/YYYY/MM/ 文件
-    for year_dir in sorted(os.listdir(SUMMARY_DIR)):
-        year_path = os.path.join(SUMMARY_DIR, year_dir)
-        if not os.path.isdir(year_path) or not year_dir.isdigit():
-            continue
-
-        for month_dir in sorted(os.listdir(year_path)):
-            month_path = os.path.join(year_path, month_dir)
-            if not os.path.isdir(month_path) or not month_dir.isdigit():
+    # 🔑 核心优化：使用 os.walk 递归遍历所有文件夹层级，不再局限于 YYYY/MM 结构
+    for root, dirs, files in os.walk(SUMMARY_DIR):
+        for file_name in files:
+            if not file_name.endswith('.html'):
                 continue
 
-            files = [f for f in os.listdir(month_path) if f.endswith('.html')]
-            for file_name in files:
-                file_full_path = os.path.join(month_path, file_name)
-                rel_path = f"{SUMMARY_DIR}/{year_dir}/{month_dir}/{file_name}"
+            file_full_path = os.path.join(root, file_name)
+            # 统一路径分隔符为正斜杠，确保生成的 web 链接正确
+            rel_path = file_full_path.replace("\\", "/")
 
-                # 尝试解析 文件名格式: safeTitle_timestamp.html
-                match = re.search(r"^(.*)_(\d{10,13})\.html$", file_name)
-                if match:
-                    raw_title = match.group(1)
-                    ts_ms = int(match.group(2))
-                    dt = datetime.fromtimestamp(ts_ms / 1000.0, tz=tz_utc_8)
-                else:
-                    # 降级：使用文件系统的修改时间
-                    raw_title = file_name.replace(".html", "")
-                    mtime = os.path.getmtime(file_full_path)
-                    ts_ms = int(mtime * 1000)
-                    dt = datetime.fromtimestamp(mtime, tz=tz_utc_8)
+            # 尝试解析 文件名格式: safeTitle_timestamp.html
+            match = re.search(r"^(.*)_(\d{10,13})\.html$", file_name)
+            if match:
+                raw_title = match.group(1)
+                ts_ms = int(match.group(2))
+                dt = datetime.fromtimestamp(ts_ms / 1000.0, tz=tz_utc_8)
+            else:
+                # 降级：使用文件系统的修改时间
+                raw_title = file_name.replace(".html", "")
+                mtime = os.path.getmtime(file_full_path)
+                ts_ms = int(mtime * 1000)
+                dt = datetime.fromtimestamp(mtime, tz=tz_utc_8)
 
-                f_year = str(dt.year)
-                f_month = str(dt.month)
-                f_day = str(dt.day)
-                time_str = dt.strftime("%H:%M")
+            f_year = str(dt.year)
+            f_month = str(dt.month)
+            f_day = str(dt.day)
+            time_str = dt.strftime("%H:%M")
 
-                display_title = f"📄 {time_str} {raw_title}"
+            display_title = f"📄 {time_str} {raw_title}"
 
-                if f_year not in archive_data: archive_data[f_year] = {}
-                if f_month not in archive_data[f_year]: archive_data[f_year][f_month] = {}
-                if f_day not in archive_data[f_year][f_month]: archive_data[f_year][f_month][f_day] = []
+            if f_year not in archive_data: archive_data[f_year] = {}
+            if f_month not in archive_data[f_year]: archive_data[f_year][f_month] = {}
+            if f_day not in archive_data[f_year][f_month]: archive_data[f_year][f_month][f_day] = []
 
-                archive_data[f_year][f_month][f_day].append({
-                    "time": time_str,
-                    "timestamp": ts_ms,
-                    "path": rel_path,
-                    "title": display_title,
-                    "rawTitle": raw_title
-                })
-                total_count += 1
+            archive_data[f_year][f_month][f_day].append({
+                "time": time_str,
+                "timestamp": ts_ms,
+                "path": rel_path,
+                "title": display_title,
+                "rawTitle": raw_title
+            })
+            total_count += 1
 
     # 🔑 核心对齐：按时间戳降序排列，确保当天“最新的文章排在最顶部”
     for y in archive_data:
