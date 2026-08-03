@@ -30,10 +30,10 @@ def scan_summary_notes():
             # 统一路径分隔符为正斜杠，确保生成的 web 链接正确
             rel_path = file_full_path.replace("\\", "/")
 
-            # 尝试解析 文件名格式: safeTitle_timestamp.html
+            # 解析 文件名格式: 英文标识符_timestamp.html
             match = re.search(r"^(.*)_(\d{10,13})\.html$", file_name)
             if match:
-                raw_title = match.group(1)
+                raw_title = match.group(1) # 英文标识符
                 ts_ms = int(match.group(2))
                 dt = datetime.fromtimestamp(ts_ms / 1000.0, tz=tz_utc_8)
             else:
@@ -48,7 +48,20 @@ def scan_summary_notes():
             f_day = str(dt.day)
             time_str = dt.strftime("%H:%M")
 
-            display_title = f"📄 {time_str} {raw_title}"
+            # 🔑 核心修复：钻取 HTML 文件源码，提取真正的 <h1> 中文标题作为展示名
+            html_title = raw_title
+            try:
+                with open(file_full_path, 'r', encoding='utf-8') as f:
+                    content = f.read()
+                    h1_match = re.search(r"<h1[^>]*>(.*?)</h1>", content, re.IGNORECASE | re.DOTALL)
+                    if h1_match:
+                        # 剔除 <h1> 内部可能包含的嵌套标签
+                        html_title = re.sub(r"<[^>]+>", "", h1_match.group(1)).strip()
+            except Exception as e:
+                print(f"⚠️ 无法读取文件标题 {file_full_path}: {e}")
+
+            # 列表展示的完美中文名字
+            display_title = f"📄 {time_str} {html_title}"
 
             if f_year not in archive_data: archive_data[f_year] = {}
             if f_month not in archive_data[f_year]: archive_data[f_year][f_month] = {}
@@ -58,8 +71,8 @@ def scan_summary_notes():
                 "time": time_str,
                 "timestamp": ts_ms,
                 "path": rel_path,
-                "title": display_title,
-                "rawTitle": raw_title
+                "title": display_title,  # 展示 <h1> 中文标题
+                "rawTitle": raw_title    # 保留填写的英文标识符作为原始参数
             })
             total_count += 1
 
@@ -427,8 +440,8 @@ def generate_hub_html(archive_data):
             
             if(!content) return alert("请粘贴 HTML 代码！");
             
-            // 过滤非英文/数字符号，空格转短横线
-            filename = filename.replace(/[^a-zA-Z0-9\s-]/g, '').trim().replace(/\s+/g, '-').toLowerCase();
+            // 🔑 精确尊重用户填写的“英文标识符”，保留大写，仅将空格转为短横线
+            filename = filename.replace(/[^a-zA-Z0-9\s-_]/g, '').trim().replace(/\s+/g, '-');
             if(!filename) filename = "article";
 
             const ghToken = localStorage.getItem('LITIT_GH_TOKEN');
@@ -475,7 +488,7 @@ def generate_hub_html(archive_data):
                     time: timeStr,
                     timestamp: ts,
                     path: fullPath,
-                    title: `📄 ${timeStr} ${htmlTitle}`,
+                    title: `📄 ${timeStr} ${htmlTitle}`,  // 与 Python 脚本一样，提取真正的 <h1> 中文标题
                     rawTitle: filename
                 });
 
