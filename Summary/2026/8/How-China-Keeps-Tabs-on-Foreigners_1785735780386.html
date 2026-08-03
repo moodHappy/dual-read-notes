@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style id="core-style">
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            padding: 16px; margin: 0 auto; max-width: 800px; background: #ffffff;
+            color: #2d3748; line-height: 1.8; font-size: 16px; word-wrap: break-word; overflow-x: hidden;
+        }
+        * { box-sizing: border-box; max-width: 100%; }
+        img { max-width: 100%; height: auto; border-radius: 8px; }
+
+        /* AI 批注组件样式 */
+        .anno-toggle, .ai-toggle {
+            display: inline-block; padding: 2px 6px; margin-left: 6px; cursor: pointer;
+            opacity: 0.4; font-size: 0.85rem; vertical-align: middle; transition: all 0.2s;
+            user-select: none; -webkit-tap-highlight-color: transparent;
+        }
+        .anno-toggle:hover, .ai-toggle:hover { opacity: 0.95; transform: scale(1.15); }
+        .anno-toggle.has-anno { opacity: 1; }
+        .anno-toggle::after { content: "🔴"; }
+        .ai-toggle { opacity: 0.7; padding: 2px 4px; }
+        .ai-toggle::after { content: "🤖"; }
+        .ai-toggle.loading::after { content: "⏳"; display: inline-block; animation: spin 1s linear infinite; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        .anno-box {
+            display: none; margin-top: 10px; background: #f8f6ff; border-left: 4px solid #8e7cc3;
+            padding: 12px 16px; border-radius: 0 8px 8px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.03); text-align: left;
+        }
+        .anno-view { font-size: 0.95rem; line-height: 1.6; color: #4a4a4a; min-height: 24px; }
+        .anno-edit {
+            width: 100%; min-height: 120px; padding: 10px; font-family: monospace; font-size: 0.95rem;
+            border: 1px dashed #8e7cc3; border-radius: 6px; box-sizing: border-box; resize: vertical;
+            display: none; background: #fff; color: #333; outline: none;
+        }
+        .anno-edit:focus { border: 1px solid #8e7cc3; box-shadow: 0 0 0 3px rgba(142,124,195,0.15); }
+
+        .markdown-body p { margin-top: 0; margin-bottom: 8px; }
+        .markdown-body p:last-child { margin-bottom: 0; }
+        .markdown-body h1, .markdown-body h2, .markdown-body h3 {
+            color: #6b46c1; font-size: 1.1rem; margin: 10px 0 8px 0; border-bottom: 1px dashed #e9d8fd; padding-bottom: 4px;
+        }
+        .markdown-body ul, .markdown-body ol { margin: 0 0 8px 0; padding-left: 20px; }
+        .markdown-body blockquote { margin: 0 0 10px 0; padding: 8px 12px; background: rgba(142,124,195,0.1); border-left: 4px solid #8e7cc3; color: #555; }
+
+        @media (max-width: 600px) {
+            body { padding: 12px; font-size: 15px; }
+            h1 { font-size: 22px !important; }
+            h2 { font-size: 16px !important; }
+        }
+    </style>
+</head>
+<body>
+    <div class="litit-report" style="width:100%; max-width:100%; box-sizing:border-box; overflow-x:hidden;">
+    <!-- 1. 标题与标签 -->
+    <h1 style="color:#1a202c; font-size: 24px; line-height: 1.4; border-bottom: 3px solid #667eea; padding-bottom: 12px; margin-top:0; word-break:break-word;">中国如何监视在华外国人：被意外曝光的“境外人员动态管控平台”</h1>
+    <p style="color:#4a5568; font-size: 15px; line-height: 1.6; margin-bottom:18px; font-weight:500;">一名网络安全研究员意外发现了一个缺乏密码保护的警方数据库。该平台揭示了中国如何利用监控探头、人脸识别和大数据手段，对上万名在华外籍人士、外国记者及港台人员进行细致入微的追踪与关系网分析。</p>
+    <div style="margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+        <div style="display:flex; flex-wrap:wrap; gap:8px;">
+            <span style="background:#edf2f7; color:#2d3748; padding:5px 10px; border-radius:6px; font-size:13px; font-weight:600;">网络安全</span>
+            <span style="background:#edf2f7; color:#2d3748; padding:5px 10px; border-radius:6px; font-size:13px; font-weight:600;">监控隐私</span>
+            <span style="background:#edf2f7; color:#2d3748; padding:5px 10px; border-radius:6px; font-size:13px; font-weight:600;">大数据技术</span>
+        </div>
+        <a href="https://cn.nytimes.com/china/20260803/china-surveillance-foreigners-database/dual/" target="_blank" style="font-size: 13px; color: #5a67d8; text-decoration: none; font-weight: bold; background: #ebf4ff; padding: 6px 14px; border-radius: 6px; transition: all 0.2s; border: 1px solid #c3dafe; display:inline-block;">🔗 阅读原文</a>
+    </div>
+
+    <!-- 2. 最佳金句 (中英分行排版) -->
+    <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #ed8936; margin:0 0 12px 0; border-radius: 0 6px 6px 0;">💬 最佳金句</h2>
+    <blockquote style="border-left: 4px solid #667eea; background: #f8fafc; padding: 14px; margin: 12px 0 24px 0; font-style: italic; color: #2d3748; border-radius: 0 8px 8px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+        <p style="margin:0 0 6px 0; font-weight:600; font-size: 16px; line-height: 1.6; color:#1a202c; word-break:break-word;">"That kind of integration of data is really quite unprecedented and illustrates China’s lack of safeguards."</p>
+        <p style="margin:0 0 8px 0; font-weight:500; font-size: 15px; line-height: 1.6; color:#4a5568; word-break:break-word;">“这种数据整合程度确实前所未有，也凸显了中国在防护机制方面的缺失。”</p>
+        <footer style="text-align:right; font-size:13px; color:#718096; font-style:normal; font-weight:500;">—— Maya Wang（王亚秋），人权观察亚洲事务副主任</footer>
+    </blockquote>
+
+    <!-- 3. 关键数字 -->
+    <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #38a169; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">📊 关键数字</h2>
+    <div style="display:flex; flex-wrap:wrap; gap:12px; margin:14px 0 24px 0;">
+        <div style="flex:1 1 140px; min-width:130px; background:#fff; border:1px solid #e2e8f0; padding:16px; border-radius:10px; text-align:center; box-shadow:0 2px 5px rgba(0,0,0,0.04); box-sizing:border-box;">
+            <div style="font-size:26px; color:#5a67d8; font-weight:900; margin-bottom:4px;">1.2万</div>
+            <div style="font-size:13px; color:#4a5568; font-weight:500;">数据库中收录的外籍与港台人员记录总数</div>
+        </div>
+        <div style="flex:1 1 140px; min-width:130px; background:#fff; border:1px solid #e2e8f0; padding:16px; border-radius:10px; text-align:center; box-shadow:0 2px 5px rgba(0,0,0,0.04); box-sizing:border-box;">
+            <div style="font-size:26px; color:#5a67d8; font-weight:900; margin-bottom:4px;">300+</div>
+            <div style="font-size:13px; color:#4a5568; font-weight:500;">被该系统后台追踪的外国记者数量</div>
+        </div>
+    </div>
+
+    <!-- 4. 事件时间线 -->
+    <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #3182ce; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">⏱️ 事件时间线</h2>
+    <ul style="padding-left:20px; line-height:1.8; color:#2d3748; font-size: 15px; margin-bottom:24px; word-break:break-word;">
+        <li><strong style="color:#2b6cb0;">2021年：</strong> 针对张家口市的“境外人员动态管控平台”被认为在此时开始开发建设。</li>
+        <li><strong style="color:#2b6cb0;">2023年：</strong> 该平台的开发商北京长源动力科技有限公司为类似的“外籍人员信息界面”系统申请专利。</li>
+        <li><strong style="color:#2b6cb0;">2026年1月：</strong> 网络安全研究员马克·霍弗在例行扫描中发现了该无加密保护的数据库，并开始下载数据。</li>
+        <li><strong style="color:#2b6cb0;">2026年4月：</strong> 平台后台代码进行了最近一次更新修改。</li>
+        <li><strong style="color:#2b6cb0;">2026年5月：</strong> 在下载了大量人员隐私和活动轨迹数据后，该系统网页被官方悄然下线。</li>
+    </ul>
+
+    <!-- 5. 本篇亮点 (双语与生词精读 - 带有交互批注结构) -->
+    <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #805ad5; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">✨ 本篇亮点与精读</h2>
+    <div style="margin:14px 0 24px 0;">
+        <!-- 第一处高亮 -->
+        <div class="litit-highlight-block content-wrap" style="position:relative; margin-bottom:20px; padding-bottom:16px; border-bottom:1px dashed #cbd5e0;">
+            <h3 style="font-size:16px; color:#2d3748; margin:0 0 8px 0; font-weight:700;">底裤被看穿：外籍人士遭无差别深度监控</h3>
+            <div class="content" style="position:relative; margin:0 0 6px 0; color:#1a202c; font-family:Georgia, serif; line-height:1.7; font-size:15px; word-break:break-word;">
+                The database Mr. Hofer found offered a rare window into how extensively the Chinese authorities also surveil foreigners, displaying entries about people categorized by nationality, with their birth date, sex, marital status, address and occupation, and sometimes their religion.
+                <span class="anno-toggle" title="手写批注/笔记"></span>
+                <span class="ai-toggle" title="AI智能二次解析"></span>
+            </div>
+            <p style="margin:0 0 10px 0; color:#4a5568; font-size:14px; line-height:1.6; word-break:break-word;">霍弗发现的这个数据库为外界提供了一个难得的窗口，得以一窥中国当局对外籍人员的监控范围之广——数据库按国籍对人员进行分类，内容包含出生日期、性别、婚姻状况、住址和职业，有时还记录宗教信仰。</p>
+            <div style="background:#fffaf0; padding:10px 12px; border-radius:8px; font-size:14px; color:#c05621; border:1px solid #feebc8; word-break:break-word; margin-bottom:10px;">
+                <strong>Extensively（广泛地 / 细致入微地）</strong>：反映了数据收集维度的广度和对深层个人隐私（如婚姻、宗教）的无孔不入的入侵。
+            </div>
+            <div class="anno-box" style="display:none;">
+                <div class="anno-view markdown-body"></div>
+                <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea>
+            </div>
+        </div>
+
+        <!-- 第二处高亮 -->
+        <div class="litit-highlight-block content-wrap" style="position:relative; margin-bottom:20px; padding-bottom:16px; border-bottom:1px dashed #cbd5e0;">
+            <h3 style="font-size:16px; color:#2d3748; margin:0 0 8px 0; font-weight:700;">政治标签化：监控平台背后的分类学</h3>
+            <div class="content" style="position:relative; margin:0 0 6px 0; color:#1a202c; font-family:Georgia, serif; line-height:1.7; font-size:15px; word-break:break-word;">
+                The platform labeled people from Australia, Canada, New Zealand, the United Kingdom or the United States as being in the “Five Eyes Alliance.” ... The database also tracked international students, foreign spouses and “key persons,” a euphemism often used by the Chinese authorities to refer to activists or fugitives...
+                <span class="anno-toggle" title="手写批注/笔记"></span>
+                <span class="ai-toggle" title="AI智能二次解析"></span>
+            </div>
+            <p style="margin:0 0 10px 0; color:#4a5568; font-size:14px; line-height:1.6; word-break:break-word;">该平台将来自澳大利亚、加拿大、新西兰、英国或美国的人标记为“五眼联盟”成员。……数据库还追踪留学生、外籍配偶以及“重点人员”——后者是中国的有关部门常用的委婉说法，用于指代活动人士、在逃人员或其他被视为对社会稳定构成威胁的人。</p>
+            <div style="background:#fffaf0; padding:10px 12px; border-radius:8px; font-size:14px; color:#c05621; border:1px solid #feebc8; word-break:break-word; margin-bottom:10px;">
+                <strong>Euphemism（委婉说法 / 托辞）</strong>：揭示了官方常用中性词汇（如“重点人员”）来掩盖其针对异见人士、记者进行高压维稳和定点监控的真实政治意图。
+            </div>
+            <div class="anno-box" style="display:none;">
+                <div class="anno-view markdown-body"></div>
+                <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea>
+            </div>
+        </div>
+    </div>
+
+    <!-- 6. Fun Facts -->
+    <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #319795; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">💡 深度内幕 (Fun Facts)</h2>
+    <ul style="padding-left:20px; line-height:1.8; color:#2d3748; font-size:15px; margin-bottom:24px; word-break:break-word;">
+        <li>该数据库不仅追踪个人轨迹，还能通过人脸识别系统将同时出现在监控画面中的外国人关联起来，自动绘制出他们的在华“社交关系网络图”。</li>
+        <li>负责录入该系统数据的张家口警官张经龙，曾在2020年因“积极监控并引导网络舆论”受到官方高调表彰，张家口市公安局甚至直接用他的名字命名了一个人工智能（AI）实验室。</li>
+        <li>讽刺的是，这个号称维护“公共安全”和“动态管控”的先进监控系统，居然连基本的登录密码验证都没做好，使得其收录的机密隐私数据如无掩之门般向全球敞开。</li>
+    </ul>
+
+    <!-- 7. 全片锐评 -->
+    <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #e53e3e; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">🎯 全片锐评</h2>
+    <p style="line-height:1.7; color:#1a202c; font-weight:600; background:#fff5f5; padding:14px; border-radius:10px; font-size:15px; margin:0 0 24px 0; border:1px solid #fed7d7; word-break:break-word;">这篇调查报道无情地击碎了“外籍人士在中国享有相对宽松自由”的幻象。随着“境外人员动态管控平台”这一赛博怪物的意外曝光，我们看到的是一张毫无死角、无差别覆盖的大数据天网。从逛超市的蒙古女性、在校的巴基斯坦留学生，到常驻北京的外国记者，每个人在监控探头下都只是一串带有“五眼联盟”或“重点人员”标签的数据代码。这种在极度缺乏隐私保护和法律制约下的“监控生态泛滥”，将科幻电影《少数派报告》中的透明极权社会变成了冰冷的现实。更具黑色幽默的是，这样一个庞大的监控机器，竟然因为外包商低级的安全配置漏洞被轻易看光了底裤，堪称是对“动态管控”最大的讽刺。</p>
+</div>
+
+    <script id="matrix-engine">
+        const archiveData = /*DATA_START*/REPLACEME_JSON_DATA/*DATA_END*/;
+        const today = new Date();
+        
+        const AppState = {
+            year: today.getFullYear(),
+            month: today.getMonth() + 1,
+            day: today.getDate(),
+            deleteMode: false,
+            filterText: ''
+        };
+
+        function initSelects() {
+            const yearSelect = document.getElementById('yearSelect');
+            if(!yearSelect) return;
+            yearSelect.innerHTML = '';
+            const currentYear = today.getFullYear();
+            const allYears = new Set(Object.keys(archiveData).map(Number));
+            
+            for (let y = currentYear - 5; y <= currentYear + 50; y++) {
+                allYears.add(y);
+            }
+            
+            Array.from(allYears).sort((a, b) => b - a).forEach(y => { 
+                const opt = document.createElement('option'); 
+                opt.value = y; opt.textContent = y + ' 年'; yearSelect.appendChild(opt); 
+            });
+        }
+
+        function forceRender() {
+            const yearSelect = document.getElementById('yearSelect');
+            if(!yearSelect) return;
+            const maxDay = new Date(AppState.year, AppState.month, 0).getDate();
+            if (AppState.day > maxDay) AppState.day = maxDay;
+
+            yearSelect.value = AppState.year;
+            document.getElementById('monthSelect').value = AppState.month;
+
+            const daysGrid = document.getElementById('daysGrid');
+            const notesList = document.getElementById('notesList');
+
+            daysGrid.innerHTML = ''; notesList.innerHTML = '';
+
+            try {
+                const firstDay = new Date(AppState.year, AppState.month - 1, 1).getDay() || 7;
+                for (let i = 1; i < firstDay; i++) { 
+                    const emptyCell = document.createElement('div'); 
+                    emptyCell.className = 'day-cell empty'; daysGrid.appendChild(emptyCell); 
+                }
+                
+                const monthData = (archiveData[AppState.year] && archiveData[AppState.year][AppState.month]) || {};
+                
+                for (let day = 1; day <= maxDay; day++) {
+                    const cell = document.createElement('div'); cell.className = 'day-cell'; cell.textContent = day;
+                    const dot = document.createElement('div'); dot.className = 'dot'; cell.appendChild(dot);
+                    
+                    if (monthData[day] && monthData[day].length > 0) cell.classList.add('has-notes'); else cell.classList.add('no-notes');
+                    if (AppState.year === today.getFullYear() && AppState.month === today.getMonth() + 1 && day === today.getDate()) cell.classList.add('today');
+                    if (day === AppState.day) cell.classList.add('selected');
+                    
+                    cell.onclick = () => { AppState.day = day; forceRender(); };
+                    daysGrid.appendChild(cell);
+                }
+            } catch (err) { console.error(err); }
+
+            try {
+                let dayData = null;
+                if (archiveData[AppState.year] && archiveData[AppState.year][AppState.month] && archiveData[AppState.year][AppState.month][AppState.day]) {
+                    dayData = archiveData[AppState.year][AppState.month][AppState.day];
+                }
+                
+                if (dayData && Array.isArray(dayData) && dayData.length > 0) {
+                    dayData.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+
+                    let filtered = dayData;
+                    if (AppState.filterText) {
+                        filtered = dayData.filter(item => item.title.toLowerCase().includes(AppState.filterText.toLowerCase()));
+                    }
+
+                    if (filtered.length > 0) {
+                        filtered.forEach((note, index) => {
+                            const wrapper = document.createElement('div'); wrapper.className = 'note-item-wrapper';
+                            const a = document.createElement('a'); a.href = note.path; a.className = 'note-item';
+                            a.innerHTML = `<span class="note-title">${note.title}</span>`;
+                            wrapper.appendChild(a);
+
+                            const delBtn = document.createElement('button'); delBtn.className = 'delete-btn'; delBtn.innerHTML = '🗑️';
+                            if (AppState.deleteMode) delBtn.style.display = 'block';
+                            
+                            delBtn.onclick = async (e) => {
+                                e.preventDefault();
+                                if(confirm('确认删除此篇精读笔记并同步删除 GitHub 云端文件吗？')) {
+                                    const pathToDelete = note.path;
+                                    dayData.splice(index, 1);
+                                    if (dayData.length === 0) delete archiveData[AppState.year][AppState.month][AppState.day];
+                                    forceRender();
+                                    await syncDeleteToGithub(pathToDelete);
+                                }
+                            };
+                            wrapper.appendChild(delBtn); notesList.appendChild(wrapper);
+                        });
+                    } else {
+                        notesList.innerHTML = '<div class="empty-state">未找到匹配的精读笔记 🔍</div>';
+                    }
+                } else {
+                    notesList.innerHTML = '<div class="empty-state">当日暂无精读笔记 📖</div>';
+                }
+            } catch (err) { console.error(err); }
+        }
+
+        const elYearSelect = document.getElementById('yearSelect');
+        if(elYearSelect) {
+            elYearSelect.addEventListener('change', (e) => { AppState.year = parseInt(e.target.value, 10); forceRender(); });
+            document.getElementById('monthSelect').addEventListener('change', (e) => { AppState.month = parseInt(e.target.value, 10); forceRender(); });
+            document.getElementById('prevBtn').addEventListener('click', () => { AppState.month--; if (AppState.month < 1) { AppState.month = 12; AppState.year--; } forceRender(); });
+            document.getElementById('nextBtn').addEventListener('click', () => { AppState.month++; if (AppState.month > 12) { AppState.month = 1; AppState.year++; } forceRender(); });
+            document.getElementById('todayBtn').addEventListener('click', () => { AppState.year = today.getFullYear(); AppState.month = today.getMonth() + 1; AppState.day = today.getDate(); forceRender(); });
+
+            document.getElementById('searchInput').addEventListener('input', (e) => {
+                AppState.filterText = e.target.value.trim();
+                forceRender();
+            });
+            
+            document.getElementById('searchInput').addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' && e.target.value.trim() === '') {
+                    e.preventDefault();
+                    document.getElementById('upFilename').value = '';
+                    document.getElementById('upContent').value = '';
+                    document.getElementById('uploadModal').style.display = 'flex';
+                    setTimeout(() => { document.getElementById('upFilename').focus(); }, 100);
+                }
+            });
+
+            let lastTapHub = 0;
+            document.querySelector('.calendar-wrapper').addEventListener('click', (e) => {
+                const tapLength = new Date().getTime() - lastTapHub;
+                if (tapLength < 500 && tapLength > 0) {
+                    AppState.deleteMode = !AppState.deleteMode;
+                    document.querySelectorAll('.delete-btn').forEach(btn => btn.style.display = AppState.deleteMode ? 'block' : 'none');
+                    e.preventDefault();
+                }
+                lastTapHub = new Date().getTime();
+            });
+
+            initSelects(); forceRender();
+
+            document.getElementById('closeUploadBtn').addEventListener('click', () => { document.getElementById('uploadModal').style.display = 'none'; });
+            
+            document.getElementById('saveUploadBtn').addEventListener('click', async () => {
+                let filename = document.getElementById('upFilename').value.trim();
+                let content = document.getElementById('upContent').value.trim();
+                
+                if(!content) return alert("请粘贴 HTML 代码！");
+                
+                filename = filename.replace(/[^a-zA-Z0-9\s-_]/g, '').trim().replace(/\s+/g, '-');
+                if(!filename) filename = "article";
+
+                const ghToken = localStorage.getItem('LITIT_GH_TOKEN');
+                const ghOwner = localStorage.getItem('LITIT_GH_OWNER') || 'moodHappy';
+                const ghRepo = localStorage.getItem('LITIT_GH_REPO') || 'dual-read-notes';
+
+                if (!ghToken) return alert('请先通过右侧齿轮 ⚙️ 配置 GitHub Token！');
+
+                const now = new Date();
+                const yearStr = String(now.getFullYear());
+                const monthStr = String(now.getMonth() + 1);
+                const dayStr = String(now.getDate());
+                const ts = now.getTime();
+                
+                const fullPath = `Summary/${yearStr}/${monthStr}/${filename}_${ts}.html`;
+                
+                try {
+                    const loadingBar = document.getElementById('loadingBar');
+                    loadingBar.style.width = '20%';
+                    document.getElementById('saveUploadBtn').innerText = "推送中...";
+                    
+                    const base64Content = btoa(unescape(encodeURIComponent(content)));
+                    const resUpload = await fetch(`https://api.github.com/repos/${ghOwner}/${ghRepo}/contents/${fullPath}`, {
+                        method: 'PUT',
+                        headers: { 'Authorization': `Bearer ${ghToken}`, 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ message: `Upload new magazine: ${filename}`, content: base64Content })
+                    });
+
+                    if(!resUpload.ok) throw new Error("文件推送失败");
+                    loadingBar.style.width = '60%';
+
+                    let titleMatch = content.match(/<h1[^>]*>(.*?)<\/h1>/i);
+                    let htmlTitle = titleMatch ? titleMatch[1].replace(/<[^>]+>/g, '').trim() : "未命名杂志";
+                    const timeStr = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
+
+                    if(!archiveData[yearStr]) archiveData[yearStr] = {};
+                    if(!archiveData[yearStr][monthStr]) archiveData[yearStr][monthStr] = {};
+                    if(!archiveData[yearStr][monthStr][dayStr]) archiveData[yearStr][monthStr][dayStr] = [];
+
+                    archiveData[yearStr][monthStr][dayStr].push({
+                        time: timeStr,
+                        timestamp: ts,
+                        path: fullPath,
+                        title: `📄 ${timeStr} ${htmlTitle}`,
+                        rawTitle: filename
+                    });
+
+                    AppState.year = now.getFullYear();
+                    AppState.month = now.getMonth() + 1;
+                    AppState.day = now.getDate();
+                    forceRender();
+
+                    const idxRes = await fetch(`https://api.github.com/repos/${ghOwner}/${ghRepo}/contents/index.html`, { headers: { 'Authorization': `Bearer ${ghToken}` } });
+                    const idxData = await idxRes.json();
+                    const idxContent = decodeURIComponent(escape(atob(idxData.content.replace(/\\n/g, ''))));
+                    
+                    const dataStart = idxContent.indexOf('/*DATA_START*/') + 14;
+                    const dataEnd = idxContent.indexOf('/*DATA_END*/');
+                    const newIdxContent = idxContent.substring(0, dataStart) + JSON.stringify(archiveData) + idxContent.substring(dataEnd);
+                    
+                    loadingBar.style.width = '85%';
+                    await fetch(`https://api.github.com/repos/${ghOwner}/${ghRepo}/contents/index.html`, { 
+                        method: 'PUT', 
+                        headers: { 'Authorization': `Bearer ${ghToken}`, 'Content-Type': 'application/json' }, 
+                        body: JSON.stringify({ message: `Auto-update index.html after upload`, content: btoa(unescape(encodeURIComponent(newIdxContent))), sha: idxData.sha }) 
+                    });
+
+                    loadingBar.style.width = '100%';
+                    setTimeout(() => { loadingBar.style.width = '0%'; }, 1000);
+                    
+                    document.getElementById('uploadModal').style.display = 'none';
+                    document.getElementById('saveUploadBtn').innerText = "推送至云端 🚀";
+                    alert('🎉 发布成功！杂志已归档至云端。');
+                    
+                } catch (e) {
+                    console.error(e);
+                    alert("上传失败: " + e.message);
+                    document.getElementById('loadingBar').style.width = '0%';
+                    document.getElementById('saveUploadBtn').innerText = "推送至云端 🚀";
+                }
+            });
+
+            document.getElementById('openSettingsBtn').addEventListener('click', () => {
+                document.getElementById('cfgGhToken').value = localStorage.getItem('LITIT_GH_TOKEN') || '';
+                document.getElementById('cfgGhOwner').value = localStorage.getItem('LITIT_GH_OWNER') || 'moodHappy';
+                document.getElementById('cfgGhRepo').value = localStorage.getItem('LITIT_GH_REPO') || 'dual-read-notes';
+                document.getElementById('cfgCustomUrl').value = localStorage.getItem('LITIT_CUSTOM_API_URL') || '';
+                document.getElementById('cfgCustomKey').value = localStorage.getItem('LITIT_CUSTOM_API_KEY') || '';
+                document.getElementById('cfgCustomModel').value = localStorage.getItem('LITIT_CUSTOM_MODEL') || '';
+                document.getElementById('settingsModal').style.display = 'flex';
+            });
+            
+            document.getElementById('closeSettingsBtn').addEventListener('click', () => { document.getElementById('settingsModal').style.display = 'none'; });
+            
+            document.getElementById('saveSettingsBtn').addEventListener('click', () => {
+                localStorage.setItem('LITIT_GH_TOKEN', document.getElementById('cfgGhToken').value.trim());
+                localStorage.setItem('LITIT_GH_OWNER', document.getElementById('cfgGhOwner').value.trim());
+                localStorage.setItem('LITIT_GH_REPO', document.getElementById('cfgGhRepo').value.trim() || 'dual-read-notes');
+                localStorage.setItem('LITIT_CUSTOM_API_URL', document.getElementById('cfgCustomUrl').value.trim());
+                localStorage.setItem('LITIT_CUSTOM_API_KEY', document.getElementById('cfgCustomKey').value.trim());
+                localStorage.setItem('LITIT_CUSTOM_MODEL', document.getElementById('cfgCustomModel').value.trim());
+                document.getElementById('settingsModal').style.display = 'none';
+                alert('配置已保存在本地浏览器（已通过专属前缀隔离）！');
+            });
+        }
+
+        async function syncDeleteToGithub(fileRelPath) {
+            const ghToken = localStorage.getItem('LITIT_GH_TOKEN');
+            const ghOwner = localStorage.getItem('LITIT_GH_OWNER') || 'moodHappy';
+            const ghRepo = localStorage.getItem('LITIT_GH_REPO') || 'dual-read-notes';
+            
+            if (!ghToken) return alert('本地已移出索引，但未配置 GitHub Token，远端文件未删除。');
+            try {
+                const loadingBar = document.getElementById('loadingBar'); loadingBar.style.width = '30%';
+                const fileRes = await fetch(`https://api.github.com/repos/${ghOwner}/${ghRepo}/contents/${fileRelPath}`, { headers: { 'Authorization': `Bearer ${ghToken}` } });
+                if (fileRes.ok) {
+                    const fileData = await fileRes.json();
+                    await fetch(`https://api.github.com/repos/${ghOwner}/${ghRepo}/contents/${fileRelPath}`, { method: 'DELETE', headers: { 'Authorization': `Bearer ${ghToken}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ message: `Delete note: ${fileRelPath}`, sha: fileData.sha }) });
+                }
+                loadingBar.style.width = '70%';
+                const idxRes = await fetch(`https://api.github.com/repos/${ghOwner}/${ghRepo}/contents/index.html`, { headers: { 'Authorization': `Bearer ${ghToken}` } });
+                const idxData = await idxRes.json();
+                const idxContent = decodeURIComponent(escape(atob(idxData.content.replace(/\\n/g, ''))));
+                
+                const dataStart = idxContent.indexOf('/*DATA_START*/') + 14;
+                const dataEnd = idxContent.indexOf('/*DATA_END*/');
+                const newIdxContent = idxContent.substring(0, dataStart) + JSON.stringify(archiveData) + idxContent.substring(dataEnd);
+                
+                loadingBar.style.width = '90%';
+                await fetch(`https://api.github.com/repos/${ghOwner}/${ghRepo}/contents/index.html`, { method: 'PUT', headers: { 'Authorization': `Bearer ${ghToken}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ message: `Update index.html after deletion`, content: btoa(unescape(encodeURIComponent(newIdxContent))), sha: idxData.sha }) });
+                loadingBar.style.width = '100%'; setTimeout(() => { loadingBar.style.width = '0%'; }, 1000);
+            } catch(e) { console.error(e); alert('云端同步删除失败: ' + e.message); document.getElementById('loadingBar').style.width = '0%'; }
+        }
+
+        // ================= 单页杂志通用引擎 =================
+        let syncTimeout = null;
+        const AI_PROMPT = "请分析以下英文段落，并严格按照以下 Markdown 格式输出（不要输出任何额外的废话）：\n\n### 📌 完整翻译\n\n[此处填写完整翻译]\n\n### 📌 Key Expressions\n\n- **[单词或短语]**\n  = [中文释义]\n  （[可选的补充说明，如倒装结构或语境等]）\n\n段落内容：\n";
+
+        async function fetchGroq(text, apiKey, modelName) {
+            const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+                method: 'POST',
+                headers: { 'Authorization': 'Bearer ' + apiKey, 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    model: modelName || 'llama-3.3-70b-versatile',
+                    messages: [
+                        { role: 'system', content: 'You are an English teacher. Output EXACTLY in the requested Markdown format.' },
+                        { role: 'user', content: AI_PROMPT + '"' + text + '"' }
+                    ],
+                    temperature: 0.3
+                })
+            });
+            if (!res.ok) throw new Error('Groq Error: ' + res.status);
+            const json = await res.json();
+            return json.choices[0].message.content.trim();
+        }
+
+        async function fetchCustomAI(text, url, apiKey, modelName) {
+            let headers = { 'Content-Type': 'application/json' };
+            let bodyData = {};
+
+            if (url.includes('anthropic.com')) {
+                headers['x-api-key'] = apiKey;
+                headers['anthropic-version'] = '2023-06-01';
+                headers['anthropic-dangerous-direct-browser-access'] = 'true';
+                bodyData = {
+                    model: modelName || 'claude-3-5-sonnet-20241022',
+                    max_tokens: 2000,
+                    messages: [{ role: 'user', content: AI_PROMPT + '"' + text + '"' }]
+                };
+            } else if (url.includes('generativelanguage.googleapis.com')) {
+                let targetUrl = url;
+                if (!targetUrl.includes('key=')) {
+                    targetUrl += (targetUrl.includes('?') ? '&' : '?') + 'key=' + apiKey;
+                }
+                const res = await fetch(targetUrl, {
+                    method: 'POST', headers: headers,
+                    body: JSON.stringify({ contents: [{ parts: [{ text: AI_PROMPT + '"' + text + '"' }] }] })
+                });
+                if (!res.ok) throw new Error('Gemini Error: ' + res.status);
+                const json = await res.json();
+                return json.candidates[0].content.parts[0].text.trim();
+            } else {
+                headers['Authorization'] = 'Bearer ' + apiKey;
+                bodyData = {
+                    model: modelName || 'gpt-4o-mini',
+                    messages: [
+                        { role: 'system', content: 'You are an English teacher. Output EXACTLY in the requested Markdown format.' },
+                        { role: 'user', content: AI_PROMPT + '"' + text + '"' }
+                    ],
+                    temperature: 0.3
+                };
+            }
+
+            const res = await fetch(url, { method: 'POST', headers: headers, body: JSON.stringify(bodyData) });
+            if (!res.ok) throw new Error('AI Interface Error: ' + res.status);
+            const json = await res.json();
+            if (json.choices && json.choices.length > 0) return json.choices[0].message.content.trim();
+            throw new Error('AI 返回数据异常');
+        }
+
+        async function executeAIPipeline(text) {
+            const customUrl = localStorage.getItem('LITIT_CUSTOM_API_URL') || '';
+            const customKey = localStorage.getItem('LITIT_CUSTOM_API_KEY') || '';
+            const customModel = localStorage.getItem('LITIT_CUSTOM_MODEL') || '';
+            const groqKey = localStorage.getItem('GROQ_API_KEY') || '';
+            const groqModel = localStorage.getItem('GROQ_MODEL') || '';
+
+            if (customUrl && customKey) {
+                try {
+                    return await fetchCustomAI(text, customUrl, customKey, customModel);
+                } catch (err) {
+                    if (groqKey) return await fetchGroq(text, groqKey, groqModel);
+                    throw err;
+                }
+            } else if (groqKey) {
+                return await fetchGroq(text, groqKey, groqModel);
+            } else {
+                const userKey = prompt('⚠️ 当前页面未检测到 AI Key！\n为了安全，密匙只储存在您本地浏览器中。\n\n请输入您的 API Key (如 sk-xxx 或 gsk_xxx):');
+                if (userKey && userKey.trim()) {
+                    const cleanKey = userKey.trim();
+                    if (cleanKey.startsWith('gsk_')) {
+                        localStorage.setItem('GROQ_API_KEY', cleanKey);
+                    } else {
+                        localStorage.setItem('LITIT_CUSTOM_API_KEY', cleanKey);
+                        localStorage.setItem('LITIT_CUSTOM_API_URL', 'https://api.chatanywhere.tech/v1/chat/completions');
+                    }
+                }
+                throw new Error('未设置 AI API Key');
+            }
+        }
+
+        function getPurifiedFallbackHTML() {
+            const clone = document.documentElement.cloneNode(true);
+            const foreignSelectors = [
+                'relingo-app', 'relin-highlight', 'relin-hc', '[class*="relingo"]', '[data-relin-paragraph]',
+                'grammarly-extension', '[data-grammarly-part]', '[class*="immersive-translate"]', '[data-immersive-translate]'
+            ].join(',');
+            clone.querySelectorAll(foreignSelectors).forEach(el => el.remove());
+            clone.querySelectorAll('relin-highlight, relin-hc').forEach(t => {
+                const frag = document.createDocumentFragment();
+                while(t.firstChild) frag.appendChild(t.firstChild);
+                t.parentNode.replaceChild(frag, t);
+            });
+            clone.querySelectorAll('script').forEach(s => {
+                if (!s.src.includes('marked.min.js') && s.id !== 'matrix-engine') s.remove();
+            });
+            clone.querySelectorAll('style').forEach(s => {
+                if (s.id !== 'core-style') s.remove();
+            });
+
+            const liveTAs = document.querySelectorAll('.anno-edit');
+            clone.querySelectorAll('.anno-edit').forEach((ta, i) => {
+                if(liveTAs[i]) ta.textContent = liveTAs[i].value.trim();
+                const box = ta.closest('.anno-box');
+                if (box) box.style.display = 'none';
+                const view = box ? box.querySelector('.anno-view') : null;
+                if (view) view.innerHTML = '';
+            });
+            return '<!DOCTYPE html>\n<html lang="zh-CN">\n' + clone.innerHTML + '\n</html>';
+        }
+
+        async function syncToCloud() {
+            const ghToken = localStorage.getItem('LITIT_GH_TOKEN') || localStorage.getItem('GH_TOKEN');
+            const ghOwner = localStorage.getItem('LITIT_GH_OWNER') || 'moodHappy';
+            const ghRepo  = localStorage.getItem('LITIT_GH_REPO') || 'dual-read-notes';
+
+            if (!ghToken) return;
+
+            const pathParts = window.location.pathname.split('/');
+            const fileName = pathParts.pop();
+            const month = pathParts.pop();
+            const year = pathParts.pop();
+
+            if(!fileName || !month || !year || isNaN(year) || isNaN(month)) return;
+            const fileRelPath = 'Summary/' + year + '/' + month + '/' + fileName;
+
+            try {
+                const getRes = await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath + '?t=' + Date.now(), {
+                    headers: { 'Authorization': 'Bearer ' + ghToken }, cache: 'no-store'
+                });
+
+                let finalHTML = '';
+                let sha = '';
+
+                if (getRes.ok) {
+                    const fileData = await getRes.json();
+                    sha = fileData.sha;
+                    const cleanRawHTML = decodeURIComponent(escape(atob(fileData.content.replace(/\n/g, ''))));
+                    const parser = new DOMParser();
+                    const cleanDoc = parser.parseFromString(cleanRawHTML, 'text/html');
+                    const liveTAs = document.querySelectorAll('.anno-edit');
+                    const cleanTAs = cleanDoc.querySelectorAll('.anno-edit');
+
+                    liveTAs.forEach((liveTa, index) => {
+                        if (cleanTAs[index]) {
+                            const val = liveTa.value.trim();
+                            cleanTAs[index].textContent = val;
+                            const box = cleanTAs[index].closest('.anno-box');
+                            if (box) box.style.display = 'none';
+                            const view = box ? box.querySelector('.anno-view') : null;
+                            if (view) view.innerHTML = '';
+                        }
+                    });
+
+                    cleanDoc.querySelectorAll('.anno-toggle').forEach(t => {
+                        t.classList.remove('has-anno');
+                        const ta = t.closest('.content-wrap, .litit-highlight-block')?.querySelector('.anno-edit');
+                        if (ta && ta.textContent.trim()) t.classList.add('has-anno');
+                    });
+
+                    finalHTML = '<!DOCTYPE html>\n<html lang="zh-CN">\n' + cleanDoc.documentElement.innerHTML + '\n</html>';
+                } else {
+                    finalHTML = getPurifiedFallbackHTML();
+                }
+
+                await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath, {
+                    method: 'PUT',
+                    headers: { 'Authorization': 'Bearer ' + ghToken, 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        message: 'Silent purified annotation update',
+                        content: btoa(unescape(encodeURIComponent(finalHTML))),
+                        sha: sha || undefined
+                    })
+                });
+            } catch(e) {
+                console.warn('❌ [My Litit] 同步跳过或失败:', e);
+            }
+        }
+
+        function scheduleSync() {
+            if (syncTimeout) clearTimeout(syncTimeout);
+            syncTimeout = setTimeout(() => { syncToCloud(); }, 3000);
+        }
+
+        function initAnnotations() {
+            document.querySelectorAll('.litit-highlight-block, .content-wrap').forEach(wrap => {
+                let content = wrap.querySelector('.content');
+                if (!content) {
+                    const pText = wrap.querySelector('p');
+                    if (pText) {
+                        content = document.createElement('div');
+                        content.className = 'content';
+                        content.style.cssText = 'position:relative; margin:0 0 6px 0; color:#1a202c; font-family:Georgia, serif; line-height:1.7; font-size:15px; word-break:break-word;';
+                        content.innerHTML = pText.innerHTML;
+                        pText.parentNode.replaceChild(content, pText);
+                    }
+                }
+                if (!content) return;
+
+                if (!content.querySelector('.anno-toggle')) {
+                    const toggle = document.createElement('span');
+                    toggle.className = 'anno-toggle';
+                    toggle.title = '手写批注/笔记';
+                    content.appendChild(toggle);
+                }
+                if (!content.querySelector('.ai-toggle')) {
+                    const aiToggle = document.createElement('span');
+                    aiToggle.className = 'ai-toggle';
+                    aiToggle.title = 'AI智能二次解析';
+                    content.appendChild(aiToggle);
+                }
+
+                let box = wrap.querySelector('.anno-box');
+                if (!box) {
+                    box = document.createElement('div');
+                    box.className = 'anno-box';
+                    box.style.display = 'none';
+                    box.innerHTML = '<div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 解析..."></textarea>';
+                    wrap.appendChild(box);
+                }
+
+                const view = box.querySelector('.anno-view');
+                const edit = box.querySelector('.anno-edit');
+                const toggle = content.querySelector('.anno-toggle');
+                const aiToggle = content.querySelector('.ai-toggle');
+
+                if (edit && edit.value.trim()) {
+                    toggle.classList.add('has-anno');
+                    try { view.innerHTML = (typeof marked !== 'undefined') ? marked.parse(edit.value.trim()) : edit.value.trim(); } catch(e){}
+                }
+
+                if (aiToggle) {
+                    aiToggle.onclick = async (e) => {
+                        e.preventDefault(); e.stopPropagation();
+                        if (aiToggle.classList.contains('loading')) return;
+
+                        const pClone = content.cloneNode(true);
+                        pClone.querySelectorAll('.anno-toggle, .ai-toggle').forEach(el => el.remove());
+                        let pText = pClone.textContent.replace(/https?:\/\/\S+/g, '').trim();
+                        if (!pText) return;
+                        aiToggle.classList.add('loading');
+
+                        try {
+                            const aiContent = await executeAIPipeline(pText);
+                            box.style.display = 'block';
+                            view.style.display = 'none';
+                            edit.style.display = 'block';
+                            edit.value = aiContent;
+                            edit.focus(); edit.blur();
+                        } catch (err) {
+                            console.error(err);
+                        } finally {
+                            aiToggle.classList.remove('loading');
+                        }
+                    };
+                }
+
+                if (toggle) {
+                    toggle.onclick = (e) => {
+                        e.preventDefault(); e.stopPropagation();
+                        if (box.style.display === 'block') {
+                            box.style.display = 'none';
+                        } else {
+                            box.style.display = 'block';
+                            if (!edit.value.trim()) {
+                                view.style.display = 'none'; edit.style.display = 'block';
+                                setTimeout(() => { edit.focus(); }, 150);
+                            } else {
+                                view.style.display = 'block'; edit.style.display = 'none';
+                            }
+                        }
+                    };
+                }
+
+                const triggerEdit = (e) => {
+                    if(e) { e.preventDefault(); e.stopPropagation(); }
+                    view.style.display = 'none'; edit.style.display = 'block';
+                    edit.value = edit.value;
+                    setTimeout(() => { edit.focus(); }, 150);
+                };
+
+                view.addEventListener('dblclick', triggerEdit);
+
+                let lastTap = 0;
+                view.addEventListener('touchstart', e => {
+                    if (e.touches.length === 2) { triggerEdit(e); }
+                    else if (e.touches.length === 1) {
+                        const currentTime = new Date().getTime();
+                        if (currentTime - lastTap < 500 && currentTime - lastTap > 0) {
+                            e.preventDefault();
+                            box.style.display = 'none';
+                        }
+                        lastTap = currentTime;
+                    }
+                }, {passive: false});
+
+                if (edit && view) {
+                    edit.onblur = () => {
+                        setTimeout(() => {
+                            const newVal = edit.value.trim();
+                            try { view.innerHTML = newVal ? ((typeof marked !== 'undefined') ? marked.parse(newVal) : newVal) : ''; } catch(e){}
+                            edit.style.display = 'none';
+                            if (newVal) { view.style.display = 'block'; toggle.classList.add('has-anno'); }
+                            else { view.style.display = 'none'; box.style.display = 'none'; toggle.classList.remove('has-anno'); }
+
+                            if (edit.getAttribute('data-old-val') !== newVal) {
+                                edit.setAttribute('data-old-val', newVal);
+                                scheduleSync();
+                            }
+                        }, 150);
+                    };
+                    edit.setAttribute('data-old-val', edit.value.trim());
+                }
+            });
+        }
+        window.addEventListener('DOMContentLoaded', initAnnotations);
+        window.addEventListener('load', initAnnotations);
+    </script>
+</body>
+</html>
