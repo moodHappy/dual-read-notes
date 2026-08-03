@@ -20,7 +20,7 @@ def scan_summary_notes():
         print(f"⚠️ 找不到 '{SUMMARY_DIR}' 目录，请确认目录路径！")
         return archive_data, 0
 
-    # 🔑 核心优化：使用 os.walk 递归遍历所有文件夹层级，不再局限于 YYYY/MM 结构
+    # 递归遍历所有文件夹层级
     for root, dirs, files in os.walk(SUMMARY_DIR):
         for file_name in files:
             if not file_name.endswith('.html'):
@@ -63,7 +63,7 @@ def scan_summary_notes():
             })
             total_count += 1
 
-    # 🔑 核心对齐：按时间戳降序排列，确保当天“最新的文章排在最顶部”
+    # 按时间戳降序排列，确保当天“最新的文章排在最顶部”
     for y in archive_data:
         for m in archive_data[y]:
             for d in archive_data[y][m]:
@@ -100,7 +100,7 @@ def generate_hub_html(archive_data):
         /* 顶部导航与搜索框 */
         .top-bar {
             background: var(--card); padding: 14px 18px; display: flex; gap: 10px; align-items: center;
-            border-bottom: 1px solid var(--border); sticky: top: 0; z-index: 50; box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+            border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 50; box-shadow: 0 2px 10px rgba(0,0,0,0.03);
         }
         .search-input {
             flex: 1; padding: 10px 16px; border: 1.5px solid var(--border); border-radius: 20px;
@@ -160,17 +160,19 @@ def generate_hub_html(archive_data):
         }
 
         .empty-state { text-align: center; padding: 40px 20px; color: var(--muted); font-size: 14px; background: var(--card); border-radius: 14px; }
-        #loadingBar { height: 3px; background: var(--primary-gradient); width: 0%; transition: width 0.3s; position: fixed; top: 0; left: 0; z-index: 100; }
+        #loadingBar { height: 3px; background: var(--primary-gradient); width: 0%; transition: width 0.3s; position: fixed; top: 0; left: 0; z-index: 9999; }
 
-        /* 设置 Modal */
-        .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 100; justify-content: center; align-items: center; padding: 20px; backdrop-filter: blur(4px); }
-        .modal-content { background: var(--card); border-radius: 16px; padding: 22px; width: 100%; max-width: 420px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); max-height: 85vh; overflow-y: auto; }
+        /* Modal 统一样式 */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center; padding: 20px; backdrop-filter: blur(4px); }
+        .modal-content { background: var(--card); border-radius: 16px; padding: 22px; width: 100%; max-width: 460px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); max-height: 90vh; overflow-y: auto; }
         .modal-title { margin: 0 0 15px 0; font-size: 18px; font-weight: bold; color: #1a202c; }
         .form-group { margin-bottom: 15px; }
         .form-group label { display: block; font-size: 13px; color: var(--muted); margin-bottom: 6px; font-weight: bold; }
-        .form-group input, .form-group select { width: 100%; box-sizing: border-box; padding: 10px 12px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 14px; outline: none; background: #fff; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; box-sizing: border-box; padding: 10px 12px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 14px; outline: none; background: #fff; }
+        .form-group textarea { font-family: monospace; resize: vertical; min-height: 200px; }
         .modal-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; border-top: 1px solid var(--border); padding-top: 12px; }
-        .btn { padding: 8px 16px; border-radius: 8px; border: none; font-size: 14px; font-weight: bold; cursor: pointer; }
+        .btn { padding: 8px 16px; border-radius: 8px; border: none; font-size: 14px; font-weight: bold; cursor: pointer; transition: opacity 0.2s; }
+        .btn:hover { opacity: 0.9; }
         .btn-cancel { background: #edf2f7; color: #4a5568; }
         .btn-save { background: var(--primary-gradient); color: #fff; }
     </style>
@@ -179,7 +181,7 @@ def generate_hub_html(archive_data):
     <div id="loadingBar"></div>
 
     <div class="top-bar">
-        <input type="text" id="searchInput" class="search-input" placeholder="🔍 搜索网页精读标题..." autocomplete="off">
+        <input type="text" id="searchInput" class="search-input" placeholder="🔍 搜索，或空置回车发布杂志..." autocomplete="off">
         <button class="settings-btn" id="openSettingsBtn" title="配置中心">⚙️</button>
     </div>
 
@@ -204,6 +206,28 @@ def generate_hub_html(archive_data):
 
         <div class="notes-section">
             <div id="notesList"></div>
+        </div>
+    </div>
+
+    <!-- 上传/发布 Modal -->
+    <div class="modal-overlay" id="uploadModal">
+        <div class="modal-content">
+            <h3 class="modal-title">📤 隐秘发布终端</h3>
+            <p style="font-size:12px; color:#888; margin-top:-10px; margin-bottom:15px;">智能识别当前年月结构。输入全英文简写并粘贴代码，系统将直接推送到远端仓库。</p>
+            
+            <div class="form-group">
+                <label>英文标识符 (将作为文件名前缀)</label>
+                <input type="text" id="upFilename" placeholder="如: spain-migrant-crisis">
+            </div>
+            <div class="form-group">
+                <label>杂志 HTML 源码</label>
+                <textarea id="upContent" placeholder="在此粘贴杂志完整 HTML 代码..."></textarea>
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn btn-cancel" id="closeUploadBtn">取消</button>
+                <button class="btn btn-save" id="saveUploadBtn">推送至云端 🚀</button>
+            </div>
         </div>
     </div>
 
@@ -264,14 +288,12 @@ def generate_hub_html(archive_data):
             filterText: ''
         };
 
-        // 🔑 修复点1：生成过去 5 年至未来 50 年的年份范围下拉菜单
         function initSelects() {
             const yearSelect = document.getElementById('yearSelect');
             yearSelect.innerHTML = '';
             const currentYear = today.getFullYear();
             const allYears = new Set(Object.keys(archiveData).map(Number));
             
-            // 加入过去 5 年到未来 50 年范围
             for (let y = currentYear - 5; y <= currentYear + 50; y++) {
                 allYears.add(y);
             }
@@ -323,7 +345,6 @@ def generate_hub_html(archive_data):
                 }
                 
                 if (dayData && Array.isArray(dayData) && dayData.length > 0) {
-                    // 🔑 修复点2：确保展现时始终按 timestamp 降序排列，最新时间的文章排最上面
                     dayData.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
 
                     let filtered = dayData;
@@ -368,9 +389,20 @@ def generate_hub_html(archive_data):
         document.getElementById('nextBtn').addEventListener('click', () => { AppState.month++; if (AppState.month > 12) { AppState.month = 1; AppState.year++; } forceRender(); });
         document.getElementById('todayBtn').addEventListener('click', () => { AppState.year = today.getFullYear(); AppState.month = today.getMonth() + 1; AppState.day = today.getDate(); forceRender(); });
 
+        // 搜索栏监听：检索过滤 OR 触发发布终端
         document.getElementById('searchInput').addEventListener('input', (e) => {
             AppState.filterText = e.target.value.trim();
             forceRender();
+        });
+        
+        document.getElementById('searchInput').addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && e.target.value.trim() === '') {
+                e.preventDefault();
+                document.getElementById('upFilename').value = '';
+                document.getElementById('upContent').value = '';
+                document.getElementById('uploadModal').style.display = 'flex';
+                setTimeout(() => { document.getElementById('upFilename').focus(); }, 100);
+            }
         });
 
         let lastTap = 0;
@@ -386,7 +418,105 @@ def generate_hub_html(archive_data):
 
         initSelects(); forceRender();
 
-        // 🔑 修复点3：将所有配置 Key 添加专属前缀，避免与其它项目冲突
+        /* ================= 核心发布功能 ================= */
+        document.getElementById('closeUploadBtn').addEventListener('click', () => { document.getElementById('uploadModal').style.display = 'none'; });
+        
+        document.getElementById('saveUploadBtn').addEventListener('click', async () => {
+            let filename = document.getElementById('upFilename').value.trim();
+            let content = document.getElementById('upContent').value.trim();
+            
+            if(!content) return alert("请粘贴 HTML 代码！");
+            
+            // 过滤非英文/数字符号，空格转短横线
+            filename = filename.replace(/[^a-zA-Z0-9\s-]/g, '').trim().replace(/\s+/g, '-').toLowerCase();
+            if(!filename) filename = "article";
+
+            const ghToken = localStorage.getItem('LITIT_GH_TOKEN');
+            const ghOwner = localStorage.getItem('LITIT_GH_OWNER') || 'moodHappy';
+            const ghRepo = localStorage.getItem('LITIT_GH_REPO') || 'dual-read-notes';
+
+            if (!ghToken) return alert('请先通过右侧齿轮 ⚙️ 配置 GitHub Token！');
+
+            const now = new Date();
+            const yearStr = String(now.getFullYear());
+            const monthStr = String(now.getMonth() + 1);
+            const dayStr = String(now.getDate());
+            const ts = now.getTime();
+            
+            // 构建目标路径，自动匹配年月结构 Summary/2026/8/xxx_12345.html
+            const fullPath = `Summary/${yearStr}/${monthStr}/${filename}_${ts}.html`;
+            
+            try {
+                const loadingBar = document.getElementById('loadingBar');
+                loadingBar.style.width = '20%';
+                document.getElementById('saveUploadBtn').innerText = "推送中...";
+                
+                // 1. 推送 HTML 文件到仓库
+                const base64Content = btoa(unescape(encodeURIComponent(content)));
+                const resUpload = await fetch(`https://api.github.com/repos/${ghOwner}/${ghRepo}/contents/${fullPath}`, {
+                    method: 'PUT',
+                    headers: { 'Authorization': `Bearer ${ghToken}`, 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: `Upload new magazine: ${filename}`, content: base64Content })
+                });
+
+                if(!resUpload.ok) throw new Error("文件推送失败");
+                loadingBar.style.width = '60%';
+
+                // 2. 抓取 HTML 标题，更新本地索引变量
+                let titleMatch = content.match(/<h1[^>]*>(.*?)<\/h1>/);
+                let htmlTitle = titleMatch ? titleMatch[1].replace(/<[^>]+>/g, '').trim() : "未命名杂志";
+                const timeStr = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
+
+                if(!archiveData[yearStr]) archiveData[yearStr] = {};
+                if(!archiveData[yearStr][monthStr]) archiveData[yearStr][monthStr] = {};
+                if(!archiveData[yearStr][monthStr][dayStr]) archiveData[yearStr][monthStr][dayStr] = [];
+
+                archiveData[yearStr][monthStr][dayStr].push({
+                    time: timeStr,
+                    timestamp: ts,
+                    path: fullPath,
+                    title: `📄 ${timeStr} ${htmlTitle}`,
+                    rawTitle: filename
+                });
+
+                // 跳转到今天并重绘，让用户立刻看到新上传的文件
+                AppState.year = now.getFullYear();
+                AppState.month = now.getMonth() + 1;
+                AppState.day = now.getDate();
+                forceRender();
+
+                // 3. 将新的索引同步写入云端 index.html，确保持久化
+                const idxRes = await fetch(`https://api.github.com/repos/${ghOwner}/${ghRepo}/contents/index.html`, { headers: { 'Authorization': `Bearer ${ghToken}` } });
+                const idxData = await idxRes.json();
+                const idxContent = decodeURIComponent(escape(atob(idxData.content.replace(/\\n/g, ''))));
+                
+                const dataStart = idxContent.indexOf('/*DATA_START*/') + 14;
+                const dataEnd = idxContent.indexOf('/*DATA_END*/');
+                const newIdxContent = idxContent.substring(0, dataStart) + JSON.stringify(archiveData) + idxContent.substring(dataEnd);
+                
+                loadingBar.style.width = '85%';
+                await fetch(`https://api.github.com/repos/${ghOwner}/${ghRepo}/contents/index.html`, { 
+                    method: 'PUT', 
+                    headers: { 'Authorization': `Bearer ${ghToken}`, 'Content-Type': 'application/json' }, 
+                    body: JSON.stringify({ message: `Auto-update index.html after upload`, content: btoa(unescape(encodeURIComponent(newIdxContent))), sha: idxData.sha }) 
+                });
+
+                loadingBar.style.width = '100%';
+                setTimeout(() => { loadingBar.style.width = '0%'; }, 1000);
+                
+                document.getElementById('uploadModal').style.display = 'none';
+                document.getElementById('saveUploadBtn').innerText = "推送至云端 🚀";
+                alert('🎉 发布成功！杂志已归档至云端。');
+                
+            } catch (e) {
+                console.error(e);
+                alert("上传失败: " + e.message);
+                document.getElementById('loadingBar').style.width = '0%';
+                document.getElementById('saveUploadBtn').innerText = "推送至云端 🚀";
+            }
+        });
+
+        /* ================= 核心设置/删除功能 ================= */
         document.getElementById('openSettingsBtn').addEventListener('click', () => {
             document.getElementById('cfgGhToken').value = localStorage.getItem('LITIT_GH_TOKEN') || '';
             document.getElementById('cfgGhOwner').value = localStorage.getItem('LITIT_GH_OWNER') || 'moodHappy';
@@ -413,7 +543,7 @@ def generate_hub_html(archive_data):
         async function syncDeleteToGithub(fileRelPath) {
             const ghToken = localStorage.getItem('LITIT_GH_TOKEN');
             const ghOwner = localStorage.getItem('LITIT_GH_OWNER') || 'moodHappy';
-            const ghRepo = localStorage.getItem('LITIT_GH_REPO') || 'dual-read-notes'; // 🔑 已解除仓库名死锁定
+            const ghRepo = localStorage.getItem('LITIT_GH_REPO') || 'dual-read-notes';
             
             if (!ghToken) return alert('本地已移出索引，但未配置 GitHub Token，远端文件未删除。');
             try {
