@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style id="core-style">
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            padding: 16px; margin: 0 auto; max-width: 800px; background: #ffffff;
+            color: #2d3748; line-height: 1.8; font-size: 16px; word-wrap: break-word; overflow-x: hidden;
+        }
+        * { box-sizing: border-box; max-width: 100%; }
+        img { max-width: 100%; height: auto; border-radius: 8px; }
+
+        /* AI 批注组件样式 */
+        .anno-toggle, .ai-toggle {
+            display: inline-block; padding: 2px 6px; margin-left: 6px; cursor: pointer;
+            opacity: 0.4; font-size: 0.85rem; vertical-align: middle; transition: all 0.2s;
+            user-select: none; -webkit-tap-highlight-color: transparent;
+        }
+        .anno-toggle:hover, .ai-toggle:hover { opacity: 0.95; transform: scale(1.15); }
+        .anno-toggle.has-anno { opacity: 1; }
+        .anno-toggle::after { content: "🔴"; }
+        .ai-toggle { opacity: 0.7; padding: 2px 4px; }
+        .ai-toggle::after { content: "🤖"; }
+        .ai-toggle.loading::after { content: "⏳"; display: inline-block; animation: spin 1s linear infinite; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        .anno-box {
+            display: none; margin-top: 10px; background: #f8f6ff; border-left: 4px solid #8e7cc3;
+            padding: 12px 16px; border-radius: 0 8px 8px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.03); text-align: left;
+        }
+        .anno-view { font-size: 0.95rem; line-height: 1.6; color: #4a4a4a; min-height: 24px; }
+        .anno-edit {
+            width: 100%; min-height: 120px; padding: 10px; font-family: monospace; font-size: 0.95rem;
+            border: 1px dashed #8e7cc3; border-radius: 6px; box-sizing: border-box; resize: vertical;
+            display: none; background: #fff; color: #333; outline: none;
+        }
+        .anno-edit:focus { border: 1px solid #8e7cc3; box-shadow: 0 0 0 3px rgba(142,124,195,0.15); }
+
+        .markdown-body p { margin-top: 0; margin-bottom: 8px; }
+        .markdown-body p:last-child { margin-bottom: 0; }
+        .markdown-body h1, .markdown-body h2, .markdown-body h3 {
+            color: #6b46c1; font-size: 1.1rem; margin: 10px 0 8px 0; border-bottom: 1px dashed #e9d8fd; padding-bottom: 4px;
+        }
+        .markdown-body ul, .markdown-body ol { margin: 0 0 8px 0; padding-left: 20px; }
+        .markdown-body blockquote { margin: 0 0 10px 0; padding: 8px 12px; background: rgba(142,124,195,0.1); border-left: 4px solid #8e7cc3; color: #555; }
+
+        @media (max-width: 600px) {
+            body { padding: 12px; font-size: 15px; }
+            h1 { font-size: 22px !important; }
+            h2 { font-size: 16px !important; }
+        }
+    </style>
+</head>
+<body>
+    <div class="litit-report" style="width:100%; max-width:100%; box-sizing:border-box; overflow-x:hidden;">
+    
+    <h1 style="color:#1a202c; font-size: 24px; line-height: 1.4; border-bottom: 3px solid #667eea; padding-bottom: 12px; margin-top:0; word-break:break-word;">俄军弹道导弹爆轰基辅及周边地区，造成至少14死22伤，创今年最惨重袭击之一</h1>
+    <p style="color:#4a5568; font-size: 15px; line-height: 1.6; margin-bottom:18px; font-weight:500;">俄罗斯于周三凌晨向乌克兰首都基辅及郊区发动大规模弹道导弹和无人机突袭，击中住宅楼与仓库，导致至少14人死亡、22人受伤。乌方紧急呼吁西方提供更多“爱国者”防空拦截弹，而俄军则称打击目标为乌军物流与无人机制造基地。</p>
+    <div style="margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+        <div style="display:flex; flex-wrap:wrap; gap:8px;">
+            <span style="background:#edf2f7; color:#2d3748; padding:5px 10px; border-radius:6px; font-size:13px; font-weight:600;">俄乌冲突</span>
+            <span style="background:#edf2f7; color:#2d3748; padding:5px 10px; border-radius:6px; font-size:13px; font-weight:600;">基辅遇袭</span>
+            <span style="background:#edf2f7; color:#2d3748; padding:5px 10px; border-radius:6px; font-size:13px; font-weight:600;">弹道导弹</span>
+            <span style="background:#edf2f7; color:#2d3748; padding:5px 10px; border-radius:6px; font-size:13px; font-weight:600;">地缘政治</span>
+        </div>
+        <a href="https://www.bbc.com/news/articles/c330pxyvzzyo" target="_blank" style="font-size: 13px; color: #5a67d8; text-decoration: none; font-weight: bold; background: #ebf4ff; padding: 6px 14px; border-radius: 6px; transition: all 0.2s; border: 1px solid #c3dafe; display:inline-block;">🔗 阅读原文</a>
+    </div>
+
+    
+    <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #ed8936; margin:0 0 12px 0; border-radius: 0 6px 6px 0;">💬 最佳金句</h2>
+    <blockquote style="border-left: 4px solid #667eea; background: #f8fafc; padding: 14px; margin: 12px 0 24px 0; font-style: italic; color: #2d3748; border-radius: 0 8px 8px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+        <p style="margin:0 0 6px 0; font-weight:600; font-size: 16px; line-height: 1.6; color:#1a202c; word-break:break-word;">"The enemy is once again deliberately striking civilians and civilian infrastructure."</p>
+        <p style="margin:0 0 8px 0; font-weight:500; font-size: 15px; line-height: 1.6; color:#4a5568; word-break:break-word;">“敌人再次蓄意将攻击目标对准平民和民用基础设施。”</p>
+        <footer style="text-align:right; font-size:13px; color:#718096; font-style:normal; font-weight:500;">—— 基辅军事行政机构（Kyiv's Military Administration）</footer>
+    </blockquote>
+
+    
+    <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #38a169; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">📊 关键数字</h2>
+    <div style="display:flex; flex-wrap:wrap; gap:12px; margin:14px 0 24px 0;">
+        <div style="flex:1 1 140px; min-width:130px; background:#fff; border:1px solid #e2e8f0; padding:16px; border-radius:10px; text-align:center; box-shadow:0 2px 5px rgba(0,0,0,0.04); box-sizing:border-box;">
+            <div style="font-size:26px; color:#5a67d8; font-weight:900; margin-bottom:4px;">14人</div>
+            <div style="font-size:13px; color:#4a5568; font-weight:500;">基辅及周边地区在本次弹道导弹袭击中已确认遇难的人数</div>
+        </div>
+        <div style="flex:1 1 140px; min-width:130px; background:#fff; border:1px solid #e2e8f0; padding:16px; border-radius:10px; text-align:center; box-shadow:0 2px 5px rgba(0,0,0,0.04); box-sizing:border-box;">
+            <div style="font-size:26px; color:#5a67d8; font-weight:900; margin-bottom:4px;">22人</div>
+            <div style="font-size:13px; color:#4a5568; font-weight:500;">袭击中已确认受伤的人数（其中4人伤势严重）</div>
+        </div>
+        <div style="flex:1 1 140px; min-width:130px; background:#fff; border:1px solid #e2e8f0; padding:16px; border-radius:10px; text-align:center; box-shadow:0 2px 5px rgba(0,0,0,0.04); box-sizing:border-box;">
+            <div style="font-size:26px; color:#5a67d8; font-weight:900; margin-bottom:4px;">9人</div>
+            <div style="font-size:13px; color:#4a5568; font-weight:500;">伤亡最惨重的鲍里斯皮尔区（Boryspil district）遇难人数</div>
+        </div>
+    </div>
+
+    
+    <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #3182ce; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">⏱️ 事件与冲突脉络</h2>
+    <ul style="padding-left:20px; line-height:1.8; color:#2d3748; font-size: 15px; margin-bottom:24px; word-break:break-word;">
+        <li><strong style="color:#2b6cb0;">周三凌晨突袭：</strong>防空警报响彻一个多小时，俄军出动多波次弹道导弹和无人机轰炸基辅市及郊区，造成大量住宅楼和仓库受损，有人被埋于废墟下。</li>
+        <li><strong style="color:#2b6cb0;">伤亡分布确认：</strong>基辅军事行政负责人表示，鲍里斯皮尔区（Boryspil）9人遇难、布查区（Bucha）4人遇难、法斯蒂夫区（Fastiv）1人遇难。</li>
+        <li><strong style="color:#2b6cb0;">俄方通报与声明：</strong>俄罗斯国防部声称打击了基辅地区的军火仓库、军用物流枢纽及无人机分发中心，并在敖德萨黑海港口附近击中了3艘运送武器的货轮。</li>
+        <li><strong style="color:#2b6cb0;">乌方呼吁军援：</strong>面对高烈度弹道导弹轰炸，乌克兰再次紧急敦促西方盟友提供更多美制“爱国者”（Patriot）防空导弹拦截弹。</li>
+        <li><strong style="color:#2b6cb0;">报复打击升级：</strong>近期双方跨境交火白热化。乌军亦增加了对俄境内电力设施及电商仓库（如Wildberries）的袭击，造成莫斯科州及克拉斯诺达尔边疆区多人伤亡。</li>
+    </ul>
+
+    
+    <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #805ad5; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">✨ 本篇亮点与精读</h2>
+    <div style="margin:14px 0 24px 0;">
+        
+        <div class="litit-highlight-block content-wrap" style="position:relative; margin-bottom:20px; padding-bottom:16px; border-bottom:1px dashed #cbd5e0;">
+            <h3 style="font-size:16px; color:#2d3748; margin:0 0 8px 0; font-weight:700;">1. 袭击规模与伤亡分布</h3>
+            <div class="content" style="position:relative; margin:0 0 6px 0; color:#1a202c; font-family:Georgia, serif; line-height:1.7; font-size:15px; word-break:break-word;">
+                Russia has attacked Ukraine with ballistic missiles and drones, killing at least 14 people and leaving at least 22 injured in one of the deadliest strikes across Kyiv this year... Tkachenko said nine people were killed in the Boryspil district, four in the Bucha district, and one in the Fastiv district.
+                <span class="anno-toggle has-anno" title="手写批注/笔记"></span>
+                <span class="ai-toggle" title="AI智能二次解析"></span>
+            </div>
+            <p style="margin:0 0 10px 0; color:#4a5568; font-size:14px; line-height:1.6; word-break:break-word;">俄罗斯使用弹道导弹和无人机袭击了乌克兰，造成至少14人死亡、至少22人受伤，这是今年针对基辅最惨重的袭击之一……特卡琴科表示，鲍里斯皮尔区有9人死亡，布查区有4人死亡，法斯蒂夫区有1人死亡。</p>
+            <div style="background:#fffaf0; padding:10px 12px; border-radius:8px; font-size:14px; color:#c05621; border:1px solid #feebc8; word-break:break-word; margin-bottom:10px;">
+                <strong>Ballistic Missiles（弹道导弹）</strong>：具有极高飞行速度和弧形轨迹的重型导弹，相较于巡航导弹更难被防空系统拦截，因此对城市基础设施构成极大威胁。
+            </div>
+            <div class="anno-box" style="display:none;">
+                <div class="anno-view markdown-body"></div>
+                <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
+
+俄罗斯使用弹道导弹和无人机袭击了乌克兰，造成至少14人死亡，至少22人受伤，这是今年针对整个基辅地区最致命的袭击之一……特卡琴科表示，鲍里斯皮尔区有9人遇难，布查区有4人遇难，法斯蒂夫区有1人遇难。
+
+
+### 📌 Key Expressions
+
+- **ballistic missile**
+  = 弹道导弹
+
+- **drone**
+  = 无人机；无人驾驶飞机
+
+- **at least**
+  = 至少
+
+- **leave sb injured**
+  = 导致/使得某人受伤
+
+- **deadliest strike**
+  = 最致命/伤亡最惨重的袭击
+
+- **across Kyiv**
+  = 穿过基辅全境；在整个基辅地区
+
+- **military administration**
+  = 军事行政机构；军政署
+
+- **district**
+  = 行政区；地区</textarea>
+            </div>
+        </div>
+
+        
+        <div class="litit-highlight-block content-wrap" style="position:relative; margin-bottom:20px; padding-bottom:16px; border-bottom:1px dashed #cbd5e0;">
+            <h3 style="font-size:16px; color:#2d3748; margin:0 0 8px 0; font-weight:700;">2. 军援呼吁与俄军目标指控</h3>
+            <div class="content" style="position:relative; margin:0 0 6px 0; color:#1a202c; font-family:Georgia, serif; line-height:1.7; font-size:15px; word-break:break-word;">
+                Ukraine has urged allies for more US-made Patriot missile interceptors to defend against Russian ballistic attacks. The Russia defence ministry said it had struck logistics hubs and supply centres in Kyiv and the surrounding region.
+                <span class="anno-toggle has-anno" title="手写批注/笔记"></span>
+                <span class="ai-toggle" title="AI智能二次解析"></span>
+            </div>
+            <p style="margin:0 0 10px 0; color:#4a5568; font-size:14px; line-height:1.6; word-break:break-word;">乌克兰已敦促盟友提供更多美制“爱国者”防空拦截弹，以防御俄罗斯的弹道导弹攻击。俄罗斯国防部则表示，其打击了基辅及周边地区的物流枢纽和供应中心。</p>
+            <div style="background:#fffaf0; padding:10px 12px; border-radius:8px; font-size:14px; color:#c05621; border:1px solid #feebc8; word-break:break-word; margin-bottom:10px;">
+                <strong>Patriot Missile Interceptor（爱国者导弹拦截弹）</strong>：美制主力防空导弹系统，也是乌克兰目前抵御俄军弹道导弹和超音速导弹的最关键屏障。
+            </div>
+            <div class="anno-box" style="display:none;">
+                <div class="anno-view markdown-body"></div>
+                <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
+
+乌克兰已敦促盟友提供更多美制“爱国者”防空拦截弹，以防御俄罗斯的弹道导弹袭击。俄罗斯国防部则表示，其打击了基辅及周边地区的物流枢纽和物资供应中心。
+
+
+### 📌 Key Expressions
+
+- **urge allies for sth**
+  = 敦促/呼吁盟友提供某物
+
+- **US-made**
+  = 美国制造的
+
+- **Patriot missile interceptor**
+  = “爱国者”导弹拦截弹
+
+- **defend against**
+  = 防御；抵抗……的进攻
+
+- **ballistic attack**
+  = 弹道导弹袭击
+
+- **defence ministry**
+  = 国防部
+
+- **logistics hub**
+  = 物流枢纽；后勤中心
+
+- **supply centre**
+  = 物资供应中心
+
+- **surrounding region**
+  = 周边地区</textarea>
+            </div>
+        </div>
+    </div>
+
+    
+    <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #319795; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">💡 故事花絮与战场内幕 (Fun Facts)</h2>
+    <ul style="padding-left:20px; line-height:1.8; color:#2d3748; font-size:15px; margin-bottom:24px; word-break:break-word;">
+        <li><strong>无人机“追杀猎捕”争端：</strong> 乌克兰官方对近期在赫尔松地区拍摄到的一段视频表示强烈愤怒，视频显示一名男子在街头被无人机近距离追逐，乌方严厉谴责俄军针对平民展开恶劣的“狩猎”（safari）与“猎杀”。</li>
+        <li><strong>电商仓库成打击焦点：</strong> 本轮空袭前夕，莫斯科州也遭到了无人机袭击，俄罗斯电商巨头 Wildberries 的大型仓库被击中造成5死10伤；此前克拉斯诺达尔一处繁忙海滩遇袭造成7死58伤，显示双方袭击范围已从军事要塞延伸至物流后勤与后方民用节点。</li>
+    </ul>
+
+    
+    <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #e53e3e; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">🎯 全片锐评</h2>
+    <p style="line-height:1.7; color:#1a202c; font-weight:600; background:#fff5f5; padding:14px; border-radius:10px; font-size:15px; margin:0 0 24px 0; border:1px solid #fed7d7; word-break:break-word;">本次俄军对基辅的大规模弹道导弹突袭，再次暴露了乌克兰防空体系在面对高速度、高毁伤弹道打击时的巨大缺口。随着防空导弹库存加速消耗，乌克兰对西方“爱国者”系统的依赖陷入极度被动。与此同时，双方针对对方能源、电商仓库乃至后方平民设施的报复性袭扰急剧升温，尽管双方均否认蓄意攻击平民，但死伤惨重的现实表明，这场消耗战的触角正在向后方社会与基础设施全面渗透。</p>
+</div>
+
+    <script id="core-engine">
+        let syncTimeout = null;
+        const AI_PROMPT = "请分析以下英文段落，并严格按照以下 Markdown 格式输出（不要输出任何额外的废话）：\n\n### 📌 完整翻译\n\n[此处填写完整翻译]\n\n### 📌 Key Expressions\n\n- **[单词或短语]**\n  = [中文释义]\n  （[可选的补充说明，如倒装结构或语境等]）\n\n段落内容：\n";
+
+        async function fetchGroq(text, apiKey, modelName) {
+            const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+                method: 'POST',
+                headers: { 'Authorization': 'Bearer ' + apiKey, 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    model: modelName || 'llama-3.3-70b-versatile',
+                    messages: [
+                        { role: 'system', content: 'You are an English teacher. Output EXACTLY in the requested Markdown format.' },
+                        { role: 'user', content: AI_PROMPT + '"' + text + '"' }
+                    ],
+                    temperature: 0.3
+                })
+            });
+            if (!res.ok) throw new Error('Groq Error: ' + res.status);
+            const json = await res.json();
+            return json.choices[0].message.content.trim();
+        }
+
+        async function fetchCustomAI(text, url, apiKey, modelName) {
+            let headers = { 'Content-Type': 'application/json' };
+            let bodyData = {};
+
+            if (url.includes('anthropic.com')) {
+                headers['x-api-key'] = apiKey;
+                headers['anthropic-version'] = '2023-06-01';
+                headers['anthropic-dangerous-direct-browser-access'] = 'true';
+                bodyData = {
+                    model: modelName || 'claude-3-5-sonnet-20241022',
+                    max_tokens: 2000,
+                    messages: [{ role: 'user', content: AI_PROMPT + '"' + text + '"' }]
+                };
+            } else if (url.includes('generativelanguage.googleapis.com')) {
+                let targetUrl = url;
+                if (!targetUrl.includes('key=')) {
+                    targetUrl += (targetUrl.includes('?') ? '&' : '?') + 'key=' + apiKey;
+                }
+                const res = await fetch(targetUrl, {
+                    method: 'POST', headers: headers,
+                    body: JSON.stringify({ contents: [{ parts: [{ text: AI_PROMPT + '"' + text + '"' }] }] })
+                });
+                if (!res.ok) throw new Error('Gemini Error: ' + res.status);
+                const json = await res.json();
+                return json.candidates[0].content.parts[0].text.trim();
+            } else {
+                headers['Authorization'] = 'Bearer ' + apiKey;
+                bodyData = {
+                    model: modelName || 'gpt-4o-mini',
+                    messages: [
+                        { role: 'system', content: 'You are an English teacher. Output EXACTLY in the requested Markdown format.' },
+                        { role: 'user', content: AI_PROMPT + '"' + text + '"' }
+                    ],
+                    temperature: 0.3
+                };
+            }
+
+            const res = await fetch(url, { method: 'POST', headers: headers, body: JSON.stringify(bodyData) });
+            if (!res.ok) throw new Error('AI Interface Error: ' + res.status);
+            const json = await res.json();
+            if (json.choices && json.choices.length > 0) return json.choices[0].message.content.trim();
+            throw new Error('AI 返回数据异常');
+        }
+
+        async function executeAIPipeline(text) {
+            const customUrl = localStorage.getItem('CUSTOM_API_URL') || '';
+            const customKey = localStorage.getItem('CUSTOM_API_KEY') || '';
+            const customModel = localStorage.getItem('CUSTOM_MODEL') || '';
+            const groqKey = localStorage.getItem('GROQ_API_KEY') || '';
+            const groqModel = localStorage.getItem('GROQ_MODEL') || '';
+
+            if (customUrl && customKey) {
+                try {
+                    return await fetchCustomAI(text, customUrl, customKey, customModel);
+                } catch (err) {
+                    if (groqKey) return await fetchGroq(text, groqKey, groqModel);
+                    throw err;
+                }
+            } else if (groqKey) {
+                return await fetchGroq(text, groqKey, groqModel);
+            } else {
+                const userKey = prompt('⚠️ 当前页面未检测到 AI Key！\n为了安全，密匙只储存在您本地浏览器中。\n\n请输入您的 API Key (如 sk-xxx 或 gsk_xxx):');
+                if (userKey && userKey.trim()) {
+                    const cleanKey = userKey.trim();
+                    if (cleanKey.startsWith('gsk_')) {
+                        localStorage.setItem('GROQ_API_KEY', cleanKey);
+                    } else {
+                        localStorage.setItem('CUSTOM_API_KEY', cleanKey);
+                        localStorage.setItem('CUSTOM_API_URL', 'https://api.chatanywhere.tech/v1/chat/completions');
+                    }
+                }
+                throw new Error('未设置 AI API Key');
+            }
+        }
+
+        function getPurifiedFallbackHTML() {
+            const clone = document.documentElement.cloneNode(true);
+
+            const foreignSelectors = [
+                'relingo-app', 'relin-highlight', 'relin-hc', '[class*="relingo"]', '[data-relin-paragraph]',
+                'grammarly-extension', '[data-grammarly-part]', '[class*="immersive-translate"]', '[data-immersive-translate]'
+            ].join(',');
+
+            clone.querySelectorAll(foreignSelectors).forEach(el => el.remove());
+
+            clone.querySelectorAll('relin-highlight, relin-hc').forEach(t => {
+                const frag = document.createDocumentFragment();
+                while(t.firstChild) frag.appendChild(t.firstChild);
+                t.parentNode.replaceChild(frag, t);
+            });
+
+            clone.querySelectorAll('script').forEach(s => {
+                if (!s.src.includes('marked.min.js') && s.id !== 'core-engine') s.remove();
+            });
+            clone.querySelectorAll('style').forEach(s => {
+                if (s.id !== 'core-style') s.remove();
+            });
+
+            const liveTAs = document.querySelectorAll('.anno-edit');
+            clone.querySelectorAll('.anno-edit').forEach((ta, i) => {
+                if(liveTAs[i]) ta.textContent = liveTAs[i].value.trim();
+                const box = ta.closest('.anno-box');
+                if (box) box.style.display = 'none';
+                const view = box ? box.querySelector('.anno-view') : null;
+                if (view) view.innerHTML = '';
+            });
+
+            return '<!DOCTYPE html>\n<html lang="zh-CN">\n' + clone.innerHTML + '\n</html>';
+        }
+
+        async function syncToCloud() {
+            const ghToken = localStorage.getItem('LITIT_GH_TOKEN') || localStorage.getItem('GH_TOKEN');
+            const ghOwner = 'moodHappy';
+            const ghRepo  = 'dual-read-notes';
+
+            if (!ghToken) return;
+
+            const pathParts = window.location.pathname.split('/');
+            const fileName = pathParts.pop();
+            const month = pathParts.pop();
+            const year = pathParts.pop();
+
+            if(!fileName || !month || !year) return;
+            const fileRelPath = 'Summary/' + year + '/' + month + '/' + fileName;
+
+            try {
+                const getRes = await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath + '?t=' + Date.now(), {
+                    headers: { 'Authorization': 'Bearer ' + ghToken }, cache: 'no-store'
+                });
+
+                let finalHTML = '';
+                let sha = '';
+
+                if (getRes.ok) {
+                    const fileData = await getRes.json();
+                    sha = fileData.sha;
+                    const cleanRawHTML = decodeURIComponent(escape(atob(fileData.content.replace(/\n/g, ''))));
+
+                    const parser = new DOMParser();
+                    const cleanDoc = parser.parseFromString(cleanRawHTML, 'text/html');
+
+                    const liveTAs = document.querySelectorAll('.anno-edit');
+                    const cleanTAs = cleanDoc.querySelectorAll('.anno-edit');
+
+                    liveTAs.forEach((liveTa, index) => {
+                        if (cleanTAs[index]) {
+                            const val = liveTa.value.trim();
+                            cleanTAs[index].textContent = val;
+
+                            const box = cleanTAs[index].closest('.anno-box');
+                            if (box) box.style.display = 'none';
+                            const view = box ? box.querySelector('.anno-view') : null;
+                            if (view) view.innerHTML = '';
+                        }
+                    });
+
+                    cleanDoc.querySelectorAll('.anno-toggle').forEach(t => {
+                        t.classList.remove('has-anno');
+                        const ta = t.closest('.content-wrap, .litit-highlight-block')?.querySelector('.anno-edit');
+                        if (ta && ta.textContent.trim()) t.classList.add('has-anno');
+                    });
+
+                    finalHTML = '<!DOCTYPE html>\n<html lang="zh-CN">\n' + cleanDoc.documentElement.innerHTML + '\n</html>';
+                } else {
+                    finalHTML = getPurifiedFallbackHTML();
+                }
+
+                await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath, {
+                    method: 'PUT',
+                    headers: { 'Authorization': 'Bearer ' + ghToken, 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        message: 'Silent purified annotation update',
+                        content: btoa(unescape(encodeURIComponent(finalHTML))),
+                        sha: sha || undefined
+                    })
+                });
+                console.log('✅ [My Litit] 纯净无污染批注已静默同步至 GitHub');
+            } catch(e) {
+                console.warn('❌ [My Litit] 同步跳过或失败:', e);
+            }
+        }
+
+        function scheduleSync() {
+            if (syncTimeout) clearTimeout(syncTimeout);
+            syncTimeout = setTimeout(() => { syncToCloud(); }, 3000);
+        }
+
+        function initAnnotations() {
+            document.querySelectorAll('.litit-highlight-block, .content-wrap').forEach(wrap => {
+                let content = wrap.querySelector('.content');
+                if (!content) {
+                    const pText = wrap.querySelector('p');
+                    if (pText) {
+                        content = document.createElement('div');
+                        content.className = 'content';
+                        content.style.cssText = 'position:relative; margin:0 0 6px 0; color:#1a202c; font-family:Georgia, serif; line-height:1.7; font-size:15px; word-break:break-word;';
+                        content.innerHTML = pText.innerHTML;
+                        pText.parentNode.replaceChild(content, pText);
+                    }
+                }
+                if (!content) return;
+
+                if (!content.querySelector('.anno-toggle')) {
+                    const toggle = document.createElement('span');
+                    toggle.className = 'anno-toggle';
+                    toggle.title = '手写批注/笔记';
+                    content.appendChild(toggle);
+                }
+                if (!content.querySelector('.ai-toggle')) {
+                    const aiToggle = document.createElement('span');
+                    aiToggle.className = 'ai-toggle';
+                    aiToggle.title = 'AI智能二次解析';
+                    content.appendChild(aiToggle);
+                }
+
+                let box = wrap.querySelector('.anno-box');
+                if (!box) {
+                    box = document.createElement('div');
+                    box.className = 'anno-box';
+                    box.style.display = 'none';
+                    box.innerHTML = '<div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 解析..."></textarea>';
+                    wrap.appendChild(box);
+                }
+
+                const view = box.querySelector('.anno-view');
+                const edit = box.querySelector('.anno-edit');
+                const toggle = content.querySelector('.anno-toggle');
+                const aiToggle = content.querySelector('.ai-toggle');
+
+                if (edit && edit.value.trim()) {
+                    toggle.classList.add('has-anno');
+                    try { view.innerHTML = (typeof marked !== 'undefined') ? marked.parse(edit.value.trim()) : edit.value.trim(); } catch(e){}
+                }
+
+                if (aiToggle) {
+                    aiToggle.onclick = async (e) => {
+                        e.preventDefault(); e.stopPropagation();
+                        if (aiToggle.classList.contains('loading')) return;
+
+                        const pClone = content.cloneNode(true);
+                        pClone.querySelectorAll('.anno-toggle, .ai-toggle').forEach(el => el.remove());
+                        let pText = pClone.textContent.replace(/https?:\/\/\S+/g, '').trim();
+
+                        if (!pText) return;
+
+                        aiToggle.classList.add('loading');
+
+                        try {
+                            const aiContent = await executeAIPipeline(pText);
+                            box.style.display = 'block';
+                            view.style.display = 'none';
+                            edit.style.display = 'block';
+                            edit.value = aiContent;
+                            edit.focus(); edit.blur();
+                        } catch (err) {
+                            console.error(err);
+                        } finally {
+                            aiToggle.classList.remove('loading');
+                        }
+                    };
+                }
+
+                if (toggle) {
+                    toggle.onclick = (e) => {
+                        e.preventDefault(); e.stopPropagation();
+                        if (box.style.display === 'block') {
+                            box.style.display = 'none';
+                        } else {
+                            box.style.display = 'block';
+                            if (!edit.value.trim()) {
+                                view.style.display = 'none'; edit.style.display = 'block';
+                                setTimeout(() => { edit.focus(); }, 150);
+                            } else {
+                                view.style.display = 'block'; edit.style.display = 'none';
+                            }
+                        }
+                    };
+                }
+
+                const triggerEdit = (e) => {
+                    if(e) { e.preventDefault(); e.stopPropagation(); }
+                    view.style.display = 'none'; edit.style.display = 'block';
+                    edit.value = edit.value;
+                    setTimeout(() => { edit.focus(); }, 150);
+                };
+
+                view.addEventListener('dblclick', triggerEdit);
+
+                let lastTap = 0;
+                view.addEventListener('touchstart', e => {
+                    if (e.touches.length === 2) { triggerEdit(e); }
+                    else if (e.touches.length === 1) {
+                        const currentTime = new Date().getTime();
+                        if (currentTime - lastTap < 500 && currentTime - lastTap > 0) {
+                            e.preventDefault();
+                            box.style.display = 'none';
+                        }
+                        lastTap = currentTime;
+                    }
+                }, {passive: false});
+
+                if (edit && view) {
+                    edit.onblur = () => {
+                        setTimeout(() => {
+                            const newVal = edit.value.trim();
+                            try { view.innerHTML = newVal ? ((typeof marked !== 'undefined') ? marked.parse(newVal) : newVal) : ''; } catch(e){}
+                            edit.style.display = 'none';
+                            if (newVal) { view.style.display = 'block'; toggle.classList.add('has-anno'); }
+                            else { view.style.display = 'none'; box.style.display = 'none'; toggle.classList.remove('has-anno'); }
+
+                            if (edit.getAttribute('data-old-val') !== newVal) {
+                                edit.setAttribute('data-old-val', newVal);
+                                scheduleSync();
+                            }
+                        }, 150);
+                    };
+                    edit.setAttribute('data-old-val', edit.value.trim());
+                }
+            });
+        }
+        window.addEventListener('DOMContentLoaded', initAnnotations);
+        window.addEventListener('load', initAnnotations);
+    </script>
+</body>
+</html>
