@@ -46,12 +46,31 @@
         <a href="https://www.bbc.com/news/articles/cr7kldz4djno" target="_blank" style="font-size: 13px; color: #5a67d8; text-decoration: none; font-weight: bold; background: #ebf4ff; padding: 6px 14px; border-radius: 6px; transition: all 0.2s; border: 1px solid #c3dafe; display:inline-block;">🔗 阅读原文</a>
     </div>
 
+    <!-- 最佳金句现在也支持批注功能了，包装在 content-wrap 中 -->
     <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #ed8936; margin:0 0 12px 0; border-radius: 0 6px 6px 0;">💬 最佳金句</h2>
-    <blockquote style="border-left: 4px solid #667eea; background: #f8fafc; padding: 14px; margin: 12px 0 24px 0; font-style: italic; color: #2d3748; border-radius: 0 8px 8px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
-        <p style="margin:0 0 6px 0; font-weight:600; font-size: 16px; line-height: 1.6; color:#1a202c; word-break:break-word;">"The absence of documents does not just mean the absence of a piece of paper - it means denying the child access to education, healthcare and legal recognition."</p>
-        <p style="margin:0 0 8px 0; font-weight:500; font-size: 15px; line-height: 1.6; color:#4a5568; word-break:break-word;">“缺乏证件绝不仅仅意味着少了一张纸——它意味着剥夺了孩子接受教育、医疗保健和法律认可的权利。”</p>
-        <footer style="text-align:right; font-size:13px; color:#718096; font-style:normal; font-weight:500;">—— Majida Idris，苏丹律师</footer>
-    </blockquote>
+    <div class="content-wrap" style="position:relative; margin-bottom:24px;">
+        <blockquote style="border-left: 4px solid #667eea; background: #f8fafc; padding: 14px; margin: 0; font-style: italic; color: #2d3748; border-radius: 0 8px 8px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+            <div class="content" style="position:relative; margin:0 0 6px 0; font-weight:600; font-size: 16px; line-height: 1.6; color:#1a202c; word-break:break-word;">
+                "The absence of documents does not just mean the absence of a piece of paper - it means denying the child access to education, healthcare and legal recognition."
+            </div>
+            <p style="margin:0 0 8px 0; font-weight:500; font-size: 15px; line-height: 1.6; color:#4a5568; word-break:break-word;">“缺乏证件绝不仅仅意味着少了一张纸——它意味着剥夺了孩子接受教育、医疗保健和法律认可的权利。”</p>
+            <footer style="text-align:right; font-size:13px; color:#718096; font-style:normal; font-weight:500;">—— Majida Idris，苏丹律师</footer>
+        </blockquote>
+        
+        <div class="anno-box" style="display:none;">
+            <div class="anno-view markdown-body"></div>
+            <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
+“缺乏证件绝不仅仅意味着少了一张纸——它意味着剥夺了孩子接受教育、医疗保健和法律认可的权利。”
+
+### 📌 Key Expressions
+- **absence of** = ……的缺乏；……的缺失
+- **not just mean** = 不仅仅意味着
+- **a piece of paper** = 一张纸（此处隐喻官方的身份文件）
+- **deny sb access to sth** = 剥夺某人获得/接触某物的权利；拒绝给予某人……
+- **healthcare** = 医疗保健
+- **legal recognition** = 法律认可（即合法身份认定）</textarea>
+        </div>
+    </div>
 
     <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #38a169; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">📊 关键数字</h2>
     <div style="display:flex; flex-wrap:wrap; gap:12px; margin:14px 0 24px 0;">
