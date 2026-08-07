@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<style id="core-style">
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; padding: 16px; margin: 0 auto; max-width: 800px; background: #ffffff; color: #2d3748; line-height: 1.8; font-size: 16px; word-wrap: break-word; overflow-x: hidden; }
+    * { box-sizing: border-box; max-width: 100%; }
+    img { max-width: 100%; height: auto; border-radius: 8px; }
+    /* AI 批注组件样式 */
+    .anno-toggle, .ai-toggle { display: inline-block; padding: 2px 6px; margin-left: 6px; cursor: pointer; opacity: 0.4; font-size: 0.85rem; vertical-align: middle; transition: all 0.2s; user-select: none; -webkit-tap-highlight-color: transparent; }
+    .anno-toggle:hover, .ai-toggle:hover { opacity: 0.95; transform: scale(1.15); }
+    .anno-toggle.has-anno { opacity: 1; }
+    .anno-toggle::after { content: "🔴"; }
+    .ai-toggle { opacity: 0.7; padding: 2px 4px; }
+    .ai-toggle::after { content: "🤖"; }
+    .ai-toggle.loading::after { content: "⏳"; display: inline-block; animation: spin 1s linear infinite; }
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+    .anno-box { display: none; margin-top: 10px; background: #f8f6ff; border-left: 4px solid #8e7cc3; padding: 12px 16px; border-radius: 0 8px 8px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.03); text-align: left; }
+    .anno-view { font-size: 0.95rem; line-height: 1.6; color: #4a4a4a; min-height: 24px; }
+    .anno-edit { width: 100%; min-height: 120px; padding: 10px; font-family: monospace; font-size: 0.95rem; border: 1px dashed #8e7cc3; border-radius: 6px; box-sizing: border-box; resize: vertical; display: none; background: #fff; color: #333; outline: none; }
+    .anno-edit:focus { border: 1px solid #8e7cc3; box-shadow: 0 0 0 3px rgba(142,124,195,0.15); }
+    .markdown-body p { margin-top: 0; margin-bottom: 8px; }
+    .markdown-body p:last-child { margin-bottom: 0; }
+    .markdown-body h1, .markdown-body h2, .markdown-body h3 { color: #6b46c1; font-size: 1.1rem; margin: 10px 0 8px 0; border-bottom: 1px dashed #e9d8fd; padding-bottom: 4px; }
+    .markdown-body ul, .markdown-body ol { margin: 0 0 8px 0; padding-left: 20px; }
+    .markdown-body blockquote { margin: 0 0 10px 0; padding: 8px 12px; background: rgba(142,124,195,0.1); border-left: 4px solid #8e7cc3; color: #555; }
+    @media (max-width: 600px) { body { padding: 12px; font-size: 15px; } h1 { font-size: 22px !important; } h2 { font-size: 16px !important; } }
+</style>
+</head>
+<body>
+
+<div class="litit-report" style="width:100%; max-width:100%; box-sizing:border-box; overflow-x:hidden;">
+
+    <h1 style="color:#1a202c; font-size: 24px; line-height: 1.4; border-bottom: 3px solid #667eea; padding-bottom: 12px; margin-top:0; word-break:break-word;">苏丹战争中的“隐形儿童”：没有合法身份的深渊</h1>
+    
+    <p style="color:#4a5568; font-size: 15px; line-height: 1.6; margin-bottom:18px; font-weight:500;">17岁的苏丹女孩 Amira 在内战中遭武装分子绑架并轮奸，生下的孩子因为生父不详且战区民政系统崩溃，无法获得出生证明和合法身份。这并非孤例。在残酷的苏丹内战中，成千上万因性暴力出生的“隐形儿童”正面临着无法接种疫苗、无法接受教育的绝境，并将在社会污名化中艰难求生。</p>
+    
+    <div style="margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+        <div style="display:flex; flex-wrap:wrap; gap:8px;">
+            <span style="background:#edf2f7; color:#2d3748; padding:5px 10px; border-radius:6px; font-size:13px; font-weight:600;">人道危机</span>
+            <span style="background:#edf2f7; color:#2d3748; padding:5px 10px; border-radius:6px; font-size:13px; font-weight:600;">儿童权益保护</span>
+            <span style="background:#edf2f7; color:#2d3748; padding:5px 10px; border-radius:6px; font-size:13px; font-weight:600;">战争暴行</span>
+        </div>
+        <a href="https://www.bbc.com/news/articles/cr7kldz4djno" target="_blank" style="font-size: 13px; color: #5a67d8; text-decoration: none; font-weight: bold; background: #ebf4ff; padding: 6px 14px; border-radius: 6px; transition: all 0.2s; border: 1px solid #c3dafe; display:inline-block;">🔗 阅读原文</a>
+    </div>
+
+    <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #ed8936; margin:0 0 12px 0; border-radius: 0 6px 6px 0;">💬 最佳金句</h2>
+    <blockquote style="border-left: 4px solid #667eea; background: #f8fafc; padding: 14px; margin: 12px 0 24px 0; font-style: italic; color: #2d3748; border-radius: 0 8px 8px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+        <p style="margin:0 0 6px 0; font-weight:600; font-size: 16px; line-height: 1.6; color:#1a202c; word-break:break-word;">"The absence of documents does not just mean the absence of a piece of paper - it means denying the child access to education, healthcare and legal recognition."</p>
+        <p style="margin:0 0 8px 0; font-weight:500; font-size: 15px; line-height: 1.6; color:#4a5568; word-break:break-word;">“缺乏证件绝不仅仅意味着少了一张纸——它意味着剥夺了孩子接受教育、医疗保健和法律认可的权利。”</p>
+        <footer style="text-align:right; font-size:13px; color:#718096; font-style:normal; font-weight:500;">—— Majida Idris，苏丹律师</footer>
+    </blockquote>
+
+    <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #38a169; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">📊 关键数字</h2>
+    <div style="display:flex; flex-wrap:wrap; gap:12px; margin:14px 0 24px 0;">
+        <div style="flex:1 1 140px; min-width:130px; background:#fff; border:1px solid #e2e8f0; padding:16px; border-radius:10px; text-align:center; box-shadow:0 2px 5px rgba(0,0,0,0.04); box-sizing:border-box;">
+            <div style="font-size:26px; color:#5a67d8; font-weight:900; margin-bottom:4px;">18个月</div>
+            <div style="font-size:13px; color:#4a5568; font-weight:500;">苏丹法希尔市（el-Fasher）在内战中被围困直至陷落的时间</div>
+        </div>
+        <div style="flex:1 1 140px; min-width:130px; background:#fff; border:1px solid #e2e8f0; padding:16px; border-radius:10px; text-align:center; box-shadow:0 2px 5px rgba(0,0,0,0.04); box-sizing:border-box;">
+            <div style="font-size:26px; color:#5a67d8; font-weight:900; margin-bottom:4px;">90%</div>
+            <div style="font-size:13px; color:#4a5568; font-weight:500;">援助组织记录中，受害者家庭拒绝正式向警方报告性侵事件的比例</div>
+        </div>
+    </div>
+
+    <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #3182ce; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">⏱️ 事件时间线</h2>
+    <ul style="padding-left:20px; line-height:1.8; color:#2d3748; font-size: 15px; margin-bottom:24px; word-break:break-word;">
+        <li><strong style="color:#2b6cb0;">2023年4月：</strong>苏丹正规军与快速支援部队 (RSF) 爆发激烈权力斗争，全国陷入残酷内战。</li>
+        <li><strong style="color:#2b6cb0;">2024年10月：</strong>经过长达18个月的围困，军队在达尔富尔地区的最后一个据点法希尔市陷落。</li>
+        <li><strong style="color:#2b6cb0;">2025年初：</strong>17岁的 Amira 及其家人试图逃离饥荒与轰炸，途中她被三名武装人员绑架、囚禁并轮奸长达两个月。</li>
+        <li><strong style="color:#2b6cb0;">2025年后期：</strong>Amira 在国际医疗机构生下一名男婴，但因无法提供生父信息及战区民政系统瘫痪，婴儿至今无法进行出生登记。</li>
+    </ul>
+
+    <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #805ad5; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">✨ 本篇亮点与精读</h2>
+    
+    <div style="margin:14px 0 24px 0;">
+        <!-- 重点段落 1 -->
+        <div class="litit-highlight-block content-wrap" style="position:relative; margin-bottom:20px; padding-bottom:16px; border-bottom:1px dashed #cbd5e0;">
+            <h3 style="font-size:16px; color:#2d3748; margin:0 0 8px 0; font-weight:700;">创伤与未知的重压</h3>
+            <div class="content" style="position:relative; margin:0 0 6px 0; color:#1a202c; font-family:Georgia, serif; line-height:1.7; font-size:15px; word-break:break-word;">
+                A 17-year-old Sudanese girl holds a young child in her arms with a heavy calm that belies her age and the concerns she has for his future.
+            </div>
+            <p style="margin:0 0 10px 0; color:#4a5568; font-size:14px; line-height:1.6; word-break:break-word;">一名17岁的苏丹女孩怀里抱着一个幼童，她展现出一种与年龄不符的沉重与平静，掩盖了她对孩子未来的深深担忧。</p>
+            <div style="background:#fffaf0; padding:10px 12px; border-radius:8px; font-size:14px; color:#c05621; border:1px solid #feebc8; word-break:break-word; margin-bottom:10px;">
+                <strong>Belie (掩饰 / 证明...是虚假的)</strong>：高级词汇。这里指她外表那份“沉重的平静 (heavy calm)”掩饰了内心的焦虑，也与她仅17岁的年龄极不相符。在进行长难句拆解时，这个词常用来表现外表与内在的强烈反差。
+            </div>
+            <div class="anno-box" style="display:none;">
+                <div class="anno-view markdown-body"></div>
+                <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
+一名17岁的苏丹女孩将一个年幼的孩子抱在怀中，她带着一种沉重的平静，这种平静掩饰了她的真实年龄，也掩盖了她对这孩子未来的深深忧虑。
+
+### 📌 Key Expressions
+- **hold sth in one's arms** = 把某物/某人抱在怀里
+- **with a heavy calm** = 带着一种沉重的平静
+- **belie** = 掩饰；证明……是虚假的；与……不符（核心动词，常用于描写表里不一或极具反差感的状态）
+- **belie her age** = 与她的年龄不符（指她看起来比17岁要沧桑、沉稳得多）
+- **concern for** = 对……的担忧/关切
+- **concerns she has for his future** = 她对孩子未来所抱有的担忧（定语从句修饰 concerns）</textarea>
+            </div>
+        </div>
+
+        <!-- 重点段落 2 -->
+        <div class="litit-highlight-block content-wrap" style="position:relative; margin-bottom:20px; padding-bottom:16px; border-bottom:1px dashed #cbd5e0;">
+            <h3 style="font-size:16px; color:#2d3748; margin:0 0 8px 0; font-weight:700;">难以启动的民事程序</h3>
+            <div class="content" style="position:relative; margin:0 0 6px 0; color:#1a202c; font-family:Georgia, serif; line-height:1.7; font-size:15px; word-break:break-word;">
+                But it relies on the mother being willing to file a report that she has been assaulted - because this kick starts the registration process.
+            </div>
+            <p style="margin:0 0 10px 0; color:#4a5568; font-size:14px; line-height:1.6; word-break:break-word;">但这依赖于母亲愿意提交一份自己遭到性侵的报告——因为这是启动登记程序的先决条件。</p>
+            <div style="background:#fffaf0; padding:10px 12px; border-radius:8px; font-size:14px; color:#c05621; border:1px solid #feebc8; word-break:break-word; margin-bottom:10px;">
+                <strong>Kick start (启动 / 促进)</strong>：原意是“踩下摩托车的启动踏板”，在新闻英语中高频用于表示“推动某事开始”。但在战乱和极端社会污名的背景下，要求未成年受害者主动报案来“启动”这一程序，无疑是强人所难。
+            </div>
+            <div class="anno-box" style="display:none;">
+                <div class="anno-view markdown-body"></div>
+                <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
+但这依赖于母亲愿意提交一份报告，声明自己遭到了侵犯——因为这（份报告）是启动（身份）登记程序的先决条件。
+
+### 📌 Key Expressions
+- **rely on** = 依赖于；取决于
+- **being willing to do sth** = 愿意做某事（动名词短语作介词 on 的宾语）
+- **file a report** = 提交报告；报案
+- **assault** = 侵犯；袭击（在本文语境中特指 sexual assault 性侵犯）
+- **kick start** = 启动；使……开始运转（非正式用语，生动形象地表示施加一个初始动力让流程跑起来）
+- **registration process** = 登记程序；注册流程</textarea>
+            </div>
+        </div>
+    </div>
+
+    <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #319795; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">💡 冰冷真相 (Chilling Facts)</h2>
+    <ul style="padding-left:20px; line-height:1.8; color:#2d3748; font-size:15px; margin-bottom:24px; word-break:break-word;">
+        <li>在现代官僚体系中，失去身份证明等同于从社会系统中被“抹除”。Amira 的孩子目前没有国民号码（National Number），这意味着他不仅无法获得基础的疫苗接种，在可预见的未来也无法入学、无法合法就医，成年后甚至无法自由出行。</li>
+        <li>虽然苏丹的《儿童法》允许非婚生子女进行登记，但实际操作中存在巨大的法律盲区：母亲必须正式报案。然而，大量受害母亲本身也是未满18岁的儿童，她们没有独立报案的法律资格，必须由监护人陪同。在强烈的贞操观和社会污名下，90%的家庭宁可隐瞒真相，也不愿跨入警察局。</li>
+    </ul>
+
+    <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #e53e3e; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">🎯 全片锐评</h2>
+    <p style="line-height:1.7; color:#1a202c; font-weight:600; background:#fff5f5; padding:14px; border-radius:10px; font-size:15px; margin:0 0 24px 0; border:1px solid #fed7d7; word-break:break-word;">
+        这篇报道揭开了战争中最隐秘、也最残忍的一道伤疤。在枪炮声中，武装分子的性暴力不仅摧毁了未成年女性的身心，更通过残缺的法律与崩溃的行政系统，将暴力的后果无限期地施加在了下一代身上。对于任何身处教育一线、陪伴孩子们成长的人来说，看到一个幼童连进入托儿所的资格（nursery enrolment）都被官僚系统和战火物理剥夺，无疑是一种令人窒息的痛楚。这已经不再是单纯的法律文书缺位，而是一整代人正在被系统性地剥夺“作为人”的全部社会权利。即便有朝一日苏丹停火，这些连出生证明都没有、被社会污名化重重包裹的“隐形儿童”，又该如何拼凑他们破碎的人生？这是一场悄无声息却将影响苏丹数十年的深远灾难。
+    </p>
+
+</div>
+
+<script id="core-engine">
+let syncTimeout = null;
+const AI_PROMPT = "请分析以下英文段落，并严格按照以下 Markdown 格式输出（不要输出任何额外的废话）：\n\n### 📌 完整翻译\n\n[此处填写完整翻译]\n\n### 📌 Key Expressions\n\n- **[单词或短语]**\n = [中文释义]\n （[可选的补充说明，如倒装结构或语境等]）\n\n段落内容：\n";
+
+async function fetchGroq(text, apiKey, modelName) {
+    const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+            'Authorization': 'Bearer ' + apiKey,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            model: modelName || 'llama-3.3-70b-versatile',
+            messages: [
+                { role: 'system', content: 'You are an English teacher. Output EXACTLY in the requested Markdown format.' },
+                { role: 'user', content: AI_PROMPT + '"' + text + '"' }
+            ],
+            temperature: 0.3
+        })
+    });
+    if (!res.ok) throw new Error('Groq Error: ' + res.status);
+    const json = await res.json();
+    return json.choices[0].message.content.trim();
+}
+
+async function fetchCustomAI(text, url, apiKey, modelName) {
+    let headers = { 'Content-Type': 'application/json' };
+    let bodyData = {};
+    
+    if (url.includes('anthropic.com')) {
+        headers['x-api-key'] = apiKey;
+        headers['anthropic-version'] = '2023-06-01';
+        headers['anthropic-dangerous-direct-browser-access'] = 'true';
+        bodyData = {
+            model: modelName || 'claude-3-5-sonnet-20241022',
+            max_tokens: 2000,
+            messages: [{ role: 'user', content: AI_PROMPT + '"' + text + '"' }]
+        };
+    } else if (url.includes('generativelanguage.googleapis.com')) {
+        let targetUrl = url;
+        if (!targetUrl.includes('key=')) {
+            targetUrl += (targetUrl.includes('?') ? '&' : '?') + 'key=' + apiKey;
+        }
+        const res = await fetch(targetUrl, {
+            method: 'POST',
+            headers: headers,
+            body: JSON.stringify({
+                contents: [{ parts: [{ text: AI_PROMPT + '"' + text + '"' }] }]
+            })
+        });
+        if (!res.ok) throw new Error('Gemini Error: ' + res.status);
+        const json = await res.json();
+        return json.candidates[0].content.parts[0].text.trim();
+    } else {
+        headers['Authorization'] = 'Bearer ' + apiKey;
+        bodyData = {
+            model: modelName || 'gpt-4o-mini',
+            messages: [
+                { role: 'system', content: 'You are an English teacher. Output EXACTLY in the requested Markdown format.' },
+                { role: 'user', content: AI_PROMPT + '"' + text + '"' }
+            ],
+            temperature: 0.3
+        };
+    }
+    
+    const res = await fetch(url, {
+        method: 'POST',
+        headers: headers,
+        body: JSON.stringify(bodyData)
+    });
+    if (!res.ok) throw new Error('AI Interface Error: ' + res.status);
+    const json = await res.json();
+    if (json.choices && json.choices.length > 0) return json.choices[0].message.content.trim();
+    throw new Error('AI 返回数据异常');
+}
+
+async function executeAIPipeline(text) {
+    const customUrl = localStorage.getItem('CUSTOM_API_URL') || '';
+    const customKey = localStorage.getItem('CUSTOM_API_KEY') || '';
+    const customModel = localStorage.getItem('CUSTOM_MODEL') || '';
+    const groqKey = localStorage.getItem('GROQ_API_KEY') || '';
+    const groqModel = localStorage.getItem('GROQ_MODEL') || '';
+
+    if (customUrl && customKey) {
+        try {
+            return await fetchCustomAI(text, customUrl, customKey, customModel);
+        } catch (err) {
+            if (groqKey) return await fetchGroq(text, groqKey, groqModel);
+            throw err;
+        }
+    } else if (groqKey) {
+        return await fetchGroq(text, groqKey, groqModel);
+    } else {
+        const userKey = prompt('⚠️ 当前页面未检测到 AI Key！\n为了安全，密匙只储存在您本地浏览器中。\n\n请输入您的 API Key (如 sk-xxx 或 gsk_xxx):');
+        if (userKey && userKey.trim()) {
+            const cleanKey = userKey.trim();
+            if (cleanKey.startsWith('gsk_')) {
+                localStorage.setItem('GROQ_API_KEY', cleanKey);
+            } else {
+                localStorage.setItem('CUSTOM_API_KEY', cleanKey);
+                localStorage.setItem('CUSTOM_API_URL', 'https://api.chatanywhere.tech/v1/chat/completions');
+            }
+        }
+        throw new Error('未设置 AI API Key');
+    }
+}
+
+// --- 降级清理防线：净化污染节点 ---
+function getPurifiedFallbackHTML() {
+    const clone = document.documentElement.cloneNode(true);
+    
+    const foreignSelectors = [
+        'relingo-app', 'relin-highlight', 'relin-hc', '[class*="relingo"]', '[data-relin-paragraph]',
+        'grammarly-extension', '[data-grammarly-part]',
+        '[class*="immersive-translate"]', '[data-immersive-translate]'
+    ].join(',');
+    
+    clone.querySelectorAll(foreignSelectors).forEach(el => el.remove());
+    
+    clone.querySelectorAll('relin-highlight, relin-hc').forEach(t => {
+        const frag = document.createDocumentFragment();
+        while(t.firstChild) frag.appendChild(t.firstChild);
+        t.parentNode.replaceChild(frag, t);
+    });
+    
+    clone.querySelectorAll('script').forEach(s => {
+        if (!s.src.includes('marked.min.js') && s.id !== 'core-engine') s.remove();
+    });
+    clone.querySelectorAll('style').forEach(s => {
+        if (s.id !== 'core-style') s.remove();
+    });
+
+    const liveTAs = document.querySelectorAll('.anno-edit');
+    clone.querySelectorAll('.anno-edit').forEach((ta, i) => {
+        if(liveTAs[i]) ta.textContent = liveTAs[i].value.trim();
+        const box = ta.closest('.anno-box');
+        if (box) box.style.display = 'none';
+        const view = box ? box.querySelector('.anno-view') : null;
+        if (view) view.innerHTML = '';
+    });
+    
+    return '<!DOCTYPE html>\n<html lang="zh-CN">\n' + clone.innerHTML + '\n</html>';
+}
+
+// --- 内存反向打补丁同步技术（100% 死锁定 dual-read-notes，无弹窗静默）---
+async function syncToCloud() {
+    const ghToken = localStorage.getItem('LITIT_GH_TOKEN') || localStorage.getItem('GH_TOKEN');
+    const ghOwner = 'moodHappy';
+    const ghRepo = 'dual-read-notes';
+    if (!ghToken) return;
+
+    const pathParts = window.location.pathname.split('/');
+    const fileName = pathParts.pop();
+    const month = pathParts.pop();
+    const year = pathParts.pop();
+    if(!fileName || !month || !year) return;
+    const fileRelPath = 'Summary/' + year + '/' + month + '/' + fileName;
+
+    try {
+        const getRes = await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath + '?t=' + Date.now(), {
+            headers: { 'Authorization': 'Bearer ' + ghToken },
+            cache: 'no-store'
+        });
+
+        let finalHTML = '';
+        let sha = '';
+
+        if (getRes.ok) {
+            const fileData = await getRes.json();
+            sha = fileData.sha;
+            
+            const cleanRawHTML = decodeURIComponent(escape(atob(fileData.content.replace(/\n/g, ''))));
+            const parser = new DOMParser();
+            const cleanDoc = parser.parseFromString(cleanRawHTML, 'text/html');
+
+            const liveTAs = document.querySelectorAll('.anno-edit');
+            const cleanTAs = cleanDoc.querySelectorAll('.anno-edit');
+            liveTAs.forEach((liveTa, index) => {
+                if (cleanTAs[index]) {
+                    const val = liveTa.value.trim();
+                    cleanTAs[index].textContent = val;
+                    const box = cleanTAs[index].closest('.anno-box');
+                    if (box) box.style.display = 'none';
+                    const view = box ? box.querySelector('.anno-view') : null;
+                    if (view) view.innerHTML = '';
+                }
+            });
+
+            cleanDoc.querySelectorAll('.anno-toggle').forEach(t => {
+                t.classList.remove('has-anno');
+                const ta = t.closest('.content-wrap, .litit-highlight-block')?.querySelector('.anno-edit');
+                if (ta && ta.textContent.trim()) t.classList.add('has-anno');
+            });
+            
+            finalHTML = '<!DOCTYPE html>\n<html lang="zh-CN">\n' + cleanDoc.documentElement.innerHTML + '\n</html>';
+        } else {
+            finalHTML = getPurifiedFallbackHTML();
+        }
+
+        await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath, {
+            method: 'PUT',
+            headers: {
+                'Authorization': 'Bearer ' + ghToken,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                message: 'Silent purified annotation update',
+                content: btoa(unescape(encodeURIComponent(finalHTML))),
+                sha: sha || undefined
+            })
+        });
+        console.log('✅ [My Litit] 纯净无污染批注已静默同步至 GitHub');
+    } catch(e) {
+        console.warn('❌ [My Litit] 同步跳过或失败:', e);
+    }
+}
+
+function scheduleSync() {
+    if (syncTimeout) clearTimeout(syncTimeout);
+    syncTimeout = setTimeout(() => { syncToCloud(); }, 3000);
+}
+
+function initAnnotations() {
+    document.querySelectorAll('.litit-highlight-block, .content-wrap').forEach(wrap => {
+        let content = wrap.querySelector('.content');
+        if (!content) {
+            const pText = wrap.querySelector('p');
+            if (pText) {
+                content = document.createElement('div');
+                content.className = 'content';
+                content.style.cssText = 'position:relative; margin:0 0 6px 0; color:#1a202c; font-family:Georgia, serif; line-height:1.7; font-size:15px; word-break:break-word;';
+                content.innerHTML = pText.innerHTML;
+                pText.parentNode.replaceChild(content, pText);
+            }
+        }
+        if (!content) return;
+
+        if (!content.querySelector('.anno-toggle')) {
+            const toggle = document.createElement('span');
+            toggle.className = 'anno-toggle';
+            toggle.title = '手写批注/笔记';
+            content.appendChild(toggle);
+        }
+        if (!content.querySelector('.ai-toggle')) {
+            const aiToggle = document.createElement('span');
+            aiToggle.className = 'ai-toggle';
+            aiToggle.title = 'AI智能二次解析';
+            content.appendChild(aiToggle);
+        }
+
+        let box = wrap.querySelector('.anno-box');
+        if (!box) {
+            box = document.createElement('div');
+            box.className = 'anno-box';
+            box.style.display = 'none';
+            box.innerHTML = '<div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 解析..."></textarea>';
+            wrap.appendChild(box);
+        }
+
+        const view = box.querySelector('.anno-view');
+        const edit = box.querySelector('.anno-edit');
+        const toggle = content.querySelector('.anno-toggle');
+        const aiToggle = content.querySelector('.ai-toggle');
+
+        if (edit && edit.value.trim()) {
+            toggle.classList.add('has-anno');
+            try { view.innerHTML = (typeof marked !== 'undefined') ? marked.parse(edit.value.trim()) : edit.value.trim(); } catch(e){}
+        }
+
+        if (aiToggle) {
+            aiToggle.onclick = async (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                if (aiToggle.classList.contains('loading')) return;
+                
+                const pClone = content.cloneNode(true);
+                pClone.querySelectorAll('.anno-toggle, .ai-toggle').forEach(el => el.remove());
+                let pText = pClone.textContent.replace(/https?:\/\/\S+/g, '').trim();
+                if (!pText) return;
+
+                aiToggle.classList.add('loading');
+                try {
+                    const aiContent = await executeAIPipeline(pText);
+                    box.style.display = 'block';
+                    view.style.display = 'none';
+                    edit.style.display = 'block';
+                    edit.value = aiContent;
+                    edit.focus();
+                    edit.blur();
+                } catch (err) {
+                    console.error(err);
+                } finally {
+                    aiToggle.classList.remove('loading');
+                }
+            };
+        }
+
+        if (toggle) {
+            toggle.onclick = (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                if (box.style.display === 'block') {
+                    box.style.display = 'none';
+                } else {
+                    box.style.display = 'block';
+                    if (!edit.value.trim()) {
+                        view.style.display = 'none';
+                        edit.style.display = 'block';
+                        setTimeout(() => { edit.focus(); }, 150);
+                    } else {
+                        view.style.display = 'block';
+                        edit.style.display = 'none';
+                    }
+                }
+            };
+        }
+
+        const triggerEdit = (e) => {
+            if(e) { e.preventDefault(); e.stopPropagation(); }
+            view.style.display = 'none';
+            edit.style.display = 'block';
+            edit.value = edit.value; 
+            setTimeout(() => { edit.focus(); }, 150);
+        };
+
+        view.addEventListener('dblclick', triggerEdit);
+
+        let lastTap = 0;
+        view.addEventListener('touchstart', e => {
+            if (e.touches.length === 2) {
+                triggerEdit(e);
+            } else if (e.touches.length === 1) {
+                const currentTime = new Date().getTime();
+                if (currentTime - lastTap < 500 && currentTime - lastTap > 0) {
+                    e.preventDefault();
+                    box.style.display = 'none';
+                }
+                lastTap = currentTime;
+            }
+        }, {passive: false});
+
+        if (edit && view) {
+            edit.onblur = () => {
+                setTimeout(() => {
+                    const newVal = edit.value.trim();
+                    try { view.innerHTML = newVal ? ((typeof marked !== 'undefined') ? marked.parse(newVal) : newVal) : ''; } catch(e){}
+                    
+                    edit.style.display = 'none';
+                    
+                    if (newVal) {
+                        view.style.display = 'block';
+                        toggle.classList.add('has-anno');
+                    } else {
+                        view.style.display = 'none';
+                        box.style.display = 'none';
+                        toggle.classList.remove('has-anno');
+                    }
+
+                    if (edit.getAttribute('data-old-val') !== newVal) {
+                        edit.setAttribute('data-old-val', newVal);
+                        scheduleSync();
+                    }
+                }, 150);
+            };
+            edit.setAttribute('data-old-val', edit.value.trim());
+        }
+    });
+}
+
+window.addEventListener('DOMContentLoaded', initAnnotations);
+window.addEventListener('load', initAnnotations);
+</script>
+</body>
+</html>
