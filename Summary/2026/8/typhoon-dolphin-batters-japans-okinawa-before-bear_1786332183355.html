@@ -52,9 +52,9 @@
 - **Typhoon** = 台风（西北太平洋海域的热带气旋）</textarea>
         </div>
     </div>
-    
+
     <p style="color:#4a5568; font-size: 15px; line-height: 1.6; margin-bottom:18px; font-weight:500;">超强台风“海豚”周六席卷日本冲绳岛，带来时速高达162公里的狂风，导致超4.4万栋建筑停电、树木被连根拔起、车辆侧翻。随着风暴路径向西移动，中国东部沿海如临大敌，浙江省已发布最高级别台风预警，多地机场、港口及学校宣布紧急关闭，严阵以待强厄尔尼诺年带来的极端天气考验。</p>
-    
+
     <div style="margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
         <div style="display:flex; flex-wrap:wrap; gap:8px;">
             <span style="background:#edf2f7; color:#2d3748; padding:5px 10px; border-radius:6px; font-size:13px; font-weight:600;">自然灾害</span>
@@ -74,7 +74,7 @@
             <p style="margin:0 0 8px 0; font-weight:500; font-size: 15px; line-height: 1.6; color:#4a5568; word-break:break-word;">“今年是强厄尔尼诺年，专家表示这意味着台风可能会变得更加猛烈。”</p>
             <footer style="text-align:right; font-size:13px; color:#718096; font-style:normal; font-weight:500;">—— 气象专家研判</footer>
         </blockquote>
-        
+
         <div class="anno-box" style="display:none;">
             <div class="anno-view markdown-body"></div>
             <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
@@ -109,7 +109,7 @@
     </ul>
 
     <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #805ad5; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">✨ 本篇亮点与精读</h2>
-    
+
     <div style="margin:14px 0 24px 0;">
         <!-- 重点段落 1 -->
         <div class="litit-highlight-block content-wrap" style="position:relative; margin-bottom:20px; padding-bottom:16px; border-bottom:1px dashed #cbd5e0;">
@@ -204,7 +204,7 @@ async function fetchGroq(text, apiKey, modelName) {
 async function fetchCustomAI(text, url, apiKey, modelName) {
     let headers = { 'Content-Type': 'application/json' };
     let bodyData = {};
-    
+
     if (url.includes('anthropic.com')) {
         headers['x-api-key'] = apiKey;
         headers['anthropic-version'] = '2023-06-01';
@@ -240,7 +240,7 @@ async function fetchCustomAI(text, url, apiKey, modelName) {
             temperature: 0.3
         };
     }
-    
+
     const res = await fetch(url, {
         method: 'POST',
         headers: headers,
@@ -286,21 +286,21 @@ async function executeAIPipeline(text) {
 // --- 降级清理防线：净化污染节点 ---
 function getPurifiedFallbackHTML() {
     const clone = document.documentElement.cloneNode(true);
-    
+
     const foreignSelectors = [
         'relingo-app', 'relin-highlight', 'relin-hc', '[class*="relingo"]', '[data-relin-paragraph]',
         'grammarly-extension', '[data-grammarly-part]',
         '[class*="immersive-translate"]', '[data-immersive-translate]'
     ].join(',');
-    
+
     clone.querySelectorAll(foreignSelectors).forEach(el => el.remove());
-    
+
     clone.querySelectorAll('relin-highlight, relin-hc').forEach(t => {
         const frag = document.createDocumentFragment();
         while(t.firstChild) frag.appendChild(t.firstChild);
         t.parentNode.replaceChild(frag, t);
     });
-    
+
     clone.querySelectorAll('script').forEach(s => {
         if (!s.src.includes('marked.min.js') && s.id !== 'core-engine') s.remove();
     });
@@ -316,7 +316,7 @@ function getPurifiedFallbackHTML() {
         const view = box ? box.querySelector('.anno-view') : null;
         if (view) view.innerHTML = '';
     });
-    
+
     return '<!DOCTYPE html>\n<html lang="zh-CN">\n' + clone.innerHTML + '\n</html>';
 }
 
@@ -346,7 +346,7 @@ async function syncToCloud() {
         if (getRes.ok) {
             const fileData = await getRes.json();
             sha = fileData.sha;
-            
+
             const cleanRawHTML = decodeURIComponent(escape(atob(fileData.content.replace(/\n/g, ''))));
             const parser = new DOMParser();
             const cleanDoc = parser.parseFromString(cleanRawHTML, 'text/html');
@@ -369,7 +369,7 @@ async function syncToCloud() {
                 const ta = t.closest('.content-wrap, .litit-highlight-block')?.querySelector('.anno-edit');
                 if (ta && ta.textContent.trim()) t.classList.add('has-anno');
             });
-            
+
             finalHTML = '<!DOCTYPE html>\n<html lang="zh-CN">\n' + cleanDoc.documentElement.innerHTML + '\n</html>';
         } else {
             finalHTML = getPurifiedFallbackHTML();
@@ -450,7 +450,13 @@ function initAnnotations() {
                 e.preventDefault();
                 e.stopPropagation();
                 if (aiToggle.classList.contains('loading')) return;
-                
+
+                // 新增逻辑：如果批注框内已有内容，弹出确认覆盖提示
+                if (edit && edit.value.trim() !== '') {
+                    const confirmOverwrite = confirm('⚠️ 已经存在批注内容。点击"确定"将使用 AI 解析覆盖现有内容。是否继续？');
+                    if (!confirmOverwrite) return; // 用户点击取消则直接返回，不执行 AI 请求
+                }
+
                 const pClone = content.cloneNode(true);
                 pClone.querySelectorAll('.anno-toggle, .ai-toggle').forEach(el => el.remove());
                 let pText = pClone.textContent.replace(/https?:\/\/\S+/g, '').trim();
@@ -522,9 +528,9 @@ function initAnnotations() {
                 setTimeout(() => {
                     const newVal = edit.value.trim();
                     try { view.innerHTML = newVal ? ((typeof marked !== 'undefined') ? marked.parse(newVal) : newVal) : ''; } catch(e){}
-                    
+
                     edit.style.display = 'none';
-                    
+
                     if (newVal) {
                         view.style.display = 'block';
                         toggle.classList.add('has-anno');
@@ -548,8 +554,5 @@ function initAnnotations() {
 window.addEventListener('DOMContentLoaded', initAnnotations);
 window.addEventListener('load', initAnnotations);
 </script>
-
-
-
 </body>
 </html>
