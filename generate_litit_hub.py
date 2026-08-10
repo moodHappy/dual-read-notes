@@ -226,11 +226,11 @@ def generate_hub_html(archive_data):
     <div class="modal-overlay" id="uploadModal">
         <div class="modal-content">
             <h3 class="modal-title">📤 隐秘发布终端</h3>
-            <p style="font-size:12px; color:#888; margin-top:-10px; margin-bottom:15px;">智能识别当前年月结构。输入全英文简写并粘贴代码，系统将直接推送到远端仓库。</p>
+            <p style="font-size:12px; color:#888; margin-top:-10px; margin-bottom:15px;">智能识别当前年月结构。系统将自动从源码提取标题作为标识符并推送到远端仓库。</p>
             
             <div class="form-group">
-                <label>英文标识符 (将作为文件名前缀)</label>
-                <input type="text" id="upFilename" placeholder="如: spain-migrant-crisis">
+                <label>英文标识符 (自动从源码 &lt;title&gt; 提取)</label>
+                <input type="text" id="upFilename" placeholder="粘贴下方源码后自动生成...">
             </div>
             <div class="form-group">
                 <label>杂志 HTML 源码</label>
@@ -414,7 +414,7 @@ def generate_hub_html(archive_data):
                 document.getElementById('upFilename').value = '';
                 document.getElementById('upContent').value = '';
                 document.getElementById('uploadModal').style.display = 'flex';
-                setTimeout(() => { document.getElementById('upFilename').focus(); }, 100);
+                setTimeout(() => { document.getElementById('upContent').focus(); }, 100);
             }
         });
 
@@ -434,13 +434,32 @@ def generate_hub_html(archive_data):
         /* ================= 核心发布功能 ================= */
         document.getElementById('closeUploadBtn').addEventListener('click', () => { document.getElementById('uploadModal').style.display = 'none'; });
         
+        // 🚀 新增：自动从源码中抓取 title 并格式化为文件名
+        document.getElementById('upContent').addEventListener('input', (e) => {
+            const content = e.target.value;
+            const titleMatch = content.match(/<title[^>]*>(.*?)<\/title>/i);
+            
+            if (titleMatch && titleMatch[1]) {
+                let rawTitle = titleMatch[1].replace(/<[^>]+>/g, '').trim();
+                let autoFilename = rawTitle
+                    .replace(/[^a-zA-Z0-9\s-_]/g, '') // 移除非字母数字和空格横线
+                    .replace(/\s+/g, '-')             // 空格转为横线
+                    .replace(/-+/g, '-')              // 合并多个相邻的横线
+                    .toLowerCase();                   // 统一转化为小写
+                
+                document.getElementById('upFilename').value = autoFilename;
+            } else {
+                document.getElementById('upFilename').value = '';
+            }
+        });
+
         document.getElementById('saveUploadBtn').addEventListener('click', async () => {
             let filename = document.getElementById('upFilename').value.trim();
             let content = document.getElementById('upContent').value.trim();
             
             if(!content) return alert("请粘贴 HTML 代码！");
             
-            // 🔑 精确尊重用户填写的“英文标识符”，保留大写，仅将空格转为短横线
+            // 精确尊重用户填写的“英文标识符”，或者从自动抓取的数据中做最终校验
             filename = filename.replace(/[^a-zA-Z0-9\s-_]/g, '').trim().replace(/\s+/g, '-');
             if(!filename) filename = "article";
 
@@ -476,8 +495,8 @@ def generate_hub_html(archive_data):
                 loadingBar.style.width = '60%';
 
                 // 2. 抓取 HTML 标题，更新本地索引变量
-                let titleMatch = content.match(/<h1[^>]*>(.*?)<\/h1>/);
-                let htmlTitle = titleMatch ? titleMatch[1].replace(/<[^>]+>/g, '').trim() : "未命名杂志";
+                let h1Match = content.match(/<h1[^>]*>(.*?)<\/h1>/i);
+                let htmlTitle = h1Match ? h1Match[1].replace(/<[^>]+>/g, '').trim() : "未命名杂志";
                 const timeStr = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
 
                 if(!archiveData[yearStr]) archiveData[yearStr] = {};
@@ -488,7 +507,7 @@ def generate_hub_html(archive_data):
                     time: timeStr,
                     timestamp: ts,
                     path: fullPath,
-                    title: `📄 ${timeStr} ${htmlTitle}`,  // 与 Python 脚本一样，提取真正的 <h1> 中文标题
+                    title: `📄 ${timeStr} ${htmlTitle}`,
                     rawTitle: filename
                 });
 
