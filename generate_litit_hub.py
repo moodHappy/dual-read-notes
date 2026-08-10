@@ -48,19 +48,22 @@ def scan_summary_notes():
             f_day = str(dt.day)
             time_str = dt.strftime("%H:%M")
 
-            # 🔑 核心修复：钻取 HTML 文件源码，提取真正的 <h1> 中文标题作为展示名
+            # 🔑 核心修复：钻取 HTML 文件源码，提取 <title> 作为展示名，而不是 <h1>
             html_title = raw_title
             try:
                 with open(file_full_path, 'r', encoding='utf-8') as f:
                     content = f.read()
-                    h1_match = re.search(r"<h1[^>]*>(.*?)</h1>", content, re.IGNORECASE | re.DOTALL)
-                    if h1_match:
-                        # 剔除 <h1> 内部可能包含的嵌套标签
-                        html_title = re.sub(r"<[^>]+>", "", h1_match.group(1)).strip()
+                    title_match = re.search(r"<title[^>]*>(.*?)</title>", content, re.IGNORECASE | re.DOTALL)
+                    if title_match:
+                        # 剔除内部可能包含的嵌套标签
+                        html_title = re.sub(r"<[^>]+>", "", title_match.group(1)).strip()
+                        # 超过长度自动增加省略号
+                        if len(html_title) > 60:
+                            html_title = html_title[:60] + "..."
             except Exception as e:
                 print(f"⚠️ 无法读取文件标题 {file_full_path}: {e}")
 
-            # 列表展示的完美中文名字
+            # 列表展示的完美中文/英文名字
             display_title = f"📄 {time_str} {html_title}"
 
             if f_year not in archive_data: archive_data[f_year] = {}
@@ -71,7 +74,7 @@ def scan_summary_notes():
                 "time": time_str,
                 "timestamp": ts_ms,
                 "path": rel_path,
-                "title": display_title,  # 展示 <h1> 中文标题
+                "title": display_title,  # 展示 <title> 标题
                 "rawTitle": raw_title    # 保留填写的英文标识符作为原始参数
             })
             total_count += 1
@@ -434,7 +437,7 @@ def generate_hub_html(archive_data):
         /* ================= 核心发布功能 ================= */
         document.getElementById('closeUploadBtn').addEventListener('click', () => { document.getElementById('uploadModal').style.display = 'none'; });
         
-        // 🚀 新增：自动从源码中抓取 title 并格式化为文件名
+        // 🚀 自动从源码中抓取 title 并格式化为文件名
         document.getElementById('upContent').addEventListener('input', (e) => {
             const content = e.target.value;
             const titleMatch = content.match(/<title[^>]*>(.*?)<\/title>/i);
@@ -446,6 +449,11 @@ def generate_hub_html(archive_data):
                     .replace(/\s+/g, '-')             // 空格转为横线
                     .replace(/-+/g, '-')              // 合并多个相邻的横线
                     .toLowerCase();                   // 统一转化为小写
+                
+                // 限制文件名本身长度
+                if (autoFilename.length > 50) {
+                    autoFilename = autoFilename.substring(0, 50);
+                }
                 
                 document.getElementById('upFilename').value = autoFilename;
             } else {
@@ -459,7 +467,6 @@ def generate_hub_html(archive_data):
             
             if(!content) return alert("请粘贴 HTML 代码！");
             
-            // 精确尊重用户填写的“英文标识符”，或者从自动抓取的数据中做最终校验
             filename = filename.replace(/[^a-zA-Z0-9\s-_]/g, '').trim().replace(/\s+/g, '-');
             if(!filename) filename = "article";
 
@@ -494,9 +501,15 @@ def generate_hub_html(archive_data):
                 if(!resUpload.ok) throw new Error("文件推送失败");
                 loadingBar.style.width = '60%';
 
-                // 2. 抓取 HTML 标题，更新本地索引变量
-                let h1Match = content.match(/<h1[^>]*>(.*?)<\/h1>/i);
-                let htmlTitle = h1Match ? h1Match[1].replace(/<[^>]+>/g, '').trim() : "未命名杂志";
+                // 2. 🔑 核心修复：抓取 HTML 的 <title> 标题，更新本地索引变量
+                let displayTitleMatch = content.match(/<title[^>]*>(.*?)<\/title>/i);
+                let htmlTitle = displayTitleMatch ? displayTitleMatch[1].replace(/<[^>]+>/g, '').trim() : "未命名杂志";
+                
+                // 过长自动截断
+                if (htmlTitle.length > 60) {
+                    htmlTitle = htmlTitle.substring(0, 60) + "...";
+                }
+
                 const timeStr = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
 
                 if(!archiveData[yearStr]) archiveData[yearStr] = {};
