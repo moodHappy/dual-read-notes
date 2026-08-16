@@ -1,631 +1,677 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Low-budget ‘Niu Lai’ emerges as a surprise hit with its ‘disaster-level’ animation, grabbing millions in China as curiosity rivals Nolan’s ‘The Odyssey’</title>
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <style id="core-style">
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; padding: 16px; margin: 0 auto; max-width: 800px; background: #ffffff; color: #2d3748; line-height: 1.8; font-size: 16px; word-wrap: break-word; overflow-x: hidden; }
-        * { box-sizing: border-box; max-width: 100%; }
-        img { max-width: 100%; height: auto; border-radius: 8px; }
-        /* AI 批注组件样式 */
-        .anno-toggle, .ai-toggle { display: inline-block; padding: 2px 6px; margin-left: 6px; cursor: pointer; opacity: 0.4; font-size: 0.85rem; vertical-align: middle; transition: all 0.2s; user-select: none; -webkit-tap-highlight-color: transparent; }
-        .anno-toggle:hover, .ai-toggle:hover { opacity: 0.95; transform: scale(1.15); }
-        .anno-toggle.has-anno { opacity: 1; }
-        .anno-toggle::after { content: "🔴"; }
-        .ai-toggle { opacity: 0.7; padding: 2px 4px; }
-        .ai-toggle::after { content: "🤖"; }
-        .ai-toggle.loading::after { content: "⏳"; display: inline-block; animation: spin 1s linear infinite; }
-        @keyframes spin { 100% { transform: rotate(360deg); } }
-        .anno-box { display: none; margin-top: 10px; background: #f8f6ff; border-left: 4px solid #8e7cc3; padding: 12px 16px; border-radius: 0 8px 8px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.03); text-align: left; }
-        .anno-view { font-size: 0.95rem; line-height: 1.6; color: #4a4a4a; min-height: 24px; }
-        .anno-edit { width: 100%; min-height: 120px; padding: 10px; font-family: monospace; font-size: 0.95rem; border: 1px dashed #8e7cc3; border-radius: 6px; box-sizing: border-box; resize: vertical; display: none; background: #fff; color: #333; outline: none; }
-        .anno-edit:focus { border: 1px solid #8e7cc3; box-shadow: 0 0 0 3px rgba(142,124,195,0.15); }
-        .markdown-body p { margin-top: 0; margin-bottom: 8px; }
-        .markdown-body p:last-child { margin-bottom: 0; }
-        .markdown-body h1, .markdown-body h2, .markdown-body h3 { color: #6b46c1; font-size: 1.1rem; margin: 10px 0 8px 0; border-bottom: 1px dashed #e9d8fd; padding-bottom: 4px; }
-        .markdown-body ul, .markdown-body ol { margin: 0 0 8px 0; padding-left: 20px; }
-        .markdown-body blockquote { margin: 0 0 10px 0; padding: 8px 12px; background: rgba(142,124,195,0.1); border-left: 4px solid #8e7cc3; color: #555; }
-        @media (max-width: 600px) { body { padding: 12px; font-size: 15px; } h1 { font-size: 22px !important; } h2 { font-size: 16px !important; } }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Low-budget ‘Niu Lai’ emerges as a surprise hit with its ‘disaster-level’ animation</title>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<style id="core-style">
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    padding: 16px;
+    margin: 0 auto;
+    max-width: 800px;
+    background: #ffffff;
+    color: #2d3748;
+    line-height: 1.8;
+    font-size: 16px;
+    word-wrap: break-word;
+    overflow-x: hidden;
+  }
+  * {
+    box-sizing: border-box;
+    max-width: 100%;
+  }
+  img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  /* AI 批注组件样式 */
+  .anno-toggle, .ai-toggle {
+    display: inline-block;
+    padding: 2px 6px;
+    margin-left: 6px;
+    cursor: pointer;
+    opacity: 0.4;
+    font-size: 0.85rem;
+    vertical-align: middle;
+    transition: all 0.2s;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .anno-toggle:hover, .ai-toggle:hover {
+    opacity: 0.95;
+    transform: scale(1.15);
+  }
+  .anno-toggle.has-anno {
+    opacity: 1;
+  }
+  .anno-toggle::after {
+    content: "🔴";
+  }
+  .ai-toggle {
+    opacity: 0.7;
+    padding: 2px 4px;
+  }
+  .ai-toggle::after {
+    content: "🤖";
+  }
+  .ai-toggle.loading::after {
+    content: "⏳";
+    display: inline-block;
+    animation: spin 1s linear infinite;
+  }
+  @keyframes spin {
+    100% { transform: rotate(360deg); }
+  }
+  .anno-box {
+    display: none;
+    margin-top: 10px;
+    background: #f8f6ff;
+    border-left: 4px solid #8e7cc3;
+    padding: 12px 16px;
+    border-radius: 0 8px 8px 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    text-align: left;
+  }
+  .anno-view {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #4a4a4a;
+    min-height: 24px;
+  }
+  .anno-edit {
+    width: 100%;
+    min-height: 120px;
+    padding: 10px;
+    font-family: monospace;
+    font-size: 0.95rem;
+    border: 1px dashed #8e7cc3;
+    border-radius: 6px;
+    box-sizing: border-box;
+    resize: vertical;
+    display: none;
+    background: #fff;
+    color: #333;
+    outline: none;
+  }
+  .anno-edit:focus {
+    border: 1px solid #8e7cc3;
+    box-shadow: 0 0 0 3px rgba(142,124,195,0.15);
+  }
+  .markdown-body p {
+    margin-top: 0;
+    margin-bottom: 8px;
+  }
+  .markdown-body p:last-child {
+    margin-bottom: 0;
+  }
+  .markdown-body h1, .markdown-body h2, .markdown-body h3 {
+    color: #6b46c1;
+    font-size: 1.1rem;
+    margin: 10px 0 8px 0;
+    border-bottom: 1px dashed #e9d8fd;
+    padding-bottom: 4px;
+  }
+  .markdown-body ul, .markdown-body ol {
+    margin: 0 0 8px 0;
+    padding-left: 20px;
+  }
+  .markdown-body blockquote {
+    margin: 0 0 10px 0;
+    padding: 8px 12px;
+    background: rgba(142,124,195,0.1);
+    border-left: 4px solid #8e7cc3;
+    color: #555;
+  }
+  @media (max-width: 600px) {
+    body {
+      padding: 12px;
+      font-size: 15px;
+    }
+    h1 {
+      font-size: 22px !important;
+    }
+    h2 {
+      font-size: 16px !important;
+    }
+  }
+</style>
 </head>
 <body>
-
 <div class="litit-report" style="width:100%; max-width:100%; box-sizing:border-box; overflow-x:hidden;">
 
-    <!-- 支持批注的主标题区 -->
-    <div class="content-wrap" style="position:relative; margin-bottom: 16px;">
-        <h1 style="color:#1a202c; font-size: 24px; line-height: 1.4; border-bottom: 3px solid #667eea; padding-bottom: 12px; margin-top:0; margin-bottom:0; word-break:break-word;">
-            <span class="content" style="position:relative;">Low-budget ‘Niu Lai’ emerges as a surprise hit with its ‘disaster-level’ animation, grabbing millions in China as curiosity rivals Nolan’s ‘The Odyssey’</span>
-            <br>
-            <span style="font-size: 18px; color: #4a5568; margin-top: 8px; display: inline-block;">低成本动画《牛来》凭借“灾难级”画风意外走红，在中国吸金数百万，其好奇心驱动的热度甚至能与诺兰《奥德赛》匹敌</span>
-        </h1>
-        <div class="anno-box" style="display:none; margin-top: 12px;">
-            <div class="anno-view markdown-body"></div>
-            <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
-
-“低成本的《牛来》凭借灾难级的动画制作意外走红，在中国吸引了数百万人；这种好奇心甚至堪比诺兰的《奥德赛》。”
-
-### 📌 句子结构
-
-Low-budget Niu Lai
-= 低成本的《牛来》
-
-- low-budget = 低成本的
-- Niu Lai = 《牛来》（作品名）
-
-emerges as a surprise hit
-= 意外成为一部热门作品 / 意外爆红
-
-- emerge as = 以……的身份/状态出现；成为……
-- surprise hit = 出人意料的热门作品
-  → hit 在这里是名词，表示“成功作品、热门作品”
-
-with its disaster-level animation
-= 凭借其“灾难级”的动画制作
-
-- with = 凭借；由于
-- disaster-level = 灾难级的
-- animation = 动画制作 / 动画效果
-
-grabbing millions in China
-= 在中国吸引了数百万人
-
-这里的 grabbing 是现在分词短语，补充说明前面作品爆红所产生的结果/影响。
-
-curiosity
-= 好奇心
-
-rivals Nolan's The Odyssey
-= 可以与诺兰的《奥德赛》相媲美
-
-- rival = 与……匹敌；媲美
-- Nolan's = 诺兰的
-- The Odyssey = 《奥德赛》
-
-### 📌 关键点
-
-这里的 **rivals** 不是“竞争对手”的意思。
-
-**A rivals B**
-= A 与 B 媲美 / A 可以和 B 相抗衡
-
-所以：
-
-curiosity rivals Nolan's The Odyssey
-字面：
-= 好奇心与诺兰的《奥德赛》相抗衡
-
-实际新闻语境中更自然地理解为：
-= 人们对《牛来》的好奇程度，甚至可以和人们对诺兰《奥德赛》的好奇程度相提并论。
+  <!-- 支持批注的主标题区 -->
+  <div class="content-wrap" style="position:relative; margin-bottom: 16px;">
+    <h1 style="color:#1a202c; font-size: 24px; line-height: 1.4; border-bottom: 3px solid #667eea; padding-bottom: 12px; margin-top:0; margin-bottom:0; word-break:break-word;">
+      <span class="content" style="position:relative;">Low-budget ‘Niu Lai’ emerges as a surprise hit with its ‘disaster-level’ animation</span>
+      <br>
+      <span style="font-size: 18px; color: #4a5568; margin-top: 8px; display: inline-block;">低成本动画《牛来》凭借“灾难级”制作意外爆红</span>
+    </h1>
+    <div class="anno-box" style="display:none; margin-top: 12px;">
+      <div class="anno-view markdown-body"></div>
+      <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
+低成本动画《牛来》凭借“灾难级”制作意外爆红，在中国狂揽数百万票房，热度堪比诺兰的《奥德赛》。
 
 ### 📌 Key Expressions
-
-- low-budget = 低成本的
-- emerge as a surprise hit = 意外走红
-- disaster-level = 灾难级的
-- hit = 热门作品；成功作品
-- with + 名词 = 凭借…… / 因为……
-- grab millions = 吸引数百万人
-- curiosity = 好奇心
-- rival = 与……匹敌；媲美</textarea>
-        </div>
+- **low-budget** = 低成本的
+- **emerge as** = 崭露头角成为；作为...出现
+- **surprise hit** = 意外爆红的作品；黑马
+- **disaster-level** = 灾难级的
+- **rival** = 与...匹敌；比得上</textarea>
     </div>
+  </div>
 
-    <p style="color:#4a5568; font-size: 15px; line-height: 1.6; margin-bottom:18px; font-weight:500;">在克里斯托弗·诺兰的《奥德赛》与一众高知名度大片激烈角逐中国暑期档之际，一部由双人创意团队打造的低成本原创动画电影《牛来》(Niu Lai) 意外成为票房黑马。该片于 8 月 5 日上映，前九天票房仅为 7,169 元人民币，但在 8 月 14 日因“灾难级”粗糙画风在社交媒体上遭到网友群嘲而意外病毒式走红，其累计票房随后迅速突破 250 万元人民币。这一现象引发了业内对社交媒体驱动的流量泡沫与好奇心营销的广泛讨论。</p>
+  <p style="color:#4a5568; font-size: 15px; line-height: 1.6; margin-bottom:18px; font-weight:500;">2026年竞争激烈的中国暑期档中，一部名为《牛来》的低成本原创动画电影凭借“灾难级”的粗糙制作和网友的猎奇心理意外爆红。该片在零宣发、无明星阵容的情况下，从首映9天仅赚7000多元，迅速逆袭至票房突破250万元，甚至在社交媒体热度上成为好莱坞工业大片《奥德赛》的“意外对手”。这一现象引发了关于流量泡沫与电影内容质量的深刻探讨。</p>
 
-    <div style="margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
-        <div style="display:flex; flex-wrap:wrap; gap:8px;">
-            <span style="background:#edf2f7; color:#2d3748; padding:5px 10px; border-radius:6px; font-size:13px; font-weight:600;">电影文化</span>
-            <span style="background:#edf2f7; color:#2d3748; padding:5px 10px; border-radius:6px; font-size:13px; font-weight:600;">社交媒体</span>
-            <span style="background:#edf2f7; color:#2d3748; padding:5px 10px; border-radius:6px; font-size:13px; font-weight:600;">审丑经济</span>
-        </div>
-        <a href="https://www.globaltimes.cn/page/202608/1368305.shtml" target="_blank" style="font-size: 13px; color: #5a67d8; text-decoration: none; font-weight: bold; background: #ebf4ff; padding: 6px 14px; border-radius: 6px; transition: all 0.2s; border: 1px solid #c3dafe; display:inline-block;">🔗 阅读原文</a>
+  <div style="margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+    <div style="display:flex; flex-wrap:wrap; gap:8px;">
+      <span style="background:#edf2f7; color:#2d3748; padding:5px 10px; border-radius:6px; font-size:13px; font-weight:600;">中国电影市场</span>
+      <span style="background:#edf2f7; color:#2d3748; padding:5px 10px; border-radius:6px; font-size:13px; font-weight:600;">票房黑马</span>
+      <span style="background:#edf2f7; color:#2d3748; padding:5px 10px; border-radius:6px; font-size:13px; font-weight:600;">网络迷因</span>
     </div>
+    <a href="https://www.globaltimes.cn/page/202608/1368305.shtml" target="_blank" style="font-size: 13px; color: #5a67d8; text-decoration: none; font-weight: bold; background: #ebf4ff; padding: 6px 14px; border-radius: 6px; transition: all 0.2s; border: 1px solid #c3dafe; display:inline-block;">🔗 阅读原文</a>
+  </div>
 
-    <!-- 最佳金句区 -->
-    <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #ed8936; margin:0 0 12px 0; border-radius: 0 6px 6px 0;">💬 最佳金句</h2>
-    <div class="content-wrap" style="position:relative; margin-bottom:24px;">
-        <blockquote style="border-left: 4px solid #667eea; background: #f8fafc; padding: 14px; margin: 0; font-style: italic; color: #2d3748; border-radius: 0 8px 8px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
-            <div class="content" style="position:relative; margin:0 0 6px 0; font-weight:600; font-size: 16px; line-height: 1.6; color:#1a202c; word-break:break-word;">
-                "Niu Lai has been driven by curiosity and social currency, with audiences essentially paying a premium for the feeling of being part of a trending phenomenon."
-            </div>
-            <p style="margin:0 0 8px 0; font-weight:500; font-size: 15px; line-height: 1.6; color:#4a5568; word-break:break-word;">“《牛来》是由好奇心和社交货币驱动的，观众本质上是在为参与某一热门现象的体验支付溢价。”</p>
-            <footer style="text-align:right; font-size:13px; color:#718096; font-style:normal; font-weight:500;">—— 南京师范大学副教授、文化研究者张鹏</footer>
-        </blockquote>
-        <div class="anno-box" style="display:none;">
-            <div class="anno-view markdown-body"></div>
-            <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
-“《牛来》是由好奇心和社交货币驱动的，观众本质上是在为成为一个流行现象一部分的感觉支付溢价。”
+  <!-- 最佳金句区 -->
+  <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #ed8936; margin:0 0 12px 0; border-radius: 0 6px 6px 0;">💬 最佳金句</h2>
+  <div class="content-wrap" style="position:relative; margin-bottom:24px;">
+    <blockquote style="border-left: 4px solid #667eea; background: #f8fafc; padding: 14px; margin: 0; font-style: italic; color: #2d3748; border-radius: 0 8px 8px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+      <div class="content" style="position:relative; margin:0 0 6px 0; font-weight:600; font-size: 16px; line-height: 1.6; color:#1a202c; word-break:break-word;">
+        "A fleeting viral frenzy can never replace a solid creative foundation. Content quality remains the enduring value that will sustain the film industry over the long term."
+      </div>
+      <p style="margin:0 0 8px 0; font-weight:500; font-size: 15px; line-height: 1.6; color:#4a5568; word-break:break-word;">“短暂的病毒式狂热永远无法取代扎实的创作基础。内容质量才是支撑电影产业长期发展的核心价值。”</p>
+      <footer style="text-align:right; font-size:13px; color:#718096; font-style:normal; font-weight:500;">—— 南京师范大学文化研究员张鹏 锐评《牛来》现象</footer>
+    </blockquote>
+    <div class="anno-box" style="display:none;">
+      <div class="anno-view markdown-body"></div>
+      <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
+“短暂的病毒式狂热永远无法取代扎实的创作基础。内容质量才是支撑电影产业长期发展的核心价值。”
 
 ### 📌 Key Expressions
-- **social currency** = 社交货币（在社交中用来获取认可或谈资的价值）
-- **pay a premium** = 支付溢价
-- **trending phenomenon** = 热门现象</textarea>
-        </div>
+- **fleeting** = 短暂的；转瞬即逝的
+- **viral frenzy** = 病毒式的狂热/疯传
+- **solid** = 扎实的；可靠的
+- **enduring** = 持久的；不朽的
+- **sustain** = 维持；支撑</textarea>
     </div>
+  </div>
 
-    <!-- 关键数字 Grid 布局 -->
-    <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #38a169; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">📊 关键数字</h2>
-    <div style="display:grid; grid-template-columns: repeat(2, 1fr); gap:12px; margin:14px 0 24px 0;">
-        <div style="background:#fff; border:1px solid #e2e8f0; padding:16px; border-radius:10px; text-align:center; box-shadow:0 2px 5px rgba(0,0,0,0.04); box-sizing:border-box; display:flex; flex-direction:column; justify-content:center;">
-            <div style="font-size:26px; color:#5a67d8; font-weight:900; margin-bottom:6px; line-height:1.2;">
-                7,169<span style="font-size:16px; margin-left:2px;">元</span>
-            </div>
-            <div style="font-size:13px; color:#4a5568; font-weight:500; line-height:1.4;">影片上映前 9 天的初始票房收入</div>
-        </div>
-        <div style="background:#fff; border:1px solid #e2e8f0; padding:16px; border-radius:10px; text-align:center; box-shadow:0 2px 5px rgba(0,0,0,0.04); box-sizing:border-box; display:flex; flex-direction:column; justify-content:center;">
-            <div style="font-size:26px; color:#5a67d8; font-weight:900; margin-bottom:6px; line-height:1.2;">
-                250万<span style="font-size:16px; margin-left:2px;">+元</span>
-            </div>
-            <div style="font-size:13px; color:#4a5568; font-weight:500; line-height:1.4;">网络爆红后截至发稿时的累计总票房</div>
-        </div>
-        <div style="grid-column: 1 / -1; background:#fff; border:1px solid #e2e8f0; padding:16px; border-radius:10px; text-align:center; box-shadow:0 2px 5px rgba(0,0,0,0.04); box-sizing:border-box; display:flex; flex-direction:column; justify-content:center;">
-            <div style="font-size:26px; color:#5a67d8; font-weight:900; margin-bottom:6px; line-height:1.2;">
-                300<span style="font-size:16px; margin-left:2px;">人以内</span>
-            </div>
-            <div style="font-size:13px; color:#4a5568; font-weight:500; line-height:1.4;">该片在前 9 天内的总观影人次</div>
-        </div>
+  <!-- Grid 布局关键数字区 -->
+  <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #38a169; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">📊 关键数字</h2>
+  <div style="display:grid; grid-template-columns: repeat(2, 1fr); gap:12px; margin:14px 0 24px 0;">
+    <div style="background:#fff; border:1px solid #e2e8f0; padding:16px; border-radius:10px; text-align:center; box-shadow:0 2px 5px rgba(0,0,0,0.04); box-sizing:border-box; display:flex; flex-direction:column; justify-content:center;">
+      <div style="font-size:26px; color:#5a67d8; font-weight:900; margin-bottom:6px; line-height:1.2;">
+        7,169<span style="font-size:16px; margin-left:2px;">元</span>
+      </div>
+      <div style="font-size:13px; color:#4a5568; font-weight:500; line-height:1.4;">电影上映前9天的惨淡票房总额</div>
     </div>
+    <div style="background:#fff; border:1px solid #e2e8f0; padding:16px; border-radius:10px; text-align:center; box-shadow:0 2px 5px rgba(0,0,0,0.04); box-sizing:border-box; display:flex; flex-direction:column; justify-content:center;">
+      <div style="font-size:26px; color:#5a67d8; font-weight:900; margin-bottom:6px; line-height:1.2;">
+        2<span style="font-size:16px; margin-left:2px;">人</span>
+      </div>
+      <div style="font-size:13px; color:#4a5568; font-weight:500; line-height:1.4;">该部“灾难级”动画电影的幕后创作团队人数</div>
+    </div>
+    <div style="grid-column: 1 / -1; background:#fff; border:1px solid #e2e8f0; padding:16px; border-radius:10px; text-align:center; box-shadow:0 2px 5px rgba(0,0,0,0.04); box-sizing:border-box; display:flex; flex-direction:column; justify-content:center;">
+      <div style="font-size:26px; color:#5a67d8; font-weight:900; margin-bottom:6px; line-height:1.2;">
+        250<span style="font-size:16px; margin-left:2px;">万</span>
+      </div>
+      <div style="font-size:13px; color:#4a5568; font-weight:500; line-height:1.4;">截至发稿时影片迅速飙升的累计票房规模</div>
+    </div>
+  </div>
 
-    <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #3182ce; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">⏱️ 事件时间线</h2>
-    <ul style="padding-left:20px; line-height:1.8; color:#2d3748; font-size: 15px; margin-bottom:24px; word-break:break-word;">
-        <li><strong style="color:#2b6cb0;">8月5日：</strong> 低成本动画《牛来》低调登陆中国内地院线，由于没有明星阵容、大规模宣传及前期热度，前 9 天票房惨淡仅收 7,169 元，观影人数不足 300 人。</li>
-        <li><strong style="color:#2b6cb0;">8月14日：</strong> 一则关于该片 9 天仅卖出 7,000 元票房的话题在社交媒体上意外病毒式传播，伴随诺兰大片《奥德赛》同日上映，形成强烈反差。</li>
-        <li><strong style="color:#2b6cb0;">发酵期：</strong> 网友们围绕其“最基础院线电影”、“灾难级”、“比 AI 生成还差”的粗糙画风展开全网群嘲，并衍生出大量恶搞海报与表情包。</li>
-        <li><strong style="color:#2b6cb0;">爆发与逆袭：</strong> 好奇心驱动大量观众购票“亲自鉴定”，影院顺势增加排片，推动其累计票房突破 250 万元人民币。</li>
-    </ul>
+  <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #3182ce; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">⏱️ 事件时间线</h2>
+  <ul style="padding-left:20px; line-height:1.8; color:#2d3748; font-size: 15px; margin-bottom:24px; word-break:break-word;">
+    <li><strong style="color:#2b6cb0;">8月5日：</strong> 原创动画《牛来》在中国院线上映，开画首日缺乏宣发与明星阵容，票房仅3400余元。</li>
+    <li><strong style="color:#2b6cb0;">首映前9天：</strong> 观影总人数不足300人，累计票房仅7169元，市场表现极其惨淡。</li>
+    <li><strong style="color:#2b6cb0;">8月14日：</strong> 社交媒体上关于其“9天票房仅7000元”的话题突然疯传。大量网友受其“粗糙度”吸引，以猎奇心态走进影院。</li>
+    <li><strong style="color:#2b6cb0;">热搜发酵期：</strong> 同日上映的诺兰大作《奥德赛》面临激烈竞争，网友戏称诺兰也绝对想不到，自己的对手竟然是一部“不如AI生成”的国产梗片。</li>
+  </ul>
 
-    <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #805ad5; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">✨ 本篇亮点与精读</h2>
-    <div style="margin:14px 0 24px 0;">
-        
-        <!-- 重点段落 1 -->
-        <div class="litit-highlight-block content-wrap" style="position:relative; margin-bottom:20px; padding-bottom:16px; border-bottom:1px dashed #cbd5e0;">
-            <h3 style="font-size:16px; color:#2d3748; margin:0 0 8px 0; font-weight:700;">审丑狂欢：网络群嘲如何催生票房奇迹</h3>
-            <div class="content" style="position:relative; margin:0 0 6px 0; color:#1a202c; font-family:Georgia, serif; line-height:1.7; font-size:15px; word-break:break-word;">
-                Rather than praising the film, many users were drawn to its unusually rough production and two-person creative team.
-            </div>
-            p style="margin:0 0 10px 0; color:#4a5568; font-size:14px; line-height:1.6; word-break:break-word;"&gt;许多用户并没有赞美这部电影，而是被其异常粗糙的制作和两人创意团队所吸引。秘诀在于网友们想知道“它究竟能有多烂”。
-            <div style="background:#fffaf0; padding:10px 12px; border-radius:8px; font-size:14px; color:#c05621; border:1px solid #feebc8; word-break:break-word; margin-bottom:10px;">
-                <strong>Rough production (粗糙的制作)</strong>：揭示了互联网时代的“逆向营销”逻辑。当常规宣发失效时，极端的负面口碑反而通过猎奇心理转化为独特的流量密码。
-            </div>
-            <div class="anno-box" style="display:none;">
-                <div class="anno-view markdown-body"></div>
-                <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
-许多用户没有赞美这部电影，而是被其异常粗糙的制作和两人创意团队所吸引。
+  <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #805ad5; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">✨ 本篇亮点与精读</h2>
+  <div style="margin:14px 0 24px 0;">
+
+    <!-- 重点段落 1 -->
+    <div class="litit-highlight-block content-wrap" style="position:relative; margin-bottom:20px; padding-bottom:16px; border-bottom:1px dashed #cbd5e0;">
+      <h3 style="font-size:16px; color:#2d3748; margin:0 0 8px 0; font-weight:700;">流量密码：花钱买一份“社交参与感”</h3>
+      <div class="content" style="position:relative; margin:0 0 6px 0; color:#1a202c; font-family:Georgia, serif; line-height:1.7; font-size:15px; word-break:break-word;">
+        "Niu Lai has been driven by curiosity and social currency, with audiences essentially paying a premium for the feeling of being part of a trending phenomenon."
+      </div>
+      <p style="margin:0 0 10px 0; color:#4a5568; font-size:14px; line-height:1.6; word-break:break-word;">“《牛来》的爆红是受猎奇心理和社交货币驱动的，观众实际上是在为参与一种热门趋势的‘参与感’支付溢价。”</p>
+      
+      <div style="background:#fffaf0; padding:10px 12px; border-radius:8px; font-size:14px; color:#c05621; border:1px solid #feebc8; word-break:break-word; margin-bottom:10px;">
+        <strong>Social currency (社交货币)</strong>：指在社交网络中能够提升个人形象或引发互动的谈资。<strong>Pay a premium (支付溢价)</strong>：在这里不仅指花钱买票，更隐喻了观众为了“凑热闹”、“发朋友圈”的心理满足感，买下了原本并不具备艺术价值的单。
+      </div>
+
+      <div class="anno-box" style="display:none;">
+        <div class="anno-view markdown-body"></div>
+        <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
+《牛来》的爆红是受猎奇心理和社交货币驱动的，观众实际上是在为参与一种热门趋势的“参与感”支付溢价。
 
 ### 📌 Key Expressions
-- **rather than** = 而不是
-- **rough production** = 粗糙的制作
-- **two-person creative team** = 两人创意团队</textarea>
-            </div>
-        </div>
-
-        <!-- 重点段落 2 -->
-        <div class="litit-highlight-block content-wrap" style="position:relative; margin-bottom:20px; padding-bottom:16px; border-bottom:1px dashed #cbd5e0;">
-            <h3 style="font-size:16px; color:#2d3748; margin:0 0 8px 0; font-weight:700;">学界警示：流量泡沫无法替代创作根基</h3>
-            <div class="content" style="position:relative; margin:0 0 6px 0; color:#1a202c; font-family:Georgia, serif; line-height:1.7; font-size:15px; word-break:break-word;">
-                "A fleeting viral frenzy can never replace a solid creative foundation. Content quality remains the enduring value that will sustain the film industry over the long term," Zhang said.
-            </div>
-            <p style="margin:0 0 10px 0; color:#4a5568; font-size:14px; line-height:1.6; word-break:break-word;">张鹏表示：“短暂的病毒式狂热永远无法取代坚实的创作基础。内容质量仍然是支撑电影产业长远发展的持久价值。”</p>
-            <div style="background:#fffaf0; padding:10px 12px; border-radius:8px; font-size:14px; color:#c05621; border:1px solid #feebc8; word-break:break-word; margin-bottom:10px;">
-                <strong>Fleeting viral frenzy (短暂的网络狂热)</strong>：专家以此提醒行业，好奇心驱动的营销和投机性电影制作并非可复制的成功公式，对中国电影市场的长期健康发展并无正向价值。
-            </div>
-            <div class="anno-box" style="display:none;">
-                <div class="anno-view markdown-body"></div>
-                <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
-张说：“转瞬即逝的病毒式狂热永远无法取代坚实的创作基础。内容质量依然是长期支撑电影产业的持久价值。”
-
-### 📌 Key Expressions
-- **fleeting** = 转瞬即逝的；短暂的
-- **viral frenzy** = 病毒式的疯狂/狂热
-- **solid creative foundation** = 坚实的创作基础</textarea>
-            </div>
-        </div>
-
+- **driven by** = 由...驱动
+- **curiosity** = 猎奇心理；好奇心
+- **social currency** = 社交货币（指可用于社交谈资的事物）
+- **pay a premium** = 支付溢价；花高价
+- **trending phenomenon** = 热门现象；流行趋势</textarea>
+      </div>
     </div>
 
-    <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #319795; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">💡 行业与文化冷知识 (Fun Facts)</h2>
-    <ul style="padding-left:20px; line-height:1.8; color:#2d3748; font-size:15px; margin-bottom:24px; word-break:break-word;">
-        <li><strong>谐音梗与股民的玩梗狂欢：</strong> 片名《牛来》恰好触发了中国股市投资者的敏感神经，不少网民在社交平台上调侃称：“既然天天祈祷‘牛市’（Bull Market）来临，那不如去电影院看《牛来》。”这也为影片增添了意想不到的金融圈迷因热度。</li>
-        <li><strong>模因化的二次创作：</strong> 互联网用户迅速发起了一波恶搞潮，将片中的小公牛角色毫无违和感地P进各种经典大片的海报中，这种趣味十足的社交货币进一步推高了影片的曝光度。</li>
-        <li><strong>与诺兰大片的荒诞对标：</strong> 尽管在工业制作和艺术体量上与克里斯托弗·诺兰登陆中国暑期档的好莱坞大片《奥德赛》有着天壤之别，但由于意外爆红带来的话题度，《牛来》在互联网热度上成了一位另类的“对手”。</li>
-    </ul>
+    <!-- 重点段落 2 -->
+    <div class="litit-highlight-block content-wrap" style="position:relative; margin-bottom:20px; padding-bottom:16px; border-bottom:1px dashed #cbd5e0;">
+      <h3 style="font-size:16px; color:#2d3748; margin:0 0 8px 0; font-weight:700;">行业警告：黑马套路不可复制</h3>
+      <div class="content" style="position:relative; margin:0 0 6px 0; color:#1a202c; font-family:Georgia, serif; line-height:1.7; font-size:15px; word-break:break-word;">
+        "Niu Lai, meanwhile, serves as a warning that speculative filmmaking and curiosity-driven marketing should not be mistaken for a replicable formula..."
+      </div>
+      <p style="margin:0 0 10px 0; color:#4a5568; font-size:14px; line-height:1.6; word-break:break-word;">“同时，《牛来》也提供了一个警告：投机性的电影制作和由猎奇驱动的营销，不应被误认为是一种可复制的公式……”</p>
 
-    <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #e53e3e; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">🎯 全片锐评</h2>
-    <p style="line-height:1.7; color:#1a202c; font-weight:600; background:#fff5f5; padding:14px; border-radius:10px; font-size:15px; margin:0 0 24px 0; border:1px solid #fed7d7; word-break:break-word;">
-        《牛来》从前九天仅卖出 7,169 元的院线笑话，到凭借“灾难级”画风逆袭突破 250 万票房，堪称当代中国电影市场上最荒诞也最生动的“审丑经济”切片。当观众不再仅仅为优秀的作品买单，而是愿意为一种“参与网络群嘲、获取社交货币”的猎奇体验支付溢价时，流量逻辑便在短期内击败了传统的商业规律。正如专家所言，诺兰的《奥德赛》依靠的是扎实过硬的高质量视听体验，而《牛来》则是一剂由好奇心和网络泡泡催化出的幻觉。潮水退去后，转瞬即逝的狂热无法掩盖工业水准的短板。这场狂欢与其说是中国动画的胜利，不如说是互联网注意力经济的一次极端反讽：它提醒着行业，流量可以买来一时的喧嚣，但唯有内容品质方能行远。
-    </p>
+      <div style="background:#fffaf0; padding:10px 12px; border-radius:8px; font-size:14px; color:#c05621; border:1px solid #feebc8; word-break:break-word; margin-bottom:10px;">
+        <strong>Speculative (投机性的)</strong>：词根来自 speculate，在这里精准地批判了这种电影不是“创作”出来的，而是“碰运气”、“博眼球”产生的。<strong>Replicable formula (可复制的公式)</strong>：警告整个影视行业不要妄想把“比烂”当成一种宣发的财富密码。
+      </div>
+
+      <div class="anno-box" style="display:none;">
+        <div class="anno-view markdown-body"></div>
+        <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
+“同时，《牛来》也提供了一个警告：投机性的电影制作和由猎奇驱动的营销，不应被误认为是可复制的公式……”
+
+### 📌 Key Expressions
+- **serve as a warning** = 作为警告；起到警示作用
+- **speculative** = 投机性的；带有赌博性质的
+- **filmmaking** = 电影制作
+- **be mistaken for** = 被误认为
+- **replicable formula** = 可复制的公式/套路</textarea>
+      </div>
+    </div>
+
+  </div>
+
+  <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #319795; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">💡 行业观察与冷知识 (Fun Facts)</h2>
+  <ul style="padding-left:20px; line-height:1.8; color:#2d3748; font-size:15px; margin-bottom:24px; word-break:break-word;">
+    <li><strong>A股股民的“玄学”应援：</strong> 电影名为《牛来》，暗合了中国股民期盼“牛市到来”的迫切愿望，以至于不少股民跑去影院纯粹为了讨个好彩头。</li>
+    <li><strong>“灾难级”反成二创密码：</strong> 影片极其粗糙的建模被网友群嘲“连AI生成的都不如”，但这反而激发了网民的反骨，网友将其主角小牛P进各类经典电影海报中，造就了一场现象级的互联网迷因（Meme）。</li>
+    <li><strong>“草根”对决“好莱坞重工”：</strong> 这部仅仅由2人团队制作的简陋动画，却在社交媒体声量上，与代表好莱坞顶级工业水平、同日上映的克里斯托弗·诺兰大作《奥德赛》形成了荒诞而戏剧性的热度分庭抗礼。</li>
+  </ul>
+
+  <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #e53e3e; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">🎯 全片锐评</h2>
+  <p style="line-height:1.7; color:#1a202c; font-weight:600; background:#fff5f5; padding:14px; border-radius:10px; font-size:15px; margin:0 0 24px 0; border:1px solid #fed7d7; word-break:break-word;">
+    《牛来》的魔幻逆袭，与其说是中国电影市场的奇迹，不如说是当代互联网“审丑狂欢”与“造梗文化”的又一次降维打击。当观众走进影院不再是为了欣赏艺术，而是为了“看看它到底能有多烂”并以此作为社交圈的谈资时，电影票就彻底异化成了一张“网络吃瓜入场券”。诚然，院线为了迎合流量迅速增加排片是在商言商，但这终究是一场由猎奇心吹起的巨大泡沫。面对工业化底蕴深厚的大片，如诺兰的《奥德赛》，《牛来》的爆红只是一次投机主义的狂欢。长远来看，缺乏扎实内容支撑的作品，终究会被网络舆论迅速遗忘。流量可以造就一时的黑马，但唯有诚意与质量，才能铸就真正的经典。
+  </p>
 
 </div>
 
 <script id="core-engine">
-    let syncTimeout = null;
-    const AI_PROMPT = "请分析以下英文段落，并严格按照以下 Markdown 格式输出（不要输出任何额外的废话）：\n\n### 📌 完整翻译\n\n[此处填写完整翻译]\n\n### 📌 Key Expressions\n\n- **[单词或短语]**\n = [中文释义]\n （[可选的补充说明，如倒装结构或语境等]）\n\n段落内容：\n";
+  let syncTimeout = null;
+  const AI_PROMPT = "请分析以下英文段落，并严格按照以下 Markdown 格式输出（不要输出任何额外的废话）：\n\n### 📌 完整翻译\n\n[此处填写完整翻译]\n\n### 📌 Key Expressions\n\n- **[单词或短语]**\n  = [中文释义]\n  （[可选的补充说明，如倒装结构或语境等]）\n\n段落内容：\n";
 
-    async function fetchGroq(text, apiKey, modelName) {
-        const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-            method: 'POST',
-            headers: {
-                'Authorization': 'Bearer ' + apiKey,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                model: modelName || 'llama-3.3-70b-versatile',
-                messages: [
-                    { role: 'system', content: 'You are an English teacher. Output EXACTLY in the requested Markdown format.' },
-                    { role: 'user', content: AI_PROMPT + '"' + text + '"' }
-                ],
-                temperature: 0.3
-            })
-        });
-        if (!res.ok) throw new Error('Groq Error: ' + res.status);
-        const json = await res.json();
-        return json.choices[0].message.content.trim();
+  async function fetchGroq(text, apiKey, modelName) {
+    const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Authorization': 'Bearer ' + apiKey,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        model: modelName || 'llama-3.3-70b-versatile',
+        messages: [
+          { role: 'system', content: 'You are an English teacher. Output EXACTLY in the requested Markdown format.' },
+          { role: 'user', content: AI_PROMPT + '"' + text + '"' }
+        ],
+        temperature: 0.3
+      })
+    });
+    if (!res.ok) throw new Error('Groq Error: ' + res.status);
+    const json = await res.json();
+    return json.choices[0].message.content.trim();
+  }
+
+  async function fetchCustomAI(text, url, apiKey, modelName) {
+    let headers = { 'Content-Type': 'application/json' };
+    let bodyData = {};
+
+    if (url.includes('anthropic.com')) {
+      headers['x-api-key'] = apiKey;
+      headers['anthropic-version'] = '2023-06-01';
+      headers['anthropic-dangerous-direct-browser-access'] = 'true';
+      bodyData = {
+        model: modelName || 'claude-3-5-sonnet-20241022',
+        max_tokens: 2000,
+        messages: [{ role: 'user', content: AI_PROMPT + '"' + text + '"' }]
+      };
+    } else if (url.includes('generativelanguage.googleapis.com')) {
+      let targetUrl = url;
+      if (!targetUrl.includes('key=')) {
+        targetUrl += (targetUrl.includes('?') ? '&' : '?') + 'key=' + apiKey;
+      }
+      const res = await fetch(targetUrl, {
+        method: 'POST',
+        headers: headers,
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: AI_PROMPT + '"' + text + '"' }] }]
+        })
+      });
+      if (!res.ok) throw new Error('Gemini Error: ' + res.status);
+      const json = await res.json();
+      return json.candidates[0].content.parts[0].text.trim();
+    } else {
+      headers['Authorization'] = 'Bearer ' + apiKey;
+      bodyData = {
+        model: modelName || 'gpt-4o-mini',
+        messages: [
+          { role: 'system', content: 'You are an English teacher. Output EXACTLY in the requested Markdown format.' },
+          { role: 'user', content: AI_PROMPT + '"' + text + '"' }
+        ],
+        temperature: 0.3
+      };
     }
 
-    async function fetchCustomAI(text, url, apiKey, modelName) {
-        let headers = { 'Content-Type': 'application/json' };
-        let bodyData = {};
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify(bodyData)
+    });
+    if (!res.ok) throw new Error('AI Interface Error: ' + res.status);
+    const json = await res.json();
+    if (json.choices && json.choices.length > 0) return json.choices[0].message.content.trim();
+    throw new Error('AI 返回数据异常');
+  }
 
-        if (url.includes('anthropic.com')) {
-            headers['x-api-key'] = apiKey;
-            headers['anthropic-version'] = '2023-06-01';
-            headers['anthropic-dangerous-direct-browser-access'] = 'true';
-            bodyData = {
-                model: modelName || 'claude-3-5-sonnet-20241022',
-                max_tokens: 2000,
-                messages: [{ role: 'user', content: AI_PROMPT + '"' + text + '"' }]
-            };
-        } else if (url.includes('generativelanguage.googleapis.com')) {
-            let targetUrl = url;
-            if (!targetUrl.includes('key=')) {
-                targetUrl += (targetUrl.includes('?') ? '&' : '?') + 'key=' + apiKey;
-            }
-            const res = await fetch(targetUrl, {
-                method: 'POST',
-                headers: headers,
-                body: JSON.stringify({
-                    contents: [{ parts: [{ text: AI_PROMPT + '"' + text + '"' }] }]
-                })
-            });
-            if (!res.ok) throw new Error('Gemini Error: ' + res.status);
-            const json = await res.json();
-            return json.candidates[0].content.parts[0].text.trim();
+  async function executeAIPipeline(text) {
+    const customUrl = localStorage.getItem('CUSTOM_API_URL') || '';
+    const customKey = localStorage.getItem('CUSTOM_API_KEY') || '';
+    const customModel = localStorage.getItem('CUSTOM_MODEL') || '';
+    const groqKey = localStorage.getItem('GROQ_API_KEY') || '';
+    const groqModel = localStorage.getItem('GROQ_MODEL') || '';
+
+    if (customUrl && customKey) {
+      try {
+        return await fetchCustomAI(text, customUrl, customKey, customModel);
+      } catch (err) {
+        if (groqKey) return await fetchGroq(text, groqKey, groqModel);
+        throw err;
+      }
+    } else if (groqKey) {
+      return await fetchGroq(text, groqKey, groqModel);
+    } else {
+      const userKey = prompt('⚠️ 当前页面未检测到 AI Key！\n为了安全，密匙只储存在您本地浏览器中。\n\n请输入您的 API Key (如 sk-xxx 或 gsk_xxx):');
+      if (userKey && userKey.trim()) {
+        const cleanKey = userKey.trim();
+        if (cleanKey.startsWith('gsk_')) {
+          localStorage.setItem('GROQ_API_KEY', cleanKey);
         } else {
-            headers['Authorization'] = 'Bearer ' + apiKey;
-            bodyData = {
-                model: modelName || 'gpt-4o-mini',
-                messages: [
-                    { role: 'system', content: 'You are an English teacher. Output EXACTLY in the requested Markdown format.' },
-                    { role: 'user', content: AI_PROMPT + '"' + text + '"' }
-                ],
-                temperature: 0.3
-            };
+          localStorage.setItem('CUSTOM_API_KEY', cleanKey);
+          localStorage.setItem('CUSTOM_API_URL', 'https://api.chatanywhere.tech/v1/chat/completions');
         }
-
-        const res = await fetch(url, {
-            method: 'POST',
-            headers: headers,
-            body: JSON.stringify(bodyData)
-        });
-        if (!res.ok) throw new Error('AI Interface Error: ' + res.status);
-        const json = await res.json();
-        if (json.choices && json.choices.length > 0) return json.choices[0].message.content.trim();
-        throw new Error('AI 返回数据异常');
+      }
+      throw new Error('未设置 AI API Key');
     }
+  }
 
-    async function executeAIPipeline(text) {
-        const customUrl = localStorage.getItem('CUSTOM_API_URL') || '';
-        const customKey = localStorage.getItem('CUSTOM_API_KEY') || '';
-        const customModel = localStorage.getItem('CUSTOM_MODEL') || '';
-        const groqKey = localStorage.getItem('GROQ_API_KEY') || '';
-        const groqModel = localStorage.getItem('GROQ_MODEL') || '';
+  // --- 降级清理防线：净化污染节点 ---
+  function getPurifiedFallbackHTML() {
+    const clone = document.documentElement.cloneNode(true);
+    const foreignSelectors = [
+      'relingo-app', 'relin-highlight', 'relin-hc', '[class*="relingo"]', '[data-relin-paragraph]',
+      'grammarly-extension', '[data-grammarly-part]',
+      '[class*="immersive-translate"]', '[data-immersive-translate]'
+    ].join(',');
+    clone.querySelectorAll(foreignSelectors).forEach(el => el.remove());
+    clone.querySelectorAll('relin-highlight, relin-hc').forEach(t => {
+      const frag = document.createDocumentFragment();
+      while(t.firstChild) frag.appendChild(t.firstChild);
+      t.parentNode.replaceChild(frag, t);
+    });
+    clone.querySelectorAll('script').forEach(s => {
+      if (!s.src.includes('marked.min.js') && s.id !== 'core-engine') s.remove();
+    });
+    clone.querySelectorAll('style').forEach(s => {
+      if (s.id !== 'core-style') s.remove();
+    });
 
-        if (customUrl && customKey) {
-            try {
-                return await fetchCustomAI(text, customUrl, customKey, customModel);
-            } catch (err) {
-                if (groqKey) return await fetchGroq(text, groqKey, groqModel);
-                throw err;
-            }
-        } else if (groqKey) {
-            return await fetchGroq(text, groqKey, groqModel);
-        } else {
-            const userKey = prompt('⚠️ 当前页面未检测到 AI Key！\n为了安全，密匙只储存在您本地浏览器中。\n\n请输入您的 API Key (如 sk-xxx 或 gsk_xxx):');
-            if (userKey && userKey.trim()) {
-                const cleanKey = userKey.trim();
-                if (cleanKey.startsWith('gsk_')) {
-                    localStorage.setItem('GROQ_API_KEY', cleanKey);
-                } else {
-                    localStorage.setItem('CUSTOM_API_KEY', cleanKey);
-                    localStorage.setItem('CUSTOM_API_URL', 'https://api.chatanywhere.tech/v1/chat/completions');
-                }
-            }
-            throw new Error('未设置 AI API Key');
-        }
-    }
+    const liveTAs = document.querySelectorAll('.anno-edit');
+    clone.querySelectorAll('.anno-edit').forEach((ta, i) => {
+      if(liveTAs[i]) ta.textContent = liveTAs[i].value.trim();
+      const box = ta.closest('.anno-box');
+      if (box) box.style.display = 'none';
+      const view = box ? box.querySelector('.anno-view') : null;
+      if (view) view.innerHTML = '';
+    });
+    return '<!DOCTYPE html>\n<html lang="zh-CN">\n' + clone.innerHTML + '\n</html>';
+  }
 
-    // --- 降级清理防线：净化污染节点 ---
-    function getPurifiedFallbackHTML() {
-        const clone = document.documentElement.cloneNode(true);
-        
-        const foreignSelectors = [
-            'relingo-app', 'relin-highlight', 'relin-hc', '[class*="relingo"]', '[data-relin-paragraph]',
-            'grammarly-extension', '[data-grammarly-part]',
-            '[class*="immersive-translate"]', '[data-immersive-translate]'
-        ].join(',');
-        clone.querySelectorAll(foreignSelectors).forEach(el => el.remove());
-        
-        clone.querySelectorAll('relin-highlight, relin-hc').forEach(t => {
-            const frag = document.createDocumentFragment();
-            while(t.firstChild) frag.appendChild(t.firstChild);
-            t.parentNode.replaceChild(frag, t);
-        });
+  // --- 内存反向打补丁同步技术 ---
+  async function syncToCloud() {
+    const ghToken = localStorage.getItem('LITIT_GH_TOKEN') || localStorage.getItem('GH_TOKEN');
+    const ghOwner = 'moodHappy';
+    const ghRepo = 'dual-read-notes';
+    if (!ghToken) return;
 
-        clone.querySelectorAll('script').forEach(s => {
-            if (!s.src.includes('marked.min.js') && s.id !== 'core-engine') s.remove();
-        });
-        
-        clone.querySelectorAll('style').forEach(s => {
-            if (s.id !== 'core-style') s.remove();
-        });
+    const pathParts = window.location.pathname.split('/');
+    const fileName = pathParts.pop();
+    const month = pathParts.pop();
+    const year = pathParts.pop();
+    if(!fileName || !month || !year) return;
+
+    const fileRelPath = 'Summary/' + year + '/' + month + '/' + fileName;
+    try {
+      const getRes = await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath + '?t=' + Date.now(), {
+        headers: { 'Authorization': 'Bearer ' + ghToken },
+        cache: 'no-store'
+      });
+      let finalHTML = '';
+      let sha = '';
+
+      if (getRes.ok) {
+        const fileData = await getRes.json();
+        sha = fileData.sha;
+        const cleanRawHTML = decodeURIComponent(escape(atob(fileData.content.replace(/\n/g, ''))));
+        const parser = new DOMParser();
+        const cleanDoc = parser.parseFromString(cleanRawHTML, 'text/html');
 
         const liveTAs = document.querySelectorAll('.anno-edit');
-        clone.querySelectorAll('.anno-edit').forEach((ta, i) => {
-            if(liveTAs[i]) ta.textContent = liveTAs[i].value.trim();
-            const box = ta.closest('.anno-box');
+        const cleanTAs = cleanDoc.querySelectorAll('.anno-edit');
+        liveTAs.forEach((liveTa, index) => {
+          if (cleanTAs[index]) {
+            const val = liveTa.value.trim();
+            cleanTAs[index].textContent = val;
+            const box = cleanTAs[index].closest('.anno-box');
             if (box) box.style.display = 'none';
             const view = box ? box.querySelector('.anno-view') : null;
             if (view) view.innerHTML = '';
+          }
         });
 
-        return '<!DOCTYPE html>\n<html lang="zh-CN">\n' + clone.innerHTML + '\n</html>';
+        cleanDoc.querySelectorAll('.anno-toggle').forEach(t => {
+          t.classList.remove('has-anno');
+          const ta = t.closest('.content-wrap, .litit-highlight-block')?.querySelector('.anno-edit');
+          if (ta && ta.textContent.trim()) t.classList.add('has-anno');
+        });
+        finalHTML = '<!DOCTYPE html>\n<html lang="zh-CN">\n' + cleanDoc.documentElement.innerHTML + '\n</html>';
+      } else {
+        finalHTML = getPurifiedFallbackHTML();
+      }
+
+      await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath, {
+        method: 'PUT',
+        headers: {
+          'Authorization': 'Bearer ' + ghToken,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          message: 'Silent purified annotation update',
+          content: btoa(unescape(encodeURIComponent(finalHTML))),
+          sha: sha || undefined
+        })
+      });
+      console.log('✅ [My Litit] 纯净无污染批注已静默同步至 GitHub');
+    } catch(e) {
+      console.warn('❌ [My Litit] 同步跳过或失败:', e);
     }
+  }
 
-    // --- 内存反向打补丁同步技术（100% 死锁定 dual-read-notes，无弹窗静默）---
-    async function syncToCloud() {
-        const ghToken = localStorage.getItem('LITIT_GH_TOKEN') || localStorage.getItem('GH_TOKEN');
-        const ghOwner = 'moodHappy';
-        const ghRepo = 'dual-read-notes';
-        if (!ghToken) return;
+  function scheduleSync() {
+    if (syncTimeout) clearTimeout(syncTimeout);
+    syncTimeout = setTimeout(() => {
+      syncToCloud();
+    }, 3000);
+  }
 
-        const pathParts = window.location.pathname.split('/');
-        const fileName = pathParts.pop();
-        const month = pathParts.pop();
-        const year = pathParts.pop();
-        if(!fileName || !month || !year) return;
-
-        const fileRelPath = 'Summary/' + year + '/' + month + '/' + fileName;
-
-        try {
-            const getRes = await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath + '?t=' + Date.now(), {
-                headers: { 'Authorization': 'Bearer ' + ghToken },
-                cache: 'no-store'
-            });
-
-            let finalHTML = '';
-            let sha = '';
-
-            if (getRes.ok) {
-                const fileData = await getRes.json();
-                sha = fileData.sha;
-                const cleanRawHTML = decodeURIComponent(escape(atob(fileData.content.replace(/\n/g, ''))));
-                
-                const parser = new DOMParser();
-                const cleanDoc = parser.parseFromString(cleanRawHTML, 'text/html');
-
-                const liveTAs = document.querySelectorAll('.anno-edit');
-                const cleanTAs = cleanDoc.querySelectorAll('.anno-edit');
-
-                liveTAs.forEach((liveTa, index) => {
-                    if (cleanTAs[index]) {
-                        const val = liveTa.value.trim();
-                        cleanTAs[index].textContent = val;
-                        
-                        const box = cleanTAs[index].closest('.anno-box');
-                        if (box) box.style.display = 'none';
-                        const view = box ? box.querySelector('.anno-view') : null;
-                        if (view) view.innerHTML = '';
-                    }
-                });
-
-                cleanDoc.querySelectorAll('.anno-toggle').forEach(t => {
-                    t.classList.remove('has-anno');
-                    const ta = t.closest('.content-wrap, .litit-highlight-block')?.querySelector('.anno-edit');
-                    if (ta && ta.textContent.trim()) t.classList.add('has-anno');
-                });
-
-                finalHTML = '<!DOCTYPE html>\n<html lang="zh-CN">\n' + cleanDoc.documentElement.innerHTML + '\n</html>';
-            } else {
-                finalHTML = getPurifiedFallbackHTML();
-            }
-
-            await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath, {
-                method: 'PUT',
-                headers: {
-                    'Authorization': 'Bearer ' + ghToken,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    message: 'Silent purified annotation update',
-                    content: btoa(unescape(encodeURIComponent(finalHTML))),
-                    sha: sha || undefined
-                })
-            });
-            console.log('✅ [My Litit] 纯净无污染批注已静默同步至 GitHub');
-        } catch(e) {
-            console.warn('❌ [My Litit] 同步跳过或失败:', e);
+  function initAnnotations() {
+    document.querySelectorAll('.litit-highlight-block, .content-wrap').forEach(wrap => {
+      let content = wrap.querySelector('.content');
+      if (!content) {
+        const pText = wrap.querySelector('p');
+        if (pText) {
+          content = document.createElement('div');
+          content.className = 'content';
+          content.style.cssText = 'position:relative; margin:0 0 6px 0; color:#1a202c; font-family:Georgia, serif; line-height:1.7; font-size:15px; word-break:break-word;';
+          content.innerHTML = pText.innerHTML;
+          pText.parentNode.replaceChild(content, pText);
         }
-    }
+      }
+      if (!content) return;
 
-    function scheduleSync() {
-        if (syncTimeout) clearTimeout(syncTimeout);
-        syncTimeout = setTimeout(() => { syncToCloud(); }, 3000);
-    }
+      if (!content.querySelector('.anno-toggle')) {
+        const toggle = document.createElement('span');
+        toggle.className = 'anno-toggle';
+        toggle.title = '手写批注/笔记';
+        content.appendChild(toggle);
+      }
+      if (!content.querySelector('.ai-toggle')) {
+        const aiToggle = document.createElement('span');
+        aiToggle.className = 'ai-toggle';
+        aiToggle.title = 'AI智能二次解析';
+        content.appendChild(aiToggle);
+      }
 
-    function initAnnotations() {
-        document.querySelectorAll('.litit-highlight-block, .content-wrap').forEach(wrap => {
-            let content = wrap.querySelector('.content');
-            if (!content) {
-                const pText = wrap.querySelector('p');
-                if (pText) {
-                    content = document.createElement('div');
-                    content.className = 'content';
-                    content.style.cssText = 'position:relative; margin:0 0 6px 0; color:#1a202c; font-family:Georgia, serif; line-height:1.7; font-size:15px; word-break:break-word;';
-                    content.innerHTML = pText.innerHTML;
-                    pText.parentNode.replaceChild(content, pText);
-                }
+      let box = wrap.querySelector('.anno-box');
+      if (!box) {
+        box = document.createElement('div');
+        box.className = 'anno-box';
+        box.style.display = 'none';
+        box.innerHTML = '<div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 解析..."></textarea>';
+        wrap.appendChild(box);
+      }
+
+      const view = box.querySelector('.anno-view');
+      const edit = box.querySelector('.anno-edit');
+      const toggle = content.querySelector('.anno-toggle');
+      const aiToggle = content.querySelector('.ai-toggle');
+
+      if (edit && edit.value.trim()) {
+        toggle.classList.add('has-anno');
+        try {
+          view.innerHTML = (typeof marked !== 'undefined') ? marked.parse(edit.value.trim()) : edit.value.trim();
+        } catch(e){}
+      }
+
+      if (aiToggle) {
+        aiToggle.onclick = async (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          if (aiToggle.classList.contains('loading')) return;
+
+          if (edit && edit.value.trim() !== '') {
+            const confirmOverwrite = confirm('⚠️ 已经存在批注内容。点击"确定"将使用 AI 解析覆盖现有内容。是否继续？');
+            if (!confirmOverwrite) return;
+          }
+
+          const pClone = content.cloneNode(true);
+          pClone.querySelectorAll('.anno-toggle, .ai-toggle').forEach(el => el.remove());
+          let pText = pClone.textContent.replace(/https?:\/\/\S+/g, '').trim();
+          if (!pText) return;
+
+          aiToggle.classList.add('loading');
+          try {
+            const aiContent = await executeAIPipeline(pText);
+            box.style.display = 'block';
+            view.style.display = 'none';
+            edit.style.display = 'block';
+            edit.value = aiContent;
+            edit.focus();
+            edit.blur();
+          } catch (err) {
+            console.error(err);
+          } finally {
+            aiToggle.classList.remove('loading');
+          }
+        };
+      }
+
+      if (toggle) {
+        toggle.onclick = (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          if (box.style.display === 'block') {
+            box.style.display = 'none';
+          } else {
+            box.style.display = 'block';
+            if (!edit.value.trim()) {
+              view.style.display = 'none';
+              edit.style.display = 'block';
+              setTimeout(() => { edit.focus(); }, 150);
+            } else {
+              view.style.display = 'block';
+              edit.style.display = 'none';
             }
-            if (!content) return;
+          }
+        };
+      }
 
-            if (!content.querySelector('.anno-toggle')) {
-                const toggle = document.createElement('span');
-                toggle.className = 'anno-toggle';
-                toggle.title = '手写批注/笔记';
-                content.appendChild(toggle);
-            }
+      const triggerEdit = (e) => {
+        if(e) { e.preventDefault(); e.stopPropagation(); }
+        view.style.display = 'none';
+        edit.style.display = 'block';
+        edit.value = edit.value; 
+        setTimeout(() => { edit.focus(); }, 150);
+      };
+
+      view.addEventListener('dblclick', triggerEdit);
+      let lastTap = 0;
+      view.addEventListener('touchstart', e => {
+        if (e.touches.length === 2) {
+          triggerEdit(e);
+        } else if (e.touches.length === 1) {
+          const currentTime = new Date().getTime();
+          if (currentTime - lastTap < 500 && currentTime - lastTap > 0) {
+            e.preventDefault();
+            box.style.display = 'none';
+          }
+          lastTap = currentTime;
+        }
+      }, {passive: false});
+
+      if (edit && view) {
+        edit.onblur = () => {
+          setTimeout(() => {
+            const newVal = edit.value.trim();
+            try {
+              view.innerHTML = newVal ? ((typeof marked !== 'undefined') ? marked.parse(newVal) : newVal) : '';
+            } catch(e){}
             
-            if (!content.querySelector('.ai-toggle')) {
-                const aiToggle = document.createElement('span');
-                aiToggle.className = 'ai-toggle';
-                aiToggle.title = 'AI智能二次解析';
-                content.appendChild(aiToggle);
+            edit.style.display = 'none';
+            if (newVal) {
+              view.style.display = 'block';
+              toggle.classList.add('has-anno');
+            } else {
+              view.style.display = 'none';
+              box.style.display = 'none';
+              toggle.classList.remove('has-anno');
             }
 
-            let box = wrap.querySelector('.anno-box');
-            if (!box) {
-                box = document.createElement('div');
-                box.className = 'anno-box';
-                box.style.display = 'none';
-                box.innerHTML = '<div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 解析..."></textarea>';
-                wrap.appendChild(box);
+            if (edit.getAttribute('data-old-val') !== newVal) {
+              edit.setAttribute('data-old-val', newVal);
+              scheduleSync();
             }
+          }, 150);
+        };
+        edit.setAttribute('data-old-val', edit.value.trim());
+      }
+    });
+  }
 
-            const view = box.querySelector('.anno-view');
-            const edit = box.querySelector('.anno-edit');
-            const toggle = content.querySelector('.anno-toggle');
-            const aiToggle = content.querySelector('.ai-toggle');
-
-            if (edit && edit.value.trim()) {
-                toggle.classList.add('has-anno');
-                try { view.innerHTML = (typeof marked !== 'undefined') ? marked.parse(edit.value.trim()) : edit.value.trim(); } catch(e){}
-            }
-
-            if (aiToggle) {
-                aiToggle.onclick = async (e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    if (aiToggle.classList.contains('loading')) return;
-                    
-                    if (edit && edit.value.trim() !== '') {
-                        const confirmOverwrite = confirm('⚠️ 已经存在批注内容。点击"确定"将使用 AI 解析覆盖现有内容。是否继续？');
-                        if (!confirmOverwrite) return;
-                    }
-
-                    const pClone = content.cloneNode(true);
-                    pClone.querySelectorAll('.anno-toggle, .ai-toggle').forEach(el => el.remove());
-                    let pText = pClone.textContent.replace(/https?:\/\/\S+/g, '').trim();
-                    if (!pText) return;
-
-                    aiToggle.classList.add('loading');
-                    try {
-                        const aiContent = await executeAIPipeline(pText);
-                        box.style.display = 'block';
-                        view.style.display = 'none';
-                        edit.style.display = 'block';
-                        edit.value = aiContent;
-                        edit.focus();
-                        edit.blur();
-                    } catch (err) {
-                        console.error(err);
-                    } finally {
-                        aiToggle.classList.remove('loading');
-                    }
-                };
-            }
-
-            if (toggle) {
-                toggle.onclick = (e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    if (box.style.display === 'block') {
-                        box.style.display = 'none';
-                    } else {
-                        box.style.display = 'block';
-                        if (!edit.value.trim()) {
-                            view.style.display = 'none';
-                            edit.style.display = 'block';
-                            setTimeout(() => { edit.focus(); }, 150);
-                        } else {
-                            view.style.display = 'block';
-                            edit.style.display = 'none';
-                        }
-                    }
-                };
-            }
-
-            const triggerEdit = (e) => {
-                if(e) { e.preventDefault(); e.stopPropagation(); }
-                view.style.display = 'none';
-                edit.style.display = 'block';
-                edit.value = edit.value; 
-                setTimeout(() => { edit.focus(); }, 150);
-            };
-
-            view.addEventListener('dblclick', triggerEdit);
-
-            let lastTap = 0;
-            view.addEventListener('touchstart', e => {
-                if (e.touches.length === 2) {
-                    triggerEdit(e);
-                } else if (e.touches.length === 1) {
-                    const currentTime = new Date().getTime();
-                    if (currentTime - lastTap < 500 && currentTime - lastTap > 0) {
-                        e.preventDefault();
-                        box.style.display = 'none';
-                    }
-                    lastTap = currentTime;
-                }
-            }, {passive: false});
-
-            if (edit && view) {
-                edit.onblur = () => {
-                    setTimeout(() => {
-                        const newVal = edit.value.trim();
-                        try {
-                            view.innerHTML = newVal ? ((typeof marked !== 'undefined') ? marked.parse(newVal) : newVal) : '';
-                        } catch(e){}
-                        
-                        edit.style.display = 'none';
-                        
-                        if (newVal) {
-                            view.style.display = 'block';
-                            toggle.classList.add('has-anno');
-                        } else {
-                            view.style.display = 'none';
-                            box.style.display = 'none';
-                            toggle.classList.remove('has-anno');
-                        }
-
-                        if (edit.getAttribute('data-old-val') !== newVal) {
-                            edit.setAttribute('data-old-val', newVal);
-                            scheduleSync();
-                        }
-                    }, 150);
-                };
-                edit.setAttribute('data-old-val', edit.value.trim());
-            }
-        });
-    }
-
-    window.addEventListener('DOMContentLoaded', initAnnotations);
-    window.addEventListener('load', initAnnotations);
+  window.addEventListener('DOMContentLoaded', initAnnotations);
+  window.addEventListener('load', initAnnotations);
 </script>
-
-
-
-
 </body>
 </html>
