@@ -145,7 +145,7 @@
 
     <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #805ad5; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">✨ 本篇亮点与精读</h2>
     <div style="margin:14px 0 24px 0;">
-        
+
         <!-- 重点段落 1 -->
         <div class="litit-highlight-block content-wrap" style="position:relative; margin-bottom:20px; padding-bottom:16px; border-bottom:1px dashed #cbd5e0;">
             <h3 style="font-size:16px; color:#2d3748; margin:0 0 8px 0; font-weight:700;">即兴发挥与官方审查的冲突</h3>
@@ -180,13 +180,13 @@
             </div>
             <div class="anno-box" style="display:none;">
                 <div class="anno-view markdown-body"></div>
-                /textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."&gt;### 📌 完整翻译
+                <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
 此外，这也反映出“名人越来越受到公众和国家双重的道德治理，并被期盼去弘扬‘正能量’和获得社会认可的价值观”。
 
 ### 📌 Key Expressions
 - **moral governance** = 道德治理
 - **positive energy** = 正能量
-- **socially approved values** = 社会认可的价值观
+- **socially approved values** = 社会认可的价值观</textarea>
             </div>
         </div>
 
@@ -316,14 +316,14 @@
     // --- 降级清理防线：净化污染节点 ---
     function getPurifiedFallbackHTML() {
         const clone = document.documentElement.cloneNode(true);
-        
+
         const foreignSelectors = [
             'relingo-app', 'relin-highlight', 'relin-hc', '[class*="relingo"]', '[data-relin-paragraph]',
             'grammarly-extension', '[data-grammarly-part]',
             '[class*="immersive-translate"]', '[data-immersive-translate]'
         ].join(',');
         clone.querySelectorAll(foreignSelectors).forEach(el => el.remove());
-        
+
         clone.querySelectorAll('relin-highlight, relin-hc').forEach(t => {
             const frag = document.createDocumentFragment();
             while(t.firstChild) frag.appendChild(t.firstChild);
@@ -333,7 +333,7 @@
         clone.querySelectorAll('script').forEach(s => {
             if (!s.src.includes('marked.min.js') && s.id !== 'core-engine') s.remove();
         });
-        
+
         clone.querySelectorAll('style').forEach(s => {
             if (s.id !== 'core-style') s.remove();
         });
@@ -378,7 +378,7 @@
                 const fileData = await getRes.json();
                 sha = fileData.sha;
                 const cleanRawHTML = decodeURIComponent(escape(atob(fileData.content.replace(/\n/g, ''))));
-                
+
                 const parser = new DOMParser();
                 const cleanDoc = parser.parseFromString(cleanRawHTML, 'text/html');
 
@@ -389,7 +389,7 @@
                     if (cleanTAs[index]) {
                         const val = liveTa.value.trim();
                         cleanTAs[index].textContent = val;
-                        
+
                         const box = cleanTAs[index].closest('.anno-box');
                         if (box) box.style.display = 'none';
                         const view = box ? box.querySelector('.anno-view') : null;
@@ -452,7 +452,7 @@
                 toggle.title = '手写批注/笔记';
                 content.appendChild(toggle);
             }
-            
+
             if (!content.querySelector('.ai-toggle')) {
                 const aiToggle = document.createElement('span');
                 aiToggle.className = 'ai-toggle';
@@ -484,7 +484,7 @@
                     e.preventDefault();
                     e.stopPropagation();
                     if (aiToggle.classList.contains('loading')) return;
-                    
+
                     if (edit && edit.value.trim() !== '') {
                         const confirmOverwrite = confirm('⚠️ 已经存在批注内容。点击"确定"将使用 AI 解析覆盖现有内容。是否继续？');
                         if (!confirmOverwrite) return;
@@ -563,9 +563,9 @@
                         try {
                             view.innerHTML = newVal ? ((typeof marked !== 'undefined') ? marked.parse(newVal) : newVal) : '';
                         } catch(e){}
-                        
+
                         edit.style.display = 'none';
-                        
+
                         if (newVal) {
                             view.style.display = 'block';
                             toggle.classList.add('has-anno');
@@ -589,7 +589,6 @@
     window.addEventListener('DOMContentLoaded', initAnnotations);
     window.addEventListener('load', initAnnotations);
 </script>
-
 
 </body>
 </html>
