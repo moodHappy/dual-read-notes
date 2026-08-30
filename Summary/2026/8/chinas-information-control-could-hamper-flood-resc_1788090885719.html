@@ -9,7 +9,7 @@
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; padding: 16px; margin: 0 auto; max-width: 800px; background: #ffffff; color: #2d3748; line-height: 1.8; font-size: 16px; word-wrap: break-word; overflow-x: hidden; }
         * { box-sizing: border-box; max-width: 100%; }
         img { max-width: 100%; height: auto; border-radius: 8px; }
-        
+
         /* AI 批注组件样式 */
         .anno-toggle, .ai-toggle { display: inline-block; padding: 2px 6px; margin-left: 6px; cursor: pointer; opacity: 0.4; font-size: 0.85rem; vertical-align: middle; transition: all 0.2s; user-select: none; -webkit-tap-highlight-color: transparent; }
         .anno-toggle:hover, .ai-toggle:hover { opacity: 0.95; transform: scale(1.15); }
@@ -19,24 +19,24 @@
         .ai-toggle::after { content: "🤖"; }
         .ai-toggle.loading::after { content: "⏳"; display: inline-block; animation: spin 1s linear infinite; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
-        
+
         .anno-box { display: none; margin-top: 10px; background: #f8f6ff; border-left: 4px solid #8e7cc3; padding: 12px 16px; border-radius: 0 8px 8px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.03); text-align: left; }
         .anno-view { font-size: 0.95rem; line-height: 1.6; color: #4a4a4a; min-height: 24px; }
         .anno-edit { width: 100%; min-height: 120px; padding: 10px; font-family: monospace; font-size: 0.95rem; border: 1px dashed #8e7cc3; border-radius: 6px; box-sizing: border-box; resize: vertical; display: none; background: #fff; color: #333; outline: none; }
         .anno-edit:focus { border: 1px solid #8e7cc3; box-shadow: 0 0 0 3px rgba(142,124,195,0.15); }
-        
+
         .markdown-body p { margin-top: 0; margin-bottom: 8px; }
         .markdown-body p:last-child { margin-bottom: 0; }
         .markdown-body h1, .markdown-body h2, .markdown-body h3 { color: #6b46c1; font-size: 1.1rem; margin: 10px 0 8px 0; border-bottom: 1px dashed #e9d8fd; padding-bottom: 4px; }
         .markdown-body ul, .markdown-body ol { margin: 0 0 8px 0; padding-left: 20px; }
         .markdown-body blockquote { margin: 0 0 10px 0; padding: 8px 12px; background: rgba(142,124,195,0.1); border-left: 4px solid #8e7cc3; color: #555; }
-        
+
         @media (max-width: 600px) { body { padding: 12px; font-size: 15px; } h1 { font-size: 22px !important; } h2 { font-size: 16px !important; } }
     </style>
 </head>
 <body>
     <div class="litit-report" style="width:100%; max-width:100%; box-sizing:border-box; overflow-x:hidden;">
-        
+
         <!-- 支持批注的主标题区 -->
         <div class="content-wrap" style="position:relative; margin-bottom: 16px;">
             <h1 style="color:#1a202c; font-size: 24px; line-height: 1.4; border-bottom: 3px solid #667eea; padding-bottom: 12px; margin-top:0; margin-bottom:0; word-break:break-word;">
@@ -76,7 +76,7 @@
                     “If people are afraid to share that information, or if their posts are removed, potentially useful information may not reach families, relief workers or the wider public.”
                 </div>
                 <p style="margin:0 0 8px 0; font-weight:500; font-size: 15px; line-height: 1.6; color:#4a5568; word-break:break-word;">“如果人们害怕分享这些信息，或者他们的帖子被删除，那么可能有用的信息就无法到达家属、救援人员或更广泛的公众手中。”</p>
-                <footer style="text-align:right; font-size:13px; color:#718096; font-style:normal; font-weight:500;">—— 国际声援西藏运动总干事直指信息封锁对救援生命线的破坏</footer>
+                <footer style="text-align:right; font-size:13px; color:#718096; font-style:normal; font-weight:500;">—— 国际声援西藏运动总干事</footer>
             </blockquote>
             <div class="anno-box" style="display:none;">
                 <div class="anno-view markdown-body"></div>
@@ -323,7 +323,7 @@
             clone.querySelectorAll('style').forEach(s => {
                 if (s.id !== 'core-style') s.remove();
             });
-            
+
             const liveTAs = document.querySelectorAll('.anno-edit');
             clone.querySelectorAll('.anno-edit').forEach((ta, i) => {
                 if(liveTAs[i]) ta.textContent = liveTAs[i].value.trim();
@@ -350,7 +350,7 @@
             if(!fileName || !month || !year) return;
 
             const fileRelPath = 'Summary/' + year + '/' + month + '/' + fileName;
-            
+
             try {
                 const getRes = await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath + '?t=' + Date.now(), {
                     headers: { 'Authorization': 'Bearer ' + ghToken },
@@ -364,7 +364,7 @@
                     const fileData = await getRes.json();
                     sha = fileData.sha;
                     const cleanRawHTML = decodeURIComponent(escape(atob(fileData.content.replace(/\n/g, ''))));
-                    
+
                     const parser = new DOMParser();
                     const cleanDoc = parser.parseFromString(cleanRawHTML, 'text/html');
                     const liveTAs = document.querySelectorAll('.anno-edit');
@@ -547,7 +547,7 @@
                             try {
                                 view.innerHTML = newVal ? ((typeof marked !== 'undefined') ? marked.parse(newVal) : newVal) : '';
                             } catch(e){}
-                            
+
                             edit.style.display = 'none';
                             if (newVal) {
                                 view.style.display = 'block';
@@ -557,7 +557,7 @@
                                 box.style.display = 'none';
                                 toggle.classList.remove('has-anno');
                             }
-                            
+
                             if (edit.getAttribute('data-old-val') !== newVal) {
                                 edit.setAttribute('data-old-val', newVal);
                                 scheduleSync();
