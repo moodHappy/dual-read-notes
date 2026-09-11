@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>A.I. Could Possibly End Humanity. How Are Humans Supposed to Process That?</title>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <style id="core-style">
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; padding: 16px; margin: 0 auto; max-width: 800px; background: #ffffff; color: #2d3748; line-height: 1.8; font-size: 16px; word-wrap: break-word; overflow-x: hidden; }
+    * { box-sizing: border-box; max-width: 100%; }
+    img { max-width: 100%; height: auto; border-radius: 8px; }
+    /* AI 批注组件样式 */
+    .anno-toggle, .ai-toggle { display: inline-block; padding: 2px 6px; margin-left: 6px; cursor: pointer; opacity: 0.4; font-size: 0.85rem; vertical-align: middle; transition: all 0.2s; user-select: none; -webkit-tap-highlight-color: transparent; }
+    .anno-toggle:hover, .ai-toggle:hover { opacity: 0.95; transform: scale(1.15); }
+    .anno-toggle.has-anno { opacity: 1; }
+    .anno-toggle::after { content: "🔴"; }
+    .ai-toggle { opacity: 0.7; padding: 2px 4px; }
+    .ai-toggle::after { content: "🤖"; }
+    .ai-toggle.loading::after { content: "⏳"; display: inline-block; animation: spin 1s linear infinite; }
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+    .anno-box { display: none; margin-top: 10px; background: #f8f6ff; border-left: 4px solid #8e7cc3; padding: 12px 16px; border-radius: 0 8px 8px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.03); text-align: left; }
+    .anno-view { font-size: 0.95rem; line-height: 1.6; color: #4a4a4a; min-height: 24px; }
+    .anno-edit { width: 100%; min-height: 120px; padding: 10px; font-family: monospace; font-size: 0.95rem; border: 1px dashed #8e7cc3; border-radius: 6px; box-sizing: border-box; resize: vertical; display: none; background: #fff; color: #333; outline: none; }
+    .anno-edit:focus { border: 1px solid #8e7cc3; box-shadow: 0 0 0 3px rgba(142,124,195,0.15); }
+    .markdown-body p { margin-top: 0; margin-bottom: 8px; }
+    .markdown-body p:last-child { margin-bottom: 0; }
+    .markdown-body h1, .markdown-body h2, .markdown-body h3 { color: #6b46c1; font-size: 1.1rem; margin: 10px 0 8px 0; border-bottom: 1px dashed #e9d8fd; padding-bottom: 4px; }
+    .markdown-body ul, .markdown-body ol { margin: 0 0 8px 0; padding-left: 20px; }
+    .markdown-body blockquote { margin: 0 0 10px 0; padding: 8px 12px; background: rgba(142,124,195,0.1); border-left: 4px solid #8e7cc3; color: #555; }
+    @media (max-width: 600px) { body { padding: 12px; font-size: 15px; } h1 { font-size: 22px !important; } h2 { font-size: 16px !important; } }
+  </style>
+</head>
+<body>
+  <div class="litit-report" style="width:100%; max-width:100%; box-sizing:border-box; overflow-x:hidden;">
+    
+    <!-- 主标题区 -->
+    <div class="content-wrap" style="position:relative; margin-bottom: 16px;">
+      <h1 style="color:#1a202c; font-size: 24px; line-height: 1.4; border-bottom: 3px solid #667eea; padding-bottom: 12px; margin-top:0; margin-bottom:0; word-break:break-word;">
+        <span class="content" style="position:relative;">A.I. Could Possibly End Humanity. How Are Humans Supposed to Process That?</span>
+        <br>
+        <span style="font-size: 18px; color: #4a5568; margin-top: 8px; display: inline-block;">人工智能末日论：人类为何会如此担忧？</span>
+      </h1>
+      <div class="anno-box" style="display:none; margin-top: 12px;">
+        <div class="anno-view markdown-body"></div>
+        <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
+人工智能可能会终结人类。人类应该如何消化（处理）这一问题？
+
+### 📌 Key Expressions
+- **end humanity** = 终结人类；导致人类灭绝
+- **supposed to do sth.** = 应该做某事；被期望做某事
+- **process** = v. 处理；消化（在此处指心理或情感上消化某个令人震惊的信息）</textarea>
+      </div>
+    </div>
+
+    <!-- 导言 -->
+    <div class="content-wrap" style="position:relative; margin-bottom:18px;">
+        <div class="content" style="position:relative; margin:0 0 6px 0; color:#1a202c; font-family:Georgia, serif; line-height:1.7; font-size:16px; word-break:break-word;">
+            It could launch a bioweapon attack, or a global drone war. It could set off a nuclear bomb. Or it could destroy human society more gradually, by hoarding all the world’s economic resources and depriving us of food, housing or medicine.
+        </div>
+        <p style="margin:0 0 10px 0; color:#4a5568; font-size:15px; line-height:1.6; font-weight:500; word-break:break-word;">它可能发动生物武器攻击，或掀起一场全球无人机战争。它可能引爆核弹。或者，它也可能通过囤积全球所有经济资源、让我们无法获得食物、住房或药品，以一种更加渐进的方式摧毁人类社会。</p>
+        <div class="anno-box" style="display:none;">
+            <div class="anno-view markdown-body"></div>
+            <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
+它可以发动生物武器袭击，或是挑起一场全球无人机战争。它可能引爆核弹。又或者，它可以以一种更为渐进的方式摧毁人类社会：通过囤积全世界所有的经济资源，剥夺我们的食物、住房或医疗保障。
+
+### 📌 Key Expressions
+- **launch an attack** = 发动攻击
+- **bioweapon** = 生物武器
+- **set off** = 引爆；触发
+- **gradually** = 渐渐地；逐渐地
+- **hoard** = 囤积；秘藏（资源等）
+- **deprive sb. of sth.** = 剥夺某人某物；使某人丧失某物</textarea>
+        </div>
+    </div>
+
+    <!-- 标签与原文链接 -->
+    <div style="margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+      <div style="display:flex; flex-wrap:wrap; gap:8px;">
+        <span style="background:#edf2f7; color:#2d3748; padding:5px 10px; border-radius:6px; font-size:13px; font-weight:600;">生存性风险</span>
+        <span style="background:#edf2f7; color:#2d3748; padding:5px 10px; border-radius:6px; font-size:13px; font-weight:600;">科技伦理</span>
+        <span style="background:#edf2f7; color:#2d3748; padding:5px 10px; border-radius:6px; font-size:13px; font-weight:600;">认知偏误</span>
+      </div>
+      <a href="https://cn.nytimes.com/technology/20260911/ai-humanity-risk/dual/" target="_blank" style="font-size: 13px; color: #5a67d8; text-decoration: none; font-weight: bold; background: #ebf4ff; padding: 6px 14px; border-radius: 6px; transition: all 0.2s; border: 1px solid #c3dafe; display:inline-block;">🔗 阅读原文</a>
+    </div>
+
+    <!-- 最佳金句区 -->
+    <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #ed8936; margin:0 0 12px 0; border-radius: 0 6px 6px 0;">💬 最佳金句</h2>
+    <div class="content-wrap" style="position:relative; margin-bottom:24px;">
+      <blockquote style="border-left: 4px solid #667eea; background: #f8fafc; padding: 14px; margin: 0; font-style: italic; color: #2d3748; border-radius: 0 8px 8px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+        <div class="content" style="position:relative; margin:0 0 6px 0; font-weight:600; font-size: 16px; line-height: 1.6; color:#1a202c; word-break:break-word;">
+          “We tolerate risks that we’re used to but fear the new ones... airlines are perceived as dangerous compared to motor vehicles, when they’re really not.”
+        </div>
+        <p style="margin:0 0 8px 0; font-weight:500; font-size: 15px; line-height: 1.6; color:#4a5568; word-break:break-word;">“我们能够容忍自己已经习惯的风险，却害怕那些新出现的风险……与机动车相比，人们会认为坐飞机更危险，但实际上并非如此。”</p>
+        <footer style="text-align:right; font-size:13px; color:#718096; font-style:normal; font-weight:500;">—— James K. Hammitt (揭示了人类在面对AI风险时的深层心理认知偏差)</footer>
+      </blockquote>
+      <div class="anno-box" style="display:none;">
+        <div class="anno-view markdown-body"></div>
+        <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
+“我们容忍那些我们已经习惯了的风险，却对新出现的风险感到恐惧……与机动车辆相比，航空公司往往被认为更危险，而实际上它们并非如此。”
+
+### 📌 Key Expressions
+- **tolerate** = 容忍；宽恕
+- **be used to (doing) sth.** = 习惯于做某事
+- **fear** = v. 害怕；恐惧
+- **be perceived as...** = 被认为是……；被视作……
+- **when they're really not** = (此处 when 意为“而实际上 / 尽管”，表示对比转折)</textarea>
+      </div>
+    </div>
+
+    <!-- Grid 布局关键数字区 -->
+    <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #38a169; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">📊 关键数字与概率</h2>
+    <div style="display:grid; grid-template-columns: repeat(2, 1fr); gap:12px; margin:14px 0 24px 0;">
+      <div style="background:#fff; border:1px solid #e2e8f0; padding:16px; border-radius:10px; text-align:center; box-shadow:0 2px 5px rgba(0,0,0,0.04); box-sizing:border-box; display:flex; flex-direction:column; justify-content:center;">
+        <div style="font-size:26px; color:#5a67d8; font-weight:900; margin-bottom:6px; line-height:1.2;">
+          3<span style="font-size:16px; margin-left:2px;">%</span>
+        </div>
+        <div style="font-size:13px; color:#4a5568; font-weight:500; line-height:1.4;">牛津学者评估的未来百年内大流行病毁灭人类的概率</div>
+      </div>
+      <div style="background:#fff; border:1px solid #e2e8f0; padding:16px; border-radius:10px; text-align:center; box-shadow:0 2px 5px rgba(0,0,0,0.04); box-sizing:border-box; display:flex; flex-direction:column; justify-content:center;">
+        <div style="font-size:26px; color:#5a67d8; font-weight:900; margin-bottom:6px; line-height:1.2;">
+          1000<span style="font-size:16px; margin-left:2px;">年</span>
+        </div>
+        <div style="font-size:13px; color:#4a5568; font-weight:500; line-height:1.4;">NASA 超级计算机测算出的地球免于小行星撞击的安全期</div>
+      </div>
+      <div style="background:#fff; border:1px solid #e2e8f0; padding:16px; border-radius:10px; text-align:center; box-shadow:0 2px 5px rgba(0,0,0,0.04); box-sizing:border-box; display:flex; flex-direction:column; justify-content:center;">
+        <div style="font-size:26px; color:#5a67d8; font-weight:900; margin-bottom:6px; line-height:1.2;">
+          1<span style="font-size:16px; margin-left:2px;">加仑</span>
+        </div>
+        <div style="font-size:13px; color:#4a5568; font-weight:500; line-height:1.4;">足以在适当散播下杀死地球上所有人类的炭疽病毒量</div>
+      </div>
+      <div style="background:#fff; border:1px solid #e2e8f0; padding:16px; border-radius:10px; text-align:center; box-shadow:0 2px 5px rgba(0,0,0,0.04); box-sizing:border-box; display:flex; flex-direction:column; justify-content:center;">
+        <div style="font-size:26px; color:#5a67d8; font-weight:900; margin-bottom:6px; line-height:1.2;">
+          1989<span style="font-size:16px; margin-left:2px;">年</span>
+        </div>
+        <div style="font-size:13px; color:#4a5568; font-weight:500; line-height:1.4;">哈佛大学建立风险分析中心、将末日恐慌量化分析的起点</div>
+      </div>
+    </div>
+
+    <!-- 逻辑演进线 -->
+    <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #3182ce; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">⏱️ 末日风险认知演变线</h2>
+    <ul style="padding-left:20px; line-height:1.8; color:#2d3748; font-size: 15px; margin-bottom:24px; word-break:break-word;">
+      <li><strong style="color:#2b6cb0;">前AI时代 (核与生化威胁)：</strong> 炭疽等病原体和核武器早已具备毁灭地球的能力，但基于“互相保证毁灭”的<strong>传统威慑理论 (Deterrence)</strong>，人类至今保持了克制与安全。</li>
+      <li><strong style="color:#2b6cb0;">2010年代 (硅谷思潮萌芽)：</strong> 在深度学习真正爆发之前，牛津大学等学术重镇孕育了“有效利他主义”运动，许多硅谷精英提前十多年就在脑海中预演了AI末日的框架模型。</li>
+      <li><strong style="color:#2b6cb0;">2026年9月 (恐慌引爆现实)：</strong> 随着大模型展现出惊人能力，并伴随着 Anthropic 等公司高级研究员的公开辞职，被压抑的生存性焦虑彻底爆发，登上了全球新闻头条。</li>
+    </ul>
+
+    <!-- 亮点与精读区 -->
+    <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #805ad5; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">✨ 本篇亮点与精读</h2>
+    <div style="margin:14px 0 24px 0;">
+      
+      <!-- 重点段落 1 -->
+      <div class="litit-highlight-block content-wrap" style="position:relative; margin-bottom:20px; padding-bottom:16px; border-bottom:1px dashed #cbd5e0;">
+        <h3 style="font-size:16px; color:#2d3748; margin:0 0 8px 0; font-weight:700;">认知的错位：为何独怕AI？</h3>
+        <div class="content" style="position:relative; margin:0 0 6px 0; color:#1a202c; font-family:Georgia, serif; line-height:1.7; font-size:15px; word-break:break-word;">
+          The problem, scientists and public policy experts say, is not so much these threats, of which A.I. is merely the latest, but the innate human difficulty of putting them into perspective.
+        </div>
+        <p style="margin:0 0 10px 0; color:#4a5568; font-size:14px; line-height:1.6; word-break:break-word;">科学家和公共政策专家表示，问题与其说在于这些威胁本身——人工智能只是其中最新的一个，不如说在于人类天生难以正确看待和权衡这些威胁。</p>
+        <div style="background:#fffaf0; padding:10px 12px; border-radius:8px; font-size:14px; color:#c05621; border:1px solid #feebc8; word-break:break-word; margin-bottom:10px;">
+          <strong>Not so much A as B (与其说是 A，不如说是 B)</strong>：这一高级句型常用于纠正大众认知。作者想表达的是：AI 并不是突然出现的“唯一死神”，气候变暖、核武器同样致命。真正的问题出在 <strong>put something into perspective (客观看待/合理衡量)</strong>。人类的基因决定了我们对“失控的新型未知造物（AI）”感到恐惧，却对“熟悉的致命杀手（车祸、传统病毒）”熟视无睹。
+        </div>
+        <div class="anno-box" style="display:none;">
+          <div class="anno-view markdown-body"></div>
+          <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
+科学家和公共政策专家指出，问题与其说是这些威胁（人工智能不过是其中最新的一种）本身，不如说是人类天生难以客观、正确地衡量它们。
+
+### 📌 Key Expressions
+- **not so much A (as B) / but B** = 与其说是 A，不如说是 B
+- **innate** = 天生的；固有的
+- **difficulty of doing sth.** = 做某事的困难
+- **put sth. into perspective** = 客观看待某事；将某事放入恰当的背景中来衡量 / 权衡</textarea>
+        </div>
+      </div>
+
+      <!-- 重点段落 2 -->
+      <div class="litit-highlight-block content-wrap" style="position:relative; margin-bottom:20px; padding-bottom:16px; border-bottom:1px dashed #cbd5e0;">
+        <h3 style="font-size:16px; color:#2d3748; margin:0 0 8px 0; font-weight:700;">硅谷亚文化的“自我预言”</h3>
+        <div class="content" style="position:relative; margin:0 0 6px 0; color:#1a202c; font-family:Georgia, serif; line-height:1.7; font-size:15px; word-break:break-word;">
+          What makes the doomsayers of the tech industry different from, say, an airline scientist assessing crash risks, is that many A.I. executives and researchers held such dire beliefs even before the technology began to show its power. They believe that existential risk is a serious problem in part because they have always believed it.
+        </div>
+        <p style="margin:0 0 10px 0; color:#4a5568; font-size:14px; line-height:1.6; word-break:break-word;">科技行业那些末日论者与航空领域评估飞机失事风险的科学家不同之处在于，早在这项技术开始展现其威力之前，许多人工智能领域的高管和研究人员就已经抱有如此悲观的看法。他们之所以认为生存风险是一个严重问题，一定程度上恰恰在于他们一直以来就这么认为。</p>
+        <div style="background:#fffaf0; padding:10px 12px; border-radius:8px; font-size:14px; color:#c05621; border:1px solid #feebc8; word-break:break-word; margin-bottom:10px;">
+          <strong>Doomsayer (末日论者/唱衰者)</strong>：这段话直指硅谷 AI 圈的一个深层秘密——“有效利他主义 (Effective Altruism)”。这群极度聪明的极客，十年前就在用数学模型推演“百年后人类如何灭绝”。因此，当今天 AI 真的变强时，他们只是将现实硬套进了十几年前写好的剧本里（自我实现的预言），这也解释了为何硅谷内部的安全焦虑比外界更加严重。
+        </div>
+        <div class="anno-box" style="display:none;">
+          <div class="anno-view markdown-body"></div>
+          <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
+是什么让科技圈的末日论者与评估坠机风险的航空科学家有所不同？那就是许多 AI 高管和研究员甚至在这项技术开始展示其威力之前，就抱有极其悲观的信念。他们认为生存性风险是一个严重问题，部分原因在于他们一直以来都深信不疑。
+
+### 📌 Key Expressions
+- **doomsayer** = 末日论者；灾难预言者
+- **say** = (插入语) 比如说；比方说
+- **assess risk** = 评估风险
+- **hold a belief** = 抱有一种信念 / 看法
+- **dire** = 极其可怕的；悲观的；极其严重的
+- **in part** = 在某种程度上；部分原因是</textarea>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 幕后冷知识 -->
+    <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #319795; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">💡 幕后冷知识 (Fun Facts)</h2>
+    <ul style="padding-left:20px; line-height:1.8; color:#2d3748; font-size:15px; margin-bottom:24px; word-break:break-word;">
+      <li><strong>有效利他主义 (Effective Altruism, EA)：</strong> 硅谷科技圈和哲学界极其流行的一种思潮。他们认为，考虑到未来可能存在成千上万亿的人类，我们这代人最重要的使命不是解决眼前的贫困，而是确保“人类不会灭绝”——这就是所谓的“降低生存性风险 (Existential Risk)”。包括 OpenAI 早期高管在内的很多 AI 领袖都是该流派的信徒。</li>
+      <li><strong>威慑理论 (Deterrence) 的失效：</strong> 文章提到，核弹和炭疽没有毁灭世界，是因为“国家行为体”害怕被报复（自杀）。但如果作恶的是一个开源的 AI 程序，或者是一个躲在暗网里的极端个人分子，传统的核威慑和国际公约将彻底失去抓手，这也正是政策制定者最头疼的地方。</li>
+      <li><strong>生存性安全 (Existential Security)：</strong> 并不是消灭所有科技，而是建立一套像“消防局”一样的机制：人类不仅需要扑灭当下的火灾（应对目前的AI失控），更要建立系统级的预警网络，使“整栋大楼(全人类)”永远处于不会被一场大火烧平的安全状态。</li>
+    </ul>
+
+    <!-- 全片锐评 -->
+    <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #e53e3e; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">🎯 全片锐评</h2>
+    <p style="line-height:1.7; color:#1a202c; font-weight:600; background:#fff5f5; padding:14px; border-radius:10px; font-size:15px; margin:0 0 24px 0; border:1px solid #fed7d7; word-break:break-word;">
+      面对 AI 末日论，我们需要剥离硅谷极客们带有宗教狂热色彩的“自我预言”，回归理性的风险评估。人类的基因让我们对“失控的超级大脑”这种近乎神明般的存在产生本能的恐惧，却让我们每天安然坐进具有高致死率的钢铁汽车里。真正的危险，不在于 AI 会像电影《终结者》那样派无人机剿灭我们，而在于我们将它接入电网、金融网络时缺乏必要的“断路器”。就像我们不需要为了防止小行星撞击而每天在地下室瑟瑟发抖一样，对待 AI，我们需要的不是恐慌，而是建立一套类似于“核威慑”与“全球防疫网络”的全新【生存性安全机制】。
+    </p>
+
+  </div>
+
+  <script id="core-engine">
+    let syncTimeout = null;
+    const AI_PROMPT = "请分析以下英文段落，并严格按照以下 Markdown 格式输出（不要输出任何额外的废话）：\n\n### 📌 完整翻译\n\n[此处填写完整翻译]\n\n### 📌 Key Expressions\n\n- **[单词或短语]**\n = [中文释义]\n （[可选的补充说明，如倒装结构或语境等]）\n\n段落内容：\n";
+
+    async function fetchGroq(text, apiKey, modelName) {
+      const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Authorization': 'Bearer ' + apiKey,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          model: modelName || 'llama-3.3-70b-versatile',
+          messages: [
+            { role: 'system', content: 'You are an English teacher. Output EXACTLY in the requested Markdown format.' },
+            { role: 'user', content: AI_PROMPT + '"' + text + '"' }
+          ],
+          temperature: 0.3
+        })
+      });
+      if (!res.ok) throw new Error('Groq Error: ' + res.status);
+      const json = await res.json();
+      return json.choices[0].message.content.trim();
+    }
+
+    async function fetchCustomAI(text, url, apiKey, modelName) {
+      let headers = { 'Content-Type': 'application/json' };
+      let bodyData = {};
+
+      if (url.includes('anthropic.com')) {
+        headers['x-api-key'] = apiKey;
+        headers['anthropic-version'] = '2023-06-01';
+        headers['anthropic-dangerous-direct-browser-access'] = 'true';
+        bodyData = {
+          model: modelName || 'claude-3-5-sonnet-20241022',
+          max_tokens: 2000,
+          messages: [{ role: 'user', content: AI_PROMPT + '"' + text + '"' }]
+        };
+      } else if (url.includes('generativelanguage.googleapis.com')) {
+        let targetUrl = url;
+        if (!targetUrl.includes('key=')) {
+          targetUrl += (targetUrl.includes('?') ? '&' : '?') + 'key=' + apiKey;
+        }
+        const res = await fetch(targetUrl, {
+          method: 'POST',
+          headers: headers,
+          body: JSON.stringify({
+            contents: [{ parts: [{ text: AI_PROMPT + '"' + text + '"' }] }]
+          })
+        });
+        if (!res.ok) throw new Error('Gemini Error: ' + res.status);
+        const json = await res.json();
+        return json.candidates[0].content.parts[0].text.trim();
+      } else {
+        headers['Authorization'] = 'Bearer ' + apiKey;
+        bodyData = {
+          model: modelName || 'gpt-4o-mini',
+          messages: [
+            { role: 'system', content: 'You are an English teacher. Output EXACTLY in the requested Markdown format.' },
+            { role: 'user', content: AI_PROMPT + '"' + text + '"' }
+          ],
+          temperature: 0.3
+        };
+      }
+
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: headers,
+        body: JSON.stringify(bodyData)
+      });
+      if (!res.ok) throw new Error('AI Interface Error: ' + res.status);
+      const json = await res.json();
+      if (json.choices && json.choices.length > 0) return json.choices[0].message.content.trim();
+      throw new Error('AI 返回数据异常');
+    }
+
+    async function executeAIPipeline(text) {
+      const customUrl = localStorage.getItem('CUSTOM_API_URL') || '';
+      const customKey = localStorage.getItem('CUSTOM_API_KEY') || '';
+      const customModel = localStorage.getItem('CUSTOM_MODEL') || '';
+      
+      const groqKey = localStorage.getItem('GROQ_API_KEY') || '';
+      const groqModel = localStorage.getItem('GROQ_MODEL') || '';
+
+      if (customUrl && customKey) {
+        try {
+          return await fetchCustomAI(text, customUrl, customKey, customModel);
+        } catch (err) {
+          if (groqKey) return await fetchGroq(text, groqKey, groqModel);
+          throw err;
+        }
+      } else if (groqKey) {
+        return await fetchGroq(text, groqKey, groqModel);
+      } else {
+        const userKey = prompt('⚠️ 当前页面未检测到 AI Key！\n为了安全，密匙只储存在您本地浏览器中。\n\n请输入您的 API Key (如 sk-xxx 或 gsk_xxx):');
+        if (userKey && userKey.trim()) {
+          const cleanKey = userKey.trim();
+          if (cleanKey.startsWith('gsk_')) {
+            localStorage.setItem('GROQ_API_KEY', cleanKey);
+          } else {
+            localStorage.setItem('CUSTOM_API_KEY', cleanKey);
+            localStorage.setItem('CUSTOM_API_URL', 'https://api.chatanywhere.tech/v1/chat/completions');
+          }
+        }
+        throw new Error('未设置 AI API Key');
+      }
+    }
+
+    // --- 降级清理防线：净化污染节点 ---
+    function getPurifiedFallbackHTML() {
+      const clone = document.documentElement.cloneNode(true);
+      const foreignSelectors = [
+        'relingo-app', 'relin-highlight', 'relin-hc', '[class*="relingo"]', '[data-relin-paragraph]',
+        'grammarly-extension', '[data-grammarly-part]', '[class*="immersive-translate"]', '[data-immersive-translate]'
+      ].join(',');
+      
+      clone.querySelectorAll(foreignSelectors).forEach(el => el.remove());
+      clone.querySelectorAll('relin-highlight, relin-hc').forEach(t => {
+        const frag = document.createDocumentFragment();
+        while(t.firstChild) frag.appendChild(t.firstChild);
+        t.parentNode.replaceChild(frag, t);
+      });
+
+      clone.querySelectorAll('script').forEach(s => {
+        if (!s.src.includes('marked.min.js') && s.id !== 'core-engine') s.remove();
+      });
+      clone.querySelectorAll('style').forEach(s => {
+        if (s.id !== 'core-style') s.remove();
+      });
+
+      const liveTAs = document.querySelectorAll('.anno-edit');
+      clone.querySelectorAll('.anno-edit').forEach((ta, i) => {
+        if(liveTAs[i]) ta.textContent = liveTAs[i].value.trim();
+        const box = ta.closest('.anno-box');
+        if (box) box.style.display = 'none';
+        const view = box ? box.querySelector('.anno-view') : null;
+        if (view) view.innerHTML = '';
+      });
+
+      return '<!DOCTYPE html>\n<html lang="zh-CN">\n' + clone.innerHTML + '\n</html>';
+    }
+
+    // --- 内存反向打补丁同步技术（100% 死锁定 dual-read-notes，无弹窗静默）---
+    async function syncToCloud() {
+      const ghToken = localStorage.getItem('LITIT_GH_TOKEN') || localStorage.getItem('GH_TOKEN');
+      const ghOwner = 'moodHappy';
+      const ghRepo = 'dual-read-notes';
+      
+      if (!ghToken) return;
+
+      const pathParts = window.location.pathname.split('/');
+      const fileName = pathParts.pop();
+      const month = pathParts.pop();
+      const year = pathParts.pop();
+      
+      if(!fileName || !month || !year) return;
+      const fileRelPath = 'Summary/' + year + '/' + month + '/' + fileName;
+
+      try {
+        const getRes = await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath + '?t=' + Date.now(), {
+          headers: { 'Authorization': 'Bearer ' + ghToken },
+          cache: 'no-store'
+        });
+
+        let finalHTML = '';
+        let sha = '';
+
+        if (getRes.ok) {
+          const fileData = await getRes.json();
+          sha = fileData.sha;
+          
+          const cleanRawHTML = decodeURIComponent(escape(atob(fileData.content.replace(/\n/g, ''))));
+          const parser = new DOMParser();
+          const cleanDoc = parser.parseFromString(cleanRawHTML, 'text/html');
+
+          const liveTAs = document.querySelectorAll('.anno-edit');
+          const cleanTAs = cleanDoc.querySelectorAll('.anno-edit');
+
+          liveTAs.forEach((liveTa, index) => {
+            if (cleanTAs[index]) {
+              const val = liveTa.value.trim();
+              cleanTAs[index].textContent = val;
+              const box = cleanTAs[index].closest('.anno-box');
+              if (box) box.style.display = 'none';
+              const view = box ? box.querySelector('.anno-view') : null;
+              if (view) view.innerHTML = '';
+            }
+          });
+
+          cleanDoc.querySelectorAll('.anno-toggle').forEach(t => {
+            t.classList.remove('has-anno');
+            const ta = t.closest('.content-wrap, .litit-highlight-block')?.querySelector('.anno-edit');
+            if (ta && ta.textContent.trim()) t.classList.add('has-anno');
+          });
+
+          finalHTML = '<!DOCTYPE html>\n<html lang="zh-CN">\n' + cleanDoc.documentElement.innerHTML + '\n</html>';
+        } else {
+          finalHTML = getPurifiedFallbackHTML();
+        }
+
+        await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath, {
+          method: 'PUT',
+          headers: {
+            'Authorization': 'Bearer ' + ghToken,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            message: 'Silent purified annotation update',
+            content: btoa(unescape(encodeURIComponent(finalHTML))),
+            sha: sha || undefined
+          })
+        });
+        console.log('✅ [My Litit] 纯净无污染批注已静默同步至 GitHub');
+      } catch(e) {
+        console.warn('❌ [My Litit] 同步跳过或失败:', e);
+      }
+    }
+
+    function scheduleSync() {
+      if (syncTimeout) clearTimeout(syncTimeout);
+      syncTimeout = setTimeout(() => { syncToCloud(); }, 3000);
+    }
+
+    function initAnnotations() {
+      document.querySelectorAll('.litit-highlight-block, .content-wrap').forEach(wrap => {
+        let content = wrap.querySelector('.content');
+        if (!content) {
+          const pText = wrap.querySelector('p');
+          if (pText) {
+            content = document.createElement('div');
+            content.className = 'content';
+            content.style.cssText = 'position:relative; margin:0 0 6px 0; color:#1a202c; font-family:Georgia, serif; line-height:1.7; font-size:15px; word-break:break-word;';
+            content.innerHTML = pText.innerHTML;
+            pText.parentNode.replaceChild(content, pText);
+          }
+        }
+        
+        if (!content) return;
+
+        if (!content.querySelector('.anno-toggle')) {
+          const toggle = document.createElement('span');
+          toggle.className = 'anno-toggle';
+          toggle.title = '手写批注/笔记';
+          content.appendChild(toggle);
+        }
+        
+        if (!content.querySelector('.ai-toggle')) {
+          const aiToggle = document.createElement('span');
+          aiToggle.className = 'ai-toggle';
+          aiToggle.title = 'AI智能二次解析';
+          content.appendChild(aiToggle);
+        }
+
+        let box = wrap.querySelector('.anno-box');
+        if (!box) {
+          box = document.createElement('div');
+          box.className = 'anno-box';
+          box.style.display = 'none';
+          box.innerHTML = '<div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 解析..."></textarea>';
+          wrap.appendChild(box);
+        }
+
+        const view = box.querySelector('.anno-view');
+        const edit = box.querySelector('.anno-edit');
+        const toggle = content.querySelector('.anno-toggle');
+        const aiToggle = content.querySelector('.ai-toggle');
+
+        if (edit && edit.value.trim()) {
+          toggle.classList.add('has-anno');
+          try { view.innerHTML = (typeof marked !== 'undefined') ? marked.parse(edit.value.trim()) : edit.value.trim(); } catch(e){}
+        }
+
+        if (aiToggle) {
+          aiToggle.onclick = async (e) => {
+            e.preventDefault(); e.stopPropagation();
+            if (aiToggle.classList.contains('loading')) return;
+            
+            if (edit && edit.value.trim() !== '') {
+              const confirmOverwrite = confirm('⚠️ 已经存在批注内容。点击"确定"将使用 AI 解析覆盖现有内容。是否继续？');
+              if (!confirmOverwrite) return;
+            }
+
+            const pClone = content.cloneNode(true);
+            pClone.querySelectorAll('.anno-toggle, .ai-toggle').forEach(el => el.remove());
+            let pText = pClone.textContent.replace(/https?:\/\/\S+/g, '').trim();
+            
+            if (!pText) return;
+            
+            aiToggle.classList.add('loading');
+            try {
+              const aiContent = await executeAIPipeline(pText);
+              box.style.display = 'block';
+              view.style.display = 'none';
+              edit.style.display = 'block';
+              edit.value = aiContent;
+              edit.focus();
+              edit.blur(); 
+            } catch (err) {
+              console.error(err);
+            } finally {
+              aiToggle.classList.remove('loading');
+            }
+          };
+        }
+
+        if (toggle) {
+          toggle.onclick = (e) => {
+            e.preventDefault(); e.stopPropagation();
+            if (box.style.display === 'block') {
+              box.style.display = 'none';
+            } else {
+              box.style.display = 'block';
+              if (!edit.value.trim()) {
+                view.style.display = 'none';
+                edit.style.display = 'block';
+                setTimeout(() => { edit.focus(); }, 150);
+              } else {
+                view.style.display = 'block';
+                edit.style.display = 'none';
+              }
+            }
+          };
+        }
+
+        const triggerEdit = (e) => {
+          if(e) { e.preventDefault(); e.stopPropagation(); }
+          view.style.display = 'none';
+          edit.style.display = 'block';
+          edit.value = edit.value; 
+          setTimeout(() => { edit.focus(); }, 150);
+        };
+
+        view.addEventListener('dblclick', triggerEdit);
+
+        let lastTap = 0;
+        view.addEventListener('touchstart', e => {
+          if (e.touches.length === 2) {
+            triggerEdit(e);
+          } else if (e.touches.length === 1) {
+            const currentTime = new Date().getTime();
+            if (currentTime - lastTap < 500 && currentTime - lastTap > 0) {
+              e.preventDefault();
+              box.style.display = 'none';
+            }
+            lastTap = currentTime;
+          }
+        }, {passive: false});
+
+        if (edit && view) {
+          edit.onblur = () => {
+            setTimeout(() => {
+              const newVal = edit.value.trim();
+              try {
+                view.innerHTML = newVal ? ((typeof marked !== 'undefined') ? marked.parse(newVal) : newVal) : '';
+              } catch(e){}
+              
+              edit.style.display = 'none';
+              if (newVal) {
+                view.style.display = 'block';
+                toggle.classList.add('has-anno');
+              } else {
+                view.style.display = 'none';
+                box.style.display = 'none';
+                toggle.classList.remove('has-anno');
+              }
+
+              if (edit.getAttribute('data-old-val') !== newVal) {
+                edit.setAttribute('data-old-val', newVal);
+                scheduleSync();
+              }
+            }, 150);
+          };
+          edit.setAttribute('data-old-val', edit.value.trim());
+        }
+      });
+    }
+
+    window.addEventListener('DOMContentLoaded', initAnnotations);
+    window.addEventListener('load', initAnnotations);
+  </script>
+</body>
+</html>
