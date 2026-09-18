@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Venomous sea snake makes rare appearance at California beach</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style id="core-style">
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            padding: 16px;
+            margin: 0 auto;
+            max-width: 800px;
+            background: #ffffff;
+            color: #2d3748;
+            line-height: 1.8;
+            font-size: 16px;
+            word-wrap: break-word;
+            overflow-x: hidden;
+        }
+        * { box-sizing: border-box; max-width: 100%; }
+        img { max-width: 100%; height: auto; border-radius: 8px; }
+        /* AI 批注组件样式 */
+        .anno-toggle, .ai-toggle {
+            display: inline-block;
+            padding: 2px 6px;
+            margin-left: 6px;
+            cursor: pointer;
+            opacity: 0.4;
+            font-size: 0.85rem;
+            vertical-align: middle;
+            transition: all 0.2s;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .anno-toggle:hover, .ai-toggle:hover { opacity: 0.95; transform: scale(1.15); }
+        .anno-toggle.has-anno { opacity: 1; }
+        .anno-toggle::after { content: "🔴"; }
+        .ai-toggle { opacity: 0.7; padding: 2px 4px; }
+        .ai-toggle::after { content: "🤖"; }
+        .ai-toggle.loading::after {
+            content: "⏳";
+            display: inline-block;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        .anno-box {
+            display: none;
+            margin-top: 10px;
+            background: #f8f6ff;
+            border-left: 4px solid #8e7cc3;
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            text-align: left;
+        }
+        .anno-view { font-size: 0.95rem; line-height: 1.6; color: #4a4a4a; min-height: 24px; }
+        .anno-edit {
+            width: 100%;
+            min-height: 120px;
+            padding: 10px;
+            font-family: monospace;
+            font-size: 0.95rem;
+            border: 1px dashed #8e7cc3;
+            border-radius: 6px;
+            box-sizing: border-box;
+            resize: vertical;
+            display: none;
+            background: #fff;
+            color: #333;
+            outline: none;
+        }
+        .anno-edit:focus {
+            border: 1px solid #8e7cc3;
+            box-shadow: 0 0 0 3px rgba(142,124,195,0.15);
+        }
+        .markdown-body p { margin-top: 0; margin-bottom: 8px; }
+        .markdown-body p:last-child { margin-bottom: 0; }
+        .markdown-body h1, .markdown-body h2, .markdown-body h3 {
+            color: #6b46c1; font-size: 1.1rem; margin: 10px 0 8px 0;
+            border-bottom: 1px dashed #e9d8fd; padding-bottom: 4px;
+        }
+        .markdown-body ul, .markdown-body ol { margin: 0 0 8px 0; padding-left: 20px; }
+        .markdown-body blockquote {
+            margin: 0 0 10px 0; padding: 8px 12px;
+            background: rgba(142,124,195,0.1); border-left: 4px solid #8e7cc3; color: #555;
+        }
+        @media (max-width: 600px) {
+            body { padding: 12px; font-size: 15px; }
+            h1 { font-size: 22px !important; }
+            h2 { font-size: 16px !important; }
+        }
+    </style>
+</head>
+<body>
+    <div class="litit-report" style="width:100%; max-width:100%; box-sizing:border-box; overflow-x:hidden;">
+        
+        <!-- 支持批注的主标题区 -->
+        <div class="content-wrap" style="position:relative; margin-bottom: 16px;">
+            <h1 style="color:#1a202c; font-size: 24px; line-height: 1.4; border-bottom: 3px solid #667eea; padding-bottom: 12px; margin-top:0; margin-bottom:0; word-break:break-word;">
+                <span class="content" style="position:relative;">Venomous sea snake makes rare appearance at California beach</span>
+                <br>
+                <span style="font-size: 18px; color: #4a5568; margin-top: 8px; display: inline-block;">剧毒海蛇罕见现身加州海滩</span>
+            </h1>
+            
+            <div class="anno-box" style="display:none; margin-top: 12px;">
+                <div class="anno-view markdown-body"></div>
+                <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
+剧毒海蛇罕见现身加州海滩。
+
+### 📌 Key Expressions
+- **venomous** = 剧毒的；分泌毒液的
+- **sea snake** = 海蛇
+- **make an appearance** = 出现；露面
+- **rare** = 罕见的</textarea>
+            </div>
+        </div>
+        
+        <p style="color:#4a5568; font-size: 15px; line-height: 1.6; margin-bottom:18px; font-weight:500;">罕见剧毒生物惊现加州南部的海滩。由于厄尔尼诺现象引发的异常水温上升，原本多生活在墨西哥下加利福尼亚半岛以南的黄腹海蛇（yellow-bellied sea snake）罕见地越过“边界”，出现在了加州橙县的水晶湾（Crystal Cove）。这是自2018年以来该地区首次记录到这种剧毒生物，也是半个多世纪以来的第6次目击。专家警告，随着海水进一步变暖，未来将有更多意想不到的热带海洋物种“北上”造访加州海岸线。</p>
+        
+        <div style="margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+            <div style="display:flex; flex-wrap:wrap; gap:8px;">
+                <span style="background:#edf2f7; color:#2d3748; padding:5px 10px; border-radius:6px; font-size:13px; font-weight:600;">加州生态</span>
+                <span style="background:#edf2f7; color:#2d3748; padding:5px 10px; border-radius:6px; font-size:13px; font-weight:600;">厄尔尼诺</span>
+                <span style="background:#edf2f7; color:#2d3748; padding:5px 10px; border-radius:6px; font-size:13px; font-weight:600;">罕见生物</span>
+            </div>
+            <a href="https://www.upi.com/Odd_News/2026/09/17/yellow-bellied-sea-snake-Chrystal-Cove-California/8871789660407/" target="_blank" style="font-size: 13px; color: #5a67d8; text-decoration: none; font-weight: bold; background: #ebf4ff; padding: 6px 14px; border-radius: 6px; transition: all 0.2s; border: 1px solid #c3dafe; display:inline-block;">🔗 阅读原文</a>
+        </div>
+
+        <!-- 最佳金句区 -->
+        <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #ed8936; margin:0 0 12px 0; border-radius: 0 6px 6px 0;">💬 最佳金句</h2>
+        <div class="content-wrap" style="position:relative; margin-bottom:24px;">
+            <blockquote style="border-left: 4px solid #667eea; background: #f8fafc; padding: 14px; margin: 0; font-style: italic; color: #2d3748; border-radius: 0 8px 8px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+                <div class="content" style="position:relative; margin:0 0 6px 0; font-weight:600; font-size: 16px; line-height: 1.6; color:#1a202c; word-break:break-word;">
+                    "We expect to see all kinds of weird tropical things come up with this warm water."
+                </div>
+                <p style="margin:0 0 8px 0; font-weight:500; font-size: 15px; line-height: 1.6; color:#4a5568; word-break:break-word;">“我们预计，随着这股温暖海水的到来，将会看到各种奇怪的热带生物在此出现。”</p>
+                <footer style="text-align:right; font-size:13px; color:#718096; font-style:normal; font-weight:500;">—— 加州大学圣巴巴拉分校贝尼奥夫海洋倡议主任，点出气候变化带来的生态多米诺效应</footer>
+            </blockquote>
+            <div class="anno-box" style="display:none;">
+                <div class="anno-view markdown-body"></div>
+                <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
+“我们预计，随着这股温暖海水的到来，将会看到各种奇怪的热带生物在此出现。”
+
+### 📌 Key Expressions
+- **expect to see** = 预计/期待看到
+- **all kinds of** = 各种各样的
+- **weird** = 奇怪的；怪异的
+- **tropical** = 热带的
+- **come up** = 出现；上来（此处指顺着洋流北上涌现）</textarea>
+            </div>
+        </div>
+
+        <!-- Grid 布局关键数字区 -->
+        <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #38a169; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">📊 关键数字</h2>
+        <div style="display:grid; grid-template-columns: repeat(2, 1fr); gap:12px; margin:14px 0 24px 0;">
+            <div style="background:#fff; border:1px solid #e2e8f0; padding:16px; border-radius:10px; text-align:center; box-shadow:0 2px 5px rgba(0,0,0,0.04); box-sizing:border-box; display:flex; flex-direction:column; justify-content:center;">
+                <div style="font-size:26px; color:#5a67d8; font-weight:900; margin-bottom:6px; line-height:1.2;">
+                    2018<span style="font-size:16px; margin-left:2px;">年</span>
+                </div>
+                <div style="font-size:13px; color:#4a5568; font-weight:500; line-height:1.4;">这是加州橙县自2018年以来首次明确记录到该物种</div>
+            </div>
+            
+            <div style="background:#fff; border:1px solid #e2e8f0; padding:16px; border-radius:10px; text-align:center; box-shadow:0 2px 5px rgba(0,0,0,0.04); box-sizing:border-box; display:flex; flex-direction:column; justify-content:center;">
+                <div style="font-size:26px; color:#5a67d8; font-weight:900; margin-bottom:6px; line-height:1.2;">
+                    第 6<span style="font-size:16px; margin-left:2px;">次</span>
+                </div>
+                <div style="font-size:13px; color:#4a5568; font-weight:500; line-height:1.4;">这是自半个多世纪前以来，整个加州第6次发现黄腹海蛇</div>
+            </div>
+            
+            <div style="background:#fff; border:1px solid #e2e8f0; padding:16px; border-radius:10px; text-align:center; box-shadow:0 2px 5px rgba(0,0,0,0.04); box-sizing:border-box; display:flex; flex-direction:column; justify-content:center;">
+                <div style="font-size:26px; color:#5a67d8; font-weight:900; margin-bottom:6px; line-height:1.2;">
+                    1972<span style="font-size:16px; margin-left:2px;">年</span>
+                </div>
+                <div style="font-size:13px; color:#4a5568; font-weight:500; line-height:1.4;">加州开始有黄腹海蛇零星历史记录的起始年份</div>
+            </div>
+            
+            <div style="background:#fff; border:1px solid #e2e8f0; padding:16px; border-radius:10px; text-align:center; box-shadow:0 2px 5px rgba(0,0,0,0.04); box-sizing:border-box; display:flex; flex-direction:column; justify-content:center;">
+                <div style="font-size:26px; color:#5a67d8; font-weight:900; margin-bottom:6px; line-height:1.2;">
+                    2<span style="font-size:16px; margin-left:2px;">种生物</span>
+                </div>
+                <div style="font-size:13px; color:#4a5568; font-weight:500; line-height:1.4;">海洋学家警告可能随厄尔尼诺现象北上的代表性热带物种（海蛇与锤头鲨）</div>
+            </div>
+        </div>
+
+        <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #3182ce; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">⏱️ 事件时间线</h2>
+        <ul style="padding-left:20px; line-height:1.8; color:#2d3748; font-size: 15px; margin-bottom:24px; word-break:break-word;">
+            <li><strong style="color:#2b6cb0;">1972年起：</strong> 加州开始出现零星的黄腹海蛇目击记录。这种生物本来极少冒险游过墨西哥下加利福尼亚半岛以北的海域。</li>
+            <li><strong style="color:#2b6cb0;">2026年7月至8月初：</strong> 海洋学家曾发出前瞻性警告，表示受厄尔尼诺现象影响，加州海水温度升高，可能会带来诸如黄腹海蛇和锤头鲨等“不速之客”。</li>
+            <li><strong style="color:#2b6cb0;">2026年9月中旬 (某周五晚)：</strong> 游客 Jackie Aguilar 和她的家人在橙县水晶湾（Crystal Cove）海滩游玩时，意外发现并拍下了这条剧毒海蛇。</li>
+            <li><strong style="color:#2b6cb0;">事发后：</strong> 这条海蛇被证实安全返回海中游走，但 Aguilar 心有余悸地表示她“暂时绝对不敢再下水了”。</li>
+        </ul>
+
+        <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #805ad5; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">✨ 本篇亮点与精读</h2>
+        <div style="margin:14px 0 24px 0;">
+            
+            <!-- 重点段落 1 -->
+            <div class="litit-highlight-block content-wrap" style="position:relative; margin-bottom:20px; padding-bottom:16px; border-bottom:1px dashed #cbd5e0;">
+                <h3 style="font-size:16px; color:#2d3748; margin:0 0 8px 0; font-weight:700;">剧毒但“笨拙”的沙滩过客</h3>
+                <div class="content" style="position:relative; margin:0 0 6px 0; color:#1a202c; font-family:Georgia, serif; line-height:1.7; font-size:15px; word-break:break-word;">
+                    "They are very venomous, but they are also very clumsy and sluggish out of water," Steffen told CBS Los Angeles. "They are not inclined to bite. They aren't aggressive."
+                </div>
+                <p style="margin:0 0 10px 0; color:#4a5568; font-size:14px; line-height:1.6; word-break:break-word;">“它们具有剧毒，但一旦离开水，它们就会变得非常笨拙和迟钝，”斯特芬告诉洛杉矶哥伦比亚广播公司。“它们不倾向于咬人，也不具攻击性。”</p>
+                <div style="background:#fffaf0; padding:10px 12px; border-radius:8px; font-size:14px; color:#c05621; border:1px solid #feebc8; word-break:break-word; margin-bottom:10px;">
+                    <strong>Sluggish (迟钝的/行动缓慢的)</strong> & <strong>Inclined to (倾向于...)</strong>：海蛇的身体构造（如扁平的尾巴）非常适合在水中游泳，但在陆地上它们失去了支撑力，变得极其笨拙 (clumsy)。专家特意强调这一点，是为了安抚公众：虽然它们毒性极强，但只要不主动去抓取挑逗，被咬伤的风险极低。
+                </div>
+                <div class="anno-box" style="display:none;">
+                    <div class="anno-view markdown-body"></div>
+                    <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
+“它们具有剧毒，但一旦离开水，它们就会变得非常笨拙和迟钝，”斯特芬告诉洛杉矶哥伦比亚广播公司。“它们不倾向于咬人，也不具攻击性。”
+
+### 📌 Key Expressions
+- **clumsy** = 笨拙的
+- **sluggish** = 迟钝的；行动迟缓的
+- **out of water** = 离开水
+- **be inclined to do sth.** = 倾向于做某事
+- **aggressive** = 具攻击性的；挑衅的</textarea>
+                </div>
+            </div>
+
+            <!-- 重点段落 2 -->
+            <div class="litit-highlight-block content-wrap" style="position:relative; margin-bottom:20px; padding-bottom:16px; border-bottom:1px dashed #cbd5e0;">
+                <h3 style="font-size:16px; color:#2d3748; margin:0 0 8px 0; font-weight:700;">打破地理界线的北上之旅</h3>
+                <div class="content" style="position:relative; margin:0 0 6px 0; color:#1a202c; font-family:Georgia, serif; line-height:1.7; font-size:15px; word-break:break-word;">
+                    Yellow-bellied sea snakes don't generally venture further north than Baja California in Mexico. The snake spotted by Aguilar is the first to be documented in Orange County since 2018...
+                </div>
+                <p style="margin:0 0 10px 0; color:#4a5568; font-size:14px; line-height:1.6; word-break:break-word;">黄腹海蛇通常不会向北冒险越过墨西哥的下加利福尼亚半岛。阿吉拉尔发现的这条海蛇是橙县自2018年以来的首次记录……</p>
+                <div style="background:#fffaf0; padding:10px 12px; border-radius:8px; font-size:14px; color:#c05621; border:1px solid #feebc8; word-break:break-word; margin-bottom:10px;">
+                    <strong>Venture (冒险去/涉足)</strong> & <strong>Documented (被记录下来的)</strong>：大自然动物有着严苛的栖息地边界。Venture 这个词带有一种“试探边界”的动态感，暗示这种热带生物出现在寒流交汇的加州海岸实属罕见，其背后的气候推手值得深思。
+                </div>
+                <div class="anno-box" style="display:none;">
+                    <div class="anno-view markdown-body"></div>
+                    <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
+黄腹海蛇通常不会向北冒险越过墨西哥的下加利福尼亚半岛。阿吉拉尔发现的这条海蛇是橙县自2018年以来的首次记录……
+
+### 📌 Key Expressions
+- **generally** = 通常；一般地
+- **venture** = 冒险去（某处）；涉足
+- **further north than...** = 比……更往北
+- **spot** = 发现；认出
+- **document** = 记录（此处用作被动语态）</textarea>
+                </div>
+            </div>
+            
+        </div>
+
+        <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #319795; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">💡 幕后冷知识 (Fun Facts)</h2>
+        <ul style="padding-left:20px; line-height:1.8; color:#2d3748; font-size:15px; margin-bottom:24px; word-break:break-word;">
+            <li><strong>黄腹海蛇（Yellow-bellied sea snake）：</strong> 一种广泛分布于热带印度洋和太平洋的剧毒蛇类。它们的特征是拥有明黄色的腹部，毒液毒性极强。但好消息是，它们的嘴巴和尖牙相对较小，且主要是为了捕食小鱼，除非受到严重威胁，否则极少主动攻击人类。</li>
+            <li><strong>厄尔尼诺的“生物搬运工”效应：</strong> 厄尔尼诺现象导致太平洋东部海水异常变暖。这种水温升高不仅改变了局部洋流，还将那些原本只能在温暖水域生存的热带生物（如黄腹海蛇、锤头鲨）像搭乘自动扶梯一样“搬运”到了原本冰冷的加州沿岸。</li>
+            <li><strong>本能的恐惧：</strong> 尽管自然学家在新闻中尽力解释这种海蛇在岸上“行动迟缓”且“不具攻击性”，但目击者阿吉拉尔在看到它游回海里后，依然直白地表示“暂时绝不会再下水了”。这种对剧毒未知生物的趋利避害本能，是刻在人类基因里的真实反应。</li>
+        </ul>
+
+        <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #e53e3e; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">🎯 全片锐评</h2>
+        <p style="line-height:1.7; color:#1a202c; font-weight:600; background:#fff5f5; padding:14px; border-radius:10px; font-size:15px; margin:0 0 24px 0; border:1px solid #fed7d7; word-break:break-word;">
+            这看似只是一则关于“游客海滩偶遇剧毒生物”的奇闻轶事（Odd News），实则是一份大自然递交的“气候变化罚单”。加州海岸线曾经有着清晰的生态地理分界，但随着厄尔尼诺现象的加剧和全球海水变暖，这条隐形的界线正在崩塌。黄腹海蛇等热带物种的北上“串门”，不仅是一种猎奇现象，更提醒我们：气候异常引发的生态系统连锁反应正在我们的日常生活中具体上演。未来的沙滩度假者们，或许真的要慢慢习惯与越来越多意想不到的“热带访客”共享这片海域了。
+        </p>
+
+    </div>
+
+    <script id="core-engine">
+        let syncTimeout = null;
+        const AI_PROMPT = "请分析以下英文段落，并严格按照以下 Markdown 格式输出（不要输出任何额外的废话）：\n\n### 📌 完整翻译\n\n[此处填写完整翻译]\n\n### 📌 Key Expressions\n\n- **[单词或短语]**\n  = [中文释义]\n  （[可选的补充说明，如倒装结构或语境等]）\n\n段落内容：\n";
+
+        async function fetchGroq(text, apiKey, modelName) {
+            const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + apiKey,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    model: modelName || 'llama-3.3-70b-versatile',
+                    messages: [
+                        { role: 'system', content: 'You are an English teacher. Output EXACTLY in the requested Markdown format.' },
+                        { role: 'user', content: AI_PROMPT + '"' + text + '"' }
+                    ],
+                    temperature: 0.3
+                })
+            });
+            if (!res.ok) throw new Error('Groq Error: ' + res.status);
+            const json = await res.json();
+            return json.choices[0].message.content.trim();
+        }
+
+        async function fetchCustomAI(text, url, apiKey, modelName) {
+            let headers = { 'Content-Type': 'application/json' };
+            let bodyData = {};
+
+            if (url.includes('anthropic.com')) {
+                headers['x-api-key'] = apiKey;
+                headers['anthropic-version'] = '2023-06-01';
+                headers['anthropic-dangerous-direct-browser-access'] = 'true';
+                bodyData = {
+                    model: modelName || 'claude-3-5-sonnet-20241022',
+                    max_tokens: 2000,
+                    messages: [{ role: 'user', content: AI_PROMPT + '"' + text + '"' }]
+                };
+            } else if (url.includes('generativelanguage.googleapis.com')) {
+                let targetUrl = url;
+                if (!targetUrl.includes('key=')) {
+                    targetUrl += (targetUrl.includes('?') ? '&' : '?') + 'key=' + apiKey;
+                }
+                const res = await fetch(targetUrl, {
+                    method: 'POST',
+                    headers: headers,
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: AI_PROMPT + '"' + text + '"' }] }]
+                    })
+                });
+                if (!res.ok) throw new Error('Gemini Error: ' + res.status);
+                const json = await res.json();
+                return json.candidates[0].content.parts[0].text.trim();
+            } else {
+                headers['Authorization'] = 'Bearer ' + apiKey;
+                bodyData = {
+                    model: modelName || 'gpt-4o-mini',
+                    messages: [
+                        { role: 'system', content: 'You are an English teacher. Output EXACTLY in the requested Markdown format.' },
+                        { role: 'user', content: AI_PROMPT + '"' + text + '"' }
+                    ],
+                    temperature: 0.3
+                };
+            }
+
+            const res = await fetch(url, {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify(bodyData)
+            });
+            
+            if (!res.ok) throw new Error('AI Interface Error: ' + res.status);
+            const json = await res.json();
+            if (json.choices && json.choices.length > 0) return json.choices[0].message.content.trim();
+            throw new Error('AI 返回数据异常');
+        }
+
+        async function executeAIPipeline(text) {
+            const customUrl = localStorage.getItem('CUSTOM_API_URL') || '';
+            const customKey = localStorage.getItem('CUSTOM_API_KEY') || '';
+            const customModel = localStorage.getItem('CUSTOM_MODEL') || '';
+            const groqKey = localStorage.getItem('GROQ_API_KEY') || '';
+            const groqModel = localStorage.getItem('GROQ_MODEL') || '';
+
+            if (customUrl && customKey) {
+                try {
+                    return await fetchCustomAI(text, customUrl, customKey, customModel);
+                } catch (err) {
+                    if (groqKey) return await fetchGroq(text, groqKey, groqModel);
+                    throw err;
+                }
+            } else if (groqKey) {
+                return await fetchGroq(text, groqKey, groqModel);
+            } else {
+                const userKey = prompt('⚠️ 当前页面未检测到 AI Key！\n为了安全，密匙只储存在您本地浏览器中。\n\n请输入您的 API Key (如 sk-xxx 或 gsk_xxx):');
+                if (userKey && userKey.trim()) {
+                    const cleanKey = userKey.trim();
+                    if (cleanKey.startsWith('gsk_')) {
+                        localStorage.setItem('GROQ_API_KEY', cleanKey);
+                    } else {
+                        localStorage.setItem('CUSTOM_API_KEY', cleanKey);
+                        localStorage.setItem('CUSTOM_API_URL', 'https://api.chatanywhere.tech/v1/chat/completions');
+                    }
+                }
+                throw new Error('未设置 AI API Key');
+            }
+        }
+
+        // --- 降级清理防线：净化污染节点 ---
+        function getPurifiedFallbackHTML() {
+            const clone = document.documentElement.cloneNode(true);
+            const foreignSelectors = [
+                'relingo-app', 'relin-highlight', 'relin-hc', '[class*="relingo"]',
+                '[data-relin-paragraph]', 'grammarly-extension', '[data-grammarly-part]',
+                '[class*="immersive-translate"]', '[data-immersive-translate]'
+            ].join(',');
+
+            clone.querySelectorAll(foreignSelectors).forEach(el => el.remove());
+            clone.querySelectorAll('relin-highlight, relin-hc').forEach(t => {
+                const frag = document.createDocumentFragment();
+                while(t.firstChild) frag.appendChild(t.firstChild);
+                t.parentNode.replaceChild(frag, t);
+            });
+
+            clone.querySelectorAll('script').forEach(s => {
+                if (!s.src.includes('marked.min.js') && s.id !== 'core-engine') s.remove();
+            });
+            clone.querySelectorAll('style').forEach(s => {
+                if (s.id !== 'core-style') s.remove();
+            });
+
+            const liveTAs = document.querySelectorAll('.anno-edit');
+            clone.querySelectorAll('.anno-edit').forEach((ta, i) => {
+                if(liveTAs[i]) ta.textContent = liveTAs[i].value.trim();
+                const box = ta.closest('.anno-box');
+                if (box) box.style.display = 'none';
+                const view = box ? box.querySelector('.anno-view') : null;
+                if (view) view.innerHTML = '';
+            });
+
+            return '<!DOCTYPE html>\n<html lang="zh-CN">\n' + clone.innerHTML + '\n</html>';
+        }
+
+        // --- 内存反向打补丁同步技术（100% 死锁定 dual-read-notes，无弹窗静默）---
+        async function syncToCloud() {
+            const ghToken = localStorage.getItem('LITIT_GH_TOKEN') || localStorage.getItem('GH_TOKEN');
+            const ghOwner = 'moodHappy';
+            const ghRepo = 'dual-read-notes';
+            if (!ghToken) return;
+
+            const pathParts = window.location.pathname.split('/');
+            const fileName = pathParts.pop();
+            const month = pathParts.pop();
+            const year = pathParts.pop();
+            if(!fileName || !month || !year) return;
+
+            const fileRelPath = 'Summary/' + year + '/' + month + '/' + fileName;
+
+            try {
+                const getRes = await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath + '?t=' + Date.now(), {
+                    headers: { 'Authorization': 'Bearer ' + ghToken },
+                    cache: 'no-store'
+                });
+
+                let finalHTML = '';
+                let sha = '';
+
+                if (getRes.ok) {
+                    const fileData = await getRes.json();
+                    sha = fileData.sha;
+                    const cleanRawHTML = decodeURIComponent(escape(atob(fileData.content.replace(/\n/g, ''))));
+                    
+                    const parser = new DOMParser();
+                    const cleanDoc = parser.parseFromString(cleanRawHTML, 'text/html');
+                    
+                    const liveTAs = document.querySelectorAll('.anno-edit');
+                    const cleanTAs = cleanDoc.querySelectorAll('.anno-edit');
+                    
+                    liveTAs.forEach((liveTa, index) => {
+                        if (cleanTAs[index]) {
+                            const val = liveTa.value.trim();
+                            cleanTAs[index].textContent = val;
+                            const box = cleanTAs[index].closest('.anno-box');
+                            if (box) box.style.display = 'none';
+                            const view = box ? box.querySelector('.anno-view') : null;
+                            if (view) view.innerHTML = '';
+                        }
+                    });
+
+                    cleanDoc.querySelectorAll('.anno-toggle').forEach(t => {
+                        t.classList.remove('has-anno');
+                        const ta = t.closest('.content-wrap, .litit-highlight-block')?.querySelector('.anno-edit');
+                        if (ta && ta.textContent.trim()) t.classList.add('has-anno');
+                    });
+
+                    finalHTML = '<!DOCTYPE html>\n<html lang="zh-CN">\n' + cleanDoc.documentElement.innerHTML + '\n</html>';
+                } else {
+                    finalHTML = getPurifiedFallbackHTML();
+                }
+
+                await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': 'Bearer ' + ghToken,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message: 'Silent purified annotation update',
+                        content: btoa(unescape(encodeURIComponent(finalHTML))),
+                        sha: sha || undefined
+                    })
+                });
+                console.log('✅ [My Litit] 纯净无污染批注已静默同步至 GitHub');
+            } catch(e) {
+                console.warn('❌ [My Litit] 同步跳过或失败:', e);
+            }
+        }
+
+        function scheduleSync() {
+            if (syncTimeout) clearTimeout(syncTimeout);
+            syncTimeout = setTimeout(() => { syncToCloud(); }, 3000);
+        }
+
+        function initAnnotations() {
+            document.querySelectorAll('.litit-highlight-block, .content-wrap').forEach(wrap => {
+                let content = wrap.querySelector('.content');
+                if (!content) {
+                    const pText = wrap.querySelector('p');
+                    if (pText) {
+                        content = document.createElement('div');
+                        content.className = 'content';
+                        content.style.cssText = 'position:relative; margin:0 0 6px 0; color:#1a202c; font-family:Georgia, serif; line-height:1.7; font-size:15px; word-break:break-word;';
+                        content.innerHTML = pText.innerHTML;
+                        pText.parentNode.replaceChild(content, pText);
+                    }
+                }
+                if (!content) return;
+
+                if (!content.querySelector('.anno-toggle')) {
+                    const toggle = document.createElement('span');
+                    toggle.className = 'anno-toggle';
+                    toggle.title = '手写批注/笔记';
+                    content.appendChild(toggle);
+                }
+                
+                if (!content.querySelector('.ai-toggle')) {
+                    const aiToggle = document.createElement('span');
+                    aiToggle.className = 'ai-toggle';
+                    aiToggle.title = 'AI智能二次解析';
+                    content.appendChild(aiToggle);
+                }
+
+                let box = wrap.querySelector('.anno-box');
+                if (!box) {
+                    box = document.createElement('div');
+                    box.className = 'anno-box';
+                    box.style.display = 'none';
+                    box.innerHTML = '<div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 解析..."></textarea>';
+                    wrap.appendChild(box);
+                }
+
+                const view = box.querySelector('.anno-view');
+                const edit = box.querySelector('.anno-edit');
+                const toggle = content.querySelector('.anno-toggle');
+                const aiToggle = content.querySelector('.ai-toggle');
+
+                if (edit && edit.value.trim()) {
+                    toggle.classList.add('has-anno');
+                    try { view.innerHTML = (typeof marked !== 'undefined') ? marked.parse(edit.value.trim()) : edit.value.trim(); } catch(e){}
+                }
+
+                if (aiToggle) {
+                    aiToggle.onclick = async (e) => {
+                        e.preventDefault(); e.stopPropagation();
+                        if (aiToggle.classList.contains('loading')) return;
+                        
+                        if (edit && edit.value.trim() !== '') {
+                            const confirmOverwrite = confirm('⚠️ 已经存在批注内容。点击"确定"将使用 AI 解析覆盖现有内容。是否继续？');
+                            if (!confirmOverwrite) return;
+                        }
+
+                        const pClone = content.cloneNode(true);
+                        pClone.querySelectorAll('.anno-toggle, .ai-toggle').forEach(el => el.remove());
+                        let pText = pClone.textContent.replace(/https?:\/\/\S+/g, '').trim();
+                        
+                        if (!pText) return;
+                        
+                        aiToggle.classList.add('loading');
+                        try {
+                            const aiContent = await executeAIPipeline(pText);
+                            box.style.display = 'block';
+                            view.style.display = 'none';
+                            edit.style.display = 'block';
+                            edit.value = aiContent;
+                            edit.focus();
+                            edit.blur();
+                        } catch (err) {
+                            console.error(err);
+                        } finally {
+                            aiToggle.classList.remove('loading');
+                        }
+                    };
+                }
+
+                if (toggle) {
+                    toggle.onclick = (e) => {
+                        e.preventDefault(); e.stopPropagation();
+                        if (box.style.display === 'block') {
+                            box.style.display = 'none';
+                        } else {
+                            box.style.display = 'block';
+                            if (!edit.value.trim()) {
+                                view.style.display = 'none';
+                                edit.style.display = 'block';
+                                setTimeout(() => { edit.focus(); }, 150);
+                            } else {
+                                view.style.display = 'block';
+                                edit.style.display = 'none';
+                            }
+                        }
+                    };
+                }
+
+                const triggerEdit = (e) => {
+                    if(e) { e.preventDefault(); e.stopPropagation(); }
+                    view.style.display = 'none';
+                    edit.style.display = 'block';
+                    edit.value = edit.value;
+                    setTimeout(() => { edit.focus(); }, 150);
+                };
+
+                view.addEventListener('dblclick', triggerEdit);
+                
+                let lastTap = 0;
+                view.addEventListener('touchstart', e => {
+                    if (e.touches.length === 2) {
+                        triggerEdit(e);
+                    } else if (e.touches.length === 1) {
+                        const currentTime = new Date().getTime();
+                        if (currentTime - lastTap < 500 && currentTime - lastTap > 0) {
+                            e.preventDefault();
+                            box.style.display = 'none';
+                        }
+                        lastTap = currentTime;
+                    }
+                }, {passive: false});
+
+                if (edit && view) {
+                    edit.onblur = () => {
+                        setTimeout(() => {
+                            const newVal = edit.value.trim();
+                            try { view.innerHTML = newVal ? ((typeof marked !== 'undefined') ? marked.parse(newVal) : newVal) : ''; } catch(e){}
+                            edit.style.display = 'none';
+                            
+                            if (newVal) {
+                                view.style.display = 'block';
+                                toggle.classList.add('has-anno');
+                            } else {
+                                view.style.display = 'none';
+                                box.style.display = 'none';
+                                toggle.classList.remove('has-anno');
+                            }
+
+                            if (edit.getAttribute('data-old-val') !== newVal) {
+                                edit.setAttribute('data-old-val', newVal);
+                                scheduleSync();
+                            }
+                        }, 150);
+                    };
+                    edit.setAttribute('data-old-val', edit.value.trim());
+                }
+            });
+        }
+
+        window.addEventListener('DOMContentLoaded', initAnnotations);
+        window.addEventListener('load', initAnnotations);
+    </script>
+</body>
+</html>
