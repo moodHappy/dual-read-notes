@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Houthis say they targeted Saudi capital with ballistic missiles</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style id="core-style">
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            padding: 16px;
+            margin: 0 auto;
+            max-width: 800px;
+            background: #ffffff;
+            color: #2d3748;
+            line-height: 1.8;
+            font-size: 16px;
+            word-wrap: break-word;
+            overflow-x: hidden;
+        }
+        * { box-sizing: border-box; max-width: 100%; }
+        img { max-width: 100%; height: auto; border-radius: 8px; }
+        /* AI 批注组件样式 */
+        .anno-toggle, .ai-toggle {
+            display: inline-block;
+            padding: 2px 6px;
+            margin-left: 6px;
+            cursor: pointer;
+            opacity: 0.4;
+            font-size: 0.85rem;
+            vertical-align: middle;
+            transition: all 0.2s;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .anno-toggle:hover, .ai-toggle:hover { opacity: 0.95; transform: scale(1.15); }
+        .anno-toggle.has-anno { opacity: 1; }
+        .anno-toggle::after { content: "🔴"; }
+        .ai-toggle { opacity: 0.7; padding: 2px 4px; }
+        .ai-toggle::after { content: "🤖"; }
+        .ai-toggle.loading::after {
+            content: "⏳";
+            display: inline-block;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        .anno-box {
+            display: none;
+            margin-top: 10px;
+            background: #f8f6ff;
+            border-left: 4px solid #8e7cc3;
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            text-align: left;
+        }
+        .anno-view { font-size: 0.95rem; line-height: 1.6; color: #4a4a4a; min-height: 24px; }
+        .anno-edit {
+            width: 100%;
+            min-height: 120px;
+            padding: 10px;
+            font-family: monospace;
+            font-size: 0.95rem;
+            border: 1px dashed #8e7cc3;
+            border-radius: 6px;
+            box-sizing: border-box;
+            resize: vertical;
+            display: none;
+            background: #fff;
+            color: #333;
+            outline: none;
+        }
+        .anno-edit:focus {
+            border: 1px solid #8e7cc3;
+            box-shadow: 0 0 0 3px rgba(142,124,195,0.15);
+        }
+        .markdown-body p { margin-top: 0; margin-bottom: 8px; }
+        .markdown-body p:last-child { margin-bottom: 0; }
+        .markdown-body h1, .markdown-body h2, .markdown-body h3 {
+            color: #6b46c1; font-size: 1.1rem; margin: 10px 0 8px 0;
+            border-bottom: 1px dashed #e9d8fd; padding-bottom: 4px;
+        }
+        .markdown-body ul, .markdown-body ol { margin: 0 0 8px 0; padding-left: 20px; }
+        .markdown-body blockquote {
+            margin: 0 0 10px 0; padding: 8px 12px;
+            background: rgba(142,124,195,0.1); border-left: 4px solid #8e7cc3; color: #555;
+        }
+        @media (max-width: 600px) {
+            body { padding: 12px; font-size: 15px; }
+            h1 { font-size: 22px !important; }
+            h2 { font-size: 16px !important; }
+        }
+    </style>
+</head>
+<body>
+    <div class="litit-report" style="width:100%; max-width:100%; box-sizing:border-box; overflow-x:hidden;">
+        
+        <!-- 支持批注的主标题区 -->
+        <div class="content-wrap" style="position:relative; margin-bottom: 16px;">
+            <h1 style="color:#1a202c; font-size: 24px; line-height: 1.4; border-bottom: 3px solid #667eea; padding-bottom: 12px; margin-top:0; margin-bottom:0; word-break:break-word;">
+                <span class="content" style="position:relative;">Houthis say they targeted Saudi capital with ballistic missiles</span>
+                <br>
+                <span style="font-size: 18px; color: #4a5568; margin-top: 8px; display: inline-block;">胡塞武装称其使用弹道导弹袭击了沙特首都</span>
+            </h1>
+            
+            <div class="anno-box" style="display:none; margin-top: 12px;">
+                <div class="anno-view markdown-body"></div>
+                <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
+胡塞武装称他们用弹道导弹袭击了沙特阿拉伯首都。
+
+### 📌 Key Expressions
+- **target** = 将……作为目标；袭击
+- **Saudi capital** = 沙特首都（指利雅得 Riyadh）
+- **ballistic missile** = 弹道导弹</textarea>
+            </div>
+        </div>
+        
+        <p style="color:#4a5568; font-size: 15px; line-height: 1.6; margin-bottom:18px; font-weight:500;">受伊朗支持的也门胡塞武装声称，对沙特阿拉伯首都利雅得及红海沿岸的能源设施发动了大规模的无人机和弹道导弹袭击。尽管沙特当局表示成功拦截了导弹，但袭击仍导致利雅得国际机场航班短暂中断，沙特阿美石油公司的燃料罐燃起浓烟。这是自今年7月以来，利雅得首次拉响防空警报。持续升级的交火不仅造成了大量平民流离失所，更因其对红海咽喉航道的封锁和对石油命脉的打击，让华尔街顶级投行发出了“无法预测战局终局”的严重警告。</p>
+        
+        <div style="margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+            <div style="display:flex; flex-wrap:wrap; gap:8px;">
+                <span style="background:#edf2f7; color:#2d3748; padding:5px 10px; border-radius:6px; font-size:13px; font-weight:600;">中东冲突</span>
+                <span style="background:#edf2f7; color:#2d3748; padding:5px 10px; border-radius:6px; font-size:13px; font-weight:600;">胡塞武装</span>
+                <span style="background:#edf2f7; color:#2d3748; padding:5px 10px; border-radius:6px; font-size:13px; font-weight:600;">能源安全</span>
+            </div>
+            <a href="https://www.bbc.com/news/articles/cwly5d9v7r43o" target="_blank" style="font-size: 13px; color: #5a67d8; text-decoration: none; font-weight: bold; background: #ebf4ff; padding: 6px 14px; border-radius: 6px; transition: all 0.2s; border: 1px solid #c3dafe; display:inline-block;">🔗 阅读原文</a>
+        </div>
+
+        <!-- 最佳金句区 -->
+        <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #ed8936; margin:0 0 12px 0; border-radius: 0 6px 6px 0;">💬 最佳金句</h2>
+        <div class="content-wrap" style="position:relative; margin-bottom:24px;">
+            <blockquote style="border-left: 4px solid #667eea; background: #f8fafc; padding: 14px; margin: 0; font-style: italic; color: #2d3748; border-radius: 0 8px 8px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+                <div class="content" style="position:relative; margin:0 0 6px 0; font-weight:600; font-size: 16px; line-height: 1.6; color:#1a202c; word-break:break-word;">
+                    "I heard the alarm, then my windows shook," said a resident of northern Riyadh, 27. "It was definitely scary. I was not expecting this."
+                </div>
+                <p style="margin:0 0 8px 0; font-weight:500; font-size: 15px; line-height: 1.6; color:#4a5568; word-break:break-word;">“我听到了警报声，接着窗户就震动了起来。”利雅得北部一名27岁的居民说。“那绝对很吓人。我完全没料到会发生这种事。”</p>
+                <footer style="text-align:right; font-size:13px; color:#718096; font-style:normal; font-weight:500;">—— 战争轰鸣声打破大都会平民日常的真实写照</footer>
+            </blockquote>
+            <div class="anno-box" style="display:none;">
+                <div class="anno-view markdown-body"></div>
+                <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
+“我听到了警报声，接着我的窗户震动了起来，”利雅得北部一名27岁的居民说。“这绝对很吓人。我完全没料到会这样。”
+
+### 📌 Key Expressions
+- **alarm** = 警报；警报器
+- **shake** = 震动；摇晃（过去式为 shook）
+- **definitely** = 绝对地；肯定地
+- **expect** = 预料；期待</textarea>
+            </div>
+        </div>
+
+        <!-- Grid 布局关键数字区 -->
+        <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #38a169; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">📊 关键数字</h2>
+        <div style="display:grid; grid-template-columns: repeat(2, 1fr); gap:12px; margin:14px 0 24px 0;">
+            <div style="background:#fff; border:1px solid #e2e8f0; padding:16px; border-radius:10px; text-align:center; box-shadow:0 2px 5px rgba(0,0,0,0.04); box-sizing:border-box; display:flex; flex-direction:column; justify-content:center;">
+                <div style="font-size:26px; color:#5a67d8; font-weight:900; margin-bottom:6px; line-height:1.2;">
+                    300<span style="font-size:16px; margin-left:2px;">次</span>
+                </div>
+                <div style="font-size:13px; color:#4a5568; font-weight:500; line-height:1.4;">胡塞武装指控沙特在过去一周内对也门发动的空袭次数</div>
+            </div>
+            
+            <div style="background:#fff; border:1px solid #e2e8f0; padding:16px; border-radius:10px; text-align:center; box-shadow:0 2px 5px rgba(0,0,0,0.04); box-sizing:border-box; display:flex; flex-direction:column; justify-content:center;">
+                <div style="font-size:26px; color:#5a67d8; font-weight:900; margin-bottom:6px; line-height:1.2;">
+                    48<span style="font-size:16px; margin-left:2px;">人</span>
+                </div>
+                <div style="font-size:13px; color:#4a5568; font-weight:500; line-height:1.4;">据军方消息来源，周六单日双方交战导致的阵亡总人数</div>
+            </div>
+            
+            <div style="background:#fff; border:1px solid #e2e8f0; padding:16px; border-radius:10px; text-align:center; box-shadow:0 2px 5px rgba(0,0,0,0.04); box-sizing:border-box; display:flex; flex-direction:column; justify-content:center;">
+                <div style="font-size:26px; color:#5a67d8; font-weight:900; margin-bottom:6px; line-height:1.2;">
+                    10.4<span style="font-size:16px; margin-left:2px;">万+</span>
+                </div>
+                <div style="font-size:13px; color:#4a5568; font-weight:500; line-height:1.4;">国际移民组织报告的近期冲突导致的流离失所总人数</div>
+            </div>
+            
+            <div style="background:#fff; border:1px solid #e2e8f0; padding:16px; border-radius:10px; text-align:center; box-shadow:0 2px 5px rgba(0,0,0,0.04); box-sizing:border-box; display:flex; flex-direction:column; justify-content:center;">
+                <div style="font-size:26px; color:#5a67d8; font-weight:900; margin-bottom:6px; line-height:1.2;">
+                    7<span style="font-size:16px; margin-left:2px;">月份</span>
+                </div>
+                <div style="font-size:13px; color:#4a5568; font-weight:500; line-height:1.4;">本次空袭是沙特首都利雅得自7月以来首次拉响防空警报</div>
+            </div>
+        </div>
+
+        <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #3182ce; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">⏱️ 事件时间线</h2>
+        <ul style="padding-left:20px; line-height:1.8; color:#2d3748; font-size: 15px; margin-bottom:24px; word-break:break-word;">
+            <li><strong style="color:#2b6cb0;">过去一周：</strong> 胡塞武装声称，沙特阿拉伯在也门境内发动了多达300次空袭。</li>
+            <li><strong style="color:#2b6cb0;">周五：</strong> 联合国国际移民组织发布报告称，近期冲突已导致超过10.4万人流离失所。同日，摩根大通警告战争对油价的最终影响已难以预测。</li>
+            <li><strong style="color:#2b6cb0;">周六凌晨/夜间：</strong> 沙特民防部门通过手机向利雅得及其他地区的居民发送防空警报，城市上空传出爆炸回声。</li>
+            <li><strong style="color:#2b6cb0;">周六白天：</strong> 沙特当局宣布拦截了射向利雅得的弹道导弹。然而，利雅得国际机场航班一度受阻，且红海沿岸阿美石油公司的设施燃料罐被拍到起火。</li>
+        </ul>
+
+        <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #805ad5; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">✨ 本篇亮点与精读</h2>
+        <div style="margin:14px 0 24px 0;">
+            
+            <!-- 重点段落 1 -->
+            <div class="litit-highlight-block content-wrap" style="position:relative; margin-bottom:20px; padding-bottom:16px; border-bottom:1px dashed #cbd5e0;">
+                <h3 style="font-size:16px; color:#2d3748; margin:0 0 8px 0; font-weight:700;">以暴制暴的“合法化”说辞</h3>
+                <div class="content" style="position:relative; margin:0 0 6px 0; color:#1a202c; font-family:Georgia, serif; line-height:1.7; font-size:15px; word-break:break-word;">
+                    He added that the attacks were "in response to the Saudi enemy's criminal attempts" to target the Yemeni capital Sanaa, which is currently controlled by the Houthis.
+                </div>
+                <p style="margin:0 0 10px 0; color:#4a5568; font-size:14px; line-height:1.6; word-break:break-word;">他补充说，这些袭击是“为了回应沙特敌人的犯罪企图”——即针对目前由胡塞武装控制的也门首都萨那的打击。</p>
+                <div style="background:#fffaf0; padding:10px 12px; border-radius:8px; font-size:14px; color:#c05621; border:1px solid #feebc8; word-break:break-word; margin-bottom:10px;">
+                    <strong>In response to (作为对...的回应)</strong> & <strong>Criminal attempts (犯罪企图)</strong>：这句话展示了中东冲突中典型的“以牙还牙”逻辑。胡塞武装将其对沙特首都及平民目标的袭击，包装成对沙特空袭也门首都的被动防御和合理报复，试图在舆论战中占据道义制高点。
+                </div>
+                <div class="anno-box" style="display:none;">
+                    <div class="anno-view markdown-body"></div>
+                    <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
+他补充说，这些袭击是“作为对沙特敌人犯罪企图的回应”，以报复其将目前由胡塞武装控制的也门首都萨那作为袭击目标。
+
+### 📌 Key Expressions
+- **in response to** = 作为对……的回应
+- **enemy** = 敌人
+- **criminal attempt** = 犯罪企图
+- **target** = 瞄准；把……作为目标
+- **currently controlled by** = 目前由……控制</textarea>
+                </div>
+            </div>
+
+            <!-- 重点段落 2 -->
+            <div class="litit-highlight-block content-wrap" style="position:relative; margin-bottom:20px; padding-bottom:16px; border-bottom:1px dashed #cbd5e0;">
+                <h3 style="font-size:16px; color:#2d3748; margin:0 0 8px 0; font-weight:700;">连华尔街也算不出的“终局”</h3>
+                <div class="content" style="position:relative; margin:0 0 6px 0; color:#1a202c; font-family:Georgia, serif; line-height:1.7; font-size:15px; word-break:break-word;">
+                    On Friday, investment banking giant JP Morgan said it was struggling to predict how oil prices would be impacted by the war, telling investors in a rare note that "we simply don't know how to model the endgame".
+                </div>
+                <p style="margin:0 0 10px 0; color:#4a5568; font-size:14px; line-height:1.6; word-break:break-word;">周五，投资银行巨头摩根大通表示，它难以预测战争将如何影响石油价格，并在给投资者的一份罕见简报中直言不讳地说：“我们简直不知道该如何为这场战争的最终结局建立模型。”</p>
+                <div style="background:#fffaf0; padding:10px 12px; border-radius:8px; font-size:14px; color:#c05621; border:1px solid #feebc8; word-break:break-word; margin-bottom:10px;">
+                    <strong>Struggle to predict (难以预测)</strong> & <strong>Model the endgame (为最终结局建模)</strong>：这句华尔街的警告揭示了这场局部冲突巨大的全球外溢效应。当连摩根大通这种顶尖投行的精算师都坦言无法“预测终局”时，说明胡塞武装封锁红海航道以及针对沙特阿美石油的无差别袭击，已经让全球能源市场的风险变得极度不可控。
+                </div>
+                <div class="anno-box" style="display:none;">
+                    <div class="anno-view markdown-body"></div>
+                    <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
+周五，投资银行巨头摩根大通表示，它难以预测战争将如何影响石油价格，并在给投资者的一份罕见简报中指出：“我们简直不知道该如何为最终结局建立模型。”
+
+### 📌 Key Expressions
+- **investment banking giant** = 投资银行巨头
+- **struggle to do sth** = 艰难地做某事；难以做某事
+- **impact** = 影响；冲击（被动语态 be impacted by）
+- **rare note** = 罕见的简报/通知
+- **model** = 建立模型；模拟
+- **endgame** = 终局；最后阶段；最终结局</textarea>
+                </div>
+            </div>
+            
+        </div>
+
+        <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #319795; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">💡 幕后冷知识 (Fun Facts)</h2>
+        <ul style="padding-left:20px; line-height:1.8; color:#2d3748; font-size:15px; margin-bottom:24px; word-break:break-word;">
+            <li><strong>“不对称”的耗材战：</strong> 胡塞武装（主要由伊朗提供技术支持）经常用造价低廉的无人机和老式弹道导弹去袭击沙特。沙特为了拦截这些低成本武器，不得不发射单枚造价高达数百万美元的“爱国者”防空导弹。这是一种典型的以小博大、试图用经济成本拖垮对手的不对称战争策略。</li>
+            <li><strong>掐住全球能源咽喉的“拖鞋军”：</strong> 胡塞武装控制的穆哈（Mokha）和佩林岛（Perim Island）是扼守红海曼德海峡的战略要地。由于霍尔木兹海峡受美以与伊朗紧张局势影响受阻，沙特运油船极度依赖红海。这支一度被戏称为“拖鞋军”的武装，如今却掌握着牵动全球油价和欧亚供应链的生杀大权。</li>
+            <li><strong>屡成靶子的“阿美石油”：</strong> 沙特阿美（Aramco）是全球最赚钱的国有石油公司。它位于延布（Yanbu）等地的能源设施屡次成为胡塞武装的打击首选。打击阿美不仅是对沙特实施“经济放血”，更是胡塞武装向全球资本市场展示其破坏力与政治影响力的终南捷径。</li>
+        </ul>
+
+        <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #e53e3e; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">🎯 全片锐评</h2>
+        <p style="line-height:1.7; color:#1a202c; font-weight:600; background:#fff5f5; padding:14px; border-radius:10px; font-size:15px; margin:0 0 24px 0; border:1px solid #fed7d7; word-break:break-word;">
+            也门战火再度延烧至沙特首都，震碎的不仅是利雅得平民宁静的窗棂，更是全球能源供应链本就脆弱的神经。这场沙特主导的联军与伊朗支持的胡塞武装之间的“代理人战争”早已陷入血腥泥沼。胡塞武装熟练地运用无人机和弹道导弹，精准地拿捏着沙特最痛的软肋——关键石油设施与红海咽喉航道。在以巴冲突持续外溢、美伊剑拔弩张的大背景下，红海危机与也门内战深度交织，成为了随时可能彻底引爆全球油价的火药桶。当华尔街最精明的投行模型都算不出这场战争的“终局”时，便意味着冲突的破坏力已完全挣脱了传统地缘政治的控制缰绳，而代价，将由也门十几万流离失所的难民和全球为通胀买单的普通人共同承受。
+        </p>
+
+    </div>
+
+    <script id="core-engine">
+        let syncTimeout = null;
+        const AI_PROMPT = "请分析以下英文段落，并严格按照以下 Markdown 格式输出（不要输出任何额外的废话）：\n\n### 📌 完整翻译\n\n[此处填写完整翻译]\n\n### 📌 Key Expressions\n\n- **[单词或短语]**\n  = [中文释义]\n  （[可选的补充说明，如倒装结构或语境等]）\n\n段落内容：\n";
+
+        async function fetchGroq(text, apiKey, modelName) {
+            const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + apiKey,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    model: modelName || 'llama-3.3-70b-versatile',
+                    messages: [
+                        { role: 'system', content: 'You are an English teacher. Output EXACTLY in the requested Markdown format.' },
+                        { role: 'user', content: AI_PROMPT + '"' + text + '"' }
+                    ],
+                    temperature: 0.3
+                })
+            });
+            if (!res.ok) throw new Error('Groq Error: ' + res.status);
+            const json = await res.json();
+            return json.choices[0].message.content.trim();
+        }
+
+        async function fetchCustomAI(text, url, apiKey, modelName) {
+            let headers = { 'Content-Type': 'application/json' };
+            let bodyData = {};
+
+            if (url.includes('anthropic.com')) {
+                headers['x-api-key'] = apiKey;
+                headers['anthropic-version'] = '2023-06-01';
+                headers['anthropic-dangerous-direct-browser-access'] = 'true';
+                bodyData = {
+                    model: modelName || 'claude-3-5-sonnet-20241022',
+                    max_tokens: 2000,
+                    messages: [{ role: 'user', content: AI_PROMPT + '"' + text + '"' }]
+                };
+            } else if (url.includes('generativelanguage.googleapis.com')) {
+                let targetUrl = url;
+                if (!targetUrl.includes('key=')) {
+                    targetUrl += (targetUrl.includes('?') ? '&' : '?') + 'key=' + apiKey;
+                }
+                const res = await fetch(targetUrl, {
+                    method: 'POST',
+                    headers: headers,
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: AI_PROMPT + '"' + text + '"' }] }]
+                    })
+                });
+                if (!res.ok) throw new Error('Gemini Error: ' + res.status);
+                const json = await res.json();
+                return json.candidates[0].content.parts[0].text.trim();
+            } else {
+                headers['Authorization'] = 'Bearer ' + apiKey;
+                bodyData = {
+                    model: modelName || 'gpt-4o-mini',
+                    messages: [
+                        { role: 'system', content: 'You are an English teacher. Output EXACTLY in the requested Markdown format.' },
+                        { role: 'user', content: AI_PROMPT + '"' + text + '"' }
+                    ],
+                    temperature: 0.3
+                };
+            }
+
+            const res = await fetch(url, {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify(bodyData)
+            });
+            
+            if (!res.ok) throw new Error('AI Interface Error: ' + res.status);
+            const json = await res.json();
+            if (json.choices && json.choices.length > 0) return json.choices[0].message.content.trim();
+            throw new Error('AI 返回数据异常');
+        }
+
+        async function executeAIPipeline(text) {
+            const customUrl = localStorage.getItem('CUSTOM_API_URL') || '';
+            const customKey = localStorage.getItem('CUSTOM_API_KEY') || '';
+            const customModel = localStorage.getItem('CUSTOM_MODEL') || '';
+            const groqKey = localStorage.getItem('GROQ_API_KEY') || '';
+            const groqModel = localStorage.getItem('GROQ_MODEL') || '';
+
+            if (customUrl && customKey) {
+                try {
+                    return await fetchCustomAI(text, customUrl, customKey, customModel);
+                } catch (err) {
+                    if (groqKey) return await fetchGroq(text, groqKey, groqModel);
+                    throw err;
+                }
+            } else if (groqKey) {
+                return await fetchGroq(text, groqKey, groqModel);
+            } else {
+                const userKey = prompt('⚠️ 当前页面未检测到 AI Key！\n为了安全，密匙只储存在您本地浏览器中。\n\n请输入您的 API Key (如 sk-xxx 或 gsk_xxx):');
+                if (userKey && userKey.trim()) {
+                    const cleanKey = userKey.trim();
+                    if (cleanKey.startsWith('gsk_')) {
+                        localStorage.setItem('GROQ_API_KEY', cleanKey);
+                    } else {
+                        localStorage.setItem('CUSTOM_API_KEY', cleanKey);
+                        localStorage.setItem('CUSTOM_API_URL', 'https://api.chatanywhere.tech/v1/chat/completions');
+                    }
+                }
+                throw new Error('未设置 AI API Key');
+            }
+        }
+
+        // --- 降级清理防线：净化污染节点 ---
+        function getPurifiedFallbackHTML() {
+            const clone = document.documentElement.cloneNode(true);
+            const foreignSelectors = [
+                'relingo-app', 'relin-highlight', 'relin-hc', '[class*="relingo"]',
+                '[data-relin-paragraph]', 'grammarly-extension', '[data-grammarly-part]',
+                '[class*="immersive-translate"]', '[data-immersive-translate]'
+            ].join(',');
+
+            clone.querySelectorAll(foreignSelectors).forEach(el => el.remove());
+            clone.querySelectorAll('relin-highlight, relin-hc').forEach(t => {
+                const frag = document.createDocumentFragment();
+                while(t.firstChild) frag.appendChild(t.firstChild);
+                t.parentNode.replaceChild(frag, t);
+            });
+
+            clone.querySelectorAll('script').forEach(s => {
+                if (!s.src.includes('marked.min.js') && s.id !== 'core-engine') s.remove();
+            });
+            clone.querySelectorAll('style').forEach(s => {
+                if (s.id !== 'core-style') s.remove();
+            });
+
+            const liveTAs = document.querySelectorAll('.anno-edit');
+            clone.querySelectorAll('.anno-edit').forEach((ta, i) => {
+                if(liveTAs[i]) ta.textContent = liveTAs[i].value.trim();
+                const box = ta.closest('.anno-box');
+                if (box) box.style.display = 'none';
+                const view = box ? box.querySelector('.anno-view') : null;
+                if (view) view.innerHTML = '';
+            });
+
+            return '<!DOCTYPE html>\n<html lang="zh-CN">\n' + clone.innerHTML + '\n</html>';
+        }
+
+        // --- 内存反向打补丁同步技术（100% 死锁定 dual-read-notes，无弹窗静默）---
+        async function syncToCloud() {
+            const ghToken = localStorage.getItem('LITIT_GH_TOKEN') || localStorage.getItem('GH_TOKEN');
+            const ghOwner = 'moodHappy';
+            const ghRepo = 'dual-read-notes';
+            if (!ghToken) return;
+
+            const pathParts = window.location.pathname.split('/');
+            const fileName = pathParts.pop();
+            const month = pathParts.pop();
+            const year = pathParts.pop();
+            if(!fileName || !month || !year) return;
+
+            const fileRelPath = 'Summary/' + year + '/' + month + '/' + fileName;
+
+            try {
+                const getRes = await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath + '?t=' + Date.now(), {
+                    headers: { 'Authorization': 'Bearer ' + ghToken },
+                    cache: 'no-store'
+                });
+
+                let finalHTML = '';
+                let sha = '';
+
+                if (getRes.ok) {
+                    const fileData = await getRes.json();
+                    sha = fileData.sha;
+                    const cleanRawHTML = decodeURIComponent(escape(atob(fileData.content.replace(/\n/g, ''))));
+                    
+                    const parser = new DOMParser();
+                    const cleanDoc = parser.parseFromString(cleanRawHTML, 'text/html');
+                    
+                    const liveTAs = document.querySelectorAll('.anno-edit');
+                    const cleanTAs = cleanDoc.querySelectorAll('.anno-edit');
+                    
+                    liveTAs.forEach((liveTa, index) => {
+                        if (cleanTAs[index]) {
+                            const val = liveTa.value.trim();
+                            cleanTAs[index].textContent = val;
+                            const box = cleanTAs[index].closest('.anno-box');
+                            if (box) box.style.display = 'none';
+                            const view = box ? box.querySelector('.anno-view') : null;
+                            if (view) view.innerHTML = '';
+                        }
+                    });
+
+                    cleanDoc.querySelectorAll('.anno-toggle').forEach(t => {
+                        t.classList.remove('has-anno');
+                        const ta = t.closest('.content-wrap, .litit-highlight-block')?.querySelector('.anno-edit');
+                        if (ta && ta.textContent.trim()) t.classList.add('has-anno');
+                    });
+
+                    finalHTML = '<!DOCTYPE html>\n<html lang="zh-CN">\n' + cleanDoc.documentElement.innerHTML + '\n</html>';
+                } else {
+                    finalHTML = getPurifiedFallbackHTML();
+                }
+
+                await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': 'Bearer ' + ghToken,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message: 'Silent purified annotation update',
+                        content: btoa(unescape(encodeURIComponent(finalHTML))),
+                        sha: sha || undefined
+                    })
+                });
+                console.log('✅ [My Litit] 纯净无污染批注已静默同步至 GitHub');
+            } catch(e) {
+                console.warn('❌ [My Litit] 同步跳过或失败:', e);
+            }
+        }
+
+        function scheduleSync() {
+            if (syncTimeout) clearTimeout(syncTimeout);
+            syncTimeout = setTimeout(() => { syncToCloud(); }, 3000);
+        }
+
+        function initAnnotations() {
+            document.querySelectorAll('.litit-highlight-block, .content-wrap').forEach(wrap => {
+                let content = wrap.querySelector('.content');
+                if (!content) {
+                    const pText = wrap.querySelector('p');
+                    if (pText) {
+                        content = document.createElement('div');
+                        content.className = 'content';
+                        content.style.cssText = 'position:relative; margin:0 0 6px 0; color:#1a202c; font-family:Georgia, serif; line-height:1.7; font-size:15px; word-break:break-word;';
+                        content.innerHTML = pText.innerHTML;
+                        pText.parentNode.replaceChild(content, pText);
+                    }
+                }
+                if (!content) return;
+
+                if (!content.querySelector('.anno-toggle')) {
+                    const toggle = document.createElement('span');
+                    toggle.className = 'anno-toggle';
+                    toggle.title = '手写批注/笔记';
+                    content.appendChild(toggle);
+                }
+                
+                if (!content.querySelector('.ai-toggle')) {
+                    const aiToggle = document.createElement('span');
+                    aiToggle.className = 'ai-toggle';
+                    aiToggle.title = 'AI智能二次解析';
+                    content.appendChild(aiToggle);
+                }
+
+                let box = wrap.querySelector('.anno-box');
+                if (!box) {
+                    box = document.createElement('div');
+                    box.className = 'anno-box';
+                    box.style.display = 'none';
+                    box.innerHTML = '<div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 解析..."></textarea>';
+                    wrap.appendChild(box);
+                }
+
+                const view = box.querySelector('.anno-view');
+                const edit = box.querySelector('.anno-edit');
+                const toggle = content.querySelector('.anno-toggle');
+                const aiToggle = content.querySelector('.ai-toggle');
+
+                if (edit && edit.value.trim()) {
+                    toggle.classList.add('has-anno');
+                    try { view.innerHTML = (typeof marked !== 'undefined') ? marked.parse(edit.value.trim()) : edit.value.trim(); } catch(e){}
+                }
+
+                if (aiToggle) {
+                    aiToggle.onclick = async (e) => {
+                        e.preventDefault(); e.stopPropagation();
+                        if (aiToggle.classList.contains('loading')) return;
+                        
+                        if (edit && edit.value.trim() !== '') {
+                            const confirmOverwrite = confirm('⚠️ 已经存在批注内容。点击"确定"将使用 AI 解析覆盖现有内容。是否继续？');
+                            if (!confirmOverwrite) return;
+                        }
+
+                        const pClone = content.cloneNode(true);
+                        pClone.querySelectorAll('.anno-toggle, .ai-toggle').forEach(el => el.remove());
+                        let pText = pClone.textContent.replace(/https?:\/\/\S+/g, '').trim();
+                        
+                        if (!pText) return;
+                        
+                        aiToggle.classList.add('loading');
+                        try {
+                            const aiContent = await executeAIPipeline(pText);
+                            box.style.display = 'block';
+                            view.style.display = 'none';
+                            edit.style.display = 'block';
+                            edit.value = aiContent;
+                            edit.focus();
+                            edit.blur();
+                        } catch (err) {
+                            console.error(err);
+                        } finally {
+                            aiToggle.classList.remove('loading');
+                        }
+                    };
+                }
+
+                if (toggle) {
+                    toggle.onclick = (e) => {
+                        e.preventDefault(); e.stopPropagation();
+                        if (box.style.display === 'block') {
+                            box.style.display = 'none';
+                        } else {
+                            box.style.display = 'block';
+                            if (!edit.value.trim()) {
+                                view.style.display = 'none';
+                                edit.style.display = 'block';
+                                setTimeout(() => { edit.focus(); }, 150);
+                            } else {
+                                view.style.display = 'block';
+                                edit.style.display = 'none';
+                            }
+                        }
+                    };
+                }
+
+                const triggerEdit = (e) => {
+                    if(e) { e.preventDefault(); e.stopPropagation(); }
+                    view.style.display = 'none';
+                    edit.style.display = 'block';
+                    edit.value = edit.value;
+                    setTimeout(() => { edit.focus(); }, 150);
+                };
+
+                view.addEventListener('dblclick', triggerEdit);
+                
+                let lastTap = 0;
+                view.addEventListener('touchstart', e => {
+                    if (e.touches.length === 2) {
+                        triggerEdit(e);
+                    } else if (e.touches.length === 1) {
+                        const currentTime = new Date().getTime();
+                        if (currentTime - lastTap < 500 && currentTime - lastTap > 0) {
+                            e.preventDefault();
+                            box.style.display = 'none';
+                        }
+                        lastTap = currentTime;
+                    }
+                }, {passive: false});
+
+                if (edit && view) {
+                    edit.onblur = () => {
+                        setTimeout(() => {
+                            const newVal = edit.value.trim();
+                            try { view.innerHTML = newVal ? ((typeof marked !== 'undefined') ? marked.parse(newVal) : newVal) : ''; } catch(e){}
+                            edit.style.display = 'none';
+                            
+                            if (newVal) {
+                                view.style.display = 'block';
+                                toggle.classList.add('has-anno');
+                            } else {
+                                view.style.display = 'none';
+                                box.style.display = 'none';
+                                toggle.classList.remove('has-anno');
+                            }
+
+                            if (edit.getAttribute('data-old-val') !== newVal) {
+                                edit.setAttribute('data-old-val', newVal);
+                                scheduleSync();
+                            }
+                        }, 150);
+                    };
+                    edit.setAttribute('data-old-val', edit.value.trim());
+                }
+            });
+        }
+
+        window.addEventListener('DOMContentLoaded', initAnnotations);
+        window.addEventListener('load', initAnnotations);
+    </script>
+</body>
+</html>
