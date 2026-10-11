@@ -9,6 +9,19 @@
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; padding: 16px; margin: 0 auto; max-width: 800px; background: #ffffff; color: #2d3748; line-height: 1.8; font-size: 16px; word-wrap: break-word; overflow-x: hidden; }
         * { box-sizing: border-box; max-width: 100%; }
         img { max-width: 100%; height: auto; border-radius: 8px; }
+        
+        /* 顶部极简阅读进度条 */
+        #reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(90deg, #667eea, #805ad5);
+            z-index: 9999;
+            transition: width 0.1s ease-out;
+        }
+
         /* AI 批注组件样式 */
         .anno-toggle, .ai-toggle { display: inline-block; padding: 2px 6px; margin-left: 6px; cursor: pointer; opacity: 0.4; font-size: 0.85rem; vertical-align: middle; transition: all 0.2s; user-select: none; -webkit-tap-highlight-color: transparent; }
         .anno-toggle:hover, .ai-toggle:hover { opacity: 0.95; transform: scale(1.15); }
@@ -72,6 +85,9 @@
     </style>
 </head>
 <body>
+    <!-- 进度条 DOM -->
+    <div id="reading-progress"></div>
+
     <div class="litit-report" style="width:100%; max-width:100%; box-sizing:border-box; overflow-x:hidden;">
         <!-- 支持批注的主标题区 -->
         <div class="content-wrap" style="position:relative; margin-bottom: 16px;">
@@ -559,6 +575,21 @@
         let syncTimeout = null;
         const AI_PROMPT = "请分析以下英文段落，并严格按照以下 Markdown 格式输出（不要输出任何额外的废话）：\n\n### 📌 完整翻译\n\n[此处填写完整翻译]\n\n### 📌 Key Expressions\n\n- **[单词或短语]**\n  = [中文释义]\n  （[可选的补充说明，如倒装结构或语境等]）\n\n段落内容：\n";
 
+        // --- 顶部阅读进度条逻辑 ---
+        function initProgressBar() {
+            const progressBar = document.getElementById('reading-progress');
+            if (!progressBar) return;
+            
+            window.addEventListener('scroll', () => {
+                const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+                const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                if (scrollHeight <= 0) return;
+                
+                const scrollPercent = (scrollTop / scrollHeight) * 100;
+                progressBar.style.width = scrollPercent + '%';
+            }, { passive: true });
+        }
+
         async function fetchGroq(text, apiKey, modelName) {
             const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
                 method: 'POST',
@@ -939,7 +970,10 @@
             });
         }
 
-        window.addEventListener('DOMContentLoaded', initAnnotations);
+        window.addEventListener('DOMContentLoaded', () => {
+            initProgressBar();
+            initAnnotations();
+        });
         window.addEventListener('load', initAnnotations);
     </script>
 </body>
