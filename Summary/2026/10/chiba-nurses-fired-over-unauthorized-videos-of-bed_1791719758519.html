@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Chiba nurses fired over unauthorized videos of bedridden patients</title>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<style id="core-style">
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; padding: 16px; margin: 0 auto; max-width: 800px; background: #ffffff; color: #2d3748; line-height: 1.8; font-size: 16px; word-wrap: break-word; overflow-x: hidden; }
+* { box-sizing: border-box; max-width: 100%; }
+img { max-width: 100%; height: auto; border-radius: 8px; }
+/* 顶部极简阅读进度条 */
+#reading-progress { position: fixed; top: 0; left: 0; width: 0%; height: 3px; background: linear-gradient(90deg, #667eea, #805ad5); z-index: 9999; transition: width 0.1s ease-out; }
+/* AI 批注组件样式 */
+.anno-toggle, .ai-toggle { display: inline-block; padding: 2px 6px; margin-left: 6px; cursor: pointer; opacity: 0.4; font-size: 0.85rem; vertical-align: middle; transition: all 0.2s; user-select: none; -webkit-tap-highlight-color: transparent; }
+.anno-toggle:hover, .ai-toggle:hover { opacity: 0.95; transform: scale(1.15); }
+.anno-toggle.has-anno { opacity: 1; }
+.anno-toggle::after { content: "🔴"; }
+.ai-toggle { opacity: 0.7; padding: 2px 4px; }
+.ai-toggle::after { content: "🤖"; }
+.ai-toggle.loading::after { content: "⏳"; display: inline-block; animation: spin 1s linear infinite; }
+@keyframes spin { 100% { transform: rotate(360deg); } }
+.anno-box { display: none; margin-top: 10px; background: #f8f6ff; border-left: 4px solid #8e7cc3; padding: 12px 16px; border-radius: 0 8px 8px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.03); text-align: left; }
+.anno-view { font-size: 0.95rem; line-height: 1.6; color: #4a4a4a; min-height: 24px; }
+.anno-edit { width: 100%; min-height: 120px; padding: 10px; font-family: monospace; font-size: 0.95rem; border: 1px dashed #8e7cc3; border-radius: 6px; box-sizing: border-box; resize: vertical; display: none; background: #fff; color: #333; outline: none; }
+.anno-edit:focus { border: 1px solid #8e7cc3; box-shadow: 0 0 0 3px rgba(142,124,195,0.15); }
+.markdown-body p { margin-top: 0; margin-bottom: 8px; }
+.markdown-body p:last-child { margin-bottom: 0; }
+.markdown-body h1, .markdown-body h2, .markdown-body h3 { color: #6b46c1; font-size: 1.1rem; margin: 10px 0 8px 0; border-bottom: 1px dashed #e9d8fd; padding-bottom: 4px; }
+.markdown-body ul, .markdown-body ol { margin: 0 0 8px 0; padding-left: 20px; }
+.markdown-body blockquote { margin: 0 0 10px 0; padding: 8px 12px; background: rgba(142,124,195,0.1); border-left: 4px solid #8e7cc3; color: #555; }
+@media (max-width: 600px) { body { padding: 12px; font-size: 15px; } h1 { font-size: 22px !important; } h2 { font-size: 16px !important; } }
+/* 折叠面板专属样式 */
+details.litit-fold { margin-bottom: 8px; border: 1px solid #e2e8f0; border-radius: 6px; background: #f8fafc; overflow: hidden; box-shadow: 0 1px 2px rgba(0,0,0,0.02); }
+details.litit-fold summary { cursor: pointer; padding: 8px 10px; outline: none; list-style: none; display: flex; justify-content: space-between; align-items: center; background: #f7fafc; transition: background 0.2s; user-select: none; -webkit-tap-highlight-color: transparent; }
+details.litit-fold summary::-webkit-details-marker { display: none; }
+details.litit-fold summary:hover { background: #edf2f7; }
+details.litit-fold[open] summary { border-bottom: 1px dashed #cbd5e0; background: #fffaf0; }
+.litit-fold-content { padding: 10px 10px; background: #ffffff; }
+</style>
+</head>
+<body>
+<!-- 进度条 DOM -->
+<div id="reading-progress"></div>
+
+<div class="litit-report" style="width:100%; max-width:100%; box-sizing:border-box; overflow-x:hidden;">
+
+  <!-- 支持批注的主标题区 -->
+  <div class="content-wrap" style="position:relative; margin-bottom: 16px;">
+    <h1 style="color:#1a202c; font-size: 24px; line-height: 1.4; border-bottom: 3px solid #667eea; padding-bottom: 12px; margin-top:0; margin-bottom:0; word-break:break-word;">
+      <span class="content" style="position:relative;">Chiba nurses fired over unauthorized videos of bedridden patients, complaining of being “bored”</span>
+      <br>
+      <span style="font-size: 18px; color: #4a5568; margin-top: 8px; display: inline-block;">千叶护士因未经许可拍摄卧床患者视频被解雇，配文抱怨“太无聊”</span>
+    </h1>
+    <div class="anno-box" style="display:none; margin-top: 12px;">
+      <div class="anno-view markdown-body"></div>
+      <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
+千叶护士因拍摄卧床不起的患者的未授权视频而被解雇，并抱怨感到“无聊”。
+
+### 📌 Key Expressions
+- **be fired over...** = 因……被解雇
+- **unauthorized** = 未经许可的；未经授权的
+- **bedridden** = 卧床不起的
+- **complain of...** = 抱怨……</textarea>
+    </div>
+  </div>
+
+  <p style="color:#4a5568; font-size: 15px; line-height: 1.6; margin-bottom:18px; font-weight:500;">日本千叶县松户市一家综合医院近日爆发医疗丑闻。两名当值女护士在夜班期间，竟将完全缺乏自我保护能力的卧床患者当作“背景板”，不仅私自录像还肆意自拍，随后将这些严重侵犯隐私的画面加上“无聊透顶”等轻浮配文上传至社交媒体。事件曝光后引发轩然大波，院方迅速采取零容忍态度，将两名涉事护士作惩戒性解雇处理，并在官网公开发表致歉声明。这一荒谬行径不仅击穿了医护人员的职业道德底线，也再次敲响了社交媒体滥用反噬现实职业生涯的警钟。</p>
+  
+  <div style="margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+    <div style="display:flex; flex-wrap:wrap; gap:8px;">
+      <span style="background:#edf2f7; color:#2d3748; padding:5px 10px; border-radius:6px; font-size:13px; font-weight:600;">医疗丑闻</span>
+      <span style="background:#edf2f7; color:#2d3748; padding:5px 10px; border-radius:6px; font-size:13px; font-weight:600;">隐私泄露</span>
+      <span style="background:#edf2f7; color:#2d3748; padding:5px 10px; border-radius:6px; font-size:13px; font-weight:600;">社交媒体失范</span>
+    </div>
+    <a href="https://www.tokyoreporter.com/japan-news/chiba-nurses-fired-over-unauthorized-videos-of-bedridden-patients-complaining-of-being-bored/" target="_blank" style="font-size: 13px; color: #5a67d8; text-decoration: none; font-weight: bold; background: #ebf4ff; padding: 6px 14px; border-radius: 6px; transition: all 0.2s; border: 1px solid #c3dafe; display:inline-block;">🔗 阅读原文</a>
+  </div>
+
+  <!-- 最佳金句区 -->
+  <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #ed8936; margin:0 0 12px 0; border-radius: 0 6px 6px 0;">💬 最佳金句</h2>
+  <div class="content-wrap" style="position:relative; margin-bottom:24px;">
+    <blockquote style="border-left: 4px solid #667eea; background: #f8fafc; padding: 14px; margin: 0; font-style: italic; color: #2d3748; border-radius: 0 8px 8px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+      <div class="content" style="position:relative; margin:0 0 6px 0; font-weight:600; font-size: 16px; line-height: 1.6; color:#1a202c; word-break:break-word;">
+        "Content that is completely unacceptable for anyone involved in medical care was posted on social media. We offer our deepest and most sincere apologies."
+      </div>
+      <p style="margin:0 0 8px 0; font-weight:500; font-size: 15px; line-height: 1.6; color:#4a5568; word-break:break-word;">“社交媒体上发布了对任何从事医疗护理工作的人来说都绝对不可接受的内容。我们对此致以最深切、最诚挚的歉意。”</p>
+      <footer style="text-align:right; font-size:13px; color:#718096; font-style:normal; font-weight:500;">—— 德洲会千叶西综合医院院长三角和雄（Kazuo Misumi）致歉声明</footer>
+    </blockquote>
+    <div class="anno-box" style="display:none;">
+      <div class="anno-view markdown-body"></div>
+      <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
+社交媒体上发布了对任何从事医疗护理工作的人来说都完全不可接受的内容。我们提供最深切、最诚挚的歉意。
+
+### 📌 Key Expressions
+- **completely unacceptable** = 绝对不可接受的
+- **be involved in...** = 参与……；从事……
+- **medical care** = 医疗护理
+- **offer one's deepest apologies** = 致以最深切的歉意</textarea>
+    </div>
+  </div>
+
+  <!-- Grid 布局关键数字区 -->
+  <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #38a169; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">📊 关键数字</h2>
+  <div style="display:grid; grid-template-columns: repeat(2, 1fr); gap:12px; margin:14px 0 24px 0;">
+    <div style="background:#fff; border:1px solid #e2e8f0; padding:16px; border-radius:10px; text-align:center; box-shadow:0 2px 5px rgba(0,0,0,0.04); box-sizing:border-box; display:flex; flex-direction:column; justify-content:center;">
+      <div style="font-size:26px; color:#5a67d8; font-weight:900; margin-bottom:6px; line-height:1.2;">
+        2<span style="font-size:16px; margin-left:2px;">名</span>
+      </div>
+      <div style="font-size:13px; color:#4a5568; font-weight:500; line-height:1.4;">涉事并被医院下达“惩戒性解雇”处分的女护士人数</div>
+    </div>
+    <div style="background:#fff; border:1px solid #e2e8f0; padding:16px; border-radius:10px; text-align:center; box-shadow:0 2px 5px rgba(0,0,0,0.04); box-sizing:border-box; display:flex; flex-direction:column; justify-content:center;">
+      <div style="font-size:26px; color:#5a67d8; font-weight:900; margin-bottom:6px; line-height:1.2;">
+        3<span style="font-size:16px; margin-left:2px;">人</span>
+      </div>
+      <div style="font-size:13px; color:#4a5568; font-weight:500; line-height:1.4;">受波及的总受罚人数（含一名仅因在私群观看视频受严重警告的护士）</div>
+    </div>
+    <div style="background:#fff; border:1px solid #e2e8f0; padding:16px; border-radius:10px; text-align:center; box-shadow:0 2px 5px rgba(0,0,0,0.04); box-sizing:border-box; display:flex; flex-direction:column; justify-content:center;">
+      <div style="font-size:26px; color:#5a67d8; font-weight:900; margin-bottom:6px; line-height:1.2;">
+        10<span style="font-size:16px; margin-left:2px;">月</span>5<span style="font-size:16px; margin-left:2px;">日</span>
+      </div>
+      <div style="font-size:13px; color:#4a5568; font-weight:500; line-height:1.4;">事件发生日期，两名护士在夜班期间录制违规视频</div>
+    </div>
+    <div style="background:#fff; border:1px solid #e2e8f0; padding:16px; border-radius:10px; text-align:center; box-shadow:0 2px 5px rgba(0,0,0,0.04); box-sizing:border-box; display:flex; flex-direction:column; justify-content:center;">
+      <div style="font-size:26px; color:#5a67d8; font-weight:900; margin-bottom:6px; line-height:1.2;">
+        10<span style="font-size:16px; margin-left:2px;">月</span>9<span style="font-size:16px; margin-left:2px;">日</span>
+      </div>
+      <div style="font-size:13px; color:#4a5568; font-weight:500; line-height:1.4;">院方完成向家属登门道歉并向卫生当局正式报告的日期</div>
+    </div>
+  </div>
+
+  <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #3182ce; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">⏱️ 事件时间线</h2>
+  <ul style="padding-left:20px; line-height:1.8; color:#2d3748; font-size: 15px; margin-bottom:24px; word-break:break-word;">
+    <li><strong style="color:#2b6cb0;">10月5日：</strong> 在松户市的德洲会千叶西综合医院，两名女护士在夜班期间溜号，在病房内拍摄卧床患者的视频和自拍照，并配上“Seriously bored (无聊死了)”发往社交平台。</li>
+    <li><strong style="color:#2b6cb0;">10月9日前：</strong> 院方发现该恶劣行径，迅速派人上门向隐私遭到侵犯的患者家属直接道歉，同时将违规事件上报给松户市及当地卫生管理部门。</li>
+    <li><strong style="color:#2b6cb0;">10月10日：</strong> 医院在官方网站公开发布致歉声明，宣布已对拍摄视频的两名护士做出“惩戒性解雇”的最严厉处分。</li>
+    <li><strong style="color:#2b6cb0;">10月11日：</strong> 《产经新闻》全面报道此事。院方承诺将在全院范围内针对个人隐私保护和社交媒体的安全使用实施严格培训，严防事件重演。</li>
+  </ul>
+
+  <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #805ad5; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">✨ 本篇亮点与精读</h2>
+
+  <div style="font-family: Arial, 'Source Han Serif CN', serif; line-height: 1.55; font-size: 1.05em; color: black; margin: 16px 0 10px 0;">
+    <details class="litit-fold">
+      <summary>
+        <h3 style="margin: 0; font-size: 16px; color: #2d3748;">一、值得学习的句子结构</h3>
+      </summary>
+      <div class="litit-fold-content">
+        <ol style="margin: 0; padding-left: 18px;">
+          <li style="margin-bottom: 12px;">
+            <strong>Two female nurses have been dismissed after taking unauthorized videos and posting the footage to social media.</strong><br>
+            两名女护士在拍摄未经授权的视频并将其发布到社交媒体后被解雇。<br>
+            <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+              <li style="margin-bottom: 3px;"><strong>have been dismissed</strong>：被解雇（现在完成时的被动语态）</li>
+              <li style="margin-bottom: 3px;"><strong>unauthorized videos</strong>：未经授权/私自拍摄的视频</li>
+              <li style="margin-bottom: 3px;"><strong>post the footage to...</strong>：将录像发布到……</li>
+            </ul>
+          </li>
+          <li style="margin-bottom: 12px;">
+            <strong>The footage was then uploaded to social media accompanied by mocking captions such as “Seriously bored”.</strong><br>
+            随后，这些录像被上传至社交媒体，并配有诸如“无聊死了”之类充满嘲弄意味的标题。<br>
+            <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+              <li style="margin-bottom: 3px;"><strong>accompanied by...</strong>：伴随着……（作后置定语修饰uploaded动作或footage）</li>
+              <li style="margin-bottom: 3px;"><strong>mocking captions</strong>：嘲弄/戏谑的配文</li>
+            </ul>
+          </li>
+          <li style="margin-bottom: 12px;">
+            <strong>In the wake of the scandal, the hospital stated it will implement strict training sessions to prevent future occurrences.</strong><br>
+            丑闻发生后，医院表示将实施严格的培训课程以防止未来再次发生类似事件。<br>
+            <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+              <li style="margin-bottom: 3px;"><strong>in the wake of...</strong>：随着……而来；在……之后（常接不好的事件）</li>
+              <li style="margin-bottom: 3px;"><strong>implement training sessions</strong>：开展/实施培训会议</li>
+              <li style="margin-bottom: 3px;"><strong>prevent future occurrences</strong>：防止未来发生同样情况</li>
+            </ul>
+          </li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="litit-fold">
+      <summary>
+        <h3 style="margin: 0; font-size: 16px; color: #2d3748;">二、值得积累的短语和固定搭配</h3>
+      </summary>
+      <div class="litit-fold-content">
+        <ul style="list-style-type: square; margin: 0; padding-left: 18px; line-height: 1.6;">
+          <li style="margin-bottom: 4px;"><strong>take unauthorized videos</strong>: 拍摄未经授权的视频</li>
+          <li style="margin-bottom: 4px;"><strong>bedridden patients</strong>: 卧床不起的患者</li>
+          <li style="margin-bottom: 4px;"><strong>complain about one's shift</strong>: 抱怨自己的倒班/工作时间</li>
+          <li style="margin-bottom: 4px;"><strong>take selfies on the ward</strong>: 在病房里自拍</li>
+          <li style="margin-bottom: 4px;"><strong>disciplinary dismissal</strong>: 惩戒性解雇</li>
+          <li style="margin-bottom: 4px;"><strong>a strict reprimand</strong>: 严厉谴责；严重警告</li>
+          <li style="margin-bottom: 4px;"><strong>violate one's privacy</strong>: 侵犯某人的隐私</li>
+          <li style="margin-bottom: 4px;"><strong>report the breach</strong>: 报告违规行为</li>
+          <li style="margin-bottom: 4px;"><strong>in the wake of...</strong>: 随着……事件发生；在……之后</li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="litit-fold">
+      <summary>
+        <h3 style="margin: 0; font-size: 16px; color: #2d3748;">三、新闻英语中的高价值表达</h3>
+      </summary>
+      <div class="litit-fold-content">
+        <ol style="margin: 0; padding-left: 18px;">
+          <li style="margin-bottom: 12px;">
+            <strong>reprimand</strong><br>
+            谴责；严厉批评。作为名词或动词，常用于官方、职场或上级对下级的正式警告。<br>
+            例：<em>received a strict reprimand</em>（受到了严厉的训斥）。
+          </li>
+          <li style="margin-bottom: 12px;">
+            <strong>breach</strong><br>
+            违反；破坏。常用于形容安全漏洞、隐私泄露或违约行为。<br>
+            例：<em>a privacy breach</em>（隐私泄露）；<em>a breach of contract</em>（违约）。
+          </li>
+          <li style="margin-bottom: 12px;">
+            <strong>disciplinary dismissal</strong><br>
+            惩戒解雇。在人事处理中属于最高级别的处罚，相当于因严重违纪被直接开除。
+          </li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="litit-fold">
+      <summary>
+        <h3 style="margin: 0; font-size: 16px; color: #2d3748;">四、建议重点记忆的句型</h3>
+      </summary>
+      <div class="litit-fold-content">
+        <ol style="margin: 0; padding-left: 18px;">
+          <li style="margin-bottom: 8px;"><strong>Sb. have been dismissed after doing sth.</strong>（某人因做某事被解雇了。）</li>
+          <li style="margin-bottom: 8px;"><strong>Sth. was uploaded... accompanied by...</strong>（某物被上传……并伴随/配有……）</li>
+          <li style="margin-bottom: 8px;"><strong>In the wake of X, Y stated it will...</strong>（在 X 事件发生之后，Y 表示将……）</li>
+        </ol>
+      </div>
+    </details>
+  </div>
+
+  <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #319795; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">💡 幕后冷知识 (Fun Facts)</h2>
+  <ul style="padding-left:20px; line-height:1.8; color:#2d3748; font-size:15px; margin-bottom:24px; word-break:break-word;">
+    <li><strong>看热闹也得受罚的连带责任：</strong> 在这起丑闻中，有一个细节令人深思：不仅仅是拍摄和发布视频的两名护士遭到处罚，第三名仅仅在“私密群组（private group）”里观看了这些视频的护士，也遭到了院方的“严厉斥责（strict reprimand）”。这显示出医疗机构对“知情不报”和纵容违规行为的零容忍态度。在职场中，对不当行为的围观和沉默，同样被视为对职业操守的背叛。</li>
+    <li><strong>惩戒解雇（Disciplinary Dismissal）的毁灭性：</strong> 在极其保护正职员工的日本劳动法体系下，“惩戒解雇（懲戒解雇）”如同职场死刑。这意味着涉事护士不仅被立即扫地出门，通常会失去一笔数额可观的退职金（遣散费），最致命的是这笔“黑历史”会记录在离职证明上。对于极度看重信誉和背景调查的医疗行业来说，这种处分基本上宣告了她们护士生涯的彻底终结。</li>
+  </ul>
+
+  <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #e53e3e; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">🎯 全片锐评</h2>
+  <p style="line-height:1.7; color:#1a202c; font-weight:600; background:#fff5f5; padding:14px; border-radius:10px; font-size:15px; margin:0 0 24px 0; border:1px solid #fed7d7; word-break:break-word;">
+    这起荒诞的“无聊”自拍事件，生动展示了社交媒体时代的“流量作死”如何轻而易举地毁掉一个人的职业生涯。医护人员的本职工作是救死扶伤、提供生命尊严的兜底关怀，而这两名护士却冷血地将毫无反抗能力的卧床患者，变成了她们消遣长夜的背景板。
+    <br><br>
+    在追求点赞、或者只是在私域群组里进行病态互动的过程中，她们把基本的同理心与职业底线抛到了九霄云外。院方迅速祭出的“雷霆手段”——直接解雇并上报卫生当局，无疑给所有服务性行业敲响了最响亮的警钟：手机镜头既能记录生活，也能切断你的饭碗。互联网世界里根本不存在绝对安全的“私密群组”，任何踩踏人性底线与隐私红线的行为，最终都将面临社会性死亡的残酷买单。
+  </p>
+
+</div>
+
+<script id="core-engine">
+  let syncTimeout = null;
+  const AI_PROMPT = "请分析以下英文段落，并严格按照以下 Markdown 格式输出（不要输出任何额外的废话）：\n\n### 📌 完整翻译\n\n[此处填写完整翻译]\n\n### 📌 Key Expressions\n\n- **[单词或短语]**\n  = [中文释义]\n  （[可选的补充说明，如倒装结构或语境等]）\n\n段落内容：\n";
+
+  // --- 顶部阅读进度条逻辑 ---
+  function initProgressBar() {
+    const progressBar = document.getElementById('reading-progress');
+    if (!progressBar) return;
+    window.addEventListener('scroll', () => {
+      const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      if (scrollHeight <= 0) return;
+      const scrollPercent = (scrollTop / scrollHeight) * 100;
+      progressBar.style.width = scrollPercent + '%';
+    }, { passive: true });
+  }
+
+  async function fetchGroq(text, apiKey, modelName) {
+    const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Authorization': 'Bearer ' + apiKey,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        model: modelName || 'llama-3.3-70b-versatile',
+        messages: [
+          { role: 'system', content: 'You are an English teacher. Output EXACTLY in the requested Markdown format.' },
+          { role: 'user', content: AI_PROMPT + '"' + text + '"' }
+        ],
+        temperature: 0.3
+      })
+    });
+    if (!res.ok) throw new Error('Groq Error: ' + res.status);
+    const json = await res.json();
+    return json.choices[0].message.content.trim();
+  }
+
+  async function fetchCustomAI(text, url, apiKey, modelName) {
+    let headers = { 'Content-Type': 'application/json' };
+    let bodyData = {};
+    if (url.includes('anthropic.com')) {
+      headers['x-api-key'] = apiKey;
+      headers['anthropic-version'] = '2023-06-01';
+      headers['anthropic-dangerous-direct-browser-access'] = 'true';
+      bodyData = {
+        model: modelName || 'claude-3-5-sonnet-20241022',
+        max_tokens: 2000,
+        messages: [{ role: 'user', content: AI_PROMPT + '"' + text + '"' }]
+      };
+    } else if (url.includes('generativelanguage.googleapis.com')) {
+      let targetUrl = url;
+      if (!targetUrl.includes('key=')) {
+        targetUrl += (targetUrl.includes('?') ? '&' : '?') + 'key=' + apiKey;
+      }
+      const res = await fetch(targetUrl, {
+        method: 'POST',
+        headers: headers,
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: AI_PROMPT + '"' + text + '"' }] }]
+        })
+      });
+      if (!res.ok) throw new Error('Gemini Error: ' + res.status);
+      const json = await res.json();
+      return json.candidates[0].content.parts[0].text.trim();
+    } else {
+      headers['Authorization'] = 'Bearer ' + apiKey;
+      bodyData = {
+        model: modelName || 'gpt-4o-mini',
+        messages: [
+          { role: 'system', content: 'You are an English teacher. Output EXACTLY in the requested Markdown format.' },
+          { role: 'user', content: AI_PROMPT + '"' + text + '"' }
+        ],
+        temperature: 0.3
+      };
+    }
+    const res = await fetch(url, { method: 'POST', headers: headers, body: JSON.stringify(bodyData) });
+    if (!res.ok) throw new Error('AI Interface Error: ' + res.status);
+    const json = await res.json();
+    if (json.choices && json.choices.length > 0) return json.choices[0].message.content.trim();
+    throw new Error('AI 返回数据异常');
+  }
+
+  async function executeAIPipeline(text) {
+    const customUrl = localStorage.getItem('CUSTOM_API_URL') || '';
+    const customKey = localStorage.getItem('CUSTOM_API_KEY') || '';
+    const customModel = localStorage.getItem('CUSTOM_MODEL') || '';
+    const groqKey = localStorage.getItem('GROQ_API_KEY') || '';
+    const groqModel = localStorage.getItem('GROQ_MODEL') || '';
+
+    if (customUrl && customKey) {
+      try {
+        return await fetchCustomAI(text, customUrl, customKey, customModel);
+      } catch (err) {
+        if (groqKey) return await fetchGroq(text, groqKey, groqModel);
+        throw err;
+      }
+    } else if (groqKey) {
+      return await fetchGroq(text, groqKey, groqModel);
+    } else {
+      const userKey = prompt('⚠️ 当前页面未检测到 AI Key！\n为了安全，密匙只储存在您本地浏览器中。\n\n请输入您的 API Key (如 sk-xxx 或 gsk_xxx):');
+      if (userKey && userKey.trim()) {
+        const cleanKey = userKey.trim();
+        if (cleanKey.startsWith('gsk_')) {
+          localStorage.setItem('GROQ_API_KEY', cleanKey);
+        } else {
+          localStorage.setItem('CUSTOM_API_KEY', cleanKey);
+          localStorage.setItem('CUSTOM_API_URL', 'https://api.chatanywhere.tech/v1/chat/completions');
+        }
+      }
+      throw new Error('未设置 AI API Key');
+    }
+  }
+
+  // --- 降级清理防线：净化污染节点 ---
+  function getPurifiedFallbackHTML() {
+    const clone = document.documentElement.cloneNode(true);
+    const foreignSelectors = [
+      'relingo-app', 'relin-highlight', 'relin-hc', '[class*="relingo"]',
+      '[data-relin-paragraph]', 'grammarly-extension', '[data-grammarly-part]',
+      '[class*="immersive-translate"]', '[data-immersive-translate]'
+    ].join(',');
+    clone.querySelectorAll(foreignSelectors).forEach(el => el.remove());
+    clone.querySelectorAll('relin-highlight, relin-hc').forEach(t => {
+      const frag = document.createDocumentFragment();
+      while(t.firstChild) frag.appendChild(t.firstChild);
+      t.parentNode.replaceChild(frag, t);
+    });
+    clone.querySelectorAll('script').forEach(s => {
+      if (!s.src.includes('marked.min.js') && s.id !== 'core-engine') s.remove();
+    });
+    clone.querySelectorAll('style').forEach(s => {
+      if (s.id !== 'core-style') s.remove();
+    });
+    const liveTAs = document.querySelectorAll('.anno-edit');
+    clone.querySelectorAll('.anno-edit').forEach((ta, i) => {
+      if(liveTAs[i]) ta.textContent = liveTAs[i].value.trim();
+      const box = ta.closest('.anno-box');
+      if (box) box.style.display = 'none';
+      const view = box ? box.querySelector('.anno-view') : null;
+      if (view) view.innerHTML = '';
+    });
+    return '<!DOCTYPE html>\n<html lang="zh-CN">\n' + clone.innerHTML + '\n</html>';
+  }
+
+  // --- 内存反向打补丁同步技术 ---
+  async function syncToCloud() {
+    const ghToken = localStorage.getItem('LITIT_GH_TOKEN') || localStorage.getItem('GH_TOKEN');
+    const ghOwner = 'moodHappy';
+    const ghRepo = 'dual-read-notes';
+    if (!ghToken) return;
+
+    const pathParts = window.location.pathname.split('/');
+    const fileName = pathParts.pop();
+    const month = pathParts.pop();
+    const year = pathParts.pop();
+    if(!fileName || !month || !year) return;
+    const fileRelPath = 'Summary/' + year + '/' + month + '/' + fileName;
+
+    try {
+      const getRes = await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath + '?t=' + Date.now(), {
+        headers: { 'Authorization': 'Bearer ' + ghToken },
+        cache: 'no-store'
+      });
+      let finalHTML = '';
+      let sha = '';
+      if (getRes.ok) {
+        const fileData = await getRes.json();
+        sha = fileData.sha;
+        const cleanRawHTML = decodeURIComponent(escape(atob(fileData.content.replace(/\n/g, ''))));
+        const parser = new DOMParser();
+        const cleanDoc = parser.parseFromString(cleanRawHTML, 'text/html');
+        const liveTAs = document.querySelectorAll('.anno-edit');
+        const cleanTAs = cleanDoc.querySelectorAll('.anno-edit');
+        liveTAs.forEach((liveTa, index) => {
+          if (cleanTAs[index]) {
+            const val = liveTa.value.trim();
+            cleanTAs[index].textContent = val;
+            const box = cleanTAs[index].closest('.anno-box');
+            if (box) box.style.display = 'none';
+            const view = box ? box.querySelector('.anno-view') : null;
+            if (view) view.innerHTML = '';
+          }
+        });
+        cleanDoc.querySelectorAll('.anno-toggle').forEach(t => {
+          t.classList.remove('has-anno');
+          const ta = t.closest('.content-wrap, .litit-highlight-block')?.querySelector('.anno-edit');
+          if (ta && ta.textContent.trim()) t.classList.add('has-anno');
+        });
+        finalHTML = '<!DOCTYPE html>\n<html lang="zh-CN">\n' + cleanDoc.documentElement.innerHTML + '\n</html>';
+      } else {
+        finalHTML = getPurifiedFallbackHTML();
+      }
+
+      await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath, {
+        method: 'PUT',
+        headers: {
+          'Authorization': 'Bearer ' + ghToken,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          message: 'Silent purified annotation update',
+          content: btoa(unescape(encodeURIComponent(finalHTML))),
+          sha: sha || undefined
+        })
+      });
+      console.log('✅ [My Litit] 纯净无污染批注已静默同步至 GitHub');
+    } catch(e) {
+      console.warn('❌ [My Litit] 同步跳过或失败:', e);
+    }
+  }
+
+  function scheduleSync() {
+    if (syncTimeout) clearTimeout(syncTimeout);
+    syncTimeout = setTimeout(() => {
+      syncToCloud();
+    }, 3000);
+  }
+
+  function initAnnotations() {
+    document.querySelectorAll('.litit-highlight-block, .content-wrap').forEach(wrap => {
+      let content = wrap.querySelector('.content');
+      if (!content) {
+        const pText = wrap.querySelector('p');
+        if (pText) {
+          content = document.createElement('div');
+          content.className = 'content';
+          content.style.cssText = 'position:relative; margin:0 0 6px 0; color:#1a202c; font-family:Georgia, serif; line-height:1.7; font-size:15px; word-break:break-word;';
+          content.innerHTML = pText.innerHTML;
+          pText.parentNode.replaceChild(content, pText);
+        }
+      }
+      if (!content) return;
+
+      if (!content.querySelector('.anno-toggle')) {
+        const toggle = document.createElement('span');
+        toggle.className = 'anno-toggle';
+        toggle.title = '手写批注/笔记';
+        content.appendChild(toggle);
+      }
+      if (!content.querySelector('.ai-toggle')) {
+        const aiToggle = document.createElement('span');
+        aiToggle.className = 'ai-toggle';
+        aiToggle.title = 'AI智能二次解析';
+        content.appendChild(aiToggle);
+      }
+
+      let box = wrap.querySelector('.anno-box');
+      if (!box) {
+        box = document.createElement('div');
+        box.className = 'anno-box';
+        box.style.display = 'none';
+        box.innerHTML = '<div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 解析..."></textarea>';
+        wrap.appendChild(box);
+      }
+
+      const view = box.querySelector('.anno-view');
+      const edit = box.querySelector('.anno-edit');
+      const toggle = content.querySelector('.anno-toggle');
+      const aiToggle = content.querySelector('.ai-toggle');
+
+      if (edit && edit.value.trim()) {
+        toggle.classList.add('has-anno');
+        try {
+          view.innerHTML = (typeof marked !== 'undefined') ? marked.parse(edit.value.trim()) : edit.value.trim();
+        } catch(e){}
+      }
+
+      if (aiToggle) {
+        aiToggle.onclick = async (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          if (aiToggle.classList.contains('loading')) return;
+          if (edit && edit.value.trim() !== '') {
+            const confirmOverwrite = confirm('⚠️ 已经存在批注内容。点击"确定"将使用 AI 解析覆盖现有内容。是否继续？');
+            if (!confirmOverwrite) return;
+          }
+          const pClone = content.cloneNode(true);
+          pClone.querySelectorAll('.anno-toggle, .ai-toggle').forEach(el => el.remove());
+          let pText = pClone.textContent.replace(/https?:\/\/\S+/g, '').trim();
+          if (!pText) return;
+          
+          aiToggle.classList.add('loading');
+          try {
+            const aiContent = await executeAIPipeline(pText);
+            box.style.display = 'block';
+            view.style.display = 'none';
+            edit.style.display = 'block';
+            edit.value = aiContent;
+            edit.focus();
+            edit.blur();
+          } catch (err) {
+            console.error(err);
+          } finally {
+            aiToggle.classList.remove('loading');
+          }
+        };
+      }
+
+      if (toggle) {
+        toggle.onclick = (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          if (box.style.display === 'block') {
+            box.style.display = 'none';
+          } else {
+            box.style.display = 'block';
+            if (!edit.value.trim()) {
+              view.style.display = 'none';
+              edit.style.display = 'block';
+              setTimeout(() => { edit.focus(); }, 150);
+            } else {
+              view.style.display = 'block';
+              edit.style.display = 'none';
+            }
+          }
+        };
+      }
+
+      const triggerEdit = (e) => {
+        if(e) { e.preventDefault(); e.stopPropagation(); }
+        view.style.display = 'none';
+        edit.style.display = 'block';
+        edit.value = edit.value;
+        setTimeout(() => { edit.focus(); }, 150);
+      };
+
+      view.addEventListener('dblclick', triggerEdit);
+      let lastTap = 0;
+      view.addEventListener('touchstart', e => {
+        if (e.touches.length === 2) {
+          triggerEdit(e);
+        } else if (e.touches.length === 1) {
+          const currentTime = new Date().getTime();
+          if (currentTime - lastTap < 500 && currentTime - lastTap > 0) {
+            e.preventDefault();
+            box.style.display = 'none';
+          }
+          lastTap = currentTime;
+        }
+      }, {passive: false});
+
+      if (edit && view) {
+        edit.onblur = () => {
+          setTimeout(() => {
+            const newVal = edit.value.trim();
+            try {
+              view.innerHTML = newVal ? ((typeof marked !== 'undefined') ? marked.parse(newVal) : newVal) : '';
+            } catch(e){}
+            edit.style.display = 'none';
+            
+            if (newVal) {
+              view.style.display = 'block';
+              toggle.classList.add('has-anno');
+            } else {
+              view.style.display = 'none';
+              box.style.display = 'none';
+              toggle.classList.remove('has-anno');
+            }
+
+            if (edit.getAttribute('data-old-val') !== newVal) {
+              edit.setAttribute('data-old-val', newVal);
+              scheduleSync();
+            }
+          }, 150);
+        };
+        edit.setAttribute('data-old-val', edit.value.trim());
+      }
+    });
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    initProgressBar();
+    initAnnotations();
+  });
+  window.addEventListener('load', initAnnotations);
+</script>
+</body>
+</html>
