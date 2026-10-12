@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Air strikes kill at least 72 prospectors in Sudan, rights group says</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style id="core-style">
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; padding: 16px; margin: 0 auto; max-width: 800px; background: #ffffff; color: #2d3748; line-height: 1.8; font-size: 16px; word-wrap: break-word; overflow-x: hidden; }
+        * { box-sizing: border-box; max-width: 100%; }
+        img { max-width: 100%; height: auto; border-radius: 8px; }
+        /* 顶部极简阅读进度条 */
+        #reading-progress { position: fixed; top: 0; left: 0; width: 0%; height: 3px; background: linear-gradient(90deg, #667eea, #805ad5); z-index: 9999; transition: width 0.1s ease-out; }
+        /* AI 批注组件样式 */
+        .anno-toggle, .ai-toggle { display: inline-block; padding: 2px 6px; margin-left: 6px; cursor: pointer; opacity: 0.4; font-size: 0.85rem; vertical-align: middle; transition: all 0.2s; user-select: none; -webkit-tap-highlight-color: transparent; }
+        .anno-toggle:hover, .ai-toggle:hover { opacity: 0.95; transform: scale(1.15); }
+        .anno-toggle.has-anno { opacity: 1; }
+        .anno-toggle::after { content: "🔴"; }
+        .ai-toggle { opacity: 0.7; padding: 2px 4px; }
+        .ai-toggle::after { content: "🤖"; }
+        .ai-toggle.loading::after { content: "⏳"; display: inline-block; animation: spin 1s linear infinite; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        .anno-box { display: none; margin-top: 10px; background: #f8f6ff; border-left: 4px solid #8e7cc3; padding: 12px 16px; border-radius: 0 8px 8px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.03); text-align: left; }
+        .anno-view { font-size: 0.95rem; line-height: 1.6; color: #4a4a4a; min-height: 24px; }
+        .anno-edit { width: 100%; min-height: 120px; padding: 10px; font-family: monospace; font-size: 0.95rem; border: 1px dashed #8e7cc3; border-radius: 6px; box-sizing: border-box; resize: vertical; display: none; background: #fff; color: #333; outline: none; }
+        .anno-edit:focus { border: 1px solid #8e7cc3; box-shadow: 0 0 0 3px rgba(142,124,195,0.15); }
+        .markdown-body p { margin-top: 0; margin-bottom: 8px; }
+        .markdown-body p:last-child { margin-bottom: 0; }
+        .markdown-body h1, .markdown-body h2, .markdown-body h3 { color: #6b46c1; font-size: 1.1rem; margin: 10px 0 8px 0; border-bottom: 1px dashed #e9d8fd; padding-bottom: 4px; }
+        .markdown-body ul, .markdown-body ol { margin: 0 0 8px 0; padding-left: 20px; }
+        .markdown-body blockquote { margin: 0 0 10px 0; padding: 8px 12px; background: rgba(142,124,195,0.1); border-left: 4px solid #8e7cc3; color: #555; }
+        @media (max-width: 600px) { body { padding: 12px; font-size: 15px; } h1 { font-size: 22px !important; } h2 { font-size: 16px !important; } }
+        /* 折叠面板专属样式 */
+        details.litit-fold { margin-bottom: 8px; border: 1px solid #e2e8f0; border-radius: 6px; background: #f8fafc; overflow: hidden; box-shadow: 0 1px 2px rgba(0,0,0,0.02); }
+        details.litit-fold summary { cursor: pointer; padding: 8px 10px; outline: none; list-style: none; display: flex; justify-content: space-between; align-items: center; background: #f7fafc; transition: background 0.2s; user-select: none; -webkit-tap-highlight-color: transparent; }
+        details.litit-fold summary::-webkit-details-marker { display: none; }
+        details.litit-fold summary:hover { background: #edf2f7; }
+        details.litit-fold[open] summary { border-bottom: 1px dashed #cbd5e0; background: #fffaf0; }
+        .litit-fold-content { padding: 10px 10px; background: #ffffff; }
+    </style>
+</head>
+<body>
+    <!-- 进度条 DOM -->
+    <div id="reading-progress"></div>
+    <div class="litit-report" style="width:100%; max-width:100%; box-sizing:border-box; overflow-x:hidden;">
+
+        <!-- 支持批注的主标题区 -->
+        <div class="content-wrap" style="position:relative; margin-bottom: 16px;">
+            <h1 class="litit-target-title" style="color:#1a202c; font-size: 24px; line-height: 1.4; border-bottom: 3px solid #667eea; padding-bottom: 12px; margin-top:0; margin-bottom:0; word-break:break-word;">
+                <span class="content litit-en-title" style="position:relative;">Air strikes kill at least 72 prospectors in Sudan, rights group says</span>
+                <br>
+                <span class="litit-zh-title" style="font-size: 18px; color: #4a5568; margin-top: 8px; display: inline-block;">人权组织称，空袭导致苏丹至少72名探矿者丧生</span>
+            </h1>
+            <div class="anno-box" style="display:none; margin-top: 12px;">
+                <div class="anno-view markdown-body"></div>
+                <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
+据人权组织称，苏丹发生的空袭导致至少 72 名探矿者丧生。
+
+### 📌 Key Expressions
+- **air strike** = 空袭
+- **prospector** = 探矿者；勘探者（此处指手工采金者）
+- **rights group** = 人权组织
+- **at least** = 至少</textarea>
+            </div>
+        </div>
+
+        <p style="color:#4a5568; font-size: 15px; line-height: 1.6; margin-bottom:18px; font-weight:500;">
+            苏丹长期的内战不仅摧毁了国家经济，更将无数平民推向了危险的边缘。据人权组织“紧急律师”（Emergency Lawyers）透露，埃及战机近日涉嫌对苏丹尼罗河州的一处手工金矿开采点发动了致命空袭，导致至少72名（有幸存者称多达200名）手无寸铁的探矿者惨死。面对“侵犯主权”与“战争罪”的严厉指控，苏丹和埃及官方目前均保持沉默。这场悲剧深刻揭示了战乱中平民为了生存被迫从事非法、高危活动的绝望处境，以及残酷的地缘政治现实。
+        </p>
+
+        <div style="margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+            <div style="display:flex; flex-wrap:wrap; gap:8px;">
+                <span style="background:#edf2f7; color:#2d3748; padding:5px 10px; border-radius:6px; font-size:13px; font-weight:600;">苏丹局势</span>
+                <span style="background:#edf2f7; color:#2d3748; padding:5px 10px; border-radius:6px; font-size:13px; font-weight:600;">空袭</span>
+                <span style="background:#edf2f7; color:#2d3748; padding:5px 10px; border-radius:6px; font-size:13px; font-weight:600;">战争罪</span>
+            </div>
+            <a href="https://www.upi.com/Voices/2026/10/11/sudan-egypt-gold-mining/9921791763857/" target="_blank" style="font-size: 13px; color: #5a67d8; text-decoration: none; font-weight: bold; background: #ebf4ff; padding: 6px 14px; border-radius: 6px; transition: all 0.2s; border: 1px solid #c3dafe; display:inline-block;">🔗 阅读原文</a>
+        </div>
+
+        <!-- 最佳金句区 -->
+        <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #ed8936; margin:0 0 12px 0; border-radius: 0 6px 6px 0;">💬 最佳金句</h2>
+        <div class="content-wrap" style="position:relative; margin-bottom:24px;">
+            <blockquote class="litit-target-quote" style="border-left: 4px solid #667eea; background: #f8fafc; padding: 14px; margin: 0; font-style: italic; color: #2d3748; border-radius: 0 8px 8px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+                <div class="content litit-en-quote" style="position:relative; margin:0 0 6px 0; font-weight:600; font-size: 16px; line-height: 1.6; color:#1a202c; word-break:break-word;">
+                    "The deliberate targeting of unarmed civilians violates international humanitarian law and the right to life. These acts may constitute war crimes."
+                </div>
+                <p class="litit-zh-quote" style="margin:0 0 8px 0; font-weight:500; font-size: 15px; line-height: 1.6; color:#4a5568; word-break:break-word;">
+                    “蓄意将手无寸铁的平民作为袭击目标，违反了国际人道主义法和生命权。这些行为可能构成战争罪。”
+                </p>
+                <footer style="text-align:right; font-size:13px; color:#718096; font-style:normal; font-weight:500;">—— 人权组织“紧急律师”（Emergency Lawyers）声明</footer>
+            </blockquote>
+            <div class="anno-box" style="display:none;">
+                <div class="anno-view markdown-body"></div>
+                <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
+“蓄意将手无寸铁的平民作为袭击目标，违反了国际人道主义法和生命权。这些行为可能构成战争罪。”
+
+### 📌 Key Expressions
+- **deliberate targeting** = 蓄意袭击/瞄准
+- **unarmed civilians** = 手无寸铁的平民
+- **violate** = 违反；侵犯
+- **international humanitarian law** = 国际人道主义法
+- **the right to life** = 生命权
+- **constitute** = 构成（罪行/威胁等）
+- **war crimes** = 战争罪</textarea>
+            </div>
+        </div>
+
+        <!-- Grid 布局关键数字区 -->
+        <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #38a169; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">📊 关键数字</h2>
+        <div style="display:grid; grid-template-columns: repeat(2, 1fr); gap:12px; margin:14px 0 24px 0;">
+            <div style="background:#fff; border:1px solid #e2e8f0; padding:16px; border-radius:10px; text-align:center; box-shadow:0 2px 5px rgba(0,0,0,0.04); box-sizing:border-box; display:flex; flex-direction:column; justify-content:center;">
+                <div style="font-size:26px; color:#5a67d8; font-weight:900; margin-bottom:6px; line-height:1.2;">
+                    72<span style="font-size:16px; margin-left:2px;">人</span>
+                </div>
+                <div style="font-size:13px; color:#4a5568; font-weight:500; line-height:1.4;">人权组织初步确认的空袭中最少死亡人数</div>
+            </div>
+            <div style="background:#fff; border:1px solid #e2e8f0; padding:16px; border-radius:10px; text-align:center; box-shadow:0 2px 5px rgba(0,0,0,0.04); box-sizing:border-box; display:flex; flex-direction:column; justify-content:center;">
+                <div style="font-size:26px; color:#5a67d8; font-weight:900; margin-bottom:6px; line-height:1.2;">
+                    200<span style="font-size:16px; margin-left:2px;">+</span>
+                </div>
+                <div style="font-size:13px; color:#4a5568; font-weight:500; line-height:1.4;">现场幸存者向媒体透露的估计死亡人数</div>
+            </div>
+            <div style="background:#fff; border:1px solid #e2e8f0; padding:16px; border-radius:10px; text-align:center; box-shadow:0 2px 5px rgba(0,0,0,0.04); box-sizing:border-box; display:flex; flex-direction:column; justify-content:center;">
+                <div style="font-size:26px; color:#5a67d8; font-weight:900; margin-bottom:6px; line-height:1.2;">
+                    早 6:00
+                </div>
+                <div style="font-size:13px; color:#4a5568; font-weight:500; line-height:1.4;">空袭发生的当地时间，许多人还在睡梦或刚开工</div>
+            </div>
+            <div style="background:#fff; border:1px solid #e2e8f0; padding:16px; border-radius:10px; text-align:center; box-shadow:0 2px 5px rgba(0,0,0,0.04); box-sizing:border-box; display:flex; flex-direction:column; justify-content:center;">
+                <div style="font-size:26px; color:#5a67d8; font-weight:900; margin-bottom:6px; line-height:1.2;">
+                    5<span style="font-size:16px; margin-left:2px;">枚</span>
+                </div>
+                <div style="font-size:13px; color:#4a5568; font-weight:500; line-height:1.4;">战机直接向矿工营地发射的致命导弹数量</div>
+            </div>
+        </div>
+
+        <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #3182ce; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">⏱️ 事件时间线</h2>
+        <ul style="padding-left:20px; line-height:1.8; color:#2d3748; font-size: 15px; margin-bottom:24px; word-break:break-word;">
+            <li><strong style="color:#2b6cb0;">长期的背景：</strong> 苏丹持续的内战摧毁了经济，导致大批平民为了谋生，前往边境偏远地区从事无许可的“手工采矿”。</li>
+            <li><strong style="color:#2b6cb0;">矛盾的发酵：</strong> 埃及被指控为了“打击南部边境非法活动”，开始对边境的淘金探矿者采取强硬甚至致命的打击手段。</li>
+            <li><strong style="color:#2b6cb0;">上周六早6点：</strong> 疑似埃及战机向苏丹尼罗河州的矿工营地直接发射了5枚导弹，巨大的矿坑连同里面的人一起被摧毁。</li>
+            <li><strong style="color:#2b6cb0;">本周日：</strong> 总部位于喀土穆的人权组织“紧急律师”发声谴责，定性为侵犯苏丹主权和可能的“战争罪”，但苏、埃两国官方均未作回应。</li>
+        </ul>
+
+        <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #805ad5; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">✨ 本篇亮点与精读</h2>
+
+        <div style="font-family: Arial, 'Source Han Serif CN', serif; line-height: 1.55; font-size: 1.05em; color: black; margin: 16px 0 10px 0;">
+            
+            <details class="litit-fold">
+                <summary>
+                    <h3 style="margin: 0; font-size: 16px; color: #2d3748;">一、值得学习的句子结构</h3>
+                </summary>
+                <div class="litit-fold-content">
+                    <ol style="margin: 0; padding-left: 18px;">
+                        <li class="litit-target-sentence" style="margin-bottom: 12px;">
+                            <strong class="litit-en-sentence">Egypt has been accused of launching deadly strikes on prospectors as part of a crackdown on illegal activity on its southern border.</strong><br>
+                            <span class="litit-zh-sentence">埃及被指控对探矿者发动致命打击，这是其打击南部边境非法活动行动的一部分。</span>
+                            <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+                                <li style="margin-bottom: 3px;"><strong>be accused of doing...</strong>：被指控做某事</li>
+                                <li style="margin-bottom: 3px;"><strong>launch deadly strikes on</strong>：对……发动致命打击</li>
+                                <li style="margin-bottom: 3px;"><strong>as part of a crackdown on...</strong>：作为打击/镇压……行动的一部分</li>
+                            </ul>
+                        </li>
+                        <li class="litit-target-sentence" style="margin-bottom: 12px;">
+                            <strong class="litit-en-sentence">Neither the Egyptian government nor the de facto Sudanese authorities have commented on the allegations.</strong><br>
+                            <span class="litit-zh-sentence">埃及政府和事实上的苏丹当局均未对这些指控发表评论。</span>
+                            <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+                                <li style="margin-bottom: 3px;"><strong>Neither A nor B</strong>：既不是 A 也不是 B（连接两个主语时，谓语动词通常遵循就近原则，但现代英语中复数形式也很常见）</li>
+                                <li style="margin-bottom: 3px;"><strong>de facto</strong>：事实上/实际上的（常用于指代未经合法选举但实际掌权的政权）</li>
+                                <li style="margin-bottom: 3px;"><strong>comment on</strong>：对……发表评论</li>
+                            </ul>
+                        </li>
+                        <li class="litit-target-sentence" style="margin-bottom: 12px;">
+                            <strong class="litit-en-sentence">The ongoing civil war in Sudan has led to a sharp rise in so-called artisanal mining, conducted by civilians with basic tools and without official authorization in remote areas.</strong><br>
+                            <span class="litit-zh-sentence">苏丹持续的内战导致所谓的“手工采矿”急剧增加，这些活动由平民使用基本工具，在未经官方授权的情况下于偏远地区进行。</span>
+                            <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+                                <li style="margin-bottom: 3px;"><strong>lead to a sharp rise in...</strong>：导致……急剧上升/增加</li>
+                                <li style="margin-bottom: 3px;"><strong>conducted by...</strong>：由……执行/开展（过去分词作后置定语修饰 mining）</li>
+                                <li style="margin-bottom: 3px;"><strong>without official authorization</strong>：未经官方授权/许可</li>
+                            </ul>
+                        </li>
+                        <li class="litit-target-sentence" style="margin-bottom: 12px;">
+                            <strong class="litit-en-sentence">Excavation pits were also destroyed with people inside them.</strong><br>
+                            <span class="litit-zh-sentence">挖掘坑以及坑里的人也一同被摧毁了。</span>
+                            <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+                                <li style="margin-bottom: 3px;"><strong>with people inside them</strong>：里面还有人（with 引导的伴随状语，极为简洁生动地刻画了袭击时的惨状）</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+            </details>
+
+            <details class="litit-fold">
+                <summary>
+                    <h3 style="margin: 0; font-size: 16px; color: #2d3748;">二、值得积累的短语和固定搭配</h3>
+                </summary>
+                <div class="litit-fold-content">
+                    <ul style="list-style-type: square; margin: 0; padding-left: 18px; line-height: 1.6;">
+                        <li style="margin-bottom: 4px;"><strong>air strikes</strong>: 空袭</li>
+                        <li style="margin-bottom: 4px;"><strong>border region</strong>: 边境地区</li>
+                        <li style="margin-bottom: 4px;"><strong>rights group</strong>: 人权组织</li>
+                        <li style="margin-bottom: 4px;"><strong>de facto authorities</strong>: 实际掌权当局；事实上的政权</li>
+                        <li style="margin-bottom: 4px;"><strong>crackdown on</strong>: 严厉打击；镇压</li>
+                        <li style="margin-bottom: 4px;"><strong>violation of sovereignty</strong>: 侵犯主权</li>
+                        <li style="margin-bottom: 4px;"><strong>deliberate targeting</strong>: 蓄意袭击 / 刻意瞄准</li>
+                        <li style="margin-bottom: 4px;"><strong>international humanitarian law</strong>: 国际人道主义法</li>
+                        <li style="margin-bottom: 4px;"><strong>right to life</strong>: 生命权</li>
+                        <li style="margin-bottom: 4px;"><strong>constitute a crime</strong>: 构成犯罪</li>
+                        <li style="margin-bottom: 4px;"><strong>excavation pits</strong>: 挖掘坑 / 矿坑</li>
+                        <li style="margin-bottom: 4px;"><strong>ongoing civil war</strong>: 持续的内战</li>
+                        <li style="margin-bottom: 4px;"><strong>a sharp rise in</strong>: ……的急剧上升/激增</li>
+                        <li style="margin-bottom: 4px;"><strong>artisanal mining</strong>: 手工采矿 / 传统作坊式采矿</li>
+                        <li style="margin-bottom: 4px;"><strong>official authorization</strong>: 官方授权 / 官方许可</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="litit-fold">
+                <summary>
+                    <h3 style="margin: 0; font-size: 16px; color: #2d3748;">三、新闻英语中的高价值表达</h3>
+                </summary>
+                <div class="litit-fold-content">
+                    <ol style="margin: 0; padding-left: 18px;">
+                        <li style="margin-bottom: 12px;">
+                            <strong>de facto</strong><br>
+                            事实上；实际上的（源自拉丁语）。<br>
+                            在国际新闻中高频出现，特别是用来指代那些没有合法地位（未被国际社会承认或通过政变上台）但实际控制该地区的政府或当局，如 <i>de facto government</i>。
+                        </li>
+                        <li style="margin-bottom: 12px;">
+                            <strong>crackdown on...</strong><br>
+                            对……的严厉打击/取缔。<br>
+                            常用于警方或政府对非法活动（如走私、抗议、犯罪团伙）采取强硬措施的语境。
+                        </li>
+                        <li style="margin-bottom: 12px;">
+                            <strong>constitute</strong><br>
+                            构成；组成。<br>
+                            在法律和官方声明中，常用于指出某行为在法律上达到了某种定性标准。如本文中的 <i>constitute war crimes</i>（构成战争罪）。
+                        </li>
+                        <li style="margin-bottom: 12px;">
+                            <strong>sovereignty</strong><br>
+                            主权；最高统治权。<br>
+                            地缘政治报道的核心词汇之一。<i>violation of sovereignty</i> 即“侵犯主权”，是国际社会中极为严重的指控。
+                        </li>
+                    </ol>
+                </div>
+            </details>
+
+            <details class="litit-fold">
+                <summary>
+                    <h3 style="margin: 0; font-size: 16px; color: #2d3748;">四、最值得优先掌握的句型</h3>
+                </summary>
+                <div class="litit-fold-content">
+                    <ol style="margin: 0; padding-left: 18px;">
+                        <li style="margin-bottom: 8px;">
+                            <strong>X has been accused of doing Y as part of a crackdown on Z.</strong><br>
+                            X 被指控做 Y，这是其打击 Z 行动的一部分。（非常实用的描述冲突动机和行为的句型）。
+                        </li>
+                        <li style="margin-bottom: 8px;">
+                            <strong>The deliberate targeting of X violates Y.</strong><br>
+                            蓄意袭击 X 违反了 Y。（用于谴责军事打击或暴力行为）。
+                        </li>
+                        <li style="margin-bottom: 8px;">
+                            <strong>A has led to a sharp rise in B.</strong><br>
+                            A 导致了 B 的急剧上升/激增。
+                        </li>
+                        <li style="margin-bottom: 8px;">
+                            <strong>Neither A nor B have commented on the allegations.</strong><br>
+                            A 和 B 都没有对指控发表评论。（新闻报道中用于表明多方沉默的经典句式）。
+                        </li>
+                    </ol>
+                </div>
+            </details>
+
+            <details class="litit-fold">
+                <summary>
+                    <h3 style="margin: 0; font-size: 16px; color: #2d3748;">五、建议重点记忆的表达</h3>
+                </summary>
+                <div class="litit-fold-content">
+                    <ul style="list-style-type: square; margin: 0; padding-left: 18px; line-height: 1.6;">
+                        <li style="margin-bottom: 4px;"><strong>prospector</strong>：探矿者</li>
+                        <li style="margin-bottom: 4px;"><strong>de facto</strong>：事实上的/实际掌权的</li>
+                        <li style="margin-bottom: 4px;"><strong>crackdown on</strong>：严厉打击……</li>
+                        <li style="margin-bottom: 4px;"><strong>deliberate targeting</strong>：蓄意袭击</li>
+                        <li style="margin-bottom: 4px;"><strong>artisanal mining</strong>：手工采矿</li>
+                        <li style="margin-bottom: 4px;"><strong>constitute</strong>：构成（罪行等）</li>
+                        <li style="margin-bottom: 4px;"><strong>violation of sovereignty</strong>：侵犯主权</li>
+                    </ul>
+                </div>
+            </details>
+
+        </div>
+
+        <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #319795; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">💡 幕后冷知识 (Fun Facts)</h2>
+        <ul style="padding-left:20px; line-height:1.8; color:#2d3748; font-size:15px; margin-bottom:24px; word-break:break-word;">
+            <li><strong>残酷的“手工采矿”（Artisanal mining）：</strong> 这类采矿通常不依靠大型机械，而是由平民用最简单的手工工具，在无防护、极度危险的环境下进行开采。在苏丹等战乱国家，这成了许多人在经济崩溃后，冒着生命危险试图养家糊口的唯一谋生手段。</li>
+            <li><strong>地缘摩擦与淘金客：</strong> 埃及与苏丹之间存在漫长且环境恶劣的边境线（如著名的哈拉伊卜三角区争议），非法越境淘金和走私活动频发。埃及军方为了所谓的“边境安全”和打击跨境走私，常常对外来的“淘金客”采取极度强硬的军事手段。</li>
+            <li><strong>尴尬的“实际掌权者”（De facto authorities）：</strong> 苏丹自2023年爆发全面内战以来，正规军（SAF）与快速支援部队（RSF）为了争夺控制权大打出手。新闻中特意使用“de facto authorities”一词，反映了该国政府目前处于分裂、混乱的尴尬状态，以至于自己的国民在领土内被外国轰炸，官方甚至无力或不愿发声维护。</li>
+        </ul>
+
+        <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #e53e3e; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">🎯 全片锐评</h2>
+        <p style="line-height:1.7; color:#1a202c; font-weight:600; background:#fff5f5; padding:14px; border-radius:10px; font-size:15px; margin:0 0 24px 0; border:1px solid #fed7d7; word-break:break-word;">
+            这是一场典型的被边缘化的第三世界悲剧。苏丹的残酷内战已经让国家满目疮痍，老百姓为了填饱肚子，只能被迫去边境的荒漠里用最原始的工具“土法淘金”。然而，他们没有死于国内派系的流弹，却死于邻国打着“打击非法活动”旗号的越境轰炸。更加令人心寒的是，五枚导弹瞬间夺走了几十甚至上百条无辜的生命，无论是痛下杀手的埃及，还是本该保护国民的苏丹“实际掌权者”，都选择了冷漠的集体噤声。在这个弱肉强食的地缘政治丛林里，“国际人道主义法”、“人权”与“主权”，在冰冷的国家利益与强权面前，显得如此苍白无力。
+        </p>
+
+    </div>
+
+    <script id="core-engine">
+        let syncTimeout = null;
+        const AI_PROMPT = "请分析以下英文段落，并严格按照以下 Markdown 格式输出（不要输出任何额外的废话）：\n\n### 📌 完整翻译\n\n[此处填写完整翻译]\n\n### 📌 Key Expressions\n\n- **[单词或短语]**\n  = [中文释义]\n  （[可选的补充说明，如倒装结构或语境等]）\n\n段落内容：\n";
+
+        // --- 顶部阅读进度条逻辑 ---
+        function initProgressBar() {
+            const progressBar = document.getElementById('reading-progress');
+            if (!progressBar) return;
+            window.addEventListener('scroll', () => {
+                const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+                const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                if (scrollHeight <= 0) return;
+                const scrollPercent = (scrollTop / scrollHeight) * 100;
+                progressBar.style.width = scrollPercent + '%';
+            }, { passive: true });
+        }
+
+        async function fetchGroq(text, apiKey, modelName) {
+            const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + apiKey,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    model: modelName || 'llama-3.3-70b-versatile',
+                    messages: [
+                        { role: 'system', content: 'You are an English teacher. Output EXACTLY in the requested Markdown format.' },
+                        { role: 'user', content: AI_PROMPT + '"' + text + '"' }
+                    ],
+                    temperature: 0.3
+                })
+            });
+            if (!res.ok) throw new Error('Groq Error: ' + res.status);
+            const json = await res.json();
+            return json.choices[0].message.content.trim();
+        }
+
+        async function fetchCustomAI(text, url, apiKey, modelName) {
+            let headers = { 'Content-Type': 'application/json' };
+            let bodyData = {};
+            if (url.includes('anthropic.com')) {
+                headers['x-api-key'] = apiKey;
+                headers['anthropic-version'] = '2023-06-01';
+                headers['anthropic-dangerous-direct-browser-access'] = 'true';
+                bodyData = {
+                    model: modelName || 'claude-3-5-sonnet-20241022',
+                    max_tokens: 2000,
+                    messages: [{ role: 'user', content: AI_PROMPT + '"' + text + '"' }]
+                };
+            } else if (url.includes('generativelanguage.googleapis.com')) {
+                let targetUrl = url;
+                if (!targetUrl.includes('key=')) {
+                    targetUrl += (targetUrl.includes('?') ? '&' : '?') + 'key=' + apiKey;
+                }
+                const res = await fetch(targetUrl, {
+                    method: 'POST',
+                    headers: headers,
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: AI_PROMPT + '"' + text + '"' }] }]
+                    })
+                });
+                if (!res.ok) throw new Error('Gemini Error: ' + res.status);
+                const json = await res.json();
+                return json.candidates[0].content.parts[0].text.trim();
+            } else {
+                headers['Authorization'] = 'Bearer ' + apiKey;
+                bodyData = {
+                    model: modelName || 'gpt-4o-mini',
+                    messages: [
+                        { role: 'system', content: 'You are an English teacher. Output EXACTLY in the requested Markdown format.' },
+                        { role: 'user', content: AI_PROMPT + '"' + text + '"' }
+                    ],
+                    temperature: 0.3
+                };
+            }
+            const res = await fetch(url, {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify(bodyData)
+            });
+            if (!res.ok) throw new Error('AI Interface Error: ' + res.status);
+            const json = await res.json();
+            if (json.choices && json.choices.length > 0) return json.choices[0].message.content.trim();
+            throw new Error('AI 返回数据异常');
+        }
+
+        async function executeAIPipeline(text) {
+            const customUrl = localStorage.getItem('CUSTOM_API_URL') || '';
+            const customKey = localStorage.getItem('CUSTOM_API_KEY') || '';
+            const customModel = localStorage.getItem('CUSTOM_MODEL') || '';
+            const groqKey = localStorage.getItem('GROQ_API_KEY') || '';
+            const groqModel = localStorage.getItem('GROQ_MODEL') || '';
+
+            if (customUrl && customKey) {
+                try {
+                    return await fetchCustomAI(text, customUrl, customKey, customModel);
+                } catch (err) {
+                    if (groqKey) return await fetchGroq(text, groqKey, groqModel);
+                    throw err;
+                }
+            } else if (groqKey) {
+                return await fetchGroq(text, groqKey, groqModel);
+            } else {
+                const userKey = prompt('⚠️ 当前页面未检测到 AI Key！\n为了安全，密匙只储存在您本地浏览器中。\n\n请输入您的 API Key (如 sk-xxx 或 gsk_xxx):');
+                if (userKey && userKey.trim()) {
+                    const cleanKey = userKey.trim();
+                    if (cleanKey.startsWith('gsk_')) {
+                        localStorage.setItem('GROQ_API_KEY', cleanKey);
+                    } else {
+                        localStorage.setItem('CUSTOM_API_KEY', cleanKey);
+                        localStorage.setItem('CUSTOM_API_URL', 'https://api.chatanywhere.tech/v1/chat/completions');
+                    }
+                }
+                throw new Error('未设置 AI API Key');
+            }
+        }
+
+        // --- 降级清理防线：净化污染节点 ---
+        function getPurifiedFallbackHTML() {
+            const clone = document.documentElement.cloneNode(true);
+            const foreignSelectors = [
+                'relingo-app', 'relin-highlight', 'relin-hc',
+                '[class*="relingo"]', '[data-relin-paragraph]',
+                'grammarly-extension', '[data-grammarly-part]',
+                '[class*="immersive-translate"]', '[data-immersive-translate]'
+            ].join(',');
+            clone.querySelectorAll(foreignSelectors).forEach(el => el.remove());
+
+            clone.querySelectorAll('relin-highlight, relin-hc').forEach(t => {
+                const frag = document.createDocumentFragment();
+                while(t.firstChild) frag.appendChild(t.firstChild);
+                t.parentNode.replaceChild(frag, t);
+            });
+
+            clone.querySelectorAll('script').forEach(s => {
+                if (!s.src.includes('marked.min.js') && s.id !== 'core-engine') s.remove();
+            });
+            clone.querySelectorAll('style').forEach(s => {
+                if (s.id !== 'core-style') s.remove();
+            });
+
+            const liveTAs = document.querySelectorAll('.anno-edit');
+            clone.querySelectorAll('.anno-edit').forEach((ta, i) => {
+                if(liveTAs[i]) ta.textContent = liveTAs[i].value.trim();
+                const box = ta.closest('.anno-box');
+                if (box) box.style.display = 'none';
+                const view = box ? box.querySelector('.anno-view') : null;
+                if (view) view.innerHTML = '';
+            });
+
+            return '<!DOCTYPE html>\n<html lang="zh-CN">\n' + clone.innerHTML + '\n</html>';
+        }
+
+        // --- 内存反向打补丁同步技术 ---
+        async function syncToCloud() {
+            const ghToken = localStorage.getItem('LITIT_GH_TOKEN') || localStorage.getItem('GH_TOKEN');
+            const ghOwner = 'moodHappy';
+            const ghRepo = 'dual-read-notes';
+            if (!ghToken) return;
+
+            const pathParts = window.location.pathname.split('/');
+            const fileName = pathParts.pop();
+            const month = pathParts.pop();
+            const year = pathParts.pop();
+            if(!fileName || !month || !year) return;
+
+            const fileRelPath = 'Summary/' + year + '/' + month + '/' + fileName;
+
+            try {
+                const getRes = await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath + '?t=' + Date.now(), {
+                    headers: { 'Authorization': 'Bearer ' + ghToken },
+                    cache: 'no-store'
+                });
+
+                let finalHTML = '';
+                let sha = '';
+
+                if (getRes.ok) {
+                    const fileData = await getRes.json();
+                    sha = fileData.sha;
+                    const cleanRawHTML = decodeURIComponent(escape(atob(fileData.content.replace(/\n/g, ''))));
+                    const parser = new DOMParser();
+                    const cleanDoc = parser.parseFromString(cleanRawHTML, 'text/html');
+
+                    const liveTAs = document.querySelectorAll('.anno-edit');
+                    const cleanTAs = cleanDoc.querySelectorAll('.anno-edit');
+                    liveTAs.forEach((liveTa, index) => {
+                        if (cleanTAs[index]) {
+                            const val = liveTa.value.trim();
+                            cleanTAs[index].textContent = val;
+                            const box = cleanTAs[index].closest('.anno-box');
+                            if (box) box.style.display = 'none';
+                            const view = box ? box.querySelector('.anno-view') : null;
+                            if (view) view.innerHTML = '';
+                        }
+                    });
+
+                    cleanDoc.querySelectorAll('.anno-toggle').forEach(t => {
+                        t.classList.remove('has-anno');
+                        const ta = t.closest('.content-wrap, .litit-highlight-block')?.querySelector('.anno-edit');
+                        if (ta && ta.textContent.trim()) t.classList.add('has-anno');
+                    });
+
+                    finalHTML = '<!DOCTYPE html>\n<html lang="zh-CN">\n' + cleanDoc.documentElement.innerHTML + '\n</html>';
+                } else {
+                    finalHTML = getPurifiedFallbackHTML();
+                }
+
+                await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': 'Bearer ' + ghToken,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message: 'Silent purified annotation update',
+                        content: btoa(unescape(encodeURIComponent(finalHTML))),
+                        sha: sha || undefined
+                    })
+                });
+                console.log('✅ [My Litit] 纯净无污染批注已静默同步至 GitHub');
+            } catch(e) {
+                console.warn('❌ [My Litit] 同步跳过或失败:', e);
+            }
+        }
+
+        function scheduleSync() {
+            if (syncTimeout) clearTimeout(syncTimeout);
+            syncTimeout = setTimeout(() => {
+                syncToCloud();
+            }, 3000);
+        }
+
+        function initAnnotations() {
+            document.querySelectorAll('.litit-highlight-block, .content-wrap').forEach(wrap => {
+                let content = wrap.querySelector('.content');
+                if (!content) {
+                    const pText = wrap.querySelector('p');
+                    if (pText) {
+                        content = document.createElement('div');
+                        content.className = 'content';
+                        content.style.cssText = 'position:relative; margin:0 0 6px 0; color:#1a202c; font-family:Georgia, serif; line-height:1.7; font-size:15px; word-break:break-word;';
+                        content.innerHTML = pText.innerHTML;
+                        pText.parentNode.replaceChild(content, pText);
+                    }
+                }
+                if (!content) return;
+
+                if (!content.querySelector('.anno-toggle')) {
+                    const toggle = document.createElement('span');
+                    toggle.className = 'anno-toggle';
+                    toggle.title = '手写批注/笔记';
+                    content.appendChild(toggle);
+                }
+                if (!content.querySelector('.ai-toggle')) {
+                    const aiToggle = document.createElement('span');
+                    aiToggle.className = 'ai-toggle';
+                    aiToggle.title = 'AI智能二次解析';
+                    content.appendChild(aiToggle);
+                }
+
+                let box = wrap.querySelector('.anno-box');
+                if (!box) {
+                    box = document.createElement('div');
+                    box.className = 'anno-box';
+                    box.style.display = 'none';
+                    box.innerHTML = '<div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 解析..."></textarea>';
+                    wrap.appendChild(box);
+                }
+
+                const view = box.querySelector('.anno-view');
+                const edit = box.querySelector('.anno-edit');
+                const toggle = content.querySelector('.anno-toggle');
+                const aiToggle = content.querySelector('.ai-toggle');
+
+                if (edit && edit.value.trim()) {
+                    toggle.classList.add('has-anno');
+                    try {
+                        view.innerHTML = (typeof marked !== 'undefined') ? marked.parse(edit.value.trim()) : edit.value.trim();
+                    } catch(e){}
+                }
+
+                if (aiToggle) {
+                    aiToggle.onclick = async (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        if (aiToggle.classList.contains('loading')) return;
+
+                        if (edit && edit.value.trim() !== '') {
+                            const confirmOverwrite = confirm('⚠️ 已经存在批注内容。点击"确定"将使用 AI 解析覆盖现有内容。是否继续？');
+                            if (!confirmOverwrite) return;
+                        }
+
+                        const pClone = content.cloneNode(true);
+                        pClone.querySelectorAll('.anno-toggle, .ai-toggle').forEach(el => el.remove());
+                        let pText = pClone.textContent.replace(/https?:\/\/\S+/g, '').trim();
+                        if (!pText) return;
+
+                        aiToggle.classList.add('loading');
+                        try {
+                            const aiContent = await executeAIPipeline(pText);
+                            box.style.display = 'block';
+                            view.style.display = 'none';
+                            edit.style.display = 'block';
+                            edit.value = aiContent;
+                            edit.focus();
+                            edit.blur();
+                        } catch (err) {
+                            console.error(err);
+                        } finally {
+                            aiToggle.classList.remove('loading');
+                        }
+                    };
+                }
+
+                if (toggle) {
+                    toggle.onclick = (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        if (box.style.display === 'block') {
+                            box.style.display = 'none';
+                        } else {
+                            box.style.display = 'block';
+                            if (!edit.value.trim()) {
+                                view.style.display = 'none';
+                                edit.style.display = 'block';
+                                setTimeout(() => { edit.focus(); }, 150);
+                            } else {
+                                view.style.display = 'block';
+                                edit.style.display = 'none';
+                            }
+                        }
+                    };
+                }
+
+                const triggerEdit = (e) => {
+                    if(e) { e.preventDefault(); e.stopPropagation(); }
+                    view.style.display = 'none';
+                    edit.style.display = 'block';
+                    edit.value = edit.value; 
+                    setTimeout(() => { edit.focus(); }, 150);
+                };
+
+                view.addEventListener('dblclick', triggerEdit);
+
+                let lastTap = 0;
+                view.addEventListener('touchstart', e => {
+                    if (e.touches.length === 2) {
+                        triggerEdit(e);
+                    } else if (e.touches.length === 1) {
+                        const currentTime = new Date().getTime();
+                        if (currentTime - lastTap < 500 && currentTime - lastTap > 0) {
+                            e.preventDefault();
+                            box.style.display = 'none';
+                        }
+                        lastTap = currentTime;
+                    }
+                }, {passive: false});
+
+                if (edit && view) {
+                    edit.onblur = () => {
+                        setTimeout(() => {
+                            const newVal = edit.value.trim();
+                            try {
+                                view.innerHTML = newVal ? ((typeof marked !== 'undefined') ? marked.parse(newVal) : newVal) : '';
+                            } catch(e){}
+                            edit.style.display = 'none';
+                            if (newVal) {
+                                view.style.display = 'block';
+                                toggle.classList.add('has-anno');
+                            } else {
+                                view.style.display = 'none';
+                                box.style.display = 'none';
+                                toggle.classList.remove('has-anno');
+                            }
+                            if (edit.getAttribute('data-old-val') !== newVal) {
+                                edit.setAttribute('data-old-val', newVal);
+                                scheduleSync();
+                            }
+                        }, 150);
+                    };
+                    edit.setAttribute('data-old-val', edit.value.trim());
+                }
+            });
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            initProgressBar();
+            initAnnotations();
+        });
+        window.addEventListener('load', initAnnotations);
+    </script>
+</body>
+</html>
