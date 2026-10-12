@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>On Yemen's desert battlefield, a war with global consequences is being waged</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style id="core-style">
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; padding: 16px; margin: 0 auto; max-width: 800px; background: #ffffff; color: #2d3748; line-height: 1.8; font-size: 16px; word-wrap: break-word; overflow-x: hidden; }
+        * { box-sizing: border-box; max-width: 100%; }
+        img { max-width: 100%; height: auto; border-radius: 8px; }
+        /* 顶部极简阅读进度条 */
+        #reading-progress { position: fixed; top: 0; left: 0; width: 0%; height: 3px; background: linear-gradient(90deg, #667eea, #805ad5); z-index: 9999; transition: width 0.1s ease-out; }
+        /* AI 批注组件样式 */
+        .anno-toggle, .ai-toggle { display: inline-block; padding: 2px 6px; margin-left: 6px; cursor: pointer; opacity: 0.4; font-size: 0.85rem; vertical-align: middle; transition: all 0.2s; user-select: none; -webkit-tap-highlight-color: transparent; }
+        .anno-toggle:hover, .ai-toggle:hover { opacity: 0.95; transform: scale(1.15); }
+        .anno-toggle.has-anno { opacity: 1; }
+        .anno-toggle::after { content: "🔴"; }
+        .ai-toggle { opacity: 0.7; padding: 2px 4px; }
+        .ai-toggle::after { content: "🤖"; }
+        .ai-toggle.loading::after { content: "⏳"; display: inline-block; animation: spin 1s linear infinite; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        .anno-box { display: none; margin-top: 10px; background: #f8f6ff; border-left: 4px solid #8e7cc3; padding: 12px 16px; border-radius: 0 8px 8px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.03); text-align: left; }
+        .anno-view { font-size: 0.95rem; line-height: 1.6; color: #4a4a4a; min-height: 24px; }
+        .anno-edit { width: 100%; min-height: 120px; padding: 10px; font-family: monospace; font-size: 0.95rem; border: 1px dashed #8e7cc3; border-radius: 6px; box-sizing: border-box; resize: vertical; display: none; background: #fff; color: #333; outline: none; }
+        .anno-edit:focus { border: 1px solid #8e7cc3; box-shadow: 0 0 0 3px rgba(142,124,195,0.15); }
+        .markdown-body p { margin-top: 0; margin-bottom: 8px; }
+        .markdown-body p:last-child { margin-bottom: 0; }
+        .markdown-body h1, .markdown-body h2, .markdown-body h3 { color: #6b46c1; font-size: 1.1rem; margin: 10px 0 8px 0; border-bottom: 1px dashed #e9d8fd; padding-bottom: 4px; }
+        .markdown-body ul, .markdown-body ol { margin: 0 0 8px 0; padding-left: 20px; }
+        .markdown-body blockquote { margin: 0 0 10px 0; padding: 8px 12px; background: rgba(142,124,195,0.1); border-left: 4px solid #8e7cc3; color: #555; }
+        @media (max-width: 600px) { body { padding: 12px; font-size: 15px; } h1 { font-size: 22px !important; } h2 { font-size: 16px !important; } }
+        /* 折叠面板专属样式 */
+        details.litit-fold { margin-bottom: 8px; border: 1px solid #e2e8f0; border-radius: 6px; background: #f8fafc; overflow: hidden; box-shadow: 0 1px 2px rgba(0,0,0,0.02); }
+        details.litit-fold summary { cursor: pointer; padding: 8px 10px; outline: none; list-style: none; display: flex; justify-content: space-between; align-items: center; background: #f7fafc; transition: background 0.2s; user-select: none; -webkit-tap-highlight-color: transparent; }
+        details.litit-fold summary::-webkit-details-marker { display: none; }
+        details.litit-fold summary:hover { background: #edf2f7; }
+        details.litit-fold[open] summary { border-bottom: 1px dashed #cbd5e0; background: #fffaf0; }
+        .litit-fold-content { padding: 10px 10px; background: #ffffff; }
+    </style>
+</head>
+<body>
+    <!-- 进度条 DOM -->
+    <div id="reading-progress"></div>
+    <div class="litit-report" style="width:100%; max-width:100%; box-sizing:border-box; overflow-x:hidden;">
+
+        <!-- 支持批注的主标题区 -->
+        <div class="content-wrap" style="position:relative; margin-bottom: 16px;">
+            <h1 class="litit-target-title" style="color:#1a202c; font-size: 24px; line-height: 1.4; border-bottom: 3px solid #667eea; padding-bottom: 12px; margin-top:0; margin-bottom:0; word-break:break-word;">
+                <span class="content litit-en-title" style="position:relative;">On Yemen's desert battlefield, a war with global consequences is being waged</span>
+                <br>
+                <span class="litit-zh-title" style="font-size: 18px; color: #4a5568; margin-top: 8px; display: inline-block;">在也门的沙漠战场上，一场影响全球的战争正在打响</span>
+            </h1>
+            <div class="anno-box" style="display:none; margin-top: 12px;">
+                <div class="anno-view markdown-body"></div>
+                <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
+在也门的沙漠战场上，一场具有全球性后果的战争正在进行中。
+
+### 📌 Key Expressions
+- **battlefield** = 战场
+- **global consequences** = 全球性的后果 / 影响
+- **wage a war** = 发动 / 进行一场战争（文中为被动语态 is being waged）</textarea>
+            </div>
+        </div>
+
+        <p style="color:#4a5568; font-size: 15px; line-height: 1.6; margin-bottom:18px; font-weight:500;">
+            在中东偏远的沙漠角落，也门旷日持久的内战再次剧烈升级。由伊朗支持的胡塞武装不仅在地面战场上威胁着战略航道曼德海峡（Bab al-Mandab），更在周末对沙特首都利雅得的国际机场发动了十多年来最致命的导弹袭击。这场连接着德黑兰与利雅得的地缘博弈，正持续给全球石油供应与国际航运敲响警钟。然而，在宏大的能源恐慌背后，是这个阿拉伯世界最贫穷国家的无尽苦难：二十万平民在新一轮冲突中流离失所，医院人满为患，无数像12岁男孩阿里一样的无辜者在无人机与炮火的阴影下挣扎求生。
+        </p>
+
+        <div style="margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+            <div style="display:flex; flex-wrap:wrap; gap:8px;">
+                <span style="background:#edf2f7; color:#2d3748; padding:5px 10px; border-radius:6px; font-size:13px; font-weight:600;">也门内战</span>
+                <span style="background:#edf2f7; color:#2d3748; padding:5px 10px; border-radius:6px; font-size:13px; font-weight:600;">胡塞武装</span>
+                <span style="background:#edf2f7; color:#2d3748; padding:5px 10px; border-radius:6px; font-size:13px; font-weight:600;">地缘政治</span>
+            </div>
+            <a href="https://www.bbc.com/news/articles/c5m2dn7zz4nyo" target="_blank" style="font-size: 13px; color: #5a67d8; text-decoration: none; font-weight: bold; background: #ebf4ff; padding: 6px 14px; border-radius: 6px; transition: all 0.2s; border: 1px solid #c3dafe; display:inline-block;">🔗 阅读原文</a>
+        </div>
+
+        <!-- 最佳金句区 -->
+        <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #ed8936; margin:0 0 12px 0; border-radius: 0 6px 6px 0;">💬 最佳金句</h2>
+        <div class="content-wrap" style="position:relative; margin-bottom:24px;">
+            <blockquote class="litit-target-quote" style="border-left: 4px solid #667eea; background: #f8fafc; padding: 14px; margin: 0; font-style: italic; color: #2d3748; border-radius: 0 8px 8px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
+                <div class="content litit-en-quote" style="position:relative; margin:0 0 6px 0; font-weight:600; font-size: 16px; line-height: 1.6; color:#1a202c; word-break:break-word;">
+                    "Maybe war is good for news, but it's horrible for people. Sons are losing their fathers, and mothers losing their sons. We need peace."
+                </div>
+                <p class="litit-zh-quote" style="margin:0 0 8px 0; font-weight:500; font-size: 15px; line-height: 1.6; color:#4a5568; word-break:break-word;">
+                    “也许战争对新闻报道来说是好素材，但对老百姓来说太可怕了。儿子失去父亲，母亲失去儿子。我们需要和平。”
+                </p>
+                <footer style="text-align:right; font-size:13px; color:#718096; font-style:normal; font-weight:500;">—— 亚丁军事医院医生 Bassam Hazar</footer>
+            </blockquote>
+            <div class="anno-box" style="display:none;">
+                <div class="anno-view markdown-body"></div>
+                <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
+“也许战争对新闻来说是好事，但对人们来说却是可怕的。儿子们正在失去父亲，母亲们正在失去儿子。我们需要和平。”
+
+### 📌 Key Expressions
+- **be good for news** = 对新闻来说是好素材 / 有新闻价值
+- **horrible** = 可怕的；极坏的
+- **lose one's father/son** = 失去某人的父亲/儿子（后半句 mothers losing their sons 省略了助动词 are）</textarea>
+            </div>
+        </div>
+
+        <!-- Grid 布局关键数字区 -->
+        <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #38a169; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">📊 关键数字</h2>
+        <div style="display:grid; grid-template-columns: repeat(2, 1fr); gap:12px; margin:14px 0 24px 0;">
+            <div style="background:#fff; border:1px solid #e2e8f0; padding:16px; border-radius:10px; text-align:center; box-shadow:0 2px 5px rgba(0,0,0,0.04); box-sizing:border-box; display:flex; flex-direction:column; justify-content:center;">
+                <div style="font-size:26px; color:#5a67d8; font-weight:900; margin-bottom:6px; line-height:1.2;">
+                    20<span style="font-size:16px; margin-left:2px;">万</span>
+                </div>
+                <div style="font-size:13px; color:#4a5568; font-weight:500; line-height:1.4;">自9月初冲突升级以来，被迫逃离家园的也门平民人数</div>
+            </div>
+            <div style="background:#fff; border:1px solid #e2e8f0; padding:16px; border-radius:10px; text-align:center; box-shadow:0 2px 5px rgba(0,0,0,0.04); box-sizing:border-box; display:flex; flex-direction:column; justify-content:center;">
+                <div style="font-size:26px; color:#5a67d8; font-weight:900; margin-bottom:6px; line-height:1.2;">
+                    500<span style="font-size:16px; margin-left:2px;">名</span>
+                </div>
+                <div style="font-size:13px; color:#4a5568; font-weight:500; line-height:1.4;">仍盘踞在俯瞰曼德海峡高地上的胡塞武装分子估算人数</div>
+            </div>
+            <div style="background:#fff; border:1px solid #e2e8f0; padding:16px; border-radius:10px; text-align:center; box-shadow:0 2px 5px rgba(0,0,0,0.04); box-sizing:border-box; display:flex; flex-direction:column; justify-content:center;">
+                <div style="font-size:26px; color:#5a67d8; font-weight:900; margin-bottom:6px; line-height:1.2;">
+                    85<span style="font-size:16px; margin-left:2px;">%</span>
+                </div>
+                <div style="font-size:13px; color:#4a5568; font-weight:500; line-height:1.4;">亲政府部队声称从胡塞武装手中成功夺回的失地比例</div>
+            </div>
+            <div style="background:#fff; border:1px solid #e2e8f0; padding:16px; border-radius:10px; text-align:center; box-shadow:0 2px 5px rgba(0,0,0,0.04); box-sizing:border-box; display:flex; flex-direction:column; justify-content:center;">
+                <div style="font-size:26px; color:#5a67d8; font-weight:900; margin-bottom:6px; line-height:1.2;">
+                    51<span style="font-size:16px; margin-left:2px;">名</span>
+                </div>
+                <div style="font-size:13px; color:#4a5568; font-weight:500; line-height:1.4;">亚丁一家军事医院在单日内接收的前线伤员人数</div>
+            </div>
+        </div>
+
+        <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #3182ce; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">⏱️ 事件时间线</h2>
+        <ul style="padding-left:20px; line-height:1.8; color:#2d3748; font-size: 15px; margin-bottom:24px; word-break:break-word;">
+            <li><strong style="color:#2b6cb0;">2014年：</strong> 胡塞武装席卷并占领也门首都萨那（Sanaa），推翻了国际公认的也门政府，内战全面爆发。</li>
+            <li><strong style="color:#2b6cb0;">2015年：</strong> 以沙特阿拉伯为首的阿拉伯国家联军介入也门局势，试图通过大规模空袭驱逐胡塞武装，但多年未果。</li>
+            <li><strong style="color:#2b6cb0;">2022年：</strong> 各方达成停火协议（truce），为也门带来了随后几年的相对平静。</li>
+            <li><strong style="color:#2b6cb0;">今年9月初：</strong> 局势再度急剧升级，胡塞武装发动闪电推进，占领了俯瞰曼德海峡的战略要地，导致约20万平民流离失所。</li>
+            <li><strong style="color:#2b6cb0;">本周末：</strong> 导弹猛烈击中沙特首都利雅得的国际机场。这是十多年来沙特本土遭遇的最致命袭击，彻底刺破了该国的安全感。</li>
+        </ul>
+
+        <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #805ad5; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">✨ 本篇亮点与精读</h2>
+
+        <div style="font-family: Arial, 'Source Han Serif CN', serif; line-height: 1.55; font-size: 1.05em; color: black; margin: 16px 0 10px 0;">
+            
+            <details class="litit-fold">
+                <summary>
+                    <h3 style="margin: 0; font-size: 16px; color: #2d3748;">一、值得学习的句子结构</h3>
+                </summary>
+                <div class="litit-fold-content">
+                    <ol style="margin: 0; padding-left: 18px;">
+                        <li class="litit-target-sentence" style="margin-bottom: 12px;">
+                            <strong class="litit-en-sentence">Yemen's Houthi fighters – already a threat to global shipping – are an increasing threat to Saudi Arabia. And they provide leverage for their backers in Iran, Saudi's regional rival.</strong><br>
+                            <span class="litit-zh-sentence">也门胡塞武装——本就已是全球航运的威胁——如今对沙特阿拉伯构成了越来越大的威胁。而且他们为其在伊朗（沙特的地区竞争对手）的支持者提供了谈判筹码。</span>
+                            <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+                                <li style="margin-bottom: 3px;"><strong>双破折号插入语</strong>：already a threat to global shipping 作为同位语补充说明主语既有的威胁属性。</li>
+                                <li style="margin-bottom: 3px;"><strong>provide leverage for...</strong>：为……提供筹码/影响力</li>
+                                <li style="margin-bottom: 3px;"><strong>regional rival</strong>：地区竞争对手/宿敌</li>
+                            </ul>
+                        </li>
+                        <li class="litit-target-sentence" style="margin-bottom: 12px;">
+                            <strong class="litit-en-sentence">As jitters run through international energy markets, hunger menaces weary Yemenis forced to flee this latest spasm of violence.</strong><br>
+                            <span class="litit-zh-sentence">当恐慌情绪在国际能源市场蔓延时，饥饿正威胁着那些被迫逃离最新一轮暴力冲突、疲惫不堪的也门人。</span>
+                            <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+                                <li style="margin-bottom: 3px;"><strong>jitters run through...</strong>：紧张/恐慌情绪席卷……</li>
+                                <li style="margin-bottom: 3px;"><strong>menace</strong>：威胁；危及（动词）</li>
+                                <li style="margin-bottom: 3px;"><strong>spasm of violence</strong>：一阵突发的暴力冲突（spasm 原意为痉挛、抽搐，比喻间歇性爆发的冲突）</li>
+                            </ul>
+                        </li>
+                        <li class="litit-target-sentence" style="margin-bottom: 12px;">
+                            <strong class="litit-en-sentence">The Houthi attack - the deadliest on Saudi soil in more than a decade - sent shockwaves around the region and punctured the kingdom's sense of security.</strong><br>
+                            <span class="litit-zh-sentence">胡塞武装的这次袭击——十多年来在沙特本土发生的最致命袭击——在整个地区引发了震动，并刺破了该王国的安全感。</span>
+                            <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+                                <li style="margin-bottom: 3px;"><strong>on Saudi soil</strong>：在沙特领土/本土上</li>
+                                <li style="margin-bottom: 3px;"><strong>send shockwaves around...</strong>：在……引发震动/冲击波</li>
+                                <li style="margin-bottom: 3px;"><strong>puncture the sense of security</strong>：刺破安全感（极为生动的动词隐喻，像扎破气球一样）</li>
+                            </ul>
+                        </li>
+                        <li class="litit-target-sentence" style="margin-bottom: 12px;">
+                            <strong class="litit-en-sentence">If there is a new attempt at mediation – and there is some speculation about this - they may drive a hard bargain.</strong><br>
+                            <span class="litit-zh-sentence">如果有新的调解尝试——目前确实有一些这方面的猜测——他们可能会漫天要价（提出苛刻的条件）。</span>
+                            <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+                                <li style="margin-bottom: 3px;"><strong>attempt at mediation</strong>：调解/斡旋的尝试（注意介词用 at）</li>
+                                <li style="margin-bottom: 3px;"><strong>drive a hard bargain</strong>：讨价还价极为苛刻；极力争先/寸步不让</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+            </details>
+
+            <details class="litit-fold">
+                <summary>
+                    <h3 style="margin: 0; font-size: 16px; color: #2d3748;">二、值得积累的短语和固定搭配</h3>
+                </summary>
+                <div class="litit-fold-content">
+                    <ul style="list-style-type: square; margin: 0; padding-left: 18px; line-height: 1.6;">
+                        <li style="margin-bottom: 4px;"><strong>pro-government forces</strong>: 亲政府部队</li>
+                        <li style="margin-bottom: 4px;"><strong>catch glimpses of</strong>: 瞥见；隐约看到</li>
+                        <li style="margin-bottom: 4px;"><strong>forbidding mountain peaks</strong>: 险峻/令人生畏的山峰</li>
+                        <li style="margin-bottom: 4px;"><strong>dislodge from</strong>: 从……驱逐/赶走</li>
+                        <li style="margin-bottom: 4px;"><strong>global implications</strong>: 全球性影响</li>
+                        <li style="margin-bottom: 4px;"><strong>entrenched civil war</strong>: 根深蒂固的/旷日持久的内战</li>
+                        <li style="margin-bottom: 4px;"><strong>slam into</strong>: 猛烈撞击/击中</li>
+                        <li style="margin-bottom: 4px;"><strong>provide leverage for</strong>: 为……提供筹码</li>
+                        <li style="margin-bottom: 4px;"><strong>sweep into</strong>: 席卷；长驱直入</li>
+                        <li style="margin-bottom: 4px;"><strong>oust the government</strong>: 推翻/罢黜政府</li>
+                        <li style="margin-bottom: 4px;"><strong>strategic maritime corridor</strong>: 战略海上走廊/航道</li>
+                        <li style="margin-bottom: 4px;"><strong>a lightning advance</strong>: 闪电般的推进（攻势）</li>
+                        <li style="margin-bottom: 4px;"><strong>wrest back</strong>: 艰难夺回</li>
+                        <li style="margin-bottom: 4px;"><strong>improvised explosive devices (IEDs)</strong>: 简易爆炸装置（路边炸弹）</li>
+                        <li style="margin-bottom: 4px;"><strong>a tableau of suffering</strong>: 一幅苦难的画面</li>
+                        <li style="margin-bottom: 4px;"><strong>with just the clothes on our backs</strong>: 只穿着身上的衣服（形容身无分文、狼狈逃难）</li>
+                        <li style="margin-bottom: 4px;"><strong>make no distinctions</strong>: 一视同仁；不做区分</li>
+                        <li style="margin-bottom: 4px;"><strong>drive a hard bargain</strong>: 提出苛刻条件；杀价狠</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="litit-fold">
+                <summary>
+                    <h3 style="margin: 0; font-size: 16px; color: #2d3748;">三、新闻英语中的高价值表达</h3>
+                </summary>
+                <div class="litit-fold-content">
+                    <ol style="margin: 0; padding-left: 18px;">
+                        <li style="margin-bottom: 12px;">
+                            <strong>dislodge / wrest back</strong><br>
+                            军事报道中的两个核心词。<strong>dislodge</strong> 指把敌人从坚固的据点或阵地中“拔除、强行赶走”；<strong>wrest back</strong> 则指经过激烈争夺后“强行夺回”（失地或控制权），比普通动词 take back 更具力量感。
+                        </li>
+                        <li style="margin-bottom: 12px;">
+                            <strong>entrenched</strong><br>
+                            根深蒂固的；陷入僵局的。<br>
+                            词源来自 trench（战壕）。在新闻中，<i>entrenched civil war</i> 既指双方挖好战壕对峙，也引申为战争已经持续太久、各方利益盘根错节，极难结束。
+                        </li>
+                        <li style="margin-bottom: 12px;">
+                            <strong>leverage</strong><br>
+                            筹码；影响力；杠杆作用。<br>
+                            外交与地缘政治高频词。文中指胡塞武装的壮大，为伊朗在与沙特及西方的博弈中提供了重要的政治筹码（provide leverage）。
+                        </li>
+                        <li style="margin-bottom: 12px;">
+                            <strong>puncture one's sense of security</strong><br>
+                            刺破某人的安全感。<br>
+                            极其地道的新闻修辞。用 puncture（刺穿轮胎/气球）来形容袭击事件瞬间打破了一国长期以来的安全幻觉。
+                        </li>
+                    </ol>
+                </div>
+            </details>
+
+            <details class="litit-fold">
+                <summary>
+                    <h3 style="margin: 0; font-size: 16px; color: #2d3748;">四、最值得优先掌握的句型</h3>
+                </summary>
+                <div class="litit-fold-content">
+                    <ol style="margin: 0; padding-left: 18px;">
+                        <li style="margin-bottom: 8px;">
+                            <strong>Here in [地点], a war is being waged with global implications.</strong><br>
+                            在[某地]，一场具有全球影响的战争正在打响。（经典的宏大叙事开篇句型）。
+                        </li>
+                        <li style="margin-bottom: 8px;">
+                            <strong>As jitters run through A, B menaces C.</strong><br>
+                            当恐慌情绪席卷 A 时，B 正在威胁着 C。（将宏观经济市场反应与微观个体苦难进行强烈对比的句式）。
+                        </li>
+                        <li style="margin-bottom: 8px;">
+                            <strong>We had to run, with just the clothes on our backs.</strong><br>
+                            我们不得不逃跑，全身上下只有身上穿的衣服。（描写难民仓皇出逃、一无所有的经典地道表达）。
+                        </li>
+                        <li style="margin-bottom: 8px;">
+                            <strong>If there is a new attempt at mediation, they may drive a hard bargain.</strong><br>
+                            如果有新的调解尝试，他们可能会漫天要价。
+                        </li>
+                    </ol>
+                </div>
+            </details>
+
+            <details class="litit-fold">
+                <summary>
+                    <h3 style="margin: 0; font-size: 16px; color: #2d3748;">五、建议重点记忆的表达</h3>
+                </summary>
+                <div class="litit-fold-content">
+                    <ul style="list-style-type: square; margin: 0; padding-left: 18px; line-height: 1.6;">
+                        <li style="margin-bottom: 4px;"><strong>wage a war</strong>：发动/进行战争</li>
+                        <li style="margin-bottom: 4px;"><strong>entrenched</strong>：根深蒂固的；难以改变的</li>
+                        <li style="margin-bottom: 4px;"><strong>provide leverage</strong>：提供谈判筹码</li>
+                        <li style="margin-bottom: 4px;"><strong>wrest back</strong>：费力夺回</li>
+                        <li style="margin-bottom: 4px;"><strong>spasm of violence</strong>：突发的暴力冲突</li>
+                        <li style="margin-bottom: 4px;"><strong>send shockwaves</strong>：引发强烈震动</li>
+                        <li style="margin-bottom: 4px;"><strong>drive a hard bargain</strong>：提出苛刻条件；漫天要价</li>
+                    </ul>
+                </div>
+            </details>
+
+        </div>
+
+        <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #319795; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">💡 幕后冷知识 (Fun Facts)</h2>
+        <ul style="padding-left:20px; line-height:1.8; color:#2d3748; font-size:15px; margin-bottom:24px; word-break:break-word;">
+            <li><strong>“悲叹之门”曼德海峡（Bab al-Mandab）：</strong> 文中提到的这一战略海上走廊，连接着红海与亚丁湾，是苏伊士运河航线的必经咽喉。在阿拉伯语中，Bab al-Mandab 的字面意思是“泪水之门”或“悲叹之门”（传说远古地震撕裂大陆导致无数人溺亡）。如今，这里控制着全球极其重要的石油和贸易运输，一旦被胡塞武装彻底封锁，全球供应链与油价都将随之剧烈震荡。</li>
+            <li><strong>极其松散的“反胡塞联盟”：</strong> 报道中记者特意用了一个重复强调的短语“part of the loose – very loose – alliance”（松散——非常松散——的联盟）。这是因为与胡塞武装作战的也门政府军内部派系林立，比如受采访指挥官所在的“南方部队”（Southern Forces），其背后原本主要由阿联酋支持，带有强烈的南也门独立倾向，与沙特支持的也门合法政府往往同床异梦，仅靠“对抗胡塞”这一共同目标勉强维持合作。</li>
+            <li><strong>新闻翻译乌龙与勘误：</strong> 文章末尾附带了一条极具新闻专业主义精神的勘误（Correction）。BBC 最初报道难民老妇 Aisha 是因为害怕“沙特的空袭”而逃难，随后核实发现是现场翻译失误，老妇实际控诉的是袭击其家乡山区的“胡塞武装无人机”。在各方势力交错轰炸的也门，连天上的死神属于哪一方，有时都会在传播中产生混淆。</li>
+        </ul>
+
+        <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #e53e3e; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">🎯 全片锐评</h2>
+        <p style="line-height:1.7; color:#1a202c; font-weight:600; background:#fff5f5; padding:14px; border-radius:10px; font-size:15px; margin:0 0 24px 0; border:1px solid #fed7d7; word-break:break-word;">
+            这是一篇极具张力的战地特写。BBC记者通过冷峻的镜头切换，将这场代理人战争的两个平行世界并置在了读者面前：一边是德黑兰与利雅得的地缘博弈、曼德海峡的战略航道，以及国际能源市场的焦虑震荡；另一边则是枯树下身无分文的逃难老妇、病房里只比内战大一岁的12岁伤童，以及失去左臂却沉默独坐的士兵。当大国将也门当作拉扯筹码的沙盘时，亚丁医院里的医生却在践行着最朴素的人道主义——将胡塞武装伤员与政府军士兵放在同一间病房救治。医生那句“也许战争对新闻来说是好素材，但对老百姓来说太可怕了”，是对所有地缘政治宏大叙事最振聋发聩的拷问。
+        </p>
+
+    </div>
+
+    <script id="core-engine">
+        let syncTimeout = null;
+        const AI_PROMPT = "请分析以下英文段落，并严格按照以下 Markdown 格式输出（不要输出任何额外的废话）：\n\n### 📌 完整翻译\n\n[此处填写完整翻译]\n\n### 📌 Key Expressions\n\n- **[单词或短语]**\n  = [中文释义]\n  （[可选的补充说明，如倒装结构或语境等]）\n\n段落内容：\n";
+
+        // --- 顶部阅读进度条逻辑 ---
+        function initProgressBar() {
+            const progressBar = document.getElementById('reading-progress');
+            if (!progressBar) return;
+            window.addEventListener('scroll', () => {
+                const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+                const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                if (scrollHeight <= 0) return;
+                const scrollPercent = (scrollTop / scrollHeight) * 100;
+                progressBar.style.width = scrollPercent + '%';
+            }, { passive: true });
+        }
+
+        async function fetchGroq(text, apiKey, modelName) {
+            const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + apiKey,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    model: modelName || 'llama-3.3-70b-versatile',
+                    messages: [
+                        { role: 'system', content: 'You are an English teacher. Output EXACTLY in the requested Markdown format.' },
+                        { role: 'user', content: AI_PROMPT + '"' + text + '"' }
+                    ],
+                    temperature: 0.3
+                })
+            });
+            if (!res.ok) throw new Error('Groq Error: ' + res.status);
+            const json = await res.json();
+            return json.choices[0].message.content.trim();
+        }
+
+        async function fetchCustomAI(text, url, apiKey, modelName) {
+            let headers = { 'Content-Type': 'application/json' };
+            let bodyData = {};
+            if (url.includes('anthropic.com')) {
+                headers['x-api-key'] = apiKey;
+                headers['anthropic-version'] = '2023-06-01';
+                headers['anthropic-dangerous-direct-browser-access'] = 'true';
+                bodyData = {
+                    model: modelName || 'claude-3-5-sonnet-20241022',
+                    max_tokens: 2000,
+                    messages: [{ role: 'user', content: AI_PROMPT + '"' + text + '"' }]
+                };
+            } else if (url.includes('generativelanguage.googleapis.com')) {
+                let targetUrl = url;
+                if (!targetUrl.includes('key=')) {
+                    targetUrl += (targetUrl.includes('?') ? '&' : '?') + 'key=' + apiKey;
+                }
+                const res = await fetch(targetUrl, {
+                    method: 'POST',
+                    headers: headers,
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: AI_PROMPT + '"' + text + '"' }] }]
+                    })
+                });
+                if (!res.ok) throw new Error('Gemini Error: ' + res.status);
+                const json = await res.json();
+                return json.candidates[0].content.parts[0].text.trim();
+            } else {
+                headers['Authorization'] = 'Bearer ' + apiKey;
+                bodyData = {
+                    model: modelName || 'gpt-4o-mini',
+                    messages: [
+                        { role: 'system', content: 'You are an English teacher. Output EXACTLY in the requested Markdown format.' },
+                        { role: 'user', content: AI_PROMPT + '"' + text + '"' }
+                    ],
+                    temperature: 0.3
+                };
+            }
+            const res = await fetch(url, {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify(bodyData)
+            });
+            if (!res.ok) throw new Error('AI Interface Error: ' + res.status);
+            const json = await res.json();
+            if (json.choices && json.choices.length > 0) return json.choices[0].message.content.trim();
+            throw new Error('AI 返回数据异常');
+        }
+
+        async function executeAIPipeline(text) {
+            const customUrl = localStorage.getItem('CUSTOM_API_URL') || '';
+            const customKey = localStorage.getItem('CUSTOM_API_KEY') || '';
+            const customModel = localStorage.getItem('CUSTOM_MODEL') || '';
+            const groqKey = localStorage.getItem('GROQ_API_KEY') || '';
+            const groqModel = localStorage.getItem('GROQ_MODEL') || '';
+
+            if (customUrl && customKey) {
+                try {
+                    return await fetchCustomAI(text, customUrl, customKey, customModel);
+                } catch (err) {
+                    if (groqKey) return await fetchGroq(text, groqKey, groqModel);
+                    throw err;
+                }
+            } else if (groqKey) {
+                return await fetchGroq(text, groqKey, groqModel);
+            } else {
+                const userKey = prompt('⚠️ 当前页面未检测到 AI Key！\n为了安全，密匙只储存在您本地浏览器中。\n\n请输入您的 API Key (如 sk-xxx 或 gsk_xxx):');
+                if (userKey && userKey.trim()) {
+                    const cleanKey = userKey.trim();
+                    if (cleanKey.startsWith('gsk_')) {
+                        localStorage.setItem('GROQ_API_KEY', cleanKey);
+                    } else {
+                        localStorage.setItem('CUSTOM_API_KEY', cleanKey);
+                        localStorage.setItem('CUSTOM_API_URL', 'https://api.chatanywhere.tech/v1/chat/completions');
+                    }
+                }
+                throw new Error('未设置 AI API Key');
+            }
+        }
+
+        // --- 降级清理防线：净化污染节点 ---
+        function getPurifiedFallbackHTML() {
+            const clone = document.documentElement.cloneNode(true);
+            const foreignSelectors = [
+                'relingo-app', 'relin-highlight', 'relin-hc',
+                '[class*="relingo"]', '[data-relin-paragraph]',
+                'grammarly-extension', '[data-grammarly-part]',
+                '[class*="immersive-translate"]', '[data-immersive-translate]'
+            ].join(',');
+            clone.querySelectorAll(foreignSelectors).forEach(el => el.remove());
+
+            clone.querySelectorAll('relin-highlight, relin-hc').forEach(t => {
+                const frag = document.createDocumentFragment();
+                while(t.firstChild) frag.appendChild(t.firstChild);
+                t.parentNode.replaceChild(frag, t);
+            });
+
+            clone.querySelectorAll('script').forEach(s => {
+                if (!s.src.includes('marked.min.js') && s.id !== 'core-engine') s.remove();
+            });
+            clone.querySelectorAll('style').forEach(s => {
+                if (s.id !== 'core-style') s.remove();
+            });
+
+            const liveTAs = document.querySelectorAll('.anno-edit');
+            clone.querySelectorAll('.anno-edit').forEach((ta, i) => {
+                if(liveTAs[i]) ta.textContent = liveTAs[i].value.trim();
+                const box = ta.closest('.anno-box');
+                if (box) box.style.display = 'none';
+                const view = box ? box.querySelector('.anno-view') : null;
+                if (view) view.innerHTML = '';
+            });
+
+            return '<!DOCTYPE html>\n<html lang="zh-CN">\n' + clone.innerHTML + '\n</html>';
+        }
+
+        // --- 内存反向打补丁同步技术 ---
+        async function syncToCloud() {
+            const ghToken = localStorage.getItem('LITIT_GH_TOKEN') || localStorage.getItem('GH_TOKEN');
+            const ghOwner = 'moodHappy';
+            const ghRepo = 'dual-read-notes';
+            if (!ghToken) return;
+
+            const pathParts = window.location.pathname.split('/');
+            const fileName = pathParts.pop();
+            const month = pathParts.pop();
+            const year = pathParts.pop();
+            if(!fileName || !month || !year) return;
+
+            const fileRelPath = 'Summary/' + year + '/' + month + '/' + fileName;
+
+            try {
+                const getRes = await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath + '?t=' + Date.now(), {
+                    headers: { 'Authorization': 'Bearer ' + ghToken },
+                    cache: 'no-store'
+                });
+
+                let finalHTML = '';
+                let sha = '';
+
+                if (getRes.ok) {
+                    const fileData = await getRes.json();
+                    sha = fileData.sha;
+                    const cleanRawHTML = decodeURIComponent(escape(atob(fileData.content.replace(/\n/g, ''))));
+                    const parser = new DOMParser();
+                    const cleanDoc = parser.parseFromString(cleanRawHTML, 'text/html');
+
+                    const liveTAs = document.querySelectorAll('.anno-edit');
+                    const cleanTAs = cleanDoc.querySelectorAll('.anno-edit');
+                    liveTAs.forEach((liveTa, index) => {
+                        if (cleanTAs[index]) {
+                            const val = liveTa.value.trim();
+                            cleanTAs[index].textContent = val;
+                            const box = cleanTAs[index].closest('.anno-box');
+                            if (box) box.style.display = 'none';
+                            const view = box ? box.querySelector('.anno-view') : null;
+                            if (view) view.innerHTML = '';
+                        }
+                    });
+
+                    cleanDoc.querySelectorAll('.anno-toggle').forEach(t => {
+                        t.classList.remove('has-anno');
+                        const ta = t.closest('.content-wrap, .litit-highlight-block')?.querySelector('.anno-edit');
+                        if (ta && ta.textContent.trim()) t.classList.add('has-anno');
+                    });
+
+                    finalHTML = '<!DOCTYPE html>\n<html lang="zh-CN">\n' + cleanDoc.documentElement.innerHTML + '\n</html>';
+                } else {
+                    finalHTML = getPurifiedFallbackHTML();
+                }
+
+                await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': 'Bearer ' + ghToken,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message: 'Silent purified annotation update',
+                        content: btoa(unescape(encodeURIComponent(finalHTML))),
+                        sha: sha || undefined
+                    })
+                });
+                console.log('✅ [My Litit] 纯净无污染批注已静默同步至 GitHub');
+            } catch(e) {
+                console.warn('❌ [My Litit] 同步跳过或失败:', e);
+            }
+        }
+
+        function scheduleSync() {
+            if (syncTimeout) clearTimeout(syncTimeout);
+            syncTimeout = setTimeout(() => {
+                syncToCloud();
+            }, 3000);
+        }
+
+        function initAnnotations() {
+            document.querySelectorAll('.litit-highlight-block, .content-wrap').forEach(wrap => {
+                let content = wrap.querySelector('.content');
+                if (!content) {
+                    const pText = wrap.querySelector('p');
+                    if (pText) {
+                        content = document.createElement('div');
+                        content.className = 'content';
+                        content.style.cssText = 'position:relative; margin:0 0 6px 0; color:#1a202c; font-family:Georgia, serif; line-height:1.7; font-size:15px; word-break:break-word;';
+                        content.innerHTML = pText.innerHTML;
+                        pText.parentNode.replaceChild(content, pText);
+                    }
+                }
+                if (!content) return;
+
+                if (!content.querySelector('.anno-toggle')) {
+                    const toggle = document.createElement('span');
+                    toggle.className = 'anno-toggle';
+                    toggle.title = '手写批注/笔记';
+                    content.appendChild(toggle);
+                }
+                if (!content.querySelector('.ai-toggle')) {
+                    const aiToggle = document.createElement('span');
+                    aiToggle.className = 'ai-toggle';
+                    aiToggle.title = 'AI智能二次解析';
+                    content.appendChild(aiToggle);
+                }
+
+                let box = wrap.querySelector('.anno-box');
+                if (!box) {
+                    box = document.createElement('div');
+                    box.className = 'anno-box';
+                    box.style.display = 'none';
+                    box.innerHTML = '<div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 解析..."></textarea>';
+                    wrap.appendChild(box);
+                }
+
+                const view = box.querySelector('.anno-view');
+                const edit = box.querySelector('.anno-edit');
+                const toggle = content.querySelector('.anno-toggle');
+                const aiToggle = content.querySelector('.ai-toggle');
+
+                if (edit && edit.value.trim()) {
+                    toggle.classList.add('has-anno');
+                    try {
+                        view.innerHTML = (typeof marked !== 'undefined') ? marked.parse(edit.value.trim()) : edit.value.trim();
+                    } catch(e){}
+                }
+
+                if (aiToggle) {
+                    aiToggle.onclick = async (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        if (aiToggle.classList.contains('loading')) return;
+
+                        if (edit && edit.value.trim() !== '') {
+                            const confirmOverwrite = confirm('⚠️ 已经存在批注内容。点击"确定"将使用 AI 解析覆盖现有内容。是否继续？');
+                            if (!confirmOverwrite) return;
+                        }
+
+                        const pClone = content.cloneNode(true);
+                        pClone.querySelectorAll('.anno-toggle, .ai-toggle').forEach(el => el.remove());
+                        let pText = pClone.textContent.replace(/https?:\/\/\S+/g, '').trim();
+                        if (!pText) return;
+
+                        aiToggle.classList.add('loading');
+                        try {
+                            const aiContent = await executeAIPipeline(pText);
+                            box.style.display = 'block';
+                            view.style.display = 'none';
+                            edit.style.display = 'block';
+                            edit.value = aiContent;
+                            edit.focus();
+                            edit.blur();
+                        } catch (err) {
+                            console.error(err);
+                        } finally {
+                            aiToggle.classList.remove('loading');
+                        }
+                    };
+                }
+
+                if (toggle) {
+                    toggle.onclick = (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        if (box.style.display === 'block') {
+                            box.style.display = 'none';
+                        } else {
+                            box.style.display = 'block';
+                            if (!edit.value.trim()) {
+                                view.style.display = 'none';
+                                edit.style.display = 'block';
+                                setTimeout(() => { edit.focus(); }, 150);
+                            } else {
+                                view.style.display = 'block';
+                                edit.style.display = 'none';
+                            }
+                        }
+                    };
+                }
+
+                const triggerEdit = (e) => {
+                    if(e) { e.preventDefault(); e.stopPropagation(); }
+                    view.style.display = 'none';
+                    edit.style.display = 'block';
+                    edit.value = edit.value; 
+                    setTimeout(() => { edit.focus(); }, 150);
+                };
+
+                view.addEventListener('dblclick', triggerEdit);
+
+                let lastTap = 0;
+                view.addEventListener('touchstart', e => {
+                    if (e.touches.length === 2) {
+                        triggerEdit(e);
+                    } else if (e.touches.length === 1) {
+                        const currentTime = new Date().getTime();
+                        if (currentTime - lastTap < 500 && currentTime - lastTap > 0) {
+                            e.preventDefault();
+                            box.style.display = 'none';
+                        }
+                        lastTap = currentTime;
+                    }
+                }, {passive: false});
+
+                if (edit && view) {
+                    edit.onblur = () => {
+                        setTimeout(() => {
+                            const newVal = edit.value.trim();
+                            try {
+                                view.innerHTML = newVal ? ((typeof marked !== 'undefined') ? marked.parse(newVal) : newVal) : '';
+                            } catch(e){}
+                            edit.style.display = 'none';
+                            if (newVal) {
+                                view.style.display = 'block';
+                                toggle.classList.add('has-anno');
+                            } else {
+                                view.style.display = 'none';
+                                box.style.display = 'none';
+                                toggle.classList.remove('has-anno');
+                            }
+                            if (edit.getAttribute('data-old-val') !== newVal) {
+                                edit.setAttribute('data-old-val', newVal);
+                                scheduleSync();
+                            }
+                        }, 150);
+                    };
+                    edit.setAttribute('data-old-val', edit.value.trim());
+                }
+            });
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            initProgressBar();
+            initAnnotations();
+        });
+        window.addEventListener('load', initAnnotations);
+    </script>
+</body>
+</html>
