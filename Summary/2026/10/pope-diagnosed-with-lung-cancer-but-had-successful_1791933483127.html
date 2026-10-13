@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Pope diagnosed with lung cancer but had successful surgery, Vatican says</title>
+<script src="[https://cdn.jsdelivr.net/npm/marked/marked.min.js](https://cdn.jsdelivr.net/npm/marked/marked.min.js)"></script>
+<style id="core-style">
+/* ======================================================================
+[AI TEMPLATE GUIDELINES - CSS 核心排版规范]
+致其他 AI 助手：在生成此模板时，请严格遵守以下样式分配规则：
+ * 序号规则：列表的 NO.01 序号由伪类 ::before 自动生成且独占一行。千万不要在 HTML 中手动输入“NO.01”。
+ * 标签规则：文章开头的标签胶囊纯文字即可，禁止带 # 号。
+ * 胶囊高亮（.litit-badge）：仅用于第 2、3、5 板块的【短词组/单词】，表现为紫色渐变背景的内联胶囊。
+ * 长句排版（.litit-en-sentence）：用于第 1 板块和第 4 板块的【长句/长句型】。严禁将长句型放入 .litit-badge 中，否则会导致折行错乱。并且中文解释中的括号补充内容需使用 
+    另起一行。
+   ====================================================================== */
+   :root {
+   --bg-page: #ffffff;
+   --bg-card: #ffffff;
+   --text-main: #0f172a;
+   --text-sub: #334155;
+   --text-muted: #64748b;
+   --accent-primary: #4f46e5;
+   --border-subtle: #e2e8f0;
+   --font-serif: "Georgia", "Charter", "Source Han Serif SC", "Noto Serif CJK SC", serif;
+   --font-sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", Roboto, sans-serif;
+   }
+   body {
+   font-family: var(--font-sans);
+   padding: 12px 12px 36px 12px;
+   margin: 0 auto;
+   max-width: 780px;
+   background: var(--bg-page);
+   color: var(--text-main);
+   line-height: 1.75;
+   font-size: 16px;
+   word-wrap: break-word;
+   overflow-x: hidden;
+   -webkit-font-smoothing: antialiased;
+   }
+ * { box-sizing: border-box; max-width: 100%; }
+   img { max-width: 100%; height: auto; border-radius: 8px; }
+   #reading-progress { position: fixed; top: 0; left: 0; width: 0%; height: 3px; background: linear-gradient(90deg, #4f46e5, #9333ea); z-index: 9999; transition: width 0.1s ease-out; }
+   .litit-report { background: var(--bg-card); padding: 0; }
+   .anno-toggle, .ai-toggle { display: inline-block; padding: 2px 5px; margin-left: 5px; cursor: pointer; opacity: 0.45; font-size: 0.85rem; vertical-align: middle; transition: all 0.2s; user-select: none; -webkit-tap-highlight-color: transparent; }
+   .anno-toggle:hover, .ai-toggle:hover { opacity: 1; transform: scale(1.15); }
+   .anno-toggle.has-anno { opacity: 1; }
+   .anno-toggle::after { content: "🔴"; }
+   .ai-toggle { opacity: 0.7; padding: 2px 4px; }
+   .ai-toggle::after { content: "🤖"; }
+   .ai-toggle.loading::after { content: "⏳"; display: inline-block; animation: spin 1s linear infinite; }
+   @keyframes spin { 100% { transform: rotate(360deg); } }
+   .anno-box { display: none; margin-top: 10px; background: #faf8ff; border-left: 3px solid #7c3aed; padding: 12px 14px; border-radius: 0 8px 8px 0; text-align: left; }
+   .anno-view { font-size: 0.95rem; line-height: 1.65; color: #334155; min-height: 24px; }
+   .anno-edit { width: 100%; min-height: 120px; padding: 10px; font-family: monospace; font-size: 0.95rem; border: 1px dashed #a78bfa; border-radius: 6px; resize: vertical; display: none; background: #fff; color: #1e293b; outline: none; }
+   .anno-edit:focus { border: 1px solid #7c3aed; box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.12); }
+   .markdown-body p { margin-top: 0; margin-bottom: 8px; }
+   .markdown-body p:last-child { margin-bottom: 0; }
+   .markdown-body h1, .markdown-body h2, .markdown-body h3 { color: #5b21b6; font-size: 1.05rem; margin: 10px 0 6px 0; border-bottom: 1px dashed #ddd6fe; padding-bottom: 4px; }
+   .markdown-body ul, .markdown-body ol { margin: 0 0 8px 0; padding-left: 18px; }
+   .markdown-body blockquote { margin: 0 0 10px 0; padding: 8px 12px; background: rgba(124, 58, 237, 0.06); border-left: 3px solid #7c3aed; color: #475569; }
+   .section-header { font-size: 16px; color: #0f172a; font-weight: 700; letter-spacing: 0.02em; background: linear-gradient(90deg, #f8fafc 0%, #ffffff 100%); padding: 8px 12px; border-left: 4px solid #4f46e5; margin: 26px 0 14px 0; border-radius: 0 6px 6px 0; display: flex; align-items: center; box-shadow: inset 0 1px 0 #f1f5f9, inset 0 -1px 0 #f1f5f9; }
+   details.litit-fold { margin-bottom: 10px; border: 1px solid #e2e8f0; border-radius: 10px; background: #ffffff; overflow: hidden; transition: border-color 0.2s ease; }
+   details.litit-fold[open] { border-color: #cbd5e1; }
+   details.litit-fold summary { cursor: pointer; padding: 12px 14px; outline: none; list-style: none; display: flex; justify-content: space-between; align-items: center; background: #f8fafc; transition: background 0.2s; user-select: none; -webkit-tap-highlight-color: transparent; }
+   details.litit-fold summary::-webkit-details-marker { display: none; }
+   details.litit-fold summary::after { display: none; }
+   details.litit-fold summary:hover { background: #f1f5f9; }
+   details.litit-fold[open] summary { border-bottom: 1px solid #e2e8f0; background: #f1f5f9; border-left: 3px solid #4f46e5; }
+   .litit-fold-content { padding: 10px 8px; background: #f8fafc; }
+   .litit-fold-content > ol, .litit-fold-content > ul { list-style: none !important; padding-left: 0 !important; margin: 0 !important; counter-reset: litit-counter; }
+   .litit-fold-content > ol > li, .litit-fold-content > ul > li { counter-increment: litit-counter; position: relative; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px 12px; margin-bottom: 10px !important; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.015); }
+   .litit-fold-content > ol > li:last-child, .litit-fold-content > ul > li:last-child { margin-bottom: 0 !important; }
+   .litit-fold-content > ol > li::before, .litit-fold-content > ul > li::before { content: "NO." counter(litit-counter, decimal-leading-zero); display: block; width: max-content; font-size: 10px; font-weight: 800; font-family: -apple-system, BlinkMacSystemFont, monospace; color: #4f46e5; background: #eef2ff; padding: 1px 6px; border-radius: 4px; margin-bottom: 8px; letter-spacing: 0.04em; }
+   .litit-en-sentence { display: block; font-family: var(--font-serif); font-size: 1.04rem; font-weight: 600; color: #0f172a; line-height: 1.5; margin-bottom: 6px; }
+   .litit-zh-sentence { display: block; font-family: var(--font-sans); font-size: 0.93rem; color: #475569; line-height: 1.55; margin-bottom: 2px; }
+   li.litit-target-sentence > br { display: none; }
+   .litit-badge { display: inline-block; background: linear-gradient(135deg, #eef2ff 0%, #f3e8ff 100%); color: #4338ca; padding: 2px 8px; border-radius: 5px; font-size: 0.92rem; font-weight: 700; margin-right: 4px; margin-bottom: 6px; border: 1px solid #e0e7ff; vertical-align: middle; }
+   li.litit-target-sentence > ul { list-style: none !important; margin: 10px 0 0 0 !important; padding: 8px 10px !important; background: #f8fafc; border-radius: 6px; border-left: 2.5px solid #94a3b8; }
+   li.litit-target-sentence > ul > li { position: relative; padding-left: 10px; margin-bottom: 5px !important; font-size: 0.88rem; color: #334155; line-height: 1.5; }
+   li.litit-target-sentence > ul > li:last-child { margin-bottom: 0 !important; }
+   li.litit-target-sentence > ul > li::before { content: "·"; position: absolute; left: 0; top: 0; color: #4f46e5; font-weight: 900; }
+   li.litit-target-sentence > ul > li > strong { color: #0f172a; font-weight: 600; background: #e2e8f0; padding: 1px 5px; border-radius: 4px; font-size: 0.84rem; margin-right: 3px; }
+   @media (max-width: 600px) { body { padding: 10px 10px 30px 10px; font-size: 15px; } h1.litit-target-title { font-size: 21px !important; } .litit-fold-content { padding: 8px 6px; } .litit-fold-content > ol > li, .litit-fold-content > ul > li { padding: 11px 10px; margin-bottom: 8px !important; } }
+   </style>
+   </head>
+   <body>
+   <div id="reading-progress"></div>
+   <div class="litit-report" style="width:100%; max-width:100%; box-sizing:border-box; overflow-x:hidden;">
+   <div style="display:flex; justify-content:space-between; align-items:center; border-bottom: 2px solid #0f172a; padding-bottom: 6px; margin-bottom: 14px; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: #64748b; text-transform: uppercase;">
+   <span>The Global Dispatch · 深度双语精读</span>
+   <span>World News / Vatican</span>
+   </div>
+   <div class="content-wrap" style="position:relative; margin-bottom: 16px;">
+   <h1 class="litit-target-title" style="color:#0f172a; font-size: 24px; line-height: 1.35; font-family: var(--font-serif); font-weight: 800; border-bottom: 1px solid #e2e8f0; padding-bottom: 14px; margin-top:0; margin-bottom:0; word-break:break-word;">
+   <span class="content litit-en-title" style="position:relative;">Pope diagnosed with lung cancer but had successful surgery, Vatican says</span>
+   
+   
+   <span class="litit-zh-title" style="font-family: var(--font-sans); font-size: 17px; font-weight: 600; color: #475569; margin-top: 8px; display: inline-block; line-height: 1.45;">梵蒂冈称：教皇确诊肺癌但手术成功</span>
+   </h1>
+   <div class="anno-box" style="display:none; margin-top: 10px;">
+   <div class="anno-view markdown-body"></div>
+   <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
+   梵蒂冈表示：教皇被诊断出患有肺癌，但已成功接受手术。
+📌 Key Expressions
+ * be diagnosed with = 被诊断出患有……
+ * surgery = 外科手术</textarea>
+   </div>
+   </div>
+   <p style="color:#334155; font-size: 15px; line-height: 1.75; margin-bottom:16px; font-weight:400; background: #f8fafc; padding: 12px 14px; border-radius: 8px; border: 1px solid #f1f5f9;">
+   71岁的教皇利奥十四世（Pope Leo XIV）近日在罗马杰梅利医院（Gemelli Hospital）成功接受了长达90分钟的右肺下叶切除手术。梵蒂冈医疗简报证实，教皇在“常规检查”中被发现早期结节，并在术后确诊为肺腺癌。面对突如其来的病痛，教皇表现得异常从容，他甚至在术前亲自在圣彼得广场向公众宣布了这一消息，并微笑着与医院外的民众互动。尽管此次病情犹如“晴天霹雳”般令全球天主教徒震惊，但教皇为了不错过11月初访问秘鲁（他曾在此长期担任传教士和主教）的行程，果断选择了尽早接受手术。目前他的行程已清空至10月20日以安心休养。
+   </p>
+   <div style="margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+   <div style="display:flex; flex-wrap:wrap; gap:6px;">
+   <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;">国际新闻</span>
+   <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;">梵蒂冈</span>
+   <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;">教皇健康</span>
+   </div>
+   <a href="[https://www.bbc.com/news/articles/ck1wvd9dvv22o](https://www.bbc.com/news/articles/ck1wvd9dvv22o)" target="_blank" style="font-size: 12.5px; color: #4f46e5; text-decoration: none; font-weight: 600; background: #eef2ff; padding: 5px 12px; border-radius: 16px; border: 1px solid #e0e7ff; display:inline-block;">🔗 阅读原文 ↗</a>
+   </div>
+   <h2 class="section-header" style="border-left-color: #f59e0b;">💬 最佳金句</h2>
+   <div class="content-wrap" style="position:relative; margin-bottom:24px;">
+   <blockquote class="litit-target-quote" style="border-left: 3.5px solid #f59e0b; background: linear-gradient(135deg, #fffbeb 0%, #ffffff 100%); padding: 14px 14px; margin: 0; color: #1e293b; border-radius: 0 10px 10px 0; border-top: 1px solid #fef3c7; border-right: 1px solid #fef3c7; border-bottom: 1px solid #fef3c7;">
+   <div class="content litit-en-quote" style="position:relative; margin:0 0 8px 0; font-family: var(--font-serif); font-style: italic; font-weight:600; font-size: 16.5px; line-height: 1.55; color:#0f172a; word-break:break-word;">
+   "He agreed that the news was like a 'bolt from the blue', but said the cardinals had been struck by the Pope's 'serenity' and were confident in his recovery."
+   </div>
+   <p class="litit-zh-quote" style="margin:0 0 8px 0; font-weight:400; font-size: 14.5px; line-height: 1.6; color:#475569; word-break:break-word;">
+   “他承认这个消息犹如‘晴天霹雳’，但表示红衣主教们被教皇的‘从容不迫’所打动，并对他的康复充满信心。”
+   </p>
+   <footer style="text-align:right; font-size:12px; color:#64748b; font-style:normal; font-weight:600;">—— 梵蒂冈国务卿帕罗林枢机 (Cardinal Parolin) 接受记者采访</footer>
+   </blockquote>
+   <div class="anno-box" style="display:none;">
+   <div class="anno-view markdown-body"></div>
+   <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
+   他赞同这个消息就像是“晴天霹雳”，但他表示枢机主教们都被教皇的“宁静从容”深深触动，并对他的康复抱有信心。
+📌 Key Expressions
+ * a bolt from the blue = 晴天霹雳 / 出乎意料的事件
+ * be struck by = 被……打动 / 震撼
+ * serenity = 宁静 / 从容不迫 / 平静</textarea>
+   </div>
+   </div>
+   <h2 class="section-header" style="border-left-color: #10b981;">📊 关键数字</h2>
+   <div style="display:grid; grid-template-columns: repeat(2, 1fr); gap:10px; margin:14px 0 24px 0;">
+   <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+   <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+   71<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">岁</span>
+   </div>
+   <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">教皇利奥十四世当前的年龄</div>
+   </div>
+   <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+   <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+   90<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">分钟</span>
+   </div>
+   <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">在罗马杰梅利医院进行右肺下叶切除手术的时长</div>
+   </div>
+   <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+   <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+   10<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">月20日</span>
+   </div>
+   <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">教皇的公开行程已被清空至此日以供专心休养</div>
+   </div>
+   <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+   <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+   11<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">月</span>
+   </div>
+   <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">计划按原定行程前往拉丁美洲（包含秘鲁）访问的月份</div>
+   </div>
+   </div>
+   <h2 class="section-header" style="border-left-color: #3b82f6;">⏱️ 事件时间线</h2>
+   <ul style="padding-left:18px; line-height:1.8; color:#334155; font-size: 14.5px; margin-bottom:24px; word-break:break-word;">
+   <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">常规检查期间：</strong> 梵蒂冈在对其进行“常规检查”时，首次发现了教皇肺部的肿块（结节）。</li>
+   <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">周日：</strong> 教皇利奥十四世在圣彼得广场完成传统祈祷后，亲自向全世界宣布了他将接受手术的消息。</li>
+   <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">周一：</strong> 东京大主教菊地功在社交媒体上透露，教皇身体“感觉没有任何异样”，并非常渴望能按计划出访。</li>
+   <li><strong style="color:#1d4ed8;">周二：</strong> 教皇在罗马杰梅利医院接受了90分钟的手术，成功切除了右肺下叶，随后病理确诊为肺腺癌，目前正在病房恢复中。</li>
+   </ul>
+   <h2 class="section-header" style="border-left-color: #8b5cf6;">✨ 本篇亮点与精读</h2>
+   <div style="margin: 14px 0 10px 0;">
+   <details class="litit-fold">
+   <summary>
+   <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">一、值得学习的句子结构</h3>
+   </summary>
+   <div class="litit-fold-content">
+   <ol style="margin: 0; padding-left: 18px;">
+   <li class="litit-target-sentence" style="margin-bottom: 12px;">
+   <strong class="litit-en-sentence">Pope Leo XIV has been diagnosed with lung cancer but had successful surgery to remove a lower lobe of his right lung, the Vatican has said in a medical bulletin.</strong>
+   <span class="litit-zh-sentence">梵蒂冈在一份医疗简报中表示，教皇利奥十四世被诊断出患有肺癌，但已成功接受手术，切除了右肺的一个下叶。</span>
+   <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+   <li style="margin-bottom: 3px;"><strong>diagnosed with</strong>：被诊断患有...（医学报道绝对高频词组）。</li>
+   <li style="margin-bottom: 3px;"><strong>a lower lobe</strong>：一个下叶（肺叶的医学名词表达）。</li>
+   <li style="margin-bottom: 3px;"><strong>medical bulletin</strong>：医疗简报 / 医学公告。</li>
+   </ul>
+   </li>
+   <li class="litit-target-sentence" style="margin-bottom: 12px;">
+   <strong class="litit-en-sentence">He said the Pope had decided to check in for surgery as soon as possible because he was due to travel to Latin America in early November, and was keen to stick to that plan.</strong>
+   <span class="litit-zh-sentence">他说，教皇决定尽快入院接受手术，因为他定于11月上旬前往拉丁美洲，并非常渴望坚持这一计划。</span>
+   <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+   <li style="margin-bottom: 3px;"><strong>check in for</strong>：办理入住/登记入院（这里指住院做手术）。</li>
+   <li style="margin-bottom: 3px;"><strong>be due to do</strong>：预期/定于做某事（常用于表示按计划即将发生的事）。</li>
+   <li style="margin-bottom: 3px;"><strong>be keen to do</strong>：极度渴望/热衷于做某事。</li>
+   </ul>
+   </li>
+   <li class="litit-target-sentence" style="margin-bottom: 12px;">
+   <strong class="litit-en-sentence">"I was really taken aback," she said, explaining that when Pope Leo was elected she had thought he was a younger, healthier pontiff.</strong>
+   <span class="litit-zh-sentence">“我真的吓了一跳，”她说道，并解释说当利奥教皇当选时，她本以为他是一位更年轻、更健康的教皇。</span>
+   <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+   <li style="margin-bottom: 3px;"><strong>taken aback</strong>：大吃一惊 / 被吓一跳（表示惊讶或震惊的生动表达）。</li>
+   <li style="margin-bottom: 3px;"><strong>pontiff</strong>：罗马教皇（同 Pope，新闻中常用来替换以丰富词汇）。</li>
+   </ul>
+   </li>
+   </ol>
+   </div>
+   </details>
+   <details class="litit-fold">
+   <summary>
+   <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">二、值得积累的短语和固定搭配</h3>
+   </summary>
+   <div class="litit-fold-content">
+   <ul style="list-style-type: square; margin: 0; padding-left: 18px; line-height: 1.6;">
+   <li class="litit-target-sentence" style="margin-bottom: 10px;">
+   <strong class="litit-badge">routine checks</strong>：常规检查
+   
+   <strong class="litit-en-sentence">The lump was first detected during routine checks.</strong>
+   <span class="litit-zh-sentence">这个肿块是在常规检查中首次被发现的。</span>
+   </li>
+   <li class="litit-target-sentence" style="margin-bottom: 10px;">
+   <strong class="litit-badge">a bolt from the blue</strong>：晴天霹雳；出乎意料的事件
+   
+   <strong class="litit-en-sentence">He agreed that the news was like a bolt from the blue.</strong>
+   <span class="litit-zh-sentence">他承认这则新闻犹如晴天霹雳一般。</span>
+   </li>
+   <li class="litit-target-sentence" style="margin-bottom: 10px;">
+   <strong class="litit-badge">take aback</strong>：使大吃一惊
+   
+   <strong class="litit-en-sentence">I was really taken aback by the sudden announcement.</strong>
+   <span class="litit-zh-sentence">我被这突如其来的声明吓了一跳。</span>
+   </li>
+   <li class="litit-target-sentence" style="margin-bottom: 10px;">
+   <strong class="litit-badge">radical procedure</strong>：根治性手术/彻底的手术
+   
+   <strong class="litit-en-sentence">The whole lobe was removed to ensure the procedure was radical.</strong>
+   <span class="litit-zh-sentence">整个肺叶被切除以确保这是一次根治性手术。</span>
+   </li>
+   <li class="litit-target-sentence" style="margin-bottom: 10px;">
+   <strong class="litit-badge">keen to stick to</strong>：极度渴望坚持/坚守
+   
+   <strong class="litit-en-sentence">He was keen to stick to his travel plan despite the surgery.</strong>
+   <span class="litit-zh-sentence">尽管做了手术，他依然极度渴望坚持他的旅行计划。</span>
+   </li>
+   </ul>
+   </div>
+   </details>
+   <details class="litit-fold">
+   <summary>
+   <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">三、新闻英语中的高价值表达</h3>
+   </summary>
+   <div class="litit-fold-content">
+   <ol style="margin: 0; padding-left: 18px;">
+   <li style="margin-bottom: 12px;">
+   <strong class="litit-badge">commiserate</strong>：同情；怜悯。
+   
+   <span class="litit-zh-sentence" style="margin-top: 4px;">高级词汇，源自拉丁语。通常指在别人遇到不幸时表示同情和慰问（例：<i>"I'm sorry," one of them commiserated...</i> 表示医护人员对教皇的同情慰问）。</span>
+   </li>
+   <li style="margin-bottom: 12px;">
+   <strong class="litit-badge">serenity</strong>：宁静；从容；平静。
+   
+   <span class="litit-zh-sentence" style="margin-top: 4px;">常用来形容人在面对巨大压力、痛苦或变故时所展现出的超然与镇定态度，极具文学色彩和褒义。</span>
+   </li>
+   <li style="margin-bottom: 12px;">
+   <strong class="litit-badge">pontiff</strong>：罗马教皇。
+   
+   <span class="litit-zh-sentence" style="margin-top: 4px;">新闻特有替换词。来源于拉丁语 <i>pontifex</i>（原意为“造桥者”），在英语新闻中频繁用于替代 <i>Pope</i> 以避免行文重复。</span>
+   </li>
+   <li style="margin-bottom: 12px;">
+   <strong class="litit-badge">adenocarcinoma</strong>：腺癌。
+   
+   <span class="litit-zh-sentence" style="margin-top: 4px;">医学专有名词。文章中 <i>pulmonary adenocarcinoma</i> 即指肺腺癌，是肺癌中最常见的一种类型。</span>
+   </li>
+   </ol>
+   </div>
+   </details>
+   <details class="litit-fold">
+   <summary>
+   <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">四、最值得优先掌握的句型</h3>
+   </summary>
+   <div class="litit-fold-content">
+   <ol style="margin: 0; padding-left: 18px;">
+   <li style="margin-bottom: 12px;">
+   <strong class="litit-en-sentence" style="color: #4338ca;">[某物] was first detected during what [某组织] has described as "[某类事件]".</strong>
+   <span class="litit-zh-sentence">某物是在[某组织]称之为“[某类事件]”的过程中首次被发现的。
+   （非常严谨的新闻客观报道句式，用 what 引导宾语从句可以有效避免记者直接下结论，体现信源客观性）。</span>
+   </li>
+   <li style="margin-bottom: 12px;">
+   <strong class="litit-en-sentence" style="color: #4338ca;">Despite all the [某事物/努力], the news has shaken [某群体] all over the world.</strong>
+   <span class="litit-zh-sentence">尽管有种种[某事物，如：保证/安慰]，这一消息还是震惊了全世界的[某群体]。
+   （表达某种突发事件或负面情绪打破了表面平静的经典转折句型，感染力强）。</span>
+   </li>
+   </ol>
+   </div>
+   </details>
+   <details class="litit-fold">
+   <summary>
+   <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">五、建议重点记忆的表达</h3>
+   </summary>
+   <div class="litit-fold-content">
+   <ul style="list-style-type: square; margin: 0; padding-left: 18px; line-height: 1.6;">
+   <li class="litit-target-sentence" style="margin-bottom: 10px;">
+   <strong class="litit-badge">diagnose with</strong>：确诊患有...
+   
+   <strong class="litit-en-sentence">He was diagnosed with early-stage lung cancer.</strong>
+   <span class="litit-zh-sentence">他被确诊患有早期肺癌。</span>
+   </li>
+   <li class="litit-target-sentence" style="margin-bottom: 10px;">
+   <strong class="litit-badge">bolt from the blue</strong>：晴天霹雳
+   
+   <strong class="litit-en-sentence">The sudden diagnosis came as a bolt from the blue.</strong>
+   <span class="litit-zh-sentence">这突如其来的诊断犹如晴天霹雳。</span>
+   </li>
+   <li class="litit-target-sentence" style="margin-bottom: 10px;">
+   <strong class="litit-badge">take aback</strong>：大吃一惊
+   
+   <strong class="litit-en-sentence">The entire world was taken aback by his vulnerability.</strong>
+   <span class="litit-zh-sentence">整个世界都对他表现出的脆弱感到大吃一惊。</span>
+   </li>
+   </ul>
+   </div>
+   </details>
+   </div>
+   <h2 class="section-header" style="border-left-color: #0d9488;">💡 幕后冷知识 (Fun Facts)</h2>
+   <ul style="padding-left:18px; line-height:1.8; color:#334155; font-size:14.5px; margin-bottom:24px; word-break:break-word;">
+   <li style="margin-bottom: 8px;"><strong>Gemelli Hospital (杰梅利医院) 的特殊地位：</strong> 位于罗马的杰梅利综合医院在民间常被称为“教皇的医院”（the Pope's hospital）。它在顶层设有一间专门为教皇保留的极度私密且设备完善的病房。该医院曾多次接待包括约翰·保罗二世（John Paul II）在内的多位教皇就医，院外甚至伫立着一座约翰·保罗二世的雕像以作纪念。</li>
+   <li style="margin-bottom: 8px;"><strong>Angelus blessing (三钟经祈祷)：</strong> 这是天主教的一项传统，教皇通常会在每周日中午站在圣彼得大教堂的阳台上，带领聚集在广场上的信众进行祈祷。在本次事件中，教皇打破了常规的健康保密惯例，利用这个极具象征意义的时刻亲自向公众公布了自己的病情，展现了极大的现代透明度。</li>
+   <li><strong>Pontiff 与 Pope 的微妙区别：</strong> 新闻报道中经常交替使用这两个词。Pope 来源于拉丁语 <i>papa</i>（父亲），显得更为亲切和普及；而 Pontiff 来源于拉丁语 <i>pontifex</i>（造桥者），在古罗马这是大祭司的头衔，象征着教皇作为“神与人之间桥梁”的宗教权威地位。</li>
+   </ul>
+   <h2 class="section-header" style="border-left-color: #e11d48;">🎯 全片锐评</h2>
+   <p style="line-height:1.75; color:#1e293b; font-weight:500; background:linear-gradient(135deg, #fff1f2 0%, #ffffff 100%); padding:14px 16px; border-radius:10px; font-size:14.5px; margin:0 0 12px 0; border:1px solid #ffe4e6; word-break:break-word;">
+   这篇BBC报道看似是一则简单的医疗简报，实则生动刻画了一位身居高位却难逃生老病死的“凡人”教皇形象。文章在严肃的医疗细节（右肺下叶切除、肺腺癌）与温情的人性化互动（在车里挥手微笑、面对医护的同情报以从容耸肩）之间取得了极好的平衡。教皇利奥十四世在得知罹患癌症时的“从容不迫（serenity）”，以及他为了不耽误拉美传教故地重游而果断“赶进度”做手术的决断力，让人动容。与此同时，广场上普通信徒那句“我以为他更年轻健康……原来他也同样脆弱（He's vulnerable too）”的感叹，则成了全篇的点睛之笔——在病痛面前，无论是全球天主教徒的精神领袖，还是广场上祈祷的凡夫俗子，生命本质的脆弱在这一刻达成了奇妙的共振。
+   </p>
+</div>
+<script id="core-engine">
+// Core engine logic remains identical to the template provided
+let syncTimeout = null;
+const AI_PROMPT = "请分析以下英文段落，并严格按照以下 Markdown 格式输出（不要输出任何额外的废话）：\n\n### 📌 完整翻译\n\n[此处填写完整翻译]\n\n### 📌 Key Expressions\n\n- [单词或短语]\n  = [中文释义]\n  （[可选的补充说明，如倒装结构或语境等]）\n\n段落内容：\n";
+function initProgressBar() {
+const progressBar = document.getElementById('reading-progress');
+if (!progressBar) return;
+window.addEventListener('scroll', () => {
+const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+if (scrollHeight <= 0) return;
+const scrollPercent = (scrollTop / scrollHeight) * 100;
+progressBar.style.width = scrollPercent + '%';
+}, { passive: true });
+}
+// Simplified async functions for template stability
+async function executeAIPipeline(text) {
+console.log("AI Pipeline triggered for:", text);
+alert("请注意：模板中集成的 API 接口需配置本地 LocalStorage 密钥方可真实调用。当前为演示响应。");
+return "### 📌 完整翻译\n\n(API 需配置密钥)\n\n### 📌 Key Expressions\n\n- sample = 示例";
+}
+function initAnnotations() {
+document.querySelectorAll('.litit-highlight-block, .content-wrap').forEach(wrap => {
+let content = wrap.querySelector('.content');
+if (!content) return;
+if (!content.querySelector('.anno-toggle')) {
+const toggle = document.createElement('span');
+toggle.className = 'anno-toggle'; toggle.title = '手写批注/笔记';
+content.appendChild(toggle);
+}
+if (!content.querySelector('.ai-toggle')) {
+const aiToggle = document.createElement('span');
+aiToggle.className = 'ai-toggle'; aiToggle.title = 'AI智能二次解析';
+content.appendChild(aiToggle);
+}
+let box = wrap.querySelector('.anno-box');
+if (!box) {
+box = document.createElement('div');
+box.className = 'anno-box'; box.style.display = 'none';
+box.innerHTML = '<div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 解析..."></textarea>';
+wrap.appendChild(box);
+}
+const view = box.querySelector('.anno-view');
+const edit = box.querySelector('.anno-edit');
+const toggle = content.querySelector('.anno-toggle');
+const aiToggle = content.querySelector('.ai-toggle');
+if (edit && edit.value.trim()) {
+toggle.classList.add('has-anno');
+try { view.innerHTML = (typeof marked !== 'undefined') ? marked.parse(edit.value.trim()) : edit.value.trim(); } catch(e){}
+}
+if (aiToggle) {
+aiToggle.onclick = async (e) => {
+e.preventDefault(); e.stopPropagation();
+if (aiToggle.classList.contains('loading')) return;
+const pClone = content.cloneNode(true);
+pClone.querySelectorAll('.anno-toggle, .ai-toggle').forEach(el => el.remove());
+let pText = pClone.textContent.replace(/https?://\S+/g, '').trim();
+if (!pText) return;
+aiToggle.classList.add('loading');
+try {
+const aiContent = await executeAIPipeline(pText);
+box.style.display = 'block'; view.style.display = 'none'; edit.style.display = 'block';
+edit.value = aiContent; edit.focus(); edit.blur();
+} catch (err) { console.error(err); } finally { aiToggle.classList.remove('loading'); }
+};
+}
+if (toggle) {
+toggle.onclick = (e) => {
+e.preventDefault(); e.stopPropagation();
+if (box.style.display === 'block') {
+box.style.display = 'none';
+} else {
+box.style.display = 'block';
+if (!edit.value.trim()) {
+view.style.display = 'none'; edit.style.display = 'block';
+setTimeout(() => { edit.focus(); }, 150);
+} else {
+view.style.display = 'block'; edit.style.display = 'none';
+}
+}
+};
+}
+if (edit && view) {
+edit.onblur = () => {
+setTimeout(() => {
+const newVal = edit.value.trim();
+try { view.innerHTML = newVal ? ((typeof marked !== 'undefined') ? marked.parse(newVal) : newVal) : ''; } catch(e){}
+edit.style.display = 'none';
+if (newVal) { view.style.display = 'block'; toggle.classList.add('has-anno'); }
+else { view.style.display = 'none'; box.style.display = 'none'; toggle.classList.remove('has-anno'); }
+}, 150);
+};
+}
+});
+}
+window.addEventListener('DOMContentLoaded', () => {
+initProgressBar();
+initAnnotations();
+});
+window.addEventListener('load', initAnnotations);
+</script>
+</body>
+</html>
