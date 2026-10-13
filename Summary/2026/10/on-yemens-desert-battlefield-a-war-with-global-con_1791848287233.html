@@ -6,37 +6,273 @@
     <title>On Yemen's desert battlefield, a war with global consequences is being waged</title>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style id="core-style">
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; padding: 16px; margin: 0 auto; max-width: 800px; background: #ffffff; color: #2d3748; line-height: 1.8; font-size: 16px; word-wrap: break-word; overflow-x: hidden; }
+        :root {
+            --bg-page: #ffffff;
+            --bg-card: #ffffff;
+            --text-main: #0f172a;
+            --text-sub: #334155;
+            --text-muted: #64748b;
+            --accent-primary: #4f46e5;
+            --border-subtle: #e2e8f0;
+            --font-serif: "Georgia", "Charter", "Source Han Serif SC", "Noto Serif CJK SC", serif;
+            --font-sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", Roboto, sans-serif;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            padding: 12px 12px 36px 12px;
+            margin: 0 auto;
+            max-width: 780px;
+            background: var(--bg-page);
+            color: var(--text-main);
+            line-height: 1.75;
+            font-size: 16px;
+            word-wrap: break-word;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
         * { box-sizing: border-box; max-width: 100%; }
         img { max-width: 100%; height: auto; border-radius: 8px; }
+
         /* 顶部极简阅读进度条 */
-        #reading-progress { position: fixed; top: 0; left: 0; width: 0%; height: 3px; background: linear-gradient(90deg, #667eea, #805ad5); z-index: 9999; transition: width 0.1s ease-out; }
+        #reading-progress {
+            position: fixed; top: 0; left: 0; width: 0%; height: 3px;
+            background: linear-gradient(90deg, #4f46e5, #9333ea);
+            z-index: 9999; transition: width 0.1s ease-out;
+        }
+
+        /* 主容器：零冗余边距，最大化阅读视野 */
+        .litit-report {
+            background: var(--bg-card);
+            padding: 0;
+        }
+
         /* AI 批注组件样式 */
-        .anno-toggle, .ai-toggle { display: inline-block; padding: 2px 6px; margin-left: 6px; cursor: pointer; opacity: 0.4; font-size: 0.85rem; vertical-align: middle; transition: all 0.2s; user-select: none; -webkit-tap-highlight-color: transparent; }
-        .anno-toggle:hover, .ai-toggle:hover { opacity: 0.95; transform: scale(1.15); }
+        .anno-toggle, .ai-toggle {
+            display: inline-block; padding: 2px 5px; margin-left: 5px; cursor: pointer;
+            opacity: 0.45; font-size: 0.85rem; vertical-align: middle; transition: all 0.2s;
+            user-select: none; -webkit-tap-highlight-color: transparent;
+        }
+        .anno-toggle:hover, .ai-toggle:hover { opacity: 1; transform: scale(1.15); }
         .anno-toggle.has-anno { opacity: 1; }
         .anno-toggle::after { content: "🔴"; }
         .ai-toggle { opacity: 0.7; padding: 2px 4px; }
         .ai-toggle::after { content: "🤖"; }
         .ai-toggle.loading::after { content: "⏳"; display: inline-block; animation: spin 1s linear infinite; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
-        .anno-box { display: none; margin-top: 10px; background: #f8f6ff; border-left: 4px solid #8e7cc3; padding: 12px 16px; border-radius: 0 8px 8px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.03); text-align: left; }
-        .anno-view { font-size: 0.95rem; line-height: 1.6; color: #4a4a4a; min-height: 24px; }
-        .anno-edit { width: 100%; min-height: 120px; padding: 10px; font-family: monospace; font-size: 0.95rem; border: 1px dashed #8e7cc3; border-radius: 6px; box-sizing: border-box; resize: vertical; display: none; background: #fff; color: #333; outline: none; }
-        .anno-edit:focus { border: 1px solid #8e7cc3; box-shadow: 0 0 0 3px rgba(142,124,195,0.15); }
+
+        .anno-box {
+            display: none; margin-top: 10px; background: #faf8ff;
+            border-left: 3px solid #7c3aed; padding: 12px 14px;
+            border-radius: 0 8px 8px 0;
+            text-align: left;
+        }
+        .anno-view { font-size: 0.95rem; line-height: 1.65; color: #334155; min-height: 24px; }
+        .anno-edit {
+            width: 100%; min-height: 120px; padding: 10px; font-family: monospace;
+            font-size: 0.95rem; border: 1px dashed #a78bfa; border-radius: 6px;
+            resize: vertical; display: none; background: #fff; color: #1e293b; outline: none;
+        }
+        .anno-edit:focus { border: 1px solid #7c3aed; box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.12); }
+
         .markdown-body p { margin-top: 0; margin-bottom: 8px; }
         .markdown-body p:last-child { margin-bottom: 0; }
-        .markdown-body h1, .markdown-body h2, .markdown-body h3 { color: #6b46c1; font-size: 1.1rem; margin: 10px 0 8px 0; border-bottom: 1px dashed #e9d8fd; padding-bottom: 4px; }
-        .markdown-body ul, .markdown-body ol { margin: 0 0 8px 0; padding-left: 20px; }
-        .markdown-body blockquote { margin: 0 0 10px 0; padding: 8px 12px; background: rgba(142,124,195,0.1); border-left: 4px solid #8e7cc3; color: #555; }
-        @media (max-width: 600px) { body { padding: 12px; font-size: 15px; } h1 { font-size: 22px !important; } h2 { font-size: 16px !important; } }
-        /* 折叠面板专属样式 */
-        details.litit-fold { margin-bottom: 8px; border: 1px solid #e2e8f0; border-radius: 6px; background: #f8fafc; overflow: hidden; box-shadow: 0 1px 2px rgba(0,0,0,0.02); }
-        details.litit-fold summary { cursor: pointer; padding: 8px 10px; outline: none; list-style: none; display: flex; justify-content: space-between; align-items: center; background: #f7fafc; transition: background 0.2s; user-select: none; -webkit-tap-highlight-color: transparent; }
+        .markdown-body h1, .markdown-body h2, .markdown-body h3 {
+            color: #5b21b6; font-size: 1.05rem; margin: 10px 0 6px 0;
+            border-bottom: 1px dashed #ddd6fe; padding-bottom: 4px;
+        }
+        .markdown-body ul, .markdown-body ol { margin: 0 0 8px 0; padding-left: 18px; }
+        .markdown-body blockquote {
+            margin: 0 0 10px 0; padding: 8px 12px; background: rgba(124, 58, 237, 0.06);
+            border-left: 3px solid #7c3aed; color: #475569;
+        }
+
+        /* 杂志风区块标题 */
+        .section-header {
+            font-size: 16px; color: #0f172a; font-weight: 700; letter-spacing: 0.02em;
+            background: linear-gradient(90deg, #f8fafc 0%, #ffffff 100%);
+            padding: 8px 12px; border-left: 4px solid #4f46e5;
+            margin: 26px 0 14px 0; border-radius: 0 6px 6px 0;
+            display: flex; align-items: center; box-shadow: inset 0 1px 0 #f1f5f9, inset 0 -1px 0 #f1f5f9;
+        }
+
+        /* 折叠面板升级：极简无十字图标、最大化宽度 */
+        details.litit-fold {
+            margin-bottom: 10px; border: 1px solid #e2e8f0; border-radius: 10px;
+            background: #ffffff; overflow: hidden;
+            transition: border-color 0.2s ease;
+        }
+        details.litit-fold[open] {
+            border-color: #cbd5e1;
+        }
+        details.litit-fold summary {
+            cursor: pointer; padding: 12px 14px; outline: none; list-style: none;
+            display: flex; justify-content: space-between; align-items: center;
+            background: #f8fafc; transition: background 0.2s;
+            user-select: none; -webkit-tap-highlight-color: transparent;
+        }
         details.litit-fold summary::-webkit-details-marker { display: none; }
-        details.litit-fold summary:hover { background: #edf2f7; }
-        details.litit-fold[open] summary { border-bottom: 1px dashed #cbd5e0; background: #fffaf0; }
-        .litit-fold-content { padding: 10px 10px; background: #ffffff; }
+        details.litit-fold summary::after { display: none; } /* 彻底移除右侧十字/横杠图标 */
+        details.litit-fold summary:hover { background: #f1f5f9; }
+        details.litit-fold[open] summary {
+            border-bottom: 1px solid #e2e8f0;
+            background: #f1f5f9;
+            border-left: 3px solid #4f46e5;
+        }
+        .litit-fold-content {
+            padding: 10px 8px; /* 极限压缩左右内边距，让卡片完全铺开 */
+            background: #f8fafc;
+        }
+
+        /* 精读区列表彻底去圆点、卡片化重构 */
+        .litit-fold-content > ol,
+        .litit-fold-content > ul {
+            list-style: none !important;
+            padding-left: 0 !important;
+            margin: 0 !important;
+            counter-reset: litit-counter;
+        }
+
+        /* 每一条精读项：取消左侧大缩进，100% 铺满横向宽度 */
+        .litit-fold-content > ol > li,
+        .litit-fold-content > ul > li {
+            counter-increment: litit-counter;
+            position: relative;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 12px 12px; /* 上下左右均衡紧凑，把整行宽度全留给正文 */
+            margin-bottom: 10px !important;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.015);
+        }
+        .litit-fold-content > ol > li:last-child,
+        .litit-fold-content > ul > li:last-child {
+            margin-bottom: 0 !important;
+        }
+
+        /* 顶部流式微型序号徽章：不占左侧列宽，极具杂志感 */
+        .litit-fold-content > ol > li::before,
+        .litit-fold-content > ul > li::before {
+            content: "NO." counter(litit-counter, decimal-leading-zero);
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 800;
+            font-family: -apple-system, BlinkMacSystemFont, monospace;
+            color: #4f46e5;
+            background: #eef2ff;
+            padding: 1px 6px;
+            border-radius: 4px;
+            margin-right: 6px;
+            margin-bottom: 6px;
+            vertical-align: middle;
+            letter-spacing: 0.04em;
+        }
+
+        /* 保持脚本兼容的英/中句子专属排版 */
+        .litit-en-sentence {
+            display: block;
+            font-family: var(--font-serif);
+            font-size: 1.04rem;
+            font-weight: 600;
+            color: #0f172a;
+            line-height: 1.5;
+            margin-bottom: 6px;
+        }
+        .litit-zh-sentence {
+            display: block;
+            font-family: var(--font-sans);
+            font-size: 0.93rem;
+            color: #475569;
+            line-height: 1.55;
+            margin-bottom: 2px;
+        }
+
+        /* 移除原模板中多余的 br 换行高度干扰 */
+        li.litit-target-sentence > br {
+            display: none;
+        }
+
+        /* 二、五板块：词组短语与顶部 NO.01 同行展示，极省空间又美观 */
+        .litit-fold-content > ul > li.litit-target-sentence > strong:first-child {
+            display: inline-block;
+            background: linear-gradient(135deg, #eef2ff 0%, #f3e8ff 100%);
+            color: #4338ca;
+            padding: 2px 8px;
+            border-radius: 5px;
+            font-size: 0.92rem;
+            font-weight: 700;
+            margin-right: 4px;
+            margin-bottom: 6px;
+            border: 1px solid #e0e7ff;
+            vertical-align: middle;
+        }
+        .litit-fold-content > ul > li.litit-target-sentence > .litit-en-sentence {
+            margin-top: 6px;
+            padding-top: 8px;
+            border-top: 1px dashed #e2e8f0;
+            font-size: 0.98rem;
+            color: #0f172a;
+        }
+
+        /* 一板块内部的子级知识点解析区：超薄左边框内嵌盒，最大化内部文字宽度 */
+        li.litit-target-sentence > ul {
+            list-style: none !important;
+            margin: 10px 0 0 0 !important;
+            padding: 8px 10px !important;
+            background: #f8fafc;
+            border-radius: 6px;
+            border-left: 2.5px solid #94a3b8;
+        }
+        li.litit-target-sentence > ul > li {
+            position: relative;
+            padding-left: 10px;
+            margin-bottom: 5px !important;
+            font-size: 0.88rem;
+            color: #334155;
+            line-height: 1.5;
+        }
+        li.litit-target-sentence > ul > li:last-child {
+            margin-bottom: 0 !important;
+        }
+        li.litit-target-sentence > ul > li::before {
+            content: "·";
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: #4f46e5;
+            font-weight: 900;
+        }
+        li.litit-target-sentence > ul > li > strong {
+            color: #0f172a;
+            font-weight: 600;
+            background: #e2e8f0;
+            padding: 1px 5px;
+            border-radius: 4px;
+            font-size: 0.84rem;
+            margin-right: 3px;
+        }
+
+        /* 三、四板块的字体微调 */
+        .litit-fold-content > ol:not(:has(.litit-target-sentence)) > li > strong:first-child {
+            display: inline-block;
+            color: #4338ca;
+            font-size: 0.98rem;
+            margin-bottom: 4px;
+            font-family: var(--font-serif);
+            vertical-align: middle;
+        }
+
+        /* 移动端极限铺开适配 */
+        @media (max-width: 600px) {
+            body { padding: 10px 10px 30px 10px; font-size: 15px; }
+            h1.litit-target-title { font-size: 21px !important; }
+            .litit-fold-content { padding: 8px 6px; }
+            .litit-fold-content > ol > li,
+            .litit-fold-content > ul > li {
+                padding: 11px 10px;
+                margin-bottom: 8px !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -44,14 +280,20 @@
     <div id="reading-progress"></div>
     <div class="litit-report" style="width:100%; max-width:100%; box-sizing:border-box; overflow-x:hidden;">
 
+        <!-- 顶部杂志刊头装饰 -->
+        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom: 2px solid #0f172a; padding-bottom: 6px; margin-bottom: 14px; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: #64748b; text-transform: uppercase;">
+            <span>The Global Dispatch · 深度双语精读</span>
+            <span>Middle East</span>
+        </div>
+
         <!-- 支持批注的主标题区 -->
         <div class="content-wrap" style="position:relative; margin-bottom: 16px;">
-            <h1 class="litit-target-title" style="color:#1a202c; font-size: 24px; line-height: 1.4; border-bottom: 3px solid #667eea; padding-bottom: 12px; margin-top:0; margin-bottom:0; word-break:break-word;">
+            <h1 class="litit-target-title" style="color:#0f172a; font-size: 24px; line-height: 1.35; font-family: var(--font-serif); font-weight: 800; border-bottom: 1px solid #e2e8f0; padding-bottom: 14px; margin-top:0; margin-bottom:0; word-break:break-word;">
                 <span class="content litit-en-title" style="position:relative;">On Yemen's desert battlefield, a war with global consequences is being waged</span>
                 <br>
-                <span class="litit-zh-title" style="font-size: 18px; color: #4a5568; margin-top: 8px; display: inline-block;">在也门的沙漠战场上，一场影响全球的战争正在打响</span>
+                <span class="litit-zh-title" style="font-family: var(--font-sans); font-size: 17px; font-weight: 600; color: #475569; margin-top: 8px; display: inline-block; line-height: 1.45;">在也门的沙漠战场上，一场影响全球的战争正在打响</span>
             </h1>
-            <div class="anno-box" style="display:none; margin-top: 12px;">
+            <div class="anno-box" style="display:none; margin-top: 10px;">
                 <div class="anno-view markdown-body"></div>
                 <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
 在也门的沙漠战场上，一场具有全球性后果的战争正在进行中。
@@ -63,30 +305,31 @@
             </div>
         </div>
 
-        <p style="color:#4a5568; font-size: 15px; line-height: 1.6; margin-bottom:18px; font-weight:500;">
+        <!-- 杂志导语（Lead Paragraph） -->
+        <p style="color:#334155; font-size: 15px; line-height: 1.75; margin-bottom:16px; font-weight:400; background: #f8fafc; padding: 12px 14px; border-radius: 8px; border: 1px solid #f1f5f9;">
             在中东偏远的沙漠角落，也门旷日持久的内战再次剧烈升级。由伊朗支持的胡塞武装不仅在地面战场上威胁着战略航道曼德海峡（Bab al-Mandab），更在周末对沙特首都利雅得的国际机场发动了十多年来最致命的导弹袭击。这场连接着德黑兰与利雅得的地缘博弈，正持续给全球石油供应与国际航运敲响警钟。然而，在宏大的能源恐慌背后，是这个阿拉伯世界最贫穷国家的无尽苦难：二十万平民在新一轮冲突中流离失所，医院人满为患，无数像12岁男孩阿里一样的无辜者在无人机与炮火的阴影下挣扎求生。
         </p>
 
-        <div style="margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
-            <div style="display:flex; flex-wrap:wrap; gap:8px;">
-                <span style="background:#edf2f7; color:#2d3748; padding:5px 10px; border-radius:6px; font-size:13px; font-weight:600;">也门内战</span>
-                <span style="background:#edf2f7; color:#2d3748; padding:5px 10px; border-radius:6px; font-size:13px; font-weight:600;">胡塞武装</span>
-                <span style="background:#edf2f7; color:#2d3748; padding:5px 10px; border-radius:6px; font-size:13px; font-weight:600;">地缘政治</span>
+        <div style="margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+            <div style="display:flex; flex-wrap:wrap; gap:6px;">
+                <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;"># 也门内战</span>
+                <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;"># 胡塞武装</span>
+                <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;"># 地缘政治</span>
             </div>
-            <a href="https://www.bbc.com/news/articles/c5m2dn7zz4nyo" target="_blank" style="font-size: 13px; color: #5a67d8; text-decoration: none; font-weight: bold; background: #ebf4ff; padding: 6px 14px; border-radius: 6px; transition: all 0.2s; border: 1px solid #c3dafe; display:inline-block;">🔗 阅读原文</a>
+            <a href="https://www.bbc.com/news/articles/c5m2dn7zz4nyo" target="_blank" style="font-size: 12.5px; color: #4f46e5; text-decoration: none; font-weight: 600; background: #eef2ff; padding: 5px 12px; border-radius: 16px; border: 1px solid #e0e7ff; display:inline-block;">🔗 阅读原文 ↗</a>
         </div>
 
         <!-- 最佳金句区 -->
-        <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #ed8936; margin:0 0 12px 0; border-radius: 0 6px 6px 0;">💬 最佳金句</h2>
+        <h2 class="section-header" style="border-left-color: #f59e0b;">💬 最佳金句</h2>
         <div class="content-wrap" style="position:relative; margin-bottom:24px;">
-            <blockquote class="litit-target-quote" style="border-left: 4px solid #667eea; background: #f8fafc; padding: 14px; margin: 0; font-style: italic; color: #2d3748; border-radius: 0 8px 8px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.02);">
-                <div class="content litit-en-quote" style="position:relative; margin:0 0 6px 0; font-weight:600; font-size: 16px; line-height: 1.6; color:#1a202c; word-break:break-word;">
+            <blockquote class="litit-target-quote" style="border-left: 3.5px solid #f59e0b; background: linear-gradient(135deg, #fffbeb 0%, #ffffff 100%); padding: 14px 14px; margin: 0; color: #1e293b; border-radius: 0 10px 10px 0; border-top: 1px solid #fef3c7; border-right: 1px solid #fef3c7; border-bottom: 1px solid #fef3c7;">
+                <div class="content litit-en-quote" style="position:relative; margin:0 0 8px 0; font-family: var(--font-serif); font-style: italic; font-weight:600; font-size: 16.5px; line-height: 1.55; color:#0f172a; word-break:break-word;">
                     "Maybe war is good for news, but it's horrible for people. Sons are losing their fathers, and mothers losing their sons. We need peace."
                 </div>
-                <p class="litit-zh-quote" style="margin:0 0 8px 0; font-weight:500; font-size: 15px; line-height: 1.6; color:#4a5568; word-break:break-word;">
+                <p class="litit-zh-quote" style="margin:0 0 8px 0; font-weight:400; font-size: 14.5px; line-height: 1.6; color:#475569; word-break:break-word;">
                     “也许战争对新闻报道来说是好素材，但对老百姓来说太可怕了。儿子失去父亲，母亲失去儿子。我们需要和平。”
                 </p>
-                <footer style="text-align:right; font-size:13px; color:#718096; font-style:normal; font-weight:500;">—— 亚丁军事医院医生 Bassam Hazar</footer>
+                <footer style="text-align:right; font-size:12px; color:#64748b; font-style:normal; font-weight:600;">—— 亚丁军事医院医生 Bassam Hazar</footer>
             </blockquote>
             <div class="anno-box" style="display:none;">
                 <div class="anno-view markdown-body"></div>
@@ -101,50 +344,51 @@
         </div>
 
         <!-- Grid 布局关键数字区 -->
-        <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #38a169; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">📊 关键数字</h2>
-        <div style="display:grid; grid-template-columns: repeat(2, 1fr); gap:12px; margin:14px 0 24px 0;">
-            <div style="background:#fff; border:1px solid #e2e8f0; padding:16px; border-radius:10px; text-align:center; box-shadow:0 2px 5px rgba(0,0,0,0.04); box-sizing:border-box; display:flex; flex-direction:column; justify-content:center;">
-                <div style="font-size:26px; color:#5a67d8; font-weight:900; margin-bottom:6px; line-height:1.2;">
-                    20<span style="font-size:16px; margin-left:2px;">万</span>
+        <h2 class="section-header" style="border-left-color: #10b981;">📊 关键数字</h2>
+        <div style="display:grid; grid-template-columns: repeat(2, 1fr); gap:10px; margin:14px 0 24px 0;">
+            <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+                <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+                    20<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">万</span>
                 </div>
-                <div style="font-size:13px; color:#4a5568; font-weight:500; line-height:1.4;">自9月初冲突升级以来，被迫逃离家园的也门平民人数</div>
+                <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">自9月初冲突升级以来，被迫逃离家园的也门平民人数</div>
             </div>
-            <div style="background:#fff; border:1px solid #e2e8f0; padding:16px; border-radius:10px; text-align:center; box-shadow:0 2px 5px rgba(0,0,0,0.04); box-sizing:border-box; display:flex; flex-direction:column; justify-content:center;">
-                <div style="font-size:26px; color:#5a67d8; font-weight:900; margin-bottom:6px; line-height:1.2;">
-                    500<span style="font-size:16px; margin-left:2px;">名</span>
+            <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+                <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+                    500<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">名</span>
                 </div>
-                <div style="font-size:13px; color:#4a5568; font-weight:500; line-height:1.4;">仍盘踞在俯瞰曼德海峡高地上的胡塞武装分子估算人数</div>
+                <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">仍盘踞在俯瞰曼德海峡高地上的胡塞武装分子估算人数</div>
             </div>
-            <div style="background:#fff; border:1px solid #e2e8f0; padding:16px; border-radius:10px; text-align:center; box-shadow:0 2px 5px rgba(0,0,0,0.04); box-sizing:border-box; display:flex; flex-direction:column; justify-content:center;">
-                <div style="font-size:26px; color:#5a67d8; font-weight:900; margin-bottom:6px; line-height:1.2;">
-                    85<span style="font-size:16px; margin-left:2px;">%</span>
+            <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+                <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+                    85<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">%</span>
                 </div>
-                <div style="font-size:13px; color:#4a5568; font-weight:500; line-height:1.4;">亲政府部队声称从胡塞武装手中成功夺回的失地比例</div>
+                <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">亲政府部队声称从胡塞武装手中成功夺回的失地比例</div>
             </div>
-            <div style="background:#fff; border:1px solid #e2e8f0; padding:16px; border-radius:10px; text-align:center; box-shadow:0 2px 5px rgba(0,0,0,0.04); box-sizing:border-box; display:flex; flex-direction:column; justify-content:center;">
-                <div style="font-size:26px; color:#5a67d8; font-weight:900; margin-bottom:6px; line-height:1.2;">
-                    51<span style="font-size:16px; margin-left:2px;">名</span>
+            <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+                <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+                    51<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">名</span>
                 </div>
-                <div style="font-size:13px; color:#4a5568; font-weight:500; line-height:1.4;">亚丁一家军事医院在单日内接收的前线伤员人数</div>
+                <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">亚丁一家军事医院在单日内接收的前线伤员人数</div>
             </div>
         </div>
 
-        <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #3182ce; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">⏱️ 事件时间线</h2>
-        <ul style="padding-left:20px; line-height:1.8; color:#2d3748; font-size: 15px; margin-bottom:24px; word-break:break-word;">
-            <li><strong style="color:#2b6cb0;">2014年：</strong> 胡塞武装席卷并占领也门首都萨那（Sanaa），推翻了国际公认的也门政府，内战全面爆发。</li>
-            <li><strong style="color:#2b6cb0;">2015年：</strong> 以沙特阿拉伯为首的阿拉伯国家联军介入也门局势，试图通过大规模空袭驱逐胡塞武装，但多年未果。</li>
-            <li><strong style="color:#2b6cb0;">2022年：</strong> 各方达成停火协议（truce），为也门带来了随后几年的相对平静。</li>
-            <li><strong style="color:#2b6cb0;">今年9月初：</strong> 局势再度急剧升级，胡塞武装发动闪电推进，占领了俯瞰曼德海峡的战略要地，导致约20万平民流离失所。</li>
-            <li><strong style="color:#2b6cb0;">本周末：</strong> 导弹猛烈击中沙特首都利雅得的国际机场。这是十多年来沙特本土遭遇的最致命袭击，彻底刺破了该国的安全感。</li>
+        <h2 class="section-header" style="border-left-color: #3b82f6;">⏱️ 事件时间线</h2>
+        <ul style="padding-left:18px; line-height:1.8; color:#334155; font-size: 14.5px; margin-bottom:24px; word-break:break-word;">
+            <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">2014年：</strong> 胡塞武装席卷并占领也门首都萨那（Sanaa），推翻了国际公认的也门政府，内战全面爆发。</li>
+            <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">2015年：</strong> 以沙特阿拉伯为首的阿拉伯国家联军介入也门局势，试图通过大规模空袭驱逐胡塞武装，但多年未果。</li>
+            <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">2022年：</strong> 各方达成停火协议（truce），为也门带来了随后几年的相对平静。</li>
+            <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">今年9月初：</strong> 局势再度急剧升级，胡塞武装发动闪电推进，占领了俯瞰曼德海峡的战略要地，导致约20万平民流离失所。</li>
+            <li><strong style="color:#1d4ed8;">本周末：</strong> 导弹猛烈击中沙特首都利雅得的国际机场。这是十多年来沙特本土遭遇的最致命袭击，彻底刺破了该国的安全感。</li>
         </ul>
 
-        <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #805ad5; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">✨ 本篇亮点与精读</h2>
+        <h2 class="section-header" style="border-left-color: #8b5cf6;">✨ 本篇亮点与精读</h2>
 
-        <div style="font-family: Arial, 'Source Han Serif CN', serif; line-height: 1.55; font-size: 1.05em; color: black; margin: 16px 0 10px 0;">
+        <!-- 五大板块全部默认折叠，无十字图标，展开后全宽卡片展示 -->
+        <div style="margin: 14px 0 10px 0;">
             
             <details class="litit-fold">
                 <summary>
-                    <h3 style="margin: 0; font-size: 16px; color: #2d3748;">一、值得学习的句子结构</h3>
+                    <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">一、值得学习的句子结构</h3>
                 </summary>
                 <div class="litit-fold-content">
                     <ol style="margin: 0; padding-left: 18px;">
@@ -189,7 +433,7 @@
 
             <details class="litit-fold">
                 <summary>
-                    <h3 style="margin: 0; font-size: 16px; color: #2d3748;">二、值得积累的短语和固定搭配</h3>
+                    <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">二、值得积累的短语和固定搭配</h3>
                 </summary>
                 <div class="litit-fold-content">
                     <ul style="list-style-type: square; margin: 0; padding-left: 18px; line-height: 1.6;">
@@ -289,7 +533,7 @@
 
             <details class="litit-fold">
                 <summary>
-                    <h3 style="margin: 0; font-size: 16px; color: #2d3748;">三、新闻英语中的高价值表达</h3>
+                    <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">三、新闻英语中的高价值表达</h3>
                 </summary>
                 <div class="litit-fold-content">
                     <ol style="margin: 0; padding-left: 18px;">
@@ -318,7 +562,7 @@
 
             <details class="litit-fold">
                 <summary>
-                    <h3 style="margin: 0; font-size: 16px; color: #2d3748;">四、最值得优先掌握的句型</h3>
+                    <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">四、最值得优先掌握的句型</h3>
                 </summary>
                 <div class="litit-fold-content">
                     <ol style="margin: 0; padding-left: 18px;">
@@ -344,7 +588,7 @@
 
             <details class="litit-fold">
                 <summary>
-                    <h3 style="margin: 0; font-size: 16px; color: #2d3748;">五、建议重点记忆的表达</h3>
+                    <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">五、建议重点记忆的表达</h3>
                 </summary>
                 <div class="litit-fold-content">
                     <ul style="list-style-type: square; margin: 0; padding-left: 18px; line-height: 1.6;">
@@ -389,15 +633,15 @@
 
         </div>
 
-        <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #319795; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">💡 幕后冷知识 (Fun Facts)</h2>
-        <ul style="padding-left:20px; line-height:1.8; color:#2d3748; font-size:15px; margin-bottom:24px; word-break:break-word;">
-            <li><strong>“悲叹之门”曼德海峡（Bab al-Mandab）：</strong> 文中提到的这一战略海上走廊，连接着红海与亚丁湾，是苏伊士运河航线的必经咽喉。在阿拉伯语中，Bab al-Mandab 的字面意思是“泪水之门”或“悲叹之门”（传说远古地震撕裂大陆导致无数人溺亡）。如今，这里控制着全球极其重要的石油和贸易运输，一旦被胡塞武装彻底封锁，全球供应链与油价都将随之剧烈震荡。</li>
-            <li><strong>极其松散的“反胡塞联盟”：</strong> 报道中记者特意用了一个重复强调的短语“part of the loose – very loose – alliance”（松散——非常松散——的联盟）。这是因为与胡塞武装作战的也门政府军内部派系林立，比如受采访指挥官所在的“南方部队”（Southern Forces），其背后原本主要由阿联酋支持，带有强烈的南也门独立倾向，与沙特支持的也门合法政府往往同床异梦，仅靠“对抗胡塞”这一共同目标勉强维持合作。</li>
+        <h2 class="section-header" style="border-left-color: #0d9488;">💡 幕后冷知识 (Fun Facts)</h2>
+        <ul style="padding-left:18px; line-height:1.8; color:#334155; font-size:14.5px; margin-bottom:24px; word-break:break-word;">
+            <li style="margin-bottom: 8px;"><strong>“悲叹之门”曼德海峡（Bab al-Mandab）：</strong> 文中提到的这一战略海上走廊，连接着红海与亚丁湾，是苏伊士运河航线的必经咽喉。在阿拉伯语中，Bab al-Mandab 的字面意思是“泪水之门”或“悲叹之门”（传说远古地震撕裂大陆导致无数人溺亡）。如今，这里控制着全球极其重要的石油和贸易运输，一旦被胡塞武装彻底封锁，全球供应链与油价都将随之剧烈震荡。</li>
+            <li style="margin-bottom: 8px;"><strong>极其松散的“反胡塞联盟”：</strong> 报道中记者特意用了一个重复强调的短语“part of the loose – very loose – alliance”（松散——非常松散——的联盟）。这是因为与胡塞武装作战的也门政府军内部派系林立，比如受采访指挥官所在的“南方部队”（Southern Forces），其背后原本主要由阿联酋支持，带有强烈的南也门独立倾向，与沙特支持的也门合法政府往往同床异梦，仅靠“对抗胡塞”这一共同目标勉强维持合作。</li>
             <li><strong>新闻翻译乌龙与勘误：</strong> 文章末尾附带了一条极具新闻专业主义精神的勘误（Correction）。BBC 最初报道难民老妇 Aisha 是因为害怕“沙特的空袭”而逃难，随后核实发现是现场翻译失误，老妇实际控诉的是袭击其家乡山区的“胡塞武装无人机”。在各方势力交错轰炸的也门，连天上的死神属于哪一方，有时都会在传播中产生混淆。</li>
         </ul>
 
-        <h2 style="font-size:17px; color:#2d3748; background:#f7fafc; padding:8px 12px; border-left:5px solid #e53e3e; margin:24px 0 14px 0; border-radius: 0 6px 6px 0;">🎯 全片锐评</h2>
-        <p style="line-height:1.7; color:#1a202c; font-weight:600; background:#fff5f5; padding:14px; border-radius:10px; font-size:15px; margin:0 0 24px 0; border:1px solid #fed7d7; word-break:break-word;">
+        <h2 class="section-header" style="border-left-color: #e11d48;">🎯 全片锐评</h2>
+        <p style="line-height:1.75; color:#1e293b; font-weight:500; background:linear-gradient(135deg, #fff1f2 0%, #ffffff 100%); padding:14px 16px; border-radius:10px; font-size:14.5px; margin:0 0 12px 0; border:1px solid #ffe4e6; word-break:break-word;">
             这是一篇极具张力的战地特写。BBC记者通过冷峻的镜头切换，将这场代理人战争的两个平行世界并置在了读者面前：一边是德黑兰与利雅得的地缘博弈、曼德海峡的战略航道，以及国际能源市场的焦虑震荡；另一边则是枯树下身无分文的逃难老妇、病房里只比内战大一岁的12岁伤童，以及失去左臂却沉默独坐的士兵。当大国将也门当作拉扯筹码的沙盘时，亚丁医院里的医生却在践行着最朴素的人道主义——将胡塞武装伤员与政府军士兵放在同一间病房救治。医生那句“也许战争对新闻来说是好素材，但对老百姓来说太可怕了”，是对所有地缘政治宏大叙事最振聋发聩的拷问。
         </p>
 
