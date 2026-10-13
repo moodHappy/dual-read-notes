@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>One dead and several hurt after rollercoaster incident at Six Flags</title>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<style id="core-style">
+:root {
+  --bg-page: #ffffff;
+  --bg-card: #ffffff;
+  --text-main: #0f172a;
+  --text-sub: #334155;
+  --text-muted: #64748b;
+  --accent-primary: #4f46e5;
+  --border-subtle: #e2e8f0;
+  --font-serif: "Georgia", "Charter", "Source Han Serif SC", "Noto Serif CJK SC", serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", Roboto, sans-serif;
+}
+body {
+  font-family: var(--font-sans);
+  padding: 12px 12px 36px 12px;
+  margin: 0 auto;
+  max-width: 780px;
+  background: var(--bg-page);
+  color: var(--text-main);
+  line-height: 1.75;
+  font-size: 16px;
+  word-wrap: break-word;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+* { box-sizing: border-box; max-width: 100%; }
+img { max-width: 100%; height: auto; border-radius: 8px; }
+/* 顶部极简阅读进度条 */
+#reading-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 3px;
+  background: linear-gradient(90deg, #4f46e5, #9333ea);
+  z-index: 9999;
+  transition: width 0.1s ease-out;
+}
+/* 主容器：零冗余边距，最大化阅读视野 */
+.litit-report {
+  background: var(--bg-card);
+  padding: 0;
+}
+/* AI 批注组件样式 */
+.anno-toggle, .ai-toggle {
+  display: inline-block;
+  padding: 2px 5px;
+  margin-left: 5px;
+  cursor: pointer;
+  opacity: 0.45;
+  font-size: 0.85rem;
+  vertical-align: middle;
+  transition: all 0.2s;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.anno-toggle:hover, .ai-toggle:hover { opacity: 1; transform: scale(1.15); }
+.anno-toggle.has-anno { opacity: 1; }
+.anno-toggle::after { content: "🔴"; }
+.ai-toggle { opacity: 0.7; padding: 2px 4px; }
+.ai-toggle::after { content: "🤖"; }
+.ai-toggle.loading::after {
+  content: "⏳";
+  display: inline-block;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin { 100% { transform: rotate(360deg); } }
+.anno-box {
+  display: none;
+  margin-top: 10px;
+  background: #faf8ff;
+  border-left: 3px solid #7c3aed;
+  padding: 12px 14px;
+  border-radius: 0 8px 8px 0;
+  text-align: left;
+}
+.anno-view { font-size: 0.95rem; line-height: 1.65; color: #334155; min-height: 24px; }
+.anno-edit {
+  width: 100%;
+  min-height: 120px;
+  padding: 10px;
+  font-family: monospace;
+  font-size: 0.95rem;
+  border: 1px dashed #a78bfa;
+  border-radius: 6px;
+  resize: vertical;
+  display: none;
+  background: #fff;
+  color: #1e293b;
+  outline: none;
+}
+.anno-edit:focus { border: 1px solid #7c3aed; box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.12); }
+.markdown-body p { margin-top: 0; margin-bottom: 8px; }
+.markdown-body p:last-child { margin-bottom: 0; }
+.markdown-body h1, .markdown-body h2, .markdown-body h3 {
+  color: #5b21b6;
+  font-size: 1.05rem;
+  margin: 10px 0 6px 0;
+  border-bottom: 1px dashed #ddd6fe;
+  padding-bottom: 4px;
+}
+.markdown-body ul, .markdown-body ol { margin: 0 0 8px 0; padding-left: 18px; }
+.markdown-body blockquote {
+  margin: 0 0 10px 0;
+  padding: 8px 12px;
+  background: rgba(124, 58, 237, 0.06);
+  border-left: 3px solid #7c3aed;
+  color: #475569;
+}
+/* 杂志风区块标题 */
+.section-header {
+  font-size: 16px;
+  color: #0f172a;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  background: linear-gradient(90deg, #f8fafc 0%, #ffffff 100%);
+  padding: 8px 12px;
+  border-left: 4px solid #4f46e5;
+  margin: 26px 0 14px 0;
+  border-radius: 0 6px 6px 0;
+  display: flex;
+  align-items: center;
+  box-shadow: inset 0 1px 0 #f1f5f9, inset 0 -1px 0 #f1f5f9;
+}
+/* 折叠面板升级：极简无十字图标、最大化宽度 */
+details.litit-fold {
+  margin-bottom: 10px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  background: #ffffff;
+  overflow: hidden;
+  transition: border-color 0.2s ease;
+}
+details.litit-fold[open] { border-color: #cbd5e1; }
+details.litit-fold summary {
+  cursor: pointer;
+  padding: 12px 14px;
+  outline: none;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f8fafc;
+  transition: background 0.2s;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+details.litit-fold summary::-webkit-details-marker { display: none; }
+details.litit-fold summary::after { display: none; } /* 彻底移除右侧十字/横杠图标 */
+details.litit-fold summary:hover { background: #f1f5f9; }
+details.litit-fold[open] summary {
+  border-bottom: 1px solid #e2e8f0;
+  background: #f1f5f9;
+  border-left: 3px solid #4f46e5;
+}
+.litit-fold-content {
+  padding: 10px 8px; /* 极限压缩左右内边距，让卡片完全铺开 */
+  background: #f8fafc;
+}
+/* 精读区列表彻底去圆点、卡片化重构 */
+.litit-fold-content > ol, .litit-fold-content > ul {
+  list-style: none !important;
+  padding-left: 0 !important;
+  margin: 0 !important;
+  counter-reset: litit-counter;
+}
+/* 每一条精读项：取消左侧大缩进，100% 铺满横向宽度 */
+.litit-fold-content > ol > li, .litit-fold-content > ul > li {
+  counter-increment: litit-counter;
+  position: relative;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 12px 12px; /* 上下左右均衡紧凑，把整行宽度全留给正文 */
+  margin-bottom: 10px !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.015);
+}
+.litit-fold-content > ol > li:last-child, .litit-fold-content > ul > li:last-child {
+  margin-bottom: 0 !important;
+}
+/* 顶部流式微型序号徽章：不占左侧列宽，极具杂志感 */
+.litit-fold-content > ol > li::before, .litit-fold-content > ul > li::before {
+  content: "NO." counter(litit-counter, decimal-leading-zero);
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 800;
+  font-family: -apple-system, BlinkMacSystemFont, monospace;
+  color: #4f46e5;
+  background: #eef2ff;
+  padding: 1px 6px;
+  border-radius: 4px;
+  margin-right: 6px;
+  margin-bottom: 6px;
+  vertical-align: middle;
+  letter-spacing: 0.04em;
+}
+/* 保持脚本兼容的英/中句子专属排版 */
+.litit-en-sentence {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 1.04rem;
+  font-weight: 600;
+  color: #0f172a;
+  line-height: 1.5;
+  margin-bottom: 6px;
+}
+.litit-zh-sentence {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 0.93rem;
+  color: #475569;
+  line-height: 1.55;
+  margin-bottom: 2px;
+}
+/* 移除原模板中多余的 br 换行高度干扰 */
+li.litit-target-sentence > br { display: none; }
+/* 二、五板块：词组短语与顶部 NO.01 同行展示，极省空间又美观 */
+.litit-fold-content > ul > li.litit-target-sentence > strong:first-child {
+  display: inline-block;
+  background: linear-gradient(135deg, #eef2ff 0%, #f3e8ff 100%);
+  color: #4338ca;
+  padding: 2px 8px;
+  border-radius: 5px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  margin-right: 4px;
+  margin-bottom: 6px;
+  border: 1px solid #e0e7ff;
+  vertical-align: middle;
+}
+.litit-fold-content > ul > li.litit-target-sentence > .litit-en-sentence {
+  margin-top: 6px;
+  padding-top: 8px;
+  border-top: 1px dashed #e2e8f0;
+  font-size: 0.98rem;
+  color: #0f172a;
+}
+/* 一板块内部的子级知识点解析区：超薄左边框内嵌盒，最大化内部文字宽度 */
+li.litit-target-sentence > ul {
+  list-style: none !important;
+  margin: 10px 0 0 0 !important;
+  padding: 8px 10px !important;
+  background: #f8fafc;
+  border-radius: 6px;
+  border-left: 2.5px solid #94a3b8;
+}
+li.litit-target-sentence > ul > li {
+  position: relative;
+  padding-left: 10px;
+  margin-bottom: 5px !important;
+  font-size: 0.88rem;
+  color: #334155;
+  line-height: 1.5;
+}
+li.litit-target-sentence > ul > li:last-child { margin-bottom: 0 !important; }
+li.litit-target-sentence > ul > li::before {
+  content: "·";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #4f46e5;
+  font-weight: 900;
+}
+li.litit-target-sentence > ul > li > strong {
+  color: #0f172a;
+  font-weight: 600;
+  background: #e2e8f0;
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-size: 0.84rem;
+  margin-right: 3px;
+}
+/* 三、四板块的字体微调 */
+.litit-fold-content > ol:not(:has(.litit-target-sentence)) > li > strong:first-child {
+  display: inline-block;
+  color: #4338ca;
+  font-size: 0.98rem;
+  margin-bottom: 4px;
+  font-family: var(--font-serif);
+  vertical-align: middle;
+}
+/* 移动端极限铺开适配 */
+@media (max-width: 600px) {
+  body { padding: 10px 10px 30px 10px; font-size: 15px; }
+  h1.litit-target-title { font-size: 21px !important; }
+  .litit-fold-content { padding: 8px 6px; }
+  .litit-fold-content > ol > li, .litit-fold-content > ul > li {
+    padding: 11px 10px;
+    margin-bottom: 8px !important;
+  }
+}
+</style>
+</head>
+<body>
+<!-- 进度条 DOM -->
+<div id="reading-progress"></div>
+
+<div class="litit-report" style="width:100%; max-width:100%; box-sizing:border-box; overflow-x:hidden;">
+  <!-- 顶部杂志刊头装饰 -->
+  <div style="display:flex; justify-content:space-between; align-items:center; border-bottom: 2px solid #0f172a; padding-bottom: 6px; margin-bottom: 14px; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: #64748b; text-transform: uppercase;">
+    <span>The Global Dispatch · 深度双语精读</span>
+    <span>US News</span>
+  </div>
+
+  <!-- 支持批注的主标题区 -->
+  <div class="content-wrap" style="position:relative; margin-bottom: 16px;">
+    <h1 class="litit-target-title" style="color:#0f172a; font-size: 24px; line-height: 1.35; font-family: var(--font-serif); font-weight: 800; border-bottom: 1px solid #e2e8f0; padding-bottom: 14px; margin-top:0; margin-bottom:0; word-break:break-word;">
+      <span class="content litit-en-title" style="position:relative;">One dead and several hurt after rollercoaster incident at Six Flags</span>
+      <br>
+      <span class="litit-zh-title" style="font-family: var(--font-sans); font-size: 17px; font-weight: 600; color: #475569; margin-top: 8px; display: inline-block; line-height: 1.45;">六旗游乐园过山车发生致命事故致一死多伤</span>
+    </h1>
+    <div class="anno-box" style="display:none; margin-top: 10px;">
+      <div class="anno-view markdown-body"></div>
+      <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
+六旗游乐园（Six Flags）过山车发生事故，导致一人死亡，数人受伤。
+
+### 📌 Key Expressions
+- **dead** = 死亡的（新闻标题中常代指 dead person，即死者）
+- **hurt** = 受伤的（新闻标题常用，比 injured 更简短）
+- **incident** = 意外事件；事故（特指造成不良后果的事件）
+- **rollercoaster** = 过山车</textarea>
+    </div>
+  </div>
+
+  <!-- 杂志导语（Lead Paragraph） -->
+  <p style="color:#334155; font-size: 15px; line-height: 1.75; margin-bottom:16px; font-weight:400; background: #f8fafc; padding: 12px 14px; border-radius: 8px; border: 1px solid #f1f5f9;">
+    在美国佐治亚州的六旗游乐园（Six Flags Over Georgia），一场追求极限刺激的狂欢最终演变为一场令人毛骨悚然的致命悲剧。据警方和目击者称，一名男子从园内标志性的“歌利亚（Goliath）”过山车上被剧烈甩出，不幸坠落至下方鬼屋设施的屋顶并当场身亡，事故另造成数人受伤。航拍画面显示，这架最高时速可达112公里的庞然大物在轨道中途紧急停驶。这一突发悲剧不仅让这座北美最大的主题乐园运营商再次陷入舆论漩涡，更唤起了公众对极限游乐设施安全性的深度恐慌——就在短短几周前，该集团位于南加州的另一座热门过山车“X2”，因涉嫌导致上百名游客遭受脑损伤而被迫宣告永久关闭。
+  </p>
+
+  <div style="margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+    <div style="display:flex; flex-wrap:wrap; gap:6px;">
+      <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;"># 游乐园事故</span>
+      <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;"># 突发新闻</span>
+      <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;"># 安全隐患</span>
+    </div>
+    <a href="https://www.bbc.com/news/articles/c6n4ejx8x1z7o" target="_blank" style="font-size: 12.5px; color: #4f46e5; text-decoration: none; font-weight: 600; background: #eef2ff; padding: 5px 12px; border-radius: 16px; border: 1px solid #e0e7ff; display:inline-block;">🔗 阅读原文 ↗</a>
+  </div>
+
+  <!-- 最佳金句区 -->
+  <h2 class="section-header" style="border-left-color: #f59e0b;">💬 最佳金句</h2>
+  <div class="content-wrap" style="position:relative; margin-bottom:24px;">
+    <blockquote class="litit-target-quote" style="border-left: 3.5px solid #f59e0b; background: linear-gradient(135deg, #fffbeb 0%, #ffffff 100%); padding: 14px 14px; margin: 0; color: #1e293b; border-radius: 0 10px 10px 0; border-top: 1px solid #fef3c7; border-right: 1px solid #fef3c7; border-bottom: 1px solid #fef3c7;">
+      <div class="content litit-en-quote" style="position:relative; margin:0 0 8px 0; font-family: var(--font-serif); font-style: italic; font-weight:600; font-size: 16.5px; line-height: 1.55; color:#0f172a; word-break:break-word;">
+        "We are deeply saddened by the guest incident at our park today. Our thoughts and heartfelt condolences are with the guest's family, friends, and loved ones."
+      </div>
+      <p class="litit-zh-quote" style="margin:0 0 8px 0; font-weight:400; font-size: 14.5px; line-height: 1.6; color:#475569; word-break:break-word;">
+        “我们对今天园区内发生的游客意外事件深感悲痛。我们将最深切的同情与诚挚的慰问致以该游客的家人、朋友及挚爱之人。”
+      </p>
+      <footer style="text-align:right; font-size:12px; color:#64748b; font-style:normal; font-weight:600;">—— 佐治亚州六旗游乐园官方声明</footer>
+    </blockquote>
+    <div class="anno-box" style="display:none;">
+      <div class="anno-view markdown-body"></div>
+      <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
+“我们对今天在园区发生的游客事件深感悲痛。我们将哀思与诚挚的慰问致以该游客的家人、朋友和亲人们。”
+
+### 📌 Key Expressions
+- **deeply saddened by...** = 对……深感悲痛（企业及官方在严重事故发生后的标准公关声明用语）
+- **heartfelt condolences** = 诚挚的慰问 / 深切的哀悼
+- **one's thoughts are with sb.** = 心与某人同在 / 向某人致以同情与哀思</textarea>
+    </div>
+  </div>
+
+  <!-- Grid 布局关键数字区 -->
+  <h2 class="section-header" style="border-left-color: #10b981;">📊 关键数字</h2>
+  <div style="display:grid; grid-template-columns: repeat(2, 1fr); gap:10px; margin:14px 0 24px 0;">
+    <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+      <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+        1<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">人</span>
+      </div>
+      <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">在本次佐治亚州六旗游乐园过山车事故中被甩出丧生的人数</div>
+    </div>
+    <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+      <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+        200<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">英尺</span>
+      </div>
+      <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">涉事的“歌利亚(Goliath)”过山车最高点海拔高度（约合60米）</div>
+    </div>
+    <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+      <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+        70<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">英里/时</span>
+      </div>
+      <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">该大型过山车俯冲时的最高运行速度（约合112公里/小时）</div>
+    </div>
+    <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+      <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+        100+<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">人</span>
+      </div>
+      <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">此前指控六旗集团旗下另一座过山车“X2”导致脑损伤的游客人数</div>
+    </div>
+  </div>
+
+  <h2 class="section-header" style="border-left-color: #3b82f6;">⏱️ 事件时间线</h2>
+  <ul style="padding-left:18px; line-height:1.8; color:#334155; font-size: 14.5px; margin-bottom:24px; word-break:break-word;">
+    <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">2006年：</strong> “歌利亚(Goliath)”过山车在佐治亚州六旗游乐园正式对公众开放，成为该园“惊险指数”极高的主打项目。</li>
+    <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">数周前：</strong> 六旗集团旗下位于南加州的游乐园宣布永久关闭著名的“X2”过山车，原因是超过100名游客指控该设施导致他们遭受脑损伤。</li>
+    <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">事发当日：</strong> 佐治亚州六旗游乐园内发生致命事故。据目击者称，一名男子在过山车高速行驶时被甩出，坠落到鬼屋景点的屋顶上。</li>
+    <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">事发后：</strong> 新闻直升机航拍画面显示，“歌利亚”过山车在轨道中途停驶，工作人员正协助其他被困乘客安全撤离。</li>
+    <li><strong style="color:#1d4ed8;">目前：</strong> 当地警方、消防部门以及游乐园官方安保团队正紧密合作，对这起致命事故的具体原因展开全面调查。</li>
+  </ul>
+
+  <h2 class="section-header" style="border-left-color: #8b5cf6;">✨ 本篇亮点与精读</h2>
+  <!-- 五大板块全部默认折叠，无十字图标，展开后全宽卡片展示 -->
+  <div style="margin: 14px 0 10px 0;">
+    <details class="litit-fold">
+      <summary>
+        <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">一、值得学习的句子结构</h3>
+      </summary>
+      <div class="litit-fold-content">
+        <ol style="margin: 0; padding-left: 18px;">
+          <li class="litit-target-sentence" style="margin-bottom: 12px;">
+            <strong class="litit-en-sentence">Police did not specify what ride was involved, but aerial footage from news helicopters showed the Goliath rollercoaster stopped midway, with riders being helped off by workers.</strong><br>
+            <span class="litit-zh-sentence">警方并未具体说明涉及哪项游乐设施，但来自新闻直升机的航拍画面显示，“歌利亚”过山车在中途停驶，工作人员正在协助乘客撤离。</span>
+            <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+              <li style="margin-bottom: 3px;"><strong>what ride was involved</strong>：宾语从句，指“哪项游乐设施卷入其中”。新闻报道中常在信息尚未完全公开时使用这种表达。</li>
+              <li style="margin-bottom: 3px;"><strong>with riders being helped off</strong>：with 复合结构作伴随状语，生动描绘了过山车停滞时，救援工作正在同步进行的现场画面。</li>
+              <li style="margin-bottom: 3px;"><strong>aerial footage</strong>：航拍画面（突发事件报道中获取第一手现场画面的常见新闻词汇）。</li>
+            </ul>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 12px;">
+            <strong class="litit-en-sentence">Witnesses told local media they saw a man ejected from the ride, accounts that the BBC has not verified.</strong><br>
+            <span class="litit-zh-sentence">目击者告诉当地媒体，他们看到一名男子被从游乐设施中甩出，对于这些说法，BBC尚未进行核实。</span>
+            <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+              <li style="margin-bottom: 3px;"><strong>see sb. ejected from...</strong>：看到某人被从……弹出/甩出。ejected 过去分词作宾语补足语，表示被动的瞬间猛烈动作。</li>
+              <li style="margin-bottom: 3px;"><strong>accounts that...</strong>：同位语定语从句，对前半句目击者的说辞（accounts）进行补充说明，展现了BBC作为新闻媒体的严谨免责态度。</li>
+            </ul>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 12px;">
+            <strong class="litit-en-sentence">The incident comes just weeks after one of its parks in southern California announced it would close the popular X2 roller coaster after more than 100 people alleged brain injuries from the ride.</strong><br>
+            <span class="litit-zh-sentence">这一事件发生就在几周前，该公司位于南加州的一家公园宣布将关闭深受欢迎的“X2”过山车，此前有100多人指控该设施导致他们遭受脑损伤。</span>
+            <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+              <li style="margin-bottom: 3px;"><strong>The incident comes just weeks after...</strong>：新闻报道中极常用来串联背景信息的万能句式，巧妙地将当前突发事件与近期相关背景联系起来，增加报道深度。</li>
+              <li style="margin-bottom: 3px;"><strong>allege</strong>：声称；指控（在法庭证实前，新闻报道必须使用的客观严谨动词）。</li>
+            </ul>
+          </li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="litit-fold">
+      <summary>
+        <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">二、值得积累的短语和固定搭配</h3>
+      </summary>
+      <div class="litit-fold-content">
+        <ul style="list-style-type: square; margin: 0; padding-left: 18px; line-height: 1.6;">
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong>investigate the fatality</strong>: 调查这起致死事故<br>
+            <strong class="litit-en-sentence">The police department said it was investigating the fatality at the amusement park.</strong><br>
+            <span class="litit-zh-sentence">警察局表示正在调查发生在该游乐园的这起致命事故。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong>aerial footage</strong>: 航拍画面；高空监控录像<br>
+            <strong class="litit-en-sentence">Aerial footage from news helicopters showed the ride stopped midway.</strong><br>
+            <span class="litit-zh-sentence">来自新闻直升机的航拍画面显示该游乐设施在中途停驶。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong>stopped midway</strong>: 在半途中停下；中途停滞<br>
+            <strong class="litit-en-sentence">The giant rollercoaster stopped midway through its course.</strong><br>
+            <span class="litit-zh-sentence">巨大的过山车在其运行轨道的中途停了下来。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong>eject from</strong>: 从……弹出；从……猛烈甩出<br>
+            <strong class="litit-en-sentence">A man was violently ejected from the ride during the high-speed plunge.</strong><br>
+            <span class="litit-zh-sentence">在高速俯冲过程中，一名男子被从游乐设施中猛烈甩出。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong>haunted house attraction</strong>: 鬼屋游乐项目<br>
+            <strong class="litit-en-sentence">He reportedly fell on to the roof of a nearby haunted house attraction.</strong><br>
+            <span class="litit-zh-sentence">据报道，他坠落到了附近一个鬼屋游乐项目的屋顶上。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong>co-ordinate with</strong>: 与……协调/配合<br>
+            <strong class="litit-en-sentence">The public safety director is co-ordinating with local police on the situation.</strong><br>
+            <span class="litit-zh-sentence">公共安全主管正在就这一情况与当地警方进行协调配合。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong>thrill scale</strong>: 惊险指数；刺激评级<br>
+            <strong class="litit-en-sentence">On its thrill scale, the park ranks the rollercoaster at level four out of five.</strong><br>
+            <span class="litit-zh-sentence">在其“惊险指数”评级中，游乐园将该过山车排在满分五级中的第四级。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong>allege brain injuries</strong>: 指控造成脑损伤<br>
+            <strong class="litit-en-sentence">More than 100 people alleged brain injuries from the intense ride.</strong><br>
+            <span class="litit-zh-sentence">超过100人指控这项极其剧烈的游乐项目导致了他们脑损伤。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong>the right thing to do</strong>: 应当做的事；正确的决定<br>
+            <strong class="litit-en-sentence">They decided to retire the ride because they felt it was the right thing to do.</strong><br>
+            <span class="litit-zh-sentence">他们决定让该游乐设施退役，因为他们觉得这是正确的决定。</span>
+          </li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="litit-fold">
+      <summary>
+        <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">三、新闻英语中的高价值表达</h3>
+      </summary>
+      <div class="litit-fold-content">
+        <ol style="margin: 0; padding-left: 18px;">
+          <li style="margin-bottom: 12px;">
+            <strong>fatality</strong><br>
+            死亡（事故）；致死事件。<br>
+            新闻报道极其高频的核心词。相比 <i>death</i>，<strong>fatality</strong> 更常用于描述灾难、事故或战争中导致的人员丧生事件。例如：<i>There were no fatalities in the crash.</i>（事故中无人丧生）。
+          </li>
+          <li style="margin-bottom: 12px;">
+            <strong>eject</strong><br>
+            弹出；喷出；驱逐。<br>
+            常用于描述极其暴力的物理脱离过程（如战斗机飞行员弹射逃生 <i>eject from an aircraft</i>），在本文中用来形容游客被过山车巨大的离心力无情地甩出座椅，极具画面冲击力。
+          </li>
+          <li style="margin-bottom: 12px;">
+            <strong>plunge</strong><br>
+            猛跌；骤降；俯冲。<br>
+            既可以形容物体在物理空间中的极速坠落（如过山车 <i>a 170ft plunge</i>），也常用于财经新闻中形容股票或价格的暴跌（<i>shares plunged 5%</i>）。
+          </li>
+          <li style="margin-bottom: 12px;">
+            <strong>allege</strong><br>
+            声称；断言；提出指控。<br>
+            法制与社会新闻必备词汇。在没有经过法庭最终判决或官方定性之前，媒体必须使用 <strong>allege</strong>（或副词 <i>allegedly</i>）来描述嫌疑人的罪行或受害者的指控，以规避法律风险。
+          </li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="litit-fold">
+      <summary>
+        <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">四、最值得优先掌握的句型</h3>
+      </summary>
+      <div class="litit-fold-content">
+        <ol style="margin: 0; padding-left: 18px;">
+          <li style="margin-bottom: 8px;">
+            <strong>One person has died and several others were injured after an incident at [地点].</strong><br>
+            在[某地点]发生意外事故后，一人死亡，数人受伤。（典型的突发灾难新闻导语框架）。
+          </li>
+          <li style="margin-bottom: 8px;">
+            <strong>Witnesses told local media they saw [某人] [动作], accounts that [媒体名称] has not verified.</strong><br>
+            目击者告诉当地媒体他们看到[某人做某事]，对于这些说法，[本媒体]尚未进行核实。（引入未经证实信源时的标准严谨句式）。
+          </li>
+          <li style="margin-bottom: 8px;">
+            <strong>The incident comes just weeks after [相关背景事件].</strong><br>
+            这一事件发生就在[某背景事件]发生几周之后。（新闻写作中极佳的过渡句型，用于交代背景并拔高新闻事件的严重性）。
+          </li>
+          <li style="margin-bottom: 8px;">
+            <strong>[组织/官方] said it was "deeply saddened by..." and that they were co-operating on an investigation.</strong><br>
+            [官方机构]表示“对……深感悲痛”，并将配合进行调查。（灾难发生后，企业公关声明的黄金模板）。
+          </li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="litit-fold">
+      <summary>
+        <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">五、建议重点记忆的表达</h3>
+      </summary>
+      <div class="litit-fold-content">
+        <ul style="list-style-type: square; margin: 0; padding-left: 18px; line-height: 1.6;">
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong>investigate the fatality</strong>：调查致命事故<br>
+            <strong class="litit-en-sentence">Police are currently investigating the fatality at the amusement park.</strong><br>
+            <span class="litit-zh-sentence">警方目前正在调查该游乐园发生的致命事故。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong>aerial footage</strong>：航拍录像/画面<br>
+            <strong class="litit-en-sentence">Aerial footage showed the rollercoaster stopped midway on the track.</strong><br>
+            <span class="litit-zh-sentence">航拍画面显示过山车在轨道中途停了下来。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong>eject from</strong>：从……甩出/弹出<br>
+            <strong class="litit-en-sentence">Witnesses saw a man forcibly ejected from the ride.</strong><br>
+            <span class="litit-zh-sentence">目击者看到一名男子被从游乐设施中猛力甩出。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong>co-operate on an investigation</strong>：配合调查<br>
+            <strong class="litit-en-sentence">The park officials are co-operating on an investigation into the incident.</strong><br>
+            <span class="litit-zh-sentence">游乐园官方正全力配合对该事件的调查。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong>thrill scale</strong>：惊险指数/刺激评级<br>
+            <strong class="litit-en-sentence">This ride is rated highly on the park's thrill scale.</strong><br>
+            <span class="litit-zh-sentence">这项游乐设施在园方的惊险指数中评级极高。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong>allege brain injuries</strong>：指控引发脑损伤<br>
+            <strong class="litit-en-sentence">Many riders alleged brain injuries after going on the extreme coaster.</strong><br>
+            <span class="litit-zh-sentence">许多乘客在乘坐这项极限过山车后，指控其导致了脑损伤。</span>
+          </li>
+        </ul>
+      </div>
+    </details>
+  </div>
+
+  <h2 class="section-header" style="border-left-color: #0d9488;">💡 幕后冷知识 (Fun Facts)</h2>
+  <ul style="padding-left:18px; line-height:1.8; color:#334155; font-size:14.5px; margin-bottom:24px; word-break:break-word;">
+    <li style="margin-bottom: 8px;"><strong>“六旗（Six Flags）”名字的由来：</strong> 北美最大的主题乐园品牌“六旗”最初在德克萨斯州起家。其名称得名于历史上曾在德克萨斯州上空飘扬过的六面不同国家或政权的旗帜，分别是：西班牙、法国、墨西哥、得克萨斯共和国、美利坚联盟国（邦联）和美利坚合众国。</li>
+    <li style="margin-bottom: 8px;"><strong>“歌利亚（Goliath）”在过山车界的特殊地位：</strong> 在圣经故事中，歌利亚是被大卫击败的非利士巨人。现代过山车业界常常用这个名字来命名那些体量极其庞大、落差极高的“超级过山车（Hypercoasters）”。在多家不同的六旗乐园中，你都能找到名为 Goliath 的标志性巨型过山车。</li>
+    <li><strong>游乐园安全悖论：</strong> 过山车的设计初衷是在绝对安全的受控环境内，通过重力、离心力与失重感欺骗人类大脑，模拟出濒临死亡的“恐惧感”（即 Thrill）。然而，当为了追求更高卖点而不断突破 G力极限与旋转角度时，设施的机械疲劳与乘客肉体的承受力边界便会被无情试探，最终可能将“模拟恐惧”变为真正的死亡悲剧。</li>
+  </ul>
+
+  <h2 class="section-header" style="border-left-color: #e11d48;">🎯 全片锐评</h2>
+  <p style="line-height:1.75; color:#1e293b; font-weight:500; background:linear-gradient(135deg, #fff1f2 0%, #ffffff 100%); padding:14px 16px; border-radius:10px; font-size:14.5px; margin:0 0 12px 0; border:1px solid #ffe4e6; word-break:break-word;">
+    在追求多巴胺与极速刺激的现代商业逻辑中，极限过山车仿佛成为了各大主题公园军备竞赛的标尺。这篇 BBC 的突发报道冷静克制，却字字惊心：前一段还在客观罗列“200英尺海拔、170英尺俯冲、最高时速70英里”这些冰冷且刺目的工业参数，后一段就残忍地描绘出活生生的人被离心力甩向下方鬼屋屋顶的悲惨画面。报道巧妙地在结尾嵌入了加州“X2”过山车因致脑损伤指控被关闭的背景信息，这种不带主观形容词的新闻拼图，却发出了震耳欲聋的叩问——当人类肉体被绑在时速百公里的钢铁怪兽上无序翻滚时，所谓的“惊险指数”，究竟是在贩卖快乐，还是在透支生命？
+  </p>
+</div>
+
+<script id="core-engine">
+let syncTimeout = null;
+const AI_PROMPT = "请分析以下英文段落，并严格按照以下 Markdown 格式输出（不要输出任何额外的废话）：\n\n### 📌 完整翻译\n\n[此处填写完整翻译]\n\n### 📌 Key Expressions\n\n- **[单词或短语]**\n = [中文释义]\n （[可选的补充说明，如倒装结构或语境等]）\n\n段落内容：\n";
+
+// --- 顶部阅读进度条逻辑 ---
+function initProgressBar() {
+  const progressBar = document.getElementById('reading-progress');
+  if (!progressBar) return;
+  window.addEventListener('scroll', () => {
+    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    if (scrollHeight <= 0) return;
+    const scrollPercent = (scrollTop / scrollHeight) * 100;
+    progressBar.style.width = scrollPercent + '%';
+  }, { passive: true });
+}
+
+async function fetchGroq(text, apiKey, modelName) {
+  const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Authorization': 'Bearer ' + apiKey,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      model: modelName || 'llama-3.3-70b-versatile',
+      messages: [
+        { role: 'system', content: 'You are an English teacher. Output EXACTLY in the requested Markdown format.' },
+        { role: 'user', content: AI_PROMPT + '"' + text + '"' }
+      ],
+      temperature: 0.3
+    })
+  });
+  if (!res.ok) throw new Error('Groq Error: ' + res.status);
+  const json = await res.json();
+  return json.choices[0].message.content.trim();
+}
+
+async function fetchCustomAI(text, url, apiKey, modelName) {
+  let headers = { 'Content-Type': 'application/json' };
+  let bodyData = {};
+  if (url.includes('anthropic.com')) {
+    headers['x-api-key'] = apiKey;
+    headers['anthropic-version'] = '2023-06-01';
+    headers['anthropic-dangerous-direct-browser-access'] = 'true';
+    bodyData = {
+      model: modelName || 'claude-3-5-sonnet-20241022',
+      max_tokens: 2000,
+      messages: [{ role: 'user', content: AI_PROMPT + '"' + text + '"' }]
+    };
+  } else if (url.includes('generativelanguage.googleapis.com')) {
+    let targetUrl = url;
+    if (!targetUrl.includes('key=')) {
+      targetUrl += (targetUrl.includes('?') ? '&' : '?') + 'key=' + apiKey;
+    }
+    const res = await fetch(targetUrl, {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify({ contents: [{ parts: [{ text: AI_PROMPT + '"' + text + '"' }] }] })
+    });
+    if (!res.ok) throw new Error('Gemini Error: ' + res.status);
+    const json = await res.json();
+    return json.candidates[0].content.parts[0].text.trim();
+  } else {
+    headers['Authorization'] = 'Bearer ' + apiKey;
+    bodyData = {
+      model: modelName || 'gpt-4o-mini',
+      messages: [
+        { role: 'system', content: 'You are an English teacher. Output EXACTLY in the requested Markdown format.' },
+        { role: 'user', content: AI_PROMPT + '"' + text + '"' }
+      ],
+      temperature: 0.3
+    };
+  }
+  const res = await fetch(url, { method: 'POST', headers: headers, body: JSON.stringify(bodyData) });
+  if (!res.ok) throw new Error('AI Interface Error: ' + res.status);
+  const json = await res.json();
+  if (json.choices && json.choices.length > 0) return json.choices[0].message.content.trim();
+  throw new Error('AI 返回数据异常');
+}
+
+async function executeAIPipeline(text) {
+  const customUrl = localStorage.getItem('CUSTOM_API_URL') || '';
+  const customKey = localStorage.getItem('CUSTOM_API_KEY') || '';
+  const customModel = localStorage.getItem('CUSTOM_MODEL') || '';
+  const groqKey = localStorage.getItem('GROQ_API_KEY') || '';
+  const groqModel = localStorage.getItem('GROQ_MODEL') || '';
+  if (customUrl && customKey) {
+    try {
+      return await fetchCustomAI(text, customUrl, customKey, customModel);
+    } catch (err) {
+      if (groqKey) return await fetchGroq(text, groqKey, groqModel);
+      throw err;
+    }
+  } else if (groqKey) {
+    return await fetchGroq(text, groqKey, groqModel);
+  } else {
+    const userKey = prompt('⚠️ 当前页面未检测到 AI Key！\n为了安全，密匙只储存在您本地浏览器中。\n\n请输入您的 API Key (如 sk-xxx 或 gsk_xxx):');
+    if (userKey && userKey.trim()) {
+      const cleanKey = userKey.trim();
+      if (cleanKey.startsWith('gsk_')) {
+        localStorage.setItem('GROQ_API_KEY', cleanKey);
+      } else {
+        localStorage.setItem('CUSTOM_API_KEY', cleanKey);
+        localStorage.setItem('CUSTOM_API_URL', 'https://api.chatanywhere.tech/v1/chat/completions');
+      }
+    }
+    throw new Error('未设置 AI API Key');
+  }
+}
+
+// --- 降级清理防线：净化污染节点 ---
+function getPurifiedFallbackHTML() {
+  const clone = document.documentElement.cloneNode(true);
+  const foreignSelectors = [
+    'relingo-app', 'relin-highlight', 'relin-hc', '[class*="relingo"]', '[data-relin-paragraph]',
+    'grammarly-extension', '[data-grammarly-part]', '[class*="immersive-translate"]', '[data-immersive-translate]'
+  ].join(',');
+  clone.querySelectorAll(foreignSelectors).forEach(el => el.remove());
+  clone.querySelectorAll('relin-highlight, relin-hc').forEach(t => {
+    const frag = document.createDocumentFragment();
+    while(t.firstChild) frag.appendChild(t.firstChild);
+    t.parentNode.replaceChild(frag, t);
+  });
+  clone.querySelectorAll('script').forEach(s => {
+    if (!s.src.includes('marked.min.js') && s.id !== 'core-engine') s.remove();
+  });
+  clone.querySelectorAll('style').forEach(s => {
+    if (s.id !== 'core-style') s.remove();
+  });
+  const liveTAs = document.querySelectorAll('.anno-edit');
+  clone.querySelectorAll('.anno-edit').forEach((ta, i) => {
+    if(liveTAs[i]) ta.textContent = liveTAs[i].value.trim();
+    const box = ta.closest('.anno-box');
+    if (box) box.style.display = 'none';
+    const view = box ? box.querySelector('.anno-view') : null;
+    if (view) view.innerHTML = '';
+  });
+  return '<!DOCTYPE html>\n<html lang="zh-CN">\n' + clone.innerHTML + '\n</html>';
+}
+
+// --- 内存反向打补丁同步技术 ---
+async function syncToCloud() {
+  const ghToken = localStorage.getItem('LITIT_GH_TOKEN') || localStorage.getItem('GH_TOKEN');
+  const ghOwner = 'moodHappy';
+  const ghRepo = 'dual-read-notes';
+  if (!ghToken) return;
+  const pathParts = window.location.pathname.split('/');
+  const fileName = pathParts.pop();
+  const month = pathParts.pop();
+  const year = pathParts.pop();
+  if(!fileName || !month || !year) return;
+  const fileRelPath = 'Summary/' + year + '/' + month + '/' + fileName;
+  try {
+    const getRes = await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath + '?t=' + Date.now(), {
+      headers: { 'Authorization': 'Bearer ' + ghToken },
+      cache: 'no-store'
+    });
+    let finalHTML = '';
+    let sha = '';
+    if (getRes.ok) {
+      const fileData = await getRes.json();
+      sha = fileData.sha;
+      const cleanRawHTML = decodeURIComponent(escape(atob(fileData.content.replace(/\n/g, ''))));
+      const parser = new DOMParser();
+      const cleanDoc = parser.parseFromString(cleanRawHTML, 'text/html');
+      const liveTAs = document.querySelectorAll('.anno-edit');
+      const cleanTAs = cleanDoc.querySelectorAll('.anno-edit');
+      liveTAs.forEach((liveTa, index) => {
+        if (cleanTAs[index]) {
+          const val = liveTa.value.trim();
+          cleanTAs[index].textContent = val;
+          const box = cleanTAs[index].closest('.anno-box');
+          if (box) box.style.display = 'none';
+          const view = box ? box.querySelector('.anno-view') : null;
+          if (view) view.innerHTML = '';
+        }
+      });
+      cleanDoc.querySelectorAll('.anno-toggle').forEach(t => {
+        t.classList.remove('has-anno');
+        const ta = t.closest('.content-wrap, .litit-highlight-block')?.querySelector('.anno-edit');
+        if (ta && ta.textContent.trim()) t.classList.add('has-anno');
+      });
+      finalHTML = '<!DOCTYPE html>\n<html lang="zh-CN">\n' + cleanDoc.documentElement.innerHTML + '\n</html>';
+    } else {
+      finalHTML = getPurifiedFallbackHTML();
+    }
+    await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath, {
+      method: 'PUT',
+      headers: {
+        'Authorization': 'Bearer ' + ghToken,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        message: 'Silent purified annotation update',
+        content: btoa(unescape(encodeURIComponent(finalHTML))),
+        sha: sha || undefined
+      })
+    });
+    console.log('✅ [My Litit] 纯净无污染批注已静默同步至 GitHub');
+  } catch(e) {
+    console.warn('❌ [My Litit] 同步跳过或失败:', e);
+  }
+}
+
+function scheduleSync() {
+  if (syncTimeout) clearTimeout(syncTimeout);
+  syncTimeout = setTimeout(() => { syncToCloud(); }, 3000);
+}
+
+function initAnnotations() {
+  document.querySelectorAll('.litit-highlight-block, .content-wrap').forEach(wrap => {
+    let content = wrap.querySelector('.content');
+    if (!content) {
+      const pText = wrap.querySelector('p');
+      if (pText) {
+        content = document.createElement('div');
+        content.className = 'content';
+        content.style.cssText = 'position:relative; margin:0 0 6px 0; color:#1a202c; font-family:Georgia, serif; line-height:1.7; font-size:15px; word-break:break-word;';
+        content.innerHTML = pText.innerHTML;
+        pText.parentNode.replaceChild(content, pText);
+      }
+    }
+    if (!content) return;
+    if (!content.querySelector('.anno-toggle')) {
+      const toggle = document.createElement('span');
+      toggle.className = 'anno-toggle';
+      toggle.title = '手写批注/笔记';
+      content.appendChild(toggle);
+    }
+    if (!content.querySelector('.ai-toggle')) {
+      const aiToggle = document.createElement('span');
+      aiToggle.className = 'ai-toggle';
+      aiToggle.title = 'AI智能二次解析';
+      content.appendChild(aiToggle);
+    }
+    let box = wrap.querySelector('.anno-box');
+    if (!box) {
+      box = document.createElement('div');
+      box.className = 'anno-box';
+      box.style.display = 'none';
+      box.innerHTML = '<div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 解析..."></textarea>';
+      wrap.appendChild(box);
+    }
+    const view = box.querySelector('.anno-view');
+    const edit = box.querySelector('.anno-edit');
+    const toggle = content.querySelector('.anno-toggle');
+    const aiToggle = content.querySelector('.ai-toggle');
+    if (edit && edit.value.trim()) {
+      toggle.classList.add('has-anno');
+      try {
+        view.innerHTML = (typeof marked !== 'undefined') ? marked.parse(edit.value.trim()) : edit.value.trim();
+      } catch(e){}
+    }
+    if (aiToggle) {
+      aiToggle.onclick = async (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (aiToggle.classList.contains('loading')) return;
+        if (edit && edit.value.trim() !== '') {
+          const confirmOverwrite = confirm('⚠️ 已经存在批注内容。点击"确定"将使用 AI 解析覆盖现有内容。是否继续？');
+          if (!confirmOverwrite) return;
+        }
+        const pClone = content.cloneNode(true);
+        pClone.querySelectorAll('.anno-toggle, .ai-toggle').forEach(el => el.remove());
+        let pText = pClone.textContent.replace(/https?:\/\/\S+/g, '').trim();
+        if (!pText) return;
+        aiToggle.classList.add('loading');
+        try {
+          const aiContent = await executeAIPipeline(pText);
+          box.style.display = 'block';
+          view.style.display = 'none';
+          edit.style.display = 'block';
+          edit.value = aiContent;
+          edit.focus();
+          edit.blur();
+        } catch (err) {
+          console.error(err);
+        } finally {
+          aiToggle.classList.remove('loading');
+        }
+      };
+    }
+    if (toggle) {
+      toggle.onclick = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (box.style.display === 'block') {
+          box.style.display = 'none';
+        } else {
+          box.style.display = 'block';
+          if (!edit.value.trim()) {
+            view.style.display = 'none';
+            edit.style.display = 'block';
+            setTimeout(() => { edit.focus(); }, 150);
+          } else {
+            view.style.display = 'block';
+            edit.style.display = 'none';
+          }
+        }
+      };
+    }
+    const triggerEdit = (e) => {
+      if(e) { e.preventDefault(); e.stopPropagation(); }
+      view.style.display = 'none';
+      edit.style.display = 'block';
+      edit.value = edit.value;
+      setTimeout(() => { edit.focus(); }, 150);
+    };
+    view.addEventListener('dblclick', triggerEdit);
+    let lastTap = 0;
+    view.addEventListener('touchstart', e => {
+      if (e.touches.length === 2) {
+        triggerEdit(e);
+      } else if (e.touches.length === 1) {
+        const currentTime = new Date().getTime();
+        if (currentTime - lastTap < 500 && currentTime - lastTap > 0) {
+          e.preventDefault();
+          box.style.display = 'none';
+        }
+        lastTap = currentTime;
+      }
+    }, {passive: false});
+    if (edit && view) {
+      edit.onblur = () => {
+        setTimeout(() => {
+          const newVal = edit.value.trim();
+          try {
+            view.innerHTML = newVal ? ((typeof marked !== 'undefined') ? marked.parse(newVal) : newVal) : '';
+          } catch(e){}
+          edit.style.display = 'none';
+          if (newVal) {
+            view.style.display = 'block';
+            toggle.classList.add('has-anno');
+          } else {
+            view.style.display = 'none';
+            box.style.display = 'none';
+            toggle.classList.remove('has-anno');
+          }
+          if (edit.getAttribute('data-old-val') !== newVal) {
+            edit.setAttribute('data-old-val', newVal);
+            scheduleSync();
+          }
+        }, 150);
+      };
+      edit.setAttribute('data-old-val', edit.value.trim());
+    }
+  });
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  initProgressBar();
+  initAnnotations();
+});
+window.addEventListener('load', initAnnotations);
+</script>
+</body>
+</html>
