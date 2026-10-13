@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Shimane man arrested for trashing towel rack, stealing mugs during solo stay at love hotel</title>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<style id="core-style">
+:root {
+  --bg-page: #ffffff;
+  --bg-card: #ffffff;
+  --text-main: #0f172a;
+  --text-sub: #334155;
+  --text-muted: #64748b;
+  --accent-primary: #4f46e5;
+  --border-subtle: #e2e8f0;
+  --font-serif: "Georgia", "Charter", "Source Han Serif SC", "Noto Serif CJK SC", serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", Roboto, sans-serif;
+}
+body {
+  font-family: var(--font-sans);
+  padding: 12px 12px 36px 12px;
+  margin: 0 auto;
+  max-width: 780px;
+  background: var(--bg-page);
+  color: var(--text-main);
+  line-height: 1.75;
+  font-size: 16px;
+  word-wrap: break-word;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+* { box-sizing: border-box; max-width: 100%; }
+img { max-width: 100%; height: auto; border-radius: 8px; }
+/* 顶部极简阅读进度条 */
+#reading-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 3px;
+  background: linear-gradient(90deg, #4f46e5, #9333ea);
+  z-index: 9999;
+  transition: width 0.1s ease-out;
+}
+/* 主容器：零冗余边距，最大化阅读视野 */
+.litit-report {
+  background: var(--bg-card);
+  padding: 0;
+}
+/* AI 批注组件样式 */
+.anno-toggle, .ai-toggle {
+  display: inline-block;
+  padding: 2px 5px;
+  margin-left: 5px;
+  cursor: pointer;
+  opacity: 0.45;
+  font-size: 0.85rem;
+  vertical-align: middle;
+  transition: all 0.2s;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.anno-toggle:hover, .ai-toggle:hover { opacity: 1; transform: scale(1.15); }
+.anno-toggle.has-anno { opacity: 1; }
+.anno-toggle::after { content: "🔴"; }
+.ai-toggle { opacity: 0.7; padding: 2px 4px; }
+.ai-toggle::after { content: "🤖"; }
+.ai-toggle.loading::after {
+  content: "⏳";
+  display: inline-block;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin { 100% { transform: rotate(360deg); } }
+.anno-box {
+  display: none;
+  margin-top: 10px;
+  background: #faf8ff;
+  border-left: 3px solid #7c3aed;
+  padding: 12px 14px;
+  border-radius: 0 8px 8px 0;
+  text-align: left;
+}
+.anno-view { font-size: 0.95rem; line-height: 1.65; color: #334155; min-height: 24px; }
+.anno-edit {
+  width: 100%;
+  min-height: 120px;
+  padding: 10px;
+  font-family: monospace;
+  font-size: 0.95rem;
+  border: 1px dashed #a78bfa;
+  border-radius: 6px;
+  resize: vertical;
+  display: none;
+  background: #fff;
+  color: #1e293b;
+  outline: none;
+}
+.anno-edit:focus { border: 1px solid #7c3aed; box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.12); }
+.markdown-body p { margin-top: 0; margin-bottom: 8px; }
+.markdown-body p:last-child { margin-bottom: 0; }
+.markdown-body h1, .markdown-body h2, .markdown-body h3 {
+  color: #5b21b6;
+  font-size: 1.05rem;
+  margin: 10px 0 6px 0;
+  border-bottom: 1px dashed #ddd6fe;
+  padding-bottom: 4px;
+}
+.markdown-body ul, .markdown-body ol { margin: 0 0 8px 0; padding-left: 18px; }
+.markdown-body blockquote {
+  margin: 0 0 10px 0;
+  padding: 8px 12px;
+  background: rgba(124, 58, 237, 0.06);
+  border-left: 3px solid #7c3aed;
+  color: #475569;
+}
+/* 杂志风区块标题 */
+.section-header {
+  font-size: 16px;
+  color: #0f172a;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  background: linear-gradient(90deg, #f8fafc 0%, #ffffff 100%);
+  padding: 8px 12px;
+  border-left: 4px solid #4f46e5;
+  margin: 26px 0 14px 0;
+  border-radius: 0 6px 6px 0;
+  display: flex;
+  align-items: center;
+  box-shadow: inset 0 1px 0 #f1f5f9, inset 0 -1px 0 #f1f5f9;
+}
+/* 折叠面板升级：极简无十字图标、最大化宽度 */
+details.litit-fold {
+  margin-bottom: 10px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  background: #ffffff;
+  overflow: hidden;
+  transition: border-color 0.2s ease;
+}
+details.litit-fold[open] { border-color: #cbd5e1; }
+details.litit-fold summary {
+  cursor: pointer;
+  padding: 12px 14px;
+  outline: none;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f8fafc;
+  transition: background 0.2s;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+details.litit-fold summary::-webkit-details-marker { display: none; }
+details.litit-fold summary::after { display: none; } /* 彻底移除右侧十字/横杠图标 */
+details.litit-fold summary:hover { background: #f1f5f9; }
+details.litit-fold[open] summary {
+  border-bottom: 1px solid #e2e8f0;
+  background: #f1f5f9;
+  border-left: 3px solid #4f46e5;
+}
+.litit-fold-content {
+  padding: 10px 8px; /* 极限压缩左右内边距，让卡片完全铺开 */
+  background: #f8fafc;
+}
+/* 精读区列表彻底去圆点、卡片化重构 */
+.litit-fold-content > ol, .litit-fold-content > ul {
+  list-style: none !important;
+  padding-left: 0 !important;
+  margin: 0 !important;
+  counter-reset: litit-counter;
+}
+/* 每一条精读项：取消左侧大缩进，100% 铺满横向宽度 */
+.litit-fold-content > ol > li, .litit-fold-content > ul > li {
+  counter-increment: litit-counter;
+  position: relative;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 12px 12px; /* 上下左右均衡紧凑，把整行宽度全留给正文 */
+  margin-bottom: 10px !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.015);
+}
+.litit-fold-content > ol > li:last-child, .litit-fold-content > ul > li:last-child {
+  margin-bottom: 0 !important;
+}
+/* 顶部流式微型序号徽章：不占左侧列宽，极具杂志感 */
+.litit-fold-content > ol > li::before, .litit-fold-content > ul > li::before {
+  content: "NO." counter(litit-counter, decimal-leading-zero);
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 800;
+  font-family: -apple-system, BlinkMacSystemFont, monospace;
+  color: #4f46e5;
+  background: #eef2ff;
+  padding: 1px 6px;
+  border-radius: 4px;
+  margin-right: 6px;
+  margin-bottom: 6px;
+  vertical-align: middle;
+  letter-spacing: 0.04em;
+}
+/* 保持脚本兼容的英/中句子专属排版 */
+.litit-en-sentence {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 1.04rem;
+  font-weight: 600;
+  color: #0f172a;
+  line-height: 1.5;
+  margin-bottom: 6px;
+}
+.litit-zh-sentence {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 0.93rem;
+  color: #475569;
+  line-height: 1.55;
+  margin-bottom: 2px;
+}
+/* 移除原模板中多余的 br 换行高度干扰 */
+li.litit-target-sentence > br { display: none; }
+/* 二、五板块：词组短语与顶部 NO.01 同行展示，极省空间又美观 */
+.litit-fold-content > ul > li.litit-target-sentence > strong:first-child {
+  display: inline-block;
+  background: linear-gradient(135deg, #eef2ff 0%, #f3e8ff 100%);
+  color: #4338ca;
+  padding: 2px 8px;
+  border-radius: 5px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  margin-right: 4px;
+  margin-bottom: 6px;
+  border: 1px solid #e0e7ff;
+  vertical-align: middle;
+}
+.litit-fold-content > ul > li.litit-target-sentence > .litit-en-sentence {
+  margin-top: 6px;
+  padding-top: 8px;
+  border-top: 1px dashed #e2e8f0;
+  font-size: 0.98rem;
+  color: #0f172a;
+}
+/* 一板块内部的子级知识点解析区：超薄左边框内嵌盒，最大化内部文字宽度 */
+li.litit-target-sentence > ul {
+  list-style: none !important;
+  margin: 10px 0 0 0 !important;
+  padding: 8px 10px !important;
+  background: #f8fafc;
+  border-radius: 6px;
+  border-left: 2.5px solid #94a3b8;
+}
+li.litit-target-sentence > ul > li {
+  position: relative;
+  padding-left: 10px;
+  margin-bottom: 5px !important;
+  font-size: 0.88rem;
+  color: #334155;
+  line-height: 1.5;
+}
+li.litit-target-sentence > ul > li:last-child { margin-bottom: 0 !important; }
+li.litit-target-sentence > ul > li::before {
+  content: "·";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #4f46e5;
+  font-weight: 900;
+}
+li.litit-target-sentence > ul > li > strong {
+  color: #0f172a;
+  font-weight: 600;
+  background: #e2e8f0;
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-size: 0.84rem;
+  margin-right: 3px;
+}
+/* 三、四板块的字体微调 */
+.litit-fold-content > ol:not(:has(.litit-target-sentence)) > li > strong:first-child {
+  display: inline-block;
+  color: #4338ca;
+  font-size: 0.98rem;
+  margin-bottom: 4px;
+  font-family: var(--font-serif);
+  vertical-align: middle;
+}
+/* 移动端极限铺开适配 */
+@media (max-width: 600px) {
+  body { padding: 10px 10px 30px 10px; font-size: 15px; }
+  h1.litit-target-title { font-size: 21px !important; }
+  .litit-fold-content { padding: 8px 6px; }
+  .litit-fold-content > ol > li, .litit-fold-content > ul > li {
+    padding: 11px 10px;
+    margin-bottom: 8px !important;
+  }
+}
+</style>
+</head>
+<body>
+<!-- 进度条 DOM -->
+<div id="reading-progress"></div>
+
+<div class="litit-report" style="width:100%; max-width:100%; box-sizing:border-box; overflow-x:hidden;">
+  <!-- 顶部杂志刊头装饰 -->
+  <div style="display:flex; justify-content:space-between; align-items:center; border-bottom: 2px solid #0f172a; padding-bottom: 6px; margin-bottom: 14px; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: #64748b; text-transform: uppercase;">
+    <span>The Global Dispatch · 深度双语精读</span>
+    <span>Japan News</span>
+  </div>
+
+  <!-- 支持批注的主标题区 -->
+  <div class="content-wrap" style="position:relative; margin-bottom: 16px;">
+    <h1 class="litit-target-title" style="color:#0f172a; font-size: 24px; line-height: 1.35; font-family: var(--font-serif); font-weight: 800; border-bottom: 1px solid #e2e8f0; padding-bottom: 14px; margin-top:0; margin-bottom:0; word-break:break-word;">
+      <span class="content litit-en-title" style="position:relative;">Shimane man arrested for trashing towel rack, stealing mugs during solo stay at love hotel</span>
+      <br>
+      <span class="litit-zh-title" style="font-family: var(--font-sans); font-size: 17px; font-weight: 600; color: #475569; margin-top: 8px; display: inline-block; line-height: 1.45;">岛根县男子独自入住情侣酒店期间砸毁毛巾架并顺走马克杯被捕</span>
+    </h1>
+    <div class="anno-box" style="display:none; margin-top: 10px;">
+      <div class="anno-view markdown-body"></div>
+      <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
+岛根县一男子在独自入住情侣酒店期间，因毁坏毛巾架并盗窃马克杯而被警方逮捕。
+
+### 📌 Key Expressions
+- **trash** = 蓄意破坏；捣毁（口语及新闻标题高频动词）
+- **towel rack** = 毛巾架
+- **solo stay** = 独自入住 / 单人住宿
+- **love hotel** = 情侣酒店（日本特色短租/过夜旅馆）</textarea>
+    </div>
+  </div>
+
+  <!-- 杂志导语（Lead Paragraph） -->
+  <p style="color:#334155; font-size: 15px; line-height: 1.75; margin-bottom:16px; font-weight:400; background: #f8fafc; padding: 12px 14px; border-radius: 8px; border: 1px solid #f1f5f9;">
+    在日本鸟取县米子市的一家情侣酒店里，发生了一起令人啼笑皆非的荒诞案件。一名来自邻县岛根县松江市的44岁自称建筑工人的男子，独自一人办理了过夜入住。然而，在长达17个小时的独处时间里，他不仅没有安静休息，反而大肆搞起破坏，将房间内的三个衣架和一个毛巾架彻底拆毁，造成高达6.1万日元的财物损失；退房离开前，他还顺手牵羊带走了两个价值约3000日元的咖啡马克杯。经过数月的监控追踪，警方于10月12日将其逮捕归案。面对审讯，嫌疑人不仅供认不讳，还给出了一句让人摸不着头脑的认罪感言，警方目前正进一步调查他是否曾与该酒店存在劳务纠纷或雇佣关系。
+  </p>
+
+  <div style="margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+    <div style="display:flex; flex-wrap:wrap; gap:6px;">
+      <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;"># 日本社会奇闻</span>
+      <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;"># 治安案件</span>
+      <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;"># 犯罪报道英语</span>
+    </div>
+    <a href="https://www.tokyoreporter.com/japan-news/shimane-man-arrested-for-trashing-towel-rack-stealing-mugs-during-solo-stay-at-love-hotel/" target="_blank" style="font-size: 12.5px; color: #4f46e5; text-decoration: none; font-weight: 600; background: #eef2ff; padding: 5px 12px; border-radius: 16px; border: 1px solid #e0e7ff; display:inline-block;">🔗 阅读原文 ↗</a>
+  </div>
+
+  <!-- 最佳金句区 -->
+  <h2 class="section-header" style="border-left-color: #f59e0b;">💬 最佳金句</h2>
+  <div class="content-wrap" style="position:relative; margin-bottom:24px;">
+    <blockquote class="litit-target-quote" style="border-left: 3.5px solid #f59e0b; background: linear-gradient(135deg, #fffbeb 0%, #ffffff 100%); padding: 14px 14px; margin: 0; color: #1e293b; border-radius: 0 10px 10px 0; border-top: 1px solid #fef3c7; border-right: 1px solid #fef3c7; border-bottom: 1px solid #fef3c7;">
+      <div class="content litit-en-quote" style="position:relative; margin:0 0 8px 0; font-family: var(--font-serif); font-style: italic; font-weight:600; font-size: 16.5px; line-height: 1.55; color:#0f172a; word-break:break-word;">
+        "I've broken things in the past, so I think it's about that time."
+      </div>
+      <p class="litit-zh-quote" style="margin:0 0 8px 0; font-weight:400; font-size: 14.5px; line-height: 1.6; color:#475569; word-break:break-word;">
+        “我以前也把东西弄坏过，所以我觉得差不多就是那个时候干的吧。”
+      </p>
+      <footer style="text-align:right; font-size:12px; color:#64748b; font-style:normal; font-weight:600;">—— 44岁被捕嫌疑人向米子市警方的供述</footer>
+    </blockquote>
+    <div class="anno-box" style="display:none;">
+      <div class="anno-view markdown-body"></div>
+      <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
+“我过去确实弄坏过东西，所以我想大概就是那个时间段吧。”
+
+### 📌 Key Expressions
+- **in the past** = 在过去；以前
+- **it's about that time** = 差不多就是那个时候（由于案发在6月而逮捕在10月，嫌疑人用这种含糊但坦然的语气承认了6月那次作案，也可双关理解为“周期性发作/到点该算账了”）</textarea>
+    </div>
+  </div>
+
+  <!-- Grid 布局关键数字区 -->
+  <h2 class="section-header" style="border-left-color: #10b981;">📊 关键数字</h2>
+  <div style="display:grid; grid-template-columns: repeat(2, 1fr); gap:10px; margin:14px 0 24px 0;">
+    <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+      <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+        44<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">岁</span>
+      </div>
+      <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">独自入住情侣酒店并实施破坏与盗窃的岛根县嫌疑人年龄</div>
+    </div>
+    <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+      <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+        61,000<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">日元</span>
+      </div>
+      <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">毁坏3个衣架和1个毛巾架给酒店造成的财物损失金额</div>
+    </div>
+    <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+      <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+        3,000<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">日元</span>
+      </div>
+      <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">嫌疑人退房前顺手偷走的两个咖啡马克杯估算总价值</div>
+    </div>
+    <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+      <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+        17<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">小时</span>
+      </div>
+      <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">从6月9日傍晚6点半到次日中午11点半的完整独处入住时长</div>
+    </div>
+  </div>
+
+  <h2 class="section-header" style="border-left-color: #3b82f6;">⏱️ 事件时间线</h2>
+  <ul style="padding-left:18px; line-height:1.8; color:#334155; font-size: 14.5px; margin-bottom:24px; word-break:break-word;">
+    <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">6月9日 18:30 左右：</strong> 这名44岁的岛根县松江市男子独自一人在鸟取县米子市的一家情侣酒店办理入住。</li>
+    <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">入住期间至6月10日 11:30：</strong> 男子在房内大搞破坏，砸毁了三个衣架和一个毛巾架，并在退房前塞走了两个咖啡马克杯。</li>
+    <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">6月10日 下午：</strong> 酒店工作人员进入退空的房间打扫卫生时发现设施被毁、物品失窃，随即向米子市警察署报案。</li>
+    <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">6月中旬至10月初：</strong> 警方调取并分析酒店安防监控录像，持续追踪该男子的行踪轨迹并锁定其身份。</li>
+    <li><strong style="color:#1d4ed8;">10月12日：</strong> 警方正式宣布以涉嫌损坏财物罪和盗窃罪逮捕该男子，并深入调查其过往入住记录及是否曾与该酒店有雇佣关系。</li>
+  </ul>
+
+  <h2 class="section-header" style="border-left-color: #8b5cf6;">✨ 本篇亮点与精读</h2>
+  <!-- 五大板块全部默认折叠，无十字图标，展开后全宽卡片展示 -->
+  <div style="margin: 14px 0 10px 0;">
+    <details class="litit-fold">
+      <summary>
+        <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">一、值得学习的句子结构</h3>
+      </summary>
+      <div class="litit-fold-content">
+        <ol style="margin: 0; padding-left: 18px;">
+          <li class="litit-target-sentence" style="margin-bottom: 12px;">
+            <strong class="litit-en-sentence">Police in Yonago City have arrested a 44-year-old man for allegedly vandalizing a love hotel room and making off with two coffee mugs after checking in by himself.</strong><br>
+            <span class="litit-zh-sentence">米子市警方逮捕了一名44岁男子，他涉嫌在独自办理入住后，蓄意破坏一间情侣酒店客房并顺走两个咖啡马克杯。</span>
+            <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+              <li style="margin-bottom: 3px;"><strong>arrest sb. for (doing) sth.</strong>：因（做）某事逮捕某人，新闻导语中最经典的案情概括框架。</li>
+              <li style="margin-bottom: 3px;"><strong>allegedly</strong>：据称；涉嫌（法治报道必备副词，在法院定罪前规避媒体诽谤风险）。</li>
+              <li style="margin-bottom: 3px;"><strong>make off with...</strong>：偷走；携……潜逃（比 steal 更具画面感，体现匆忙带着赃物溜走的动作）。</li>
+            </ul>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 12px;">
+            <strong class="litit-en-sentence">During his solo stay, he allegedly went on a destructive spree, destroying three hangers and a towel rack, resulting in 61,000 yen in damages.</strong><br>
+            <span class="litit-zh-sentence">在独自入住期间，他据称大肆搞起破坏，毁坏了三个衣架和一个毛巾架，造成了6.1万日元的损失。</span>
+            <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+              <li style="margin-bottom: 3px;"><strong>双现在分词伴随状语</strong>：destroying... 具体展开说明前文 spree 的行为细节，而 resulting in... 则自然引出该行为导致的最终财务后果，层层递进。</li>
+              <li style="margin-bottom: 3px;"><strong>go on a destructive spree</strong>：展开一阵疯狂破坏（spree 常用于形容无节制的狂热行为，如 shopping spree 疯狂购物、crime spree 连续作案）。</li>
+              <li style="margin-bottom: 3px;"><strong>in damages</strong>：在损坏赔偿金/损失额方面（注意复数形式 damages 特指“损害赔偿金或财物损失总额”）。</li>
+            </ul>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 12px;">
+            <strong class="litit-en-sentence">The bizarre incident came to light on the afternoon of June 10 when a hotel employee entered the vacated room to clean.</strong><br>
+            <span class="litit-zh-sentence">这起离奇事件于6月10日下午败露，当时一名酒店员工进入已退空的房间准备打扫。</span>
+            <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+              <li style="margin-bottom: 3px;"><strong>come to light</strong>：曝光；败露；为人所知（比 be discovered 更地道的新闻叙事表达）。</li>
+              <li style="margin-bottom: 3px;"><strong>vacated room</strong>：已腾空的房间（vacate 意为“腾出、退房离开”，过去分词作定语修饰 room）。</li>
+            </ul>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 12px;">
+            <strong class="litit-en-sentence">Police are also looking into the man's past usage of the hotel, whether there had been any prior disputes, and are trying to determine if the suspect previously had an employment relationship with the facility.</strong><br>
+            <span class="litit-zh-sentence">警方还在调查该男子过往使用该酒店的记录、此前是否存在任何纠纷，并试图查明嫌疑人以前是否与该场所存在雇佣关系。</span>
+            <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+              <li style="margin-bottom: 3px;"><strong>多元宾语并列结构</strong>：looking into 后面同时挂载了名词短语（the man's past usage）和名从句（whether there had been...），紧凑交代警方排查的多个侦查方向。</li>
+              <li style="margin-bottom: 3px;"><strong>prior disputes</strong>：先前的纠纷/过节</li>
+              <li style="margin-bottom: 3px;"><strong>employment relationship</strong>：雇佣关系 / 劳务关系</li>
+            </ul>
+          </li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="litit-fold">
+      <summary>
+        <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">二、值得积累的短语和固定搭配</h3>
+      </summary>
+      <div class="litit-fold-content">
+        <ul style="list-style-type: square; margin: 0; padding-left: 18px; line-height: 1.6;">
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong>solo stay</strong>: 独自入住；单人住宿<br>
+            <strong class="litit-en-sentence">The man was arrested for stealing mugs during a solo stay at a love hotel.</strong><br>
+            <span class="litit-zh-sentence">该男子因在独自入住情侣酒店期间偷窃马克杯而被捕。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong>vandalize a room</strong>: 蓄意破坏房间<br>
+            <strong class="litit-en-sentence">Police arrested a 44-year-old man for allegedly vandalizing a love hotel room.</strong><br>
+            <span class="litit-zh-sentence">警方逮捕了一名涉嫌蓄意破坏情侣酒店客房的44岁男子。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong>make off with</strong>: 偷走；携……逃走<br>
+            <strong class="litit-en-sentence">The suspect was accused of making off with two coffee mugs.</strong><br>
+            <span class="litit-zh-sentence">嫌疑人被控顺手偷走了两个咖啡马克杯。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong>check in by oneself</strong>: 独自办理入住<br>
+            <strong class="litit-en-sentence">He committed the acts after checking in by himself on June 9.</strong><br>
+            <span class="litit-zh-sentence">他在6月9日独自办理入住后实施了这些行为。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong>self-proclaimed</strong>: 自称的；自封的<br>
+            <strong class="litit-en-sentence">The suspect is a self-proclaimed construction worker residing in Matsue City.</strong><br>
+            <span class="litit-zh-sentence">嫌疑人是一名居住在松江市、自称是建筑工人的男子。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong>property damage and theft</strong>: 损坏财物与盗窃<br>
+            <strong class="litit-en-sentence">The man is officially accused of property damage and theft.</strong><br>
+            <span class="litit-zh-sentence">该男子被正式指控犯有损坏财物罪和盗窃罪。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong>go on a destructive spree</strong>: 大肆搞破坏<br>
+            <strong class="litit-en-sentence">During his stay, he allegedly went on a destructive spree inside the room.</strong><br>
+            <span class="litit-zh-sentence">在入住期间，他据称在房间里大肆搞破坏。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong>result in ... in damages</strong>: 造成……（金额）的损失<br>
+            <strong class="litit-en-sentence">His actions destroyed a towel rack, resulting in 61,000 yen in damages.</strong><br>
+            <span class="litit-zh-sentence">他的行为毁坏了一个毛巾架，造成了6.1万日元的损失。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong>valued at approximately</strong>: 价值约为……<br>
+            <strong class="litit-en-sentence">Before checking out, he stole two mugs valued at approximately 3,000 yen.</strong><br>
+            <span class="litit-zh-sentence">在退房前，他偷走了两个价值约3000日元的马克杯。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong>come to light</strong>: 败露；曝光；真相大白<br>
+            <strong class="litit-en-sentence">The bizarre incident came to light on the afternoon of June 10.</strong><br>
+            <span class="litit-zh-sentence">这起离奇的事件于6月10日下午败露。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong>vacated room</strong>: 腾空的房间；已退房的客房<br>
+            <strong class="litit-en-sentence">A hotel employee entered the vacated room to clean and found the broken hangers.</strong><br>
+            <span class="litit-zh-sentence">一名酒店员工进入已退空的房间打扫时，发现了被弄断的衣架。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong>security camera footage</strong>: 安防监控录像<br>
+            <strong class="litit-en-sentence">Police identified the suspect after analyzing the facility's security camera footage.</strong><br>
+            <span class="litit-zh-sentence">警方在分析了该场所的安防监控录像后锁定了嫌疑人身份。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong>upon one's arrest</strong>: 在被捕时；一经逮捕<br>
+            <strong class="litit-en-sentence">Upon his arrest, the man promptly admitted to the allegations.</strong><br>
+            <span class="litit-zh-sentence">被捕后，该男子当即承认了相关指控。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong>admit to the allegations</strong>: 承认指控；供认不讳<br>
+            <strong class="litit-en-sentence">The suspect admitted to the allegations during police questioning.</strong><br>
+            <span class="litit-zh-sentence">嫌疑人在警方审讯期间对指控供认不讳。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong>the motive behind</strong>: ……背后的动机<br>
+            <strong class="litit-en-sentence">Authorities are continuing to investigate the motive behind the vandalism.</strong><br>
+            <span class="litit-zh-sentence">有关部门正在继续调查这起蓄意破坏事件背后的动机。</span>
+          </li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="litit-fold">
+      <summary>
+        <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">三、新闻英语中的高价值表达</h3>
+      </summary>
+      <div class="litit-fold-content">
+        <ol style="margin: 0; padding-left: 18px;">
+          <li style="margin-bottom: 12px;">
+            <strong>trash / vandalize / property damage</strong><br>
+            同一事件在不同语域下的三级表达切换：标题中用口语化且冲击力极强的动词 <strong>trash</strong>（把……砸得稀巴烂）吸引眼球；导语中切换为标准新闻词汇 <strong>vandalize</strong>（蓄意破坏公私财物）；而在交代警方正式罪名通报时，则使用严谨的法律术语 <strong>property damage</strong>（损坏财物罪）。
+          </li>
+          <li style="margin-bottom: 12px;">
+            <strong>self-proclaimed</strong><br>
+            自称的。<br>
+            日本警事新闻英译中的标志性高频词（对应日语新闻中的「自称・建設作業員」）。当嫌疑人被捕时，若警方尚未向其雇主核实工作身份，或者该人处于打零工、无固定职业状态，日本媒体都会严格加上“自称（self-proclaimed）”以示客观严谨。
+          </li>
+          <li style="margin-bottom: 12px;">
+            <strong>go on a ... spree</strong><br>
+            毫无节制地大搞某事；狂热发作。<br>
+            新闻报道中极好用的名词搭配。除了文中表示大肆破坏的 <i>destructive spree</i>，常见搭配还有 <i>spending/shopping spree</i>（挥霍/疯狂血拼）、<i>killing/shooting spree</i>（连环杀戮/枪击）以及 <i>drinking spree</i>（狂饮买醉）。
+          </li>
+          <li style="margin-bottom: 12px;">
+            <strong>come to light</strong><br>
+            真相大白；浮出水面；败露。<br>
+            用于描述隐秘的案件、丑闻或证据被发现。比被动语态 <i>was found</i> 或 <i>was discovered</i> 更具叙事张力，常作主语补足结构：<i>The incident/scandal came to light when...</i>
+          </li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="litit-fold">
+      <summary>
+        <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">四、最值得优先掌握的句型</h3>
+      </summary>
+      <div class="litit-fold-content">
+        <ol style="margin: 0; padding-left: 18px;">
+          <li style="margin-bottom: 8px;">
+            <strong>Police in [地点] have arrested a [年龄] man for allegedly doing A and doing B.</strong><br>
+            [某地]警方逮捕了一名[某年龄]男子，他涉嫌做 A 事和 B 事。（标准法治案件新闻黄金首段导语模板）。
+          </li>
+          <li style="margin-bottom: 8px;">
+            <strong>During his stay, he went on a destructive spree, destroying A, resulting in B in damages.</strong><br>
+            在逗留期间，他大肆搞破坏，毁坏了 A，造成了 B 金额的损失。（“核心动作 + 具体破坏细节分词 + 损失结果分词”的高密度叙事句式）。
+          </li>
+          <li style="margin-bottom: 8px;">
+            <strong>The incident came to light on [时间] when [某人] did [某事].</strong><br>
+            这起事件于[某时间]浮出水面，当时[某人]做了[某事]。（交代案发败露时间与发现人视角的经典句型）。
+          </li>
+          <li style="margin-bottom: 8px;">
+            <strong>Upon his arrest, the suspect admitted to the allegations.</strong><br>
+            被捕后，嫌疑人对指控供认不讳。
+          </li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="litit-fold">
+      <summary>
+        <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">五、建议重点记忆的表达</h3>
+      </summary>
+      <div class="litit-fold-content">
+        <ul style="list-style-type: square; margin: 0; padding-left: 18px; line-height: 1.6;">
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong>make off with</strong>：顺走；偷走；携……潜逃<br>
+            <strong class="litit-en-sentence">The man was arrested for vandalizing a room and making off with two coffee mugs.</strong><br>
+            <span class="litit-zh-sentence">该男子因破坏客房并顺走两个咖啡马克杯而被捕。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong>go on a destructive spree</strong>：大肆搞破坏<br>
+            <strong class="litit-en-sentence">During his solo stay, he allegedly went on a destructive spree.</strong><br>
+            <span class="litit-zh-sentence">在独自入住期间，他据称在房内大肆搞破坏。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong>come to light</strong>：曝光；败露；为人所知<br>
+            <strong class="litit-en-sentence">The bizarre incident came to light when a hotel employee entered the vacated room.</strong><br>
+            <span class="litit-zh-sentence">当一名酒店员工进入已退空的房间时，这起离奇事件才得以败露。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong>security camera footage</strong>：安防监控画面/录像<br>
+            <strong class="litit-en-sentence">Police identified the suspect after analyzing the facility's security camera footage.</strong><br>
+            <span class="litit-zh-sentence">警方在分析了该场所的安防监控录像后锁定了嫌疑人。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong>admit to the allegations</strong>：承认指控；供认不讳<br>
+            <strong class="litit-en-sentence">Upon his arrest, the man admitted to the allegations.</strong><br>
+            <span class="litit-zh-sentence">被捕后，该男子对相关指控供认不讳。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong>look into</strong>：调查；深入核查<br>
+            <strong class="litit-en-sentence">Police are also looking into the man's past usage of the hotel and any prior disputes.</strong><br>
+            <span class="litit-zh-sentence">警方还在调查该男子过往使用该酒店的记录以及此前是否存在任何纠纷。</span>
+          </li>
+        </ul>
+      </div>
+    </details>
+  </div>
+
+  <h2 class="section-header" style="border-left-color: #0d9488;">💡 幕后冷知识 (Fun Facts)</h2>
+  <ul style="padding-left:18px; line-height:1.8; color:#334155; font-size:14.5px; margin-bottom:24px; word-break:break-word;">
+    <li style="margin-bottom: 8px;"><strong>日本情侣酒店的“高隐私与防盗盲区”：</strong> 日本的情侣酒店（Love Hotel / ラブホテル）为了极致保护住客隐私，通常采用全自动选房面板、无人前台结账或磨砂玻璃递钱设计，退房时也无需像普通商务酒店那样等待查房即可直接开门离开。这也解释了为何嫌疑人在6月10日中午11点半顺利带着两个马克杯溜之大吉，直到下午保洁人员进场才发现房间被砸。</li>
+    <li style="margin-bottom: 8px;"><strong>为什么三个衣架和一个毛巾架要赔 61,000 日元？</strong> 6.1万日元（约合人民币2900元）看似天价，但在日本的器物损坏赔偿计算中，商业设施的毛巾架往往嵌在浴室墙体瓷砖或防水板内，强行扯断毛巾架不仅包含五金件本身的购置费，还涵盖了墙面修复、高昂的人工上门施工费（工賃）以及房间因维修无法营业的潜在损失。</li>
+    <li><strong>松江市与米子市的“跨县双子城”地理：</strong> 嫌疑人居住在岛根县首府松江市，而案发地在鸟取县米子市。虽然听起来是“跨县作案”，但两座城市紧挨着中海（Nakaumi）相望，车程仅约30至40分钟，属于共同构成“中海·宍道湖·大山圈域”的同城化生活圈。</li>
+  </ul>
+
+  <h2 class="section-header" style="border-left-color: #e11d48;">🎯 全片锐评</h2>
+  <p style="line-height:1.75; color:#1e293b; font-weight:500; background:linear-gradient(135deg, #fff1f2 0%, #ffffff 100%); padding:14px 16px; border-radius:10px; font-size:14.5px; margin:0 0 12px 0; border:1px solid #ffe4e6; word-break:break-word;">
+    这是一则充满日式冷幽默与社会荒诞感的微型治安报道。一个44岁的中年男子，独自一人住进本该成双成对出入的情侣酒店，在17个小时的密闭空间里跟三个衣架和一个毛巾架较劲，临走还不忘顺走一对价值3000日元的马克杯。最耐人寻味的是文章结尾处警方的侦查方向——怀疑他曾是这家酒店的前员工或有过旧怨。结合他被捕时那句淡定的“我以前也弄坏过东西，算算时间差不多就是那会儿吧”，这起看似无厘头的发泄，或许是一场中年打工人酝酿已久、极其憋屈又彻底走偏的“私刑报复”。
+  </p>
+</div>
+
+<script id="core-engine">
+let syncTimeout = null;
+const AI_PROMPT = "请分析以下英文段落，并严格按照以下 Markdown 格式输出（不要输出任何额外的废话）：\n\n### 📌 完整翻译\n\n[此处填写完整翻译]\n\n### 📌 Key Expressions\n\n- **[单词或短语]**\n = [中文释义]\n （[可选的补充说明，如倒装结构或语境等]）\n\n段落内容：\n";
+
+// --- 顶部阅读进度条逻辑 ---
+function initProgressBar() {
+  const progressBar = document.getElementById('reading-progress');
+  if (!progressBar) return;
+  window.addEventListener('scroll', () => {
+    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    if (scrollHeight <= 0) return;
+    const scrollPercent = (scrollTop / scrollHeight) * 100;
+    progressBar.style.width = scrollPercent + '%';
+  }, { passive: true });
+}
+
+async function fetchGroq(text, apiKey, modelName) {
+  const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Authorization': 'Bearer ' + apiKey,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      model: modelName || 'llama-3.3-70b-versatile',
+      messages: [
+        { role: 'system', content: 'You are an English teacher. Output EXACTLY in the requested Markdown format.' },
+        { role: 'user', content: AI_PROMPT + '"' + text + '"' }
+      ],
+      temperature: 0.3
+    })
+  });
+  if (!res.ok) throw new Error('Groq Error: ' + res.status);
+  const json = await res.json();
+  return json.choices[0].message.content.trim();
+}
+
+async function fetchCustomAI(text, url, apiKey, modelName) {
+  let headers = { 'Content-Type': 'application/json' };
+  let bodyData = {};
+  if (url.includes('anthropic.com')) {
+    headers['x-api-key'] = apiKey;
+    headers['anthropic-version'] = '2023-06-01';
+    headers['anthropic-dangerous-direct-browser-access'] = 'true';
+    bodyData = {
+      model: modelName || 'claude-3-5-sonnet-20241022',
+      max_tokens: 2000,
+      messages: [{ role: 'user', content: AI_PROMPT + '"' + text + '"' }]
+    };
+  } else if (url.includes('generativelanguage.googleapis.com')) {
+    let targetUrl = url;
+    if (!targetUrl.includes('key=')) {
+      targetUrl += (targetUrl.includes('?') ? '&' : '?') + 'key=' + apiKey;
+    }
+    const res = await fetch(targetUrl, {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify({ contents: [{ parts: [{ text: AI_PROMPT + '"' + text + '"' }] }] })
+    });
+    if (!res.ok) throw new Error('Gemini Error: ' + res.status);
+    const json = await res.json();
+    return json.candidates[0].content.parts[0].text.trim();
+  } else {
+    headers['Authorization'] = 'Bearer ' + apiKey;
+    bodyData = {
+      model: modelName || 'gpt-4o-mini',
+      messages: [
+        { role: 'system', content: 'You are an English teacher. Output EXACTLY in the requested Markdown format.' },
+        { role: 'user', content: AI_PROMPT + '"' + text + '"' }
+      ],
+      temperature: 0.3
+    };
+  }
+  const res = await fetch(url, { method: 'POST', headers: headers, body: JSON.stringify(bodyData) });
+  if (!res.ok) throw new Error('AI Interface Error: ' + res.status);
+  const json = await res.json();
+  if (json.choices && json.choices.length > 0) return json.choices[0].message.content.trim();
+  throw new Error('AI 返回数据异常');
+}
+
+async function executeAIPipeline(text) {
+  const customUrl = localStorage.getItem('CUSTOM_API_URL') || '';
+  const customKey = localStorage.getItem('CUSTOM_API_KEY') || '';
+  const customModel = localStorage.getItem('CUSTOM_MODEL') || '';
+  const groqKey = localStorage.getItem('GROQ_API_KEY') || '';
+  const groqModel = localStorage.getItem('GROQ_MODEL') || '';
+  if (customUrl && customKey) {
+    try {
+      return await fetchCustomAI(text, customUrl, customKey, customModel);
+    } catch (err) {
+      if (groqKey) return await fetchGroq(text, groqKey, groqModel);
+      throw err;
+    }
+  } else if (groqKey) {
+    return await fetchGroq(text, groqKey, groqModel);
+  } else {
+    const userKey = prompt('⚠️ 当前页面未检测到 AI Key！\n为了安全，密匙只储存在您本地浏览器中。\n\n请输入您的 API Key (如 sk-xxx 或 gsk_xxx):');
+    if (userKey && userKey.trim()) {
+      const cleanKey = userKey.trim();
+      if (cleanKey.startsWith('gsk_')) {
+        localStorage.setItem('GROQ_API_KEY', cleanKey);
+      } else {
+        localStorage.setItem('CUSTOM_API_KEY', cleanKey);
+        localStorage.setItem('CUSTOM_API_URL', 'https://api.chatanywhere.tech/v1/chat/completions');
+      }
+    }
+    throw new Error('未设置 AI API Key');
+  }
+}
+
+// --- 降级清理防线：净化污染节点 ---
+function getPurifiedFallbackHTML() {
+  const clone = document.documentElement.cloneNode(true);
+  const foreignSelectors = [
+    'relingo-app', 'relin-highlight', 'relin-hc', '[class*="relingo"]', '[data-relin-paragraph]',
+    'grammarly-extension', '[data-grammarly-part]', '[class*="immersive-translate"]', '[data-immersive-translate]'
+  ].join(',');
+  clone.querySelectorAll(foreignSelectors).forEach(el => el.remove());
+  clone.querySelectorAll('relin-highlight, relin-hc').forEach(t => {
+    const frag = document.createDocumentFragment();
+    while(t.firstChild) frag.appendChild(t.firstChild);
+    t.parentNode.replaceChild(frag, t);
+  });
+  clone.querySelectorAll('script').forEach(s => {
+    if (!s.src.includes('marked.min.js') && s.id !== 'core-engine') s.remove();
+  });
+  clone.querySelectorAll('style').forEach(s => {
+    if (s.id !== 'core-style') s.remove();
+  });
+  const liveTAs = document.querySelectorAll('.anno-edit');
+  clone.querySelectorAll('.anno-edit').forEach((ta, i) => {
+    if(liveTAs[i]) ta.textContent = liveTAs[i].value.trim();
+    const box = ta.closest('.anno-box');
+    if (box) box.style.display = 'none';
+    const view = box ? box.querySelector('.anno-view') : null;
+    if (view) view.innerHTML = '';
+  });
+  return '<!DOCTYPE html>\n<html lang="zh-CN">\n' + clone.innerHTML + '\n</html>';
+}
+
+// --- 内存反向打补丁同步技术 ---
+async function syncToCloud() {
+  const ghToken = localStorage.getItem('LITIT_GH_TOKEN') || localStorage.getItem('GH_TOKEN');
+  const ghOwner = 'moodHappy';
+  const ghRepo = 'dual-read-notes';
+  if (!ghToken) return;
+  const pathParts = window.location.pathname.split('/');
+  const fileName = pathParts.pop();
+  const month = pathParts.pop();
+  const year = pathParts.pop();
+  if(!fileName || !month || !year) return;
+  const fileRelPath = 'Summary/' + year + '/' + month + '/' + fileName;
+  try {
+    const getRes = await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath + '?t=' + Date.now(), {
+      headers: { 'Authorization': 'Bearer ' + ghToken },
+      cache: 'no-store'
+    });
+    let finalHTML = '';
+    let sha = '';
+    if (getRes.ok) {
+      const fileData = await getRes.json();
+      sha = fileData.sha;
+      const cleanRawHTML = decodeURIComponent(escape(atob(fileData.content.replace(/\n/g, ''))));
+      const parser = new DOMParser();
+      const cleanDoc = parser.parseFromString(cleanRawHTML, 'text/html');
+      const liveTAs = document.querySelectorAll('.anno-edit');
+      const cleanTAs = cleanDoc.querySelectorAll('.anno-edit');
+      liveTAs.forEach((liveTa, index) => {
+        if (cleanTAs[index]) {
+          const val = liveTa.value.trim();
+          cleanTAs[index].textContent = val;
+          const box = cleanTAs[index].closest('.anno-box');
+          if (box) box.style.display = 'none';
+          const view = box ? box.querySelector('.anno-view') : null;
+          if (view) view.innerHTML = '';
+        }
+      });
+      cleanDoc.querySelectorAll('.anno-toggle').forEach(t => {
+        t.classList.remove('has-anno');
+        const ta = t.closest('.content-wrap, .litit-highlight-block')?.querySelector('.anno-edit');
+        if (ta && ta.textContent.trim()) t.classList.add('has-anno');
+      });
+      finalHTML = '<!DOCTYPE html>\n<html lang="zh-CN">\n' + cleanDoc.documentElement.innerHTML + '\n</html>';
+    } else {
+      finalHTML = getPurifiedFallbackHTML();
+    }
+    await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath, {
+      method: 'PUT',
+      headers: {
+        'Authorization': 'Bearer ' + ghToken,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        message: 'Silent purified annotation update',
+        content: btoa(unescape(encodeURIComponent(finalHTML))),
+        sha: sha || undefined
+      })
+    });
+    console.log('✅ [My Litit] 纯净无污染批注已静默同步至 GitHub');
+  } catch(e) {
+    console.warn('❌ [My Litit] 同步跳过或失败:', e);
+  }
+}
+
+function scheduleSync() {
+  if (syncTimeout) clearTimeout(syncTimeout);
+  syncTimeout = setTimeout(() => { syncToCloud(); }, 3000);
+}
+
+function initAnnotations() {
+  document.querySelectorAll('.litit-highlight-block, .content-wrap').forEach(wrap => {
+    let content = wrap.querySelector('.content');
+    if (!content) {
+      const pText = wrap.querySelector('p');
+      if (pText) {
+        content = document.createElement('div');
+        content.className = 'content';
+        content.style.cssText = 'position:relative; margin:0 0 6px 0; color:#1a202c; font-family:Georgia, serif; line-height:1.7; font-size:15px; word-break:break-word;';
+        content.innerHTML = pText.innerHTML;
+        pText.parentNode.replaceChild(content, pText);
+      }
+    }
+    if (!content) return;
+    if (!content.querySelector('.anno-toggle')) {
+      const toggle = document.createElement('span');
+      toggle.className = 'anno-toggle';
+      toggle.title = '手写批注/笔记';
+      content.appendChild(toggle);
+    }
+    if (!content.querySelector('.ai-toggle')) {
+      const aiToggle = document.createElement('span');
+      aiToggle.className = 'ai-toggle';
+      aiToggle.title = 'AI智能二次解析';
+      content.appendChild(aiToggle);
+    }
+    let box = wrap.querySelector('.anno-box');
+    if (!box) {
+      box = document.createElement('div');
+      box.className = 'anno-box';
+      box.style.display = 'none';
+      box.innerHTML = '<div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 解析..."></textarea>';
+      wrap.appendChild(box);
+    }
+    const view = box.querySelector('.anno-view');
+    const edit = box.querySelector('.anno-edit');
+    const toggle = content.querySelector('.anno-toggle');
+    const aiToggle = content.querySelector('.ai-toggle');
+    if (edit && edit.value.trim()) {
+      toggle.classList.add('has-anno');
+      try {
+        view.innerHTML = (typeof marked !== 'undefined') ? marked.parse(edit.value.trim()) : edit.value.trim();
+      } catch(e){}
+    }
+    if (aiToggle) {
+      aiToggle.onclick = async (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (aiToggle.classList.contains('loading')) return;
+        if (edit && edit.value.trim() !== '') {
+          const confirmOverwrite = confirm('⚠️ 已经存在批注内容。点击"确定"将使用 AI 解析覆盖现有内容。是否继续？');
+          if (!confirmOverwrite) return;
+        }
+        const pClone = content.cloneNode(true);
+        pClone.querySelectorAll('.anno-toggle, .ai-toggle').forEach(el => el.remove());
+        let pText = pClone.textContent.replace(/https?:\/\/\S+/g, '').trim();
+        if (!pText) return;
+        aiToggle.classList.add('loading');
+        try {
+          const aiContent = await executeAIPipeline(pText);
+          box.style.display = 'block';
+          view.style.display = 'none';
+          edit.style.display = 'block';
+          edit.value = aiContent;
+          edit.focus();
+          edit.blur();
+        } catch (err) {
+          console.error(err);
+        } finally {
+          aiToggle.classList.remove('loading');
+        }
+      };
+    }
+    if (toggle) {
+      toggle.onclick = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (box.style.display === 'block') {
+          box.style.display = 'none';
+        } else {
+          box.style.display = 'block';
+          if (!edit.value.trim()) {
+            view.style.display = 'none';
+            edit.style.display = 'block';
+            setTimeout(() => { edit.focus(); }, 150);
+          } else {
+            view.style.display = 'block';
+            edit.style.display = 'none';
+          }
+        }
+      };
+    }
+    const triggerEdit = (e) => {
+      if(e) { e.preventDefault(); e.stopPropagation(); }
+      view.style.display = 'none';
+      edit.style.display = 'block';
+      edit.value = edit.value;
+      setTimeout(() => { edit.focus(); }, 150);
+    };
+    view.addEventListener('dblclick', triggerEdit);
+    let lastTap = 0;
+    view.addEventListener('touchstart', e => {
+      if (e.touches.length === 2) {
+        triggerEdit(e);
+      } else if (e.touches.length === 1) {
+        const currentTime = new Date().getTime();
+        if (currentTime - lastTap < 500 && currentTime - lastTap > 0) {
+          e.preventDefault();
+          box.style.display = 'none';
+        }
+        lastTap = currentTime;
+      }
+    }, {passive: false});
+    if (edit && view) {
+      edit.onblur = () => {
+        setTimeout(() => {
+          const newVal = edit.value.trim();
+          try {
+            view.innerHTML = newVal ? ((typeof marked !== 'undefined') ? marked.parse(newVal) : newVal) : '';
+          } catch(e){}
+          edit.style.display = 'none';
+          if (newVal) {
+            view.style.display = 'block';
+            toggle.classList.add('has-anno');
+          } else {
+            view.style.display = 'none';
+            box.style.display = 'none';
+            toggle.classList.remove('has-anno');
+          }
+          if (edit.getAttribute('data-old-val') !== newVal) {
+            edit.setAttribute('data-old-val', newVal);
+            scheduleSync();
+          }
+        }, 150);
+      };
+      edit.setAttribute('data-old-val', edit.value.trim());
+    }
+  });
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  initProgressBar();
+  initAnnotations();
+});
+window.addEventListener('load', initAnnotations);
+</script>
+</body>
+</html>
