@@ -11,8 +11,8 @@
 致其他 AI 助手：在生成此模板时，请严格遵守以下样式分配规则：
 1. 序号规则：列表的 NO.01 序号由伪类 `::before` 自动生成且独占一行。千万不要在 HTML 中手动输入“NO.01”。
 2. 标签规则：文章开头的标签胶囊纯文字即可，禁止带 `#` 号。
-3. 胶囊高亮（.litit-badge）：仅用于第 2、3、5 板块的【短词组/单词】，表现为紫色渐变背景的内联胶囊。
-4. 长句排版（.litit-en-sentence）：用于第 1 板块和第 4 板块的【长句/长句型】。严禁将长句型放入 .litit-badge 中，否则会导致折行错乱。并且中文解释中的括号补充内容需使用 <br> 另起一行。
+3. 胶囊高亮（.litit-badge）：仅用于第 1、2、3 板块（重点记忆、高价值表达、短语和固定搭配）的【短词组/单词】，表现为紫色渐变背景的内联胶囊。
+4. 长句排版（.litit-en-sentence）：用于第 4 板块（值得学习的句子结构）和第 5 板块（最值得优先掌握的句型）的【长句/长句型】。严禁将长句型放入 .litit-badge 中，否则会导致折行错乱。并且中文解释中的括号补充内容需使用 <br> 另起一行。
 ====================================================================== */
 :root {
 --bg-page: #ffffff;
@@ -273,7 +273,7 @@ margin-bottom: 2px;
 li.litit-target-sentence > br {
 display: none;
 }
-/* [规则 3] 短词组高亮徽章（二、三、五板块专用短标签） */
+/* [规则 3] 短词组高亮徽章（1、2、3 板块专用短标签） */
 .litit-badge {
 display: inline-block;
 background: linear-gradient(135deg, #eef2ff 0%, #f3e8ff 100%);
@@ -287,7 +287,7 @@ margin-bottom: 6px;
 border: 1px solid #e0e7ff;
 vertical-align: middle;
 }
-/* 第一板块子级知识点解析区左边框内嵌盒 */
+/* 第 4 板块子级知识点解析区左边框内嵌盒 */
 li.litit-target-sentence > ul {
 list-style: none !important;
 margin: 10px 0 0 0 !important;
@@ -442,57 +442,84 @@ h1.litit-target-title { font-size: 21px !important; }
 
 <h2 class="section-header" style="border-left-color: #8b5cf6;">✨ 本篇亮点与精读</h2>
 <div style="margin: 14px 0 10px 0;">
-<!-- 第一板块 -->
+
+<!-- 第一板块：一、重点记忆 -->
+<!-- AI 提示：第一板块【一、重点记忆】。使用 <strong class="litit-badge"> 标记核心单词/词组，冒号后接解释，另起一行提供例句。 -->
 <details class="litit-fold">
 <summary>
-<h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">一、值得学习的句子结构</h3>
+<h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">一、重点记忆</h3>
 </summary>
 <div class="litit-fold-content">
-<!-- AI 注意：在此板块的长句使用 <strong class="litit-en-sentence"> 自然块级排版 -->
+<ul style="list-style-type: square; margin: 0; padding-left: 18px; line-height: 1.6;">
+<li class="litit-target-sentence" style="margin-bottom: 10px;">
+<strong class="litit-badge">parent lottery</strong>：原生家庭扭蛋 / 父母盲盒<br>
+<strong class="litit-en-sentence">She dismissed modern internet excuses like the "parent lottery".</strong>
+<span class="litit-zh-sentence">她摒弃了诸如“原生家庭扭蛋”之类的现代网络借口。</span>
+</li>
+<li class="litit-target-sentence" style="margin-bottom: 10px;">
+<strong class="litit-badge">indie adult videos</strong>：独立成人影片 / 同人AV<br>
+<strong class="litit-en-sentence">Rurutan made the controversial decision to pivot to indie adult videos.</strong>
+<span class="litit-zh-sentence">Rurutan 做出了转向拍摄独立成人影片的争议性决定。</span>
+</li>
+<li class="litit-target-sentence" style="margin-bottom: 10px;">
+<strong class="litit-badge">generate revenue</strong>：创造营收 / 带来利润<br>
+<strong class="litit-en-sentence">The president demanded she stay and continue generating revenue for the establishment.</strong>
+<span class="litit-zh-sentence">总裁要求她留下来继续为公司创造营收。</span>
+</li>
+<li class="litit-target-sentence" style="margin-bottom: 10px;">
+<strong class="litit-badge">hypothetical ugly woman theory</strong>：假想丑女理论<br>
+<strong class="litit-en-sentence">Rurutan utilizes a "hypothetical ugly woman theory" to dictate her professional behavior.</strong>
+<span class="litit-zh-sentence">Rurutan 运用“假想丑女理论”来严格规训自己的职业行为。</span>
+</li>
+<li class="litit-target-sentence" style="margin-bottom: 10px;">
+<strong class="litit-badge">physically unattractive</strong>：外貌不吸引人的；长得不好看的<br>
+<strong class="litit-en-sentence">She forces herself to imagine she is physically unattractive.</strong>
+<span class="litit-zh-sentence">她强迫自己去想象自己的外貌并不吸引人。</span>
+</li>
+<li class="litit-target-sentence" style="margin-bottom: 10px;">
+<strong class="litit-badge">professional aesthetics</strong>：职业素养 / 职业美学<br>
+<strong class="litit-en-sentence">This brutal thought experiment dictates her professional aesthetics.</strong>
+<span class="litit-zh-sentence">这种残酷的思维实验决定了她的职业素养与美学。</span>
+</li>
+</ul>
+</div>
+</details>
+
+<!-- 第二板块：二、高价值表达 -->
+<!-- AI 提示：第二板块【二、高价值表达】。使用 <strong class="litit-badge"> 标记高阶词汇，解释部分换行展现呼吸感，注重语境和文化背景解析。 -->
+<details class="litit-fold">
+<summary>
+<h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">二、高价值表达</h3>
+</summary>
+<div class="litit-fold-content">
 <ol style="margin: 0; padding-left: 18px;">
-<li class="litit-target-sentence" style="margin-bottom: 12px;">
-<strong class="litit-en-sentence">Rurutan is a wildly popular influencer and adult entertainment star who currently rakes in a staggering 100 million yen a month.</strong>
-<span class="litit-zh-sentence">Rurutan 是一位极受欢迎的网红兼成人娱乐明星，她目前每月能狂赚惊人的1亿日元。</span>
-<ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
-<li style="margin-bottom: 3px;"><strong>who currently rakes in...</strong>：由 who 引导的定语从句，用极具画面感的动词短语 rakes in（用耙子把钱揽过来）凸显其吸金能力。</li>
-<li style="margin-bottom: 3px;"><strong>a staggering 100 million yen</strong>：staggering（令人震惊的）在此作形容词，极大地增强了数字带来的冲击力。</li>
-</ul>
+<li style="margin-bottom: 12px;">
+<strong class="litit-badge">staggering</strong>：令人震惊的；难以置信的。<br>
+<span class="litit-zh-sentence" style="margin-top: 4px;">由动词 <i>stagger</i>（蹒跚 / 摇晃）演变而来，新闻英语中常用于修饰庞大的金额、数量或统计数据（如 <i>staggering amount of money</i>），形象地表达“这个数字大到让人看了脚下一个踉跄”的夸张感。</span>
 </li>
-<li class="litit-target-sentence" style="margin-bottom: 12px;">
-<strong class="litit-en-sentence">Dismissing modern internet excuses like the “parent lottery”, Rurutan says the book taught her to stop blaming bad luck and start taking strict accountability for her own actions.</strong>
-<span class="litit-zh-sentence">Rurutan 摒弃了诸如“原生家庭盲盒”之类的现代网络借口，她说这本书教会了她停止抱怨坏运气，开始对自己的行为承担起严格的责任。</span>
-<ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
-<li style="margin-bottom: 3px;"><strong>Dismissing...</strong>：现在分词短语作状语，表伴随动作或态度，直指她拒绝内耗的强硬立场。</li>
-<li style="margin-bottom: 3px;"><strong>stop doing... and start doing...</strong>：工整的动名词对比结构，凸显认知的转变与行动力的提升。</li>
-</ul>
+<li style="margin-bottom: 12px;">
+<strong class="litit-badge">headline</strong>：领衔主演；作为主打明星登场。<br>
+<span class="litit-zh-sentence" style="margin-top: 4px;">除了作名词指“新闻标题”，作动词时（<i>headline at a theater/festival</i>）在娱乐报道中地位极高，意味着该明星是演出的绝对主咖、是吸引票房的头牌招牌。</span>
 </li>
-<li class="litit-target-sentence" style="margin-bottom: 12px;">
-<strong class="litit-en-sentence">Rather than villainizing her former boss, she used this philosophical perspective to accept the split.</strong>
-<span class="litit-zh-sentence">她没有将前老板妖魔化，而是运用这种哲学视角坦然接受了分道扬镳的事实。</span>
-<ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
-<li style="margin-bottom: 3px;"><strong>Rather than doing...</strong>：与其做……（倒不如），用于对比两种做法，凸显她选择的高级格局。</li>
-<li style="margin-bottom: 3px;"><strong>accept the split</strong>：接受分裂 / 坦然面对解约或分道扬镳。</li>
-</ul>
+<li style="margin-bottom: 12px;">
+<strong class="litit-badge">smash-hit</strong>：轰动一时的畅销作/大爆款。<br>
+<span class="litit-zh-sentence" style="margin-top: 4px;">非常地道的极客与流行文化用词。<i>hit</i> 已经是爆款，加上 <i>smash</i>（粉碎性地击打），形容一部作品（书、电影或歌曲）火到摧枯拉朽、打破纪录的程度。</span>
 </li>
-<li class="litit-target-sentence" style="margin-bottom: 12px;">
-<strong class="litit-en-sentence">For a girl who once begged for bookstore gift cards for her birthday, those 500 books have paid off — quietly funding a 100-million-yen-a-month empire built on far more than just looks.</strong>
-<span class="litit-zh-sentence">对于一个曾经在生日时祈求书店礼品卡做礼物的女孩来说，那500本书已经取得了丰厚的回报——它们悄无声息地支撑起了一个远不止靠美貌建立起来的月入过亿的商业帝国。</span>
-<ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
-<li style="margin-bottom: 3px;"><strong>For a girl who...</strong>：For + 名词短语作对象状语，后接定语从句，勾勒出过去与现在的强烈对比。</li>
-<li style="margin-bottom: 3px;"><strong>quietly funding...</strong>：现在分词作补充说明的状语。funding 在此意为“提供资金/底蕴支撑”。<br>built on far more than just looks 则无情地点出了成人行业顶级玩家的通关秘籍。</li>
-</ul>
+<li style="margin-bottom: 12px;">
+<strong class="litit-badge">feud</strong>：世仇；长期争吵；宿怨。<br>
+<span class="litit-zh-sentence" style="margin-top: 4px;">比普通的 <i>argument</i> 或 <i>conflict</i> 更深刻。在商业与娱乐圈新闻中（<i>industry feud</i>），特指双方拉锯时间长、牵扯利益深且带有公开撕逼性质的激烈对抗。</span>
 </li>
 </ol>
 </div>
 </details>
 
-<!-- 第二板块 -->
+<!-- 第三板块：三、短语和固定搭配 -->
+<!-- AI 提示：第三板块【三、短语和固定搭配】。使用 <strong class="litit-badge"> 标记固定搭配，冒号后接解释，另起一行提供例句。 -->
 <details class="litit-fold">
 <summary>
-<h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">二、值得积累的短语和固定搭配</h3>
+<h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">三、短语和固定搭配</h3>
 </summary>
 <div class="litit-fold-content">
-<!-- AI 注意：在此板块使用 <strong class="litit-badge"> 标记短词组，冒号后接解释，另起一行提供例句 -->
 <ul style="list-style-type: square; margin: 0; padding-left: 18px; line-height: 1.6;">
 <li class="litit-target-sentence" style="margin-bottom: 10px;">
 <strong class="litit-badge">rake in</strong>：轻易赚取；狂揽（大笔钱财）<br>
@@ -538,41 +565,57 @@ h1.litit-target-title { font-size: 21px !important; }
 </div>
 </details>
 
-<!-- 第三板块 -->
+<!-- 第四板块：四、值得学习的句子结构 -->
+<!-- AI 提示：第四板块【四、值得学习的句子结构】。严禁使用 .litit-badge！长句必须使用 <strong class="litit-en-sentence"> 自然块级排版，下方配合 <ul> 和 <li> 解析语法点。 -->
 <details class="litit-fold">
 <summary>
-<h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">三、新闻英语与人物侧写中的高价值表达</h3>
+<h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">四、值得学习的句子结构</h3>
 </summary>
 <div class="litit-fold-content">
-<!-- AI 注意：同样使用 <strong class="litit-badge"> 标记核心单词，解释部分换行展现呼吸感 -->
 <ol style="margin: 0; padding-left: 18px;">
-<li style="margin-bottom: 12px;">
-<strong class="litit-badge">staggering</strong>：令人震惊的；难以置信的。<br>
-<span class="litit-zh-sentence" style="margin-top: 4px;">由动词 <i>stagger</i>（蹒跚 / 摇晃）演变而来，新闻英语中常用于修饰庞大的金额、数量或统计数据（如 <i>staggering amount of money</i>），形象地表达“这个数字大到让人看了脚下一个踉跄”的夸张感。</span>
+<li class="litit-target-sentence" style="margin-bottom: 12px;">
+<strong class="litit-en-sentence">Rurutan is a wildly popular influencer and adult entertainment star who currently rakes in a staggering 100 million yen a month.</strong>
+<span class="litit-zh-sentence">Rurutan 是一位极受欢迎的网红兼成人娱乐明星，她目前每月能狂赚惊人的1亿日元。</span>
+<ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+<li style="margin-bottom: 3px;"><strong>who currently rakes in...</strong>：由 who 引导的定语从句，用极具画面感的动词短语 rakes in（用耙子把钱揽过来）凸显其吸金能力。</li>
+<li style="margin-bottom: 3px;"><strong>a staggering 100 million yen</strong>：staggering（令人震惊的）在此作形容词，极大地增强了数字带来的冲击力。</li>
+</ul>
 </li>
-<li style="margin-bottom: 12px;">
-<strong class="litit-badge">headline</strong>：领衔主演；作为主打明星登场。<br>
-<span class="litit-zh-sentence" style="margin-top: 4px;">除了作名词指“新闻标题”，作动词时（<i>headline at a theater/festival</i>）在娱乐报道中地位极高，意味着该明星是演出的绝对主咖、是吸引票房的头牌招牌。</span>
+<li class="litit-target-sentence" style="margin-bottom: 12px;">
+<strong class="litit-en-sentence">Dismissing modern internet excuses like the “parent lottery”, Rurutan says the book taught her to stop blaming bad luck and start taking strict accountability for her own actions.</strong>
+<span class="litit-zh-sentence">Rurutan 摒弃了诸如“原生家庭盲盒”之类的现代网络借口，她说这本书教会了她停止抱怨坏运气，开始对自己的行为承担起严格的责任。</span>
+<ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+<li style="margin-bottom: 3px;"><strong>Dismissing...</strong>：现在分词短语作状语，表伴随动作或态度，直指她拒绝内耗的强硬立场。</li>
+<li style="margin-bottom: 3px;"><strong>stop doing... and start doing...</strong>：工整的动名词对比结构，凸显认知的转变与行动力的提升。</li>
+</ul>
 </li>
-<li style="margin-bottom: 12px;">
-<strong class="litit-badge">smash-hit</strong>：轰动一时的畅销作/大爆款。<br>
-<span class="litit-zh-sentence" style="margin-top: 4px;">非常地道的极客与流行文化用词。<i>hit</i> 已经是爆款，加上 <i>smash</i>（粉碎性地击打），形容一部作品（书、电影或歌曲）火到摧枯拉朽、打破纪录的程度。</span>
+<li class="litit-target-sentence" style="margin-bottom: 12px;">
+<strong class="litit-en-sentence">Rather than villainizing her former boss, she used this philosophical perspective to accept the split.</strong>
+<span class="litit-zh-sentence">她没有将前老板妖魔化，而是运用这种哲学视角坦然接受了分道扬镳的事实。</span>
+<ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+<li style="margin-bottom: 3px;"><strong>Rather than doing...</strong>：与其做……（倒不如），用于对比两种做法，凸显她选择的高级格局。</li>
+<li style="margin-bottom: 3px;"><strong>accept the split</strong>：接受分裂 / 坦然面对解约或分道扬镳。</li>
+</ul>
 </li>
-<li style="margin-bottom: 12px;">
-<strong class="litit-badge">feud</strong>：世仇；长期争吵；宿怨。<br>
-<span class="litit-zh-sentence" style="margin-top: 4px;">比普通的 <i>argument</i> 或 <i>conflict</i> 更深刻。在商业与娱乐圈新闻中（<i>industry feud</i>），特指双方拉锯时间长、牵扯利益深且带有公开撕逼性质的激烈对抗。</span>
+<li class="litit-target-sentence" style="margin-bottom: 12px;">
+<strong class="litit-en-sentence">For a girl who once begged for bookstore gift cards for her birthday, those 500 books have paid off — quietly funding a 100-million-yen-a-month empire built on far more than just looks.</strong>
+<span class="litit-zh-sentence">对于一个曾经在生日时祈求书店礼品卡做礼物的女孩来说，那500本书已经取得了丰厚的回报——它们悄无声息地支撑起了一个远不止靠美貌建立起来的月入过亿的商业帝国。</span>
+<ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+<li style="margin-bottom: 3px;"><strong>For a girl who...</strong>：For + 名词短语作对象状语，后接定语从句，勾勒出过去与现在的强烈对比。</li>
+<li style="margin-bottom: 3px;"><strong>quietly funding...</strong>：现在分词作补充说明的状语。funding 在此意为“提供资金/底蕴支撑”。<br>built on far more than just looks 则无情地点出了成人行业顶级玩家的通关秘籍。</li>
+</ul>
 </li>
 </ol>
 </div>
 </details>
 
-<!-- 第四板块：核心修正区 -->
+<!-- 第五板块：五、最值得优先掌握的句型 -->
+<!-- AI 提示：第五板块【五、最值得优先掌握的句型】。绝对禁止使用 .litit-badge 造成挤压！必须使用 <strong class="litit-en-sentence" style="color: #4338ca;"> 确保长文本自然折行。中文解释中的括号内容必须另起一行！ -->
 <details class="litit-fold">
 <summary>
-<h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">四、最值得优先掌握的句型</h3>
+<h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">五、最值得优先掌握的句型</h3>
 </summary>
 <div class="litit-fold-content">
-<!-- AI 注意：绝对禁止在此板块使用 .litit-badge 造成挤压！必须使用 <strong class="litit-en-sentence" style="color: #4338ca;"> 确保长文本自然折行。另外，中文解释的括号内容必须另起一行！ -->
 <ol style="margin: 0; padding-left: 18px;">
 <li style="margin-bottom: 12px;">
 <strong class="litit-en-sentence" style="color: #4338ca;">The book taught her that new concepts are merely combinations of existing elements — a principle she ruthlessly applied by crossing [领域A] with [领域B].</strong>
@@ -594,46 +637,6 @@ h1.litit-target-title { font-size: 21px !important; }
 </div>
 </details>
 
-<!-- 第五板块 -->
-<details class="litit-fold">
-<summary>
-<h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">五、建议重点记忆的表达</h3>
-</summary>
-<div class="litit-fold-content">
-<ul style="list-style-type: square; margin: 0; padding-left: 18px; line-height: 1.6;">
-<li class="litit-target-sentence" style="margin-bottom: 10px;">
-<strong class="litit-badge">parent lottery</strong>：原生家庭扭蛋 / 父母盲盒<br>
-<strong class="litit-en-sentence">She dismissed modern internet excuses like the "parent lottery".</strong>
-<span class="litit-zh-sentence">她摒弃了诸如“原生家庭扭蛋”之类的现代网络借口。</span>
-</li>
-<li class="litit-target-sentence" style="margin-bottom: 10px;">
-<strong class="litit-badge">indie adult videos</strong>：独立成人影片 / 同人AV<br>
-<strong class="litit-en-sentence">Rurutan made the controversial decision to pivot to indie adult videos.</strong>
-<span class="litit-zh-sentence">Rurutan 做出了转向拍摄独立成人影片的争议性决定。</span>
-</li>
-<li class="litit-target-sentence" style="margin-bottom: 10px;">
-<strong class="litit-badge">generate revenue</strong>：创造营收 / 带来利润<br>
-<strong class="litit-en-sentence">The president demanded she stay and continue generating revenue for the establishment.</strong>
-<span class="litit-zh-sentence">总裁要求她留下来继续为公司创造营收。</span>
-</li>
-<li class="litit-target-sentence" style="margin-bottom: 10px;">
-<strong class="litit-badge">hypothetical ugly woman theory</strong>：假想丑女理论<br>
-<strong class="litit-en-sentence">Rurutan utilizes a "hypothetical ugly woman theory" to dictate her professional behavior.</strong>
-<span class="litit-zh-sentence">Rurutan 运用“假想丑女理论”来严格规训自己的职业行为。</span>
-</li>
-<li class="litit-target-sentence" style="margin-bottom: 10px;">
-<strong class="litit-badge">physically unattractive</strong>：外貌不吸引人的；长得不好看的<br>
-<strong class="litit-en-sentence">She forces herself to imagine she is physically unattractive.</strong>
-<span class="litit-zh-sentence">她强迫自己去想象自己的外貌并不吸引人。</span>
-</li>
-<li class="litit-target-sentence" style="margin-bottom: 10px;">
-<strong class="litit-badge">professional aesthetics</strong>：职业素养 / 职业美学<br>
-<strong class="litit-en-sentence">This brutal thought experiment dictates her professional aesthetics.</strong>
-<span class="litit-zh-sentence">这种残酷的思维实验决定了她的职业素养与美学。</span>
-</li>
-</ul>
-</div>
-</details>
 </div>
 
 <h2 class="section-header" style="border-left-color: #0d9488;">💡 幕后冷知识 (Fun Facts)</h2>
