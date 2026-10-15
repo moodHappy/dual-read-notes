@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Weird Words in JAV Titles - JAV News</title>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<style id="core-style">
+/* ======================================================================
+[AI TEMPLATE GUIDELINES - CSS 核心排版规范]
+致其他 AI 助手：在生成此模板时，请严格遵守以下样式分配规则：
+1. 序号规则：列表的 NO.01 序号由伪类 `::before` 自动生成且独占一行。千万不要在 HTML 中手动输入“NO.01”。
+2. 标签规则：文章开头的标签胶囊纯文字即可，禁止带 `#` 号。
+3. 胶囊高亮（.litit-badge）：仅用于第 1、2、3 板块（重点记忆、高价值表达、短语和固定搭配）的【短词组/单词】，表现为紫色渐变背景的内联胶囊。
+4. 长句排版（.litit-en-sentence）：用于第 4 板块（值得学习的句子结构）和第 5 板块（最值得优先掌握的句型）的【长句/长句型】。严禁将长句型放入 .litit-badge 中，否则会导致折行错乱。并且中文解释中的括号补充内容需使用 <br> 另起一行。
+====================================================================== */
+:root {
+--bg-page: #ffffff;
+--bg-card: #ffffff;
+--text-main: #0f172a;
+--text-sub: #334155;
+--text-muted: #64748b;
+--accent-primary: #4f46e5;
+--border-subtle: #e2e8f0;
+--font-serif: "Georgia", "Charter", "Source Han Serif SC", "Noto Serif CJK SC", serif;
+--font-sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", Roboto, sans-serif;
+}
+body {
+font-family: var(--font-sans);
+padding: 12px 12px 36px 12px;
+margin: 0 auto;
+max-width: 780px;
+background: var(--bg-page);
+color: var(--text-main);
+line-height: 1.75;
+font-size: 16px;
+word-wrap: break-word;
+overflow-x: hidden;
+-webkit-font-smoothing: antialiased;
+}
+* {
+box-sizing: border-box;
+max-width: 100%;
+}
+img {
+max-width: 100%;
+height: auto;
+border-radius: 8px;
+}
+/* 顶部极简阅读进度条 */
+#reading-progress {
+position: fixed;
+top: 0;
+left: 0;
+width: 0%;
+height: 3px;
+background: linear-gradient(90deg, #4f46e5, #9333ea);
+z-index: 9999;
+transition: width 0.1s ease-out;
+}
+/* 主容器：零冗余边距，最大化阅读视野 */
+.litit-report {
+background: var(--bg-card);
+padding: 0;
+}
+/* AI 批注组件样式 */
+.anno-toggle, .ai-toggle {
+display: inline-block;
+padding: 2px 5px;
+margin-left: 5px;
+cursor: pointer;
+opacity: 0.45;
+font-size: 0.85rem;
+vertical-align: middle;
+transition: all 0.2s;
+user-select: none;
+-webkit-tap-highlight-color: transparent;
+}
+.anno-toggle:hover, .ai-toggle:hover {
+opacity: 1;
+transform: scale(1.15);
+}
+.anno-toggle.has-anno {
+opacity: 1;
+}
+.anno-toggle::after {
+content: "🔴";
+}
+.ai-toggle {
+opacity: 0.7;
+padding: 2px 4px;
+}
+.ai-toggle::after {
+content: "🤖";
+}
+.ai-toggle.loading::after {
+content: "⏳";
+display: inline-block;
+animation: spin 1s linear infinite;
+}
+@keyframes spin {
+100% { transform: rotate(360deg); }
+}
+.anno-box {
+display: none;
+margin-top: 10px;
+background: #faf8ff;
+border-left: 3px solid #7c3aed;
+padding: 12px 14px;
+border-radius: 0 8px 8px 0;
+text-align: left;
+}
+.anno-view {
+font-size: 0.95rem;
+line-height: 1.65;
+color: #334155;
+min-height: 24px;
+}
+.anno-edit {
+width: 100%;
+min-height: 120px;
+padding: 10px;
+font-family: monospace;
+font-size: 0.95rem;
+border: 1px dashed #a78bfa;
+border-radius: 6px;
+resize: vertical;
+display: none;
+background: #fff;
+color: #1e293b;
+outline: none;
+}
+.anno-edit:focus {
+border: 1px solid #7c3aed;
+box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.12);
+}
+.markdown-body p {
+margin-top: 0;
+margin-bottom: 8px;
+}
+.markdown-body p:last-child {
+margin-bottom: 0;
+}
+.markdown-body h1, .markdown-body h2, .markdown-body h3 {
+color: #5b21b6;
+font-size: 1.05rem;
+margin: 10px 0 6px 0;
+border-bottom: 1px dashed #ddd6fe;
+padding-bottom: 4px;
+}
+.markdown-body ul, .markdown-body ol {
+margin: 0 0 8px 0;
+padding-left: 18px;
+}
+.markdown-body blockquote {
+margin: 0 0 10px 0;
+padding: 8px 12px;
+background: rgba(124, 58, 237, 0.06);
+border-left: 3px solid #7c3aed;
+color: #475569;
+}
+/* 杂志风区块标题 */
+.section-header {
+font-size: 16px;
+color: #0f172a;
+font-weight: 700;
+letter-spacing: 0.02em;
+background: linear-gradient(90deg, #f8fafc 0%, #ffffff 100%);
+padding: 8px 12px;
+border-left: 4px solid #4f46e5;
+margin: 26px 0 14px 0;
+border-radius: 0 6px 6px 0;
+display: flex;
+align-items: center;
+box-shadow: inset 0 1px 0 #f1f5f9, inset 0 -1px 0 #f1f5f9;
+}
+/* 折叠面板升级：极简无十字图标、最大化宽度 */
+details.litit-fold {
+margin-bottom: 10px;
+border: 1px solid #e2e8f0;
+border-radius: 10px;
+background: #ffffff;
+overflow: hidden;
+transition: border-color 0.2s ease;
+}
+details.litit-fold[open] {
+border-color: #cbd5e1;
+}
+details.litit-fold summary {
+cursor: pointer;
+padding: 12px 14px;
+outline: none;
+list-style: none;
+display: flex;
+justify-content: space-between;
+align-items: center;
+background: #f8fafc;
+transition: background 0.2s;
+user-select: none;
+-webkit-tap-highlight-color: transparent;
+}
+details.litit-fold summary::-webkit-details-marker {
+display: none;
+}
+details.litit-fold summary::after {
+display: none;
+}
+details.litit-fold summary:hover {
+background: #f1f5f9;
+}
+details.litit-fold[open] summary {
+border-bottom: 1px solid #e2e8f0;
+background: #f1f5f9;
+border-left: 3px solid #4f46e5;
+}
+.litit-fold-content {
+padding: 10px 8px;
+background: #f8fafc;
+}
+/* 精读区列表卡片化 */
+.litit-fold-content > ol, .litit-fold-content > ul {
+list-style: none !important;
+padding-left: 0 !important;
+margin: 0 !important;
+counter-reset: litit-counter;
+}
+.litit-fold-content > ol > li, .litit-fold-content > ul > li {
+counter-increment: litit-counter;
+position: relative;
+background: #ffffff;
+border: 1px solid #e2e8f0;
+border-radius: 8px;
+padding: 12px 12px;
+margin-bottom: 10px !important;
+box-shadow: 0 1px 2px rgba(0, 0, 0, 0.015);
+}
+.litit-fold-content > ol > li:last-child, .litit-fold-content > ul > li:last-child {
+margin-bottom: 0 !important;
+}
+/* [规则 1] 顶部流式微型序号徽章：完美独占一行，追求极致对齐与统一美感 */
+.litit-fold-content > ol > li::before, .litit-fold-content > ul > li::before {
+content: "NO." counter(litit-counter, decimal-leading-zero);
+display: block;
+width: max-content;
+font-size: 10px;
+font-weight: 800;
+font-family: -apple-system, BlinkMacSystemFont, monospace;
+color: #4f46e5;
+background: #eef2ff;
+padding: 1px 6px;
+border-radius: 4px;
+margin-bottom: 8px;
+letter-spacing: 0.04em;
+}
+/* [规则 4] 纯英/中长句子专属排版（块级元素，自然折行对齐） */
+.litit-en-sentence {
+display: block;
+font-family: var(--font-serif);
+font-size: 1.04rem;
+font-weight: 600;
+color: #0f172a;
+line-height: 1.5;
+margin-bottom: 6px;
+}
+.litit-zh-sentence {
+display: block;
+font-family: var(--font-sans);
+font-size: 0.93rem;
+color: #475569;
+line-height: 1.55;
+margin-bottom: 2px;
+}
+li.litit-target-sentence > br {
+display: none;
+}
+/* [规则 3] 短词组高亮徽章（1、2、3 板块专用短标签） */
+.litit-badge {
+display: inline-block;
+background: linear-gradient(135deg, #eef2ff 0%, #f3e8ff 100%);
+color: #4338ca;
+padding: 2px 8px;
+border-radius: 5px;
+font-size: 0.92rem;
+font-weight: 700;
+margin-right: 4px;
+margin-bottom: 6px;
+border: 1px solid #e0e7ff;
+vertical-align: middle;
+}
+/* 第 4 板块子级知识点解析区左边框内嵌盒 */
+li.litit-target-sentence > ul {
+list-style: none !important;
+margin: 10px 0 0 0 !important;
+padding: 8px 10px !important;
+background: #f8fafc;
+border-radius: 6px;
+border-left: 2.5px solid #94a3b8;
+}
+li.litit-target-sentence > ul > li {
+position: relative;
+padding-left: 10px;
+margin-bottom: 5px !important;
+font-size: 0.88rem;
+color: #334155;
+line-height: 1.5;
+}
+li.litit-target-sentence > ul > li:last-child {
+margin-bottom: 0 !important;
+}
+li.litit-target-sentence > ul > li::before {
+content: "·";
+position: absolute;
+left: 0;
+top: 0;
+color: #4f46e5;
+font-weight: 900;
+}
+li.litit-target-sentence > ul > li > strong {
+color: #0f172a;
+font-weight: 600;
+background: #e2e8f0;
+padding: 1px 5px;
+border-radius: 4px;
+font-size: 0.84rem;
+margin-right: 3px;
+}
+/* 移动端极限铺开适配 */
+@media (max-width: 600px) {
+body { padding: 10px 10px 30px 10px; font-size: 15px; }
+h1.litit-target-title { font-size: 21px !important; }
+.litit-fold-content { padding: 8px 6px; }
+.litit-fold-content > ol > li, .litit-fold-content > ul > li { padding: 11px 10px; margin-bottom: 8px !important; }
+}
+</style>
+</head>
+<body>
+<!-- 进度条 DOM -->
+<div id="reading-progress"></div>
+
+<div class="litit-report" style="width:100%; max-width:100%; box-sizing:border-box; overflow-x:hidden;">
+<!-- 顶部杂志刊头装饰 -->
+<div style="display:flex; justify-content:space-between; align-items:center; border-bottom: 2px solid #0f172a; padding-bottom: 6px; margin-bottom: 14px; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: #64748b; text-transform: uppercase;">
+<span>The Global Dispatch · 深度双语精读</span>
+<span>Culture & Internet</span>
+</div>
+
+<!-- 支持批注的主标题区 -->
+<div class="content-wrap" style="position:relative; margin-bottom: 16px;">
+<h1 class="litit-target-title" style="color:#0f172a; font-size: 24px; line-height: 1.35; font-family: var(--font-serif); font-weight: 800; border-bottom: 1px solid #e2e8f0; padding-bottom: 14px; margin-top:0; margin-bottom:0; word-break:break-word;">
+<span class="content litit-en-title" style="position:relative;">Weird Words in JAV Titles - JAV News</span>
+<br>
+<span class="litit-zh-title" style="font-family: var(--font-sans); font-size: 17px; font-weight: 600; color: #475569; margin-top: 8px; display: inline-block; line-height: 1.45;">JAV标题里的奇葩词汇：解析日本成人影片的渣翻与黑话</span>
+</h1>
+<div class="anno-box" style="display:none; margin-top: 10px;">
+<div class="anno-view markdown-body"></div>
+<textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
+日本成人影片的标题向来以冗长、混乱且一旦翻译成英文就毫无逻辑可言的词汇而闻名。这很大程度上归结于俏皮的日语俚语、拟声词，或者干脆就是机器翻译彻底摆烂了。下面带大家来看看你会遇到的一些奇葩词汇。
+
+### 📌 Key Expressions
+- **onomatopoeia** = 拟声词
+- **give up** = 放弃 / 摆烂
+- **come down to** = 归结于 / 根本原因在于</textarea>
+</div>
+</div>
+
+<!-- 杂志导语（Lead Paragraph） -->
+<p style="color:#334155; font-size: 15px; line-height: 1.75; margin-bottom:16px; font-weight:400; background: #f8fafc; padding: 12px 14px; border-radius: 8px; border: 1px solid #f1f5f9;">
+经常浏览日本成人影片（JAV）的观众大概都深有体会：这些影片的英文译名往往荒诞不经、如同天书。这篇文章犹如一份兼具社会学与语言学的“业界黑话解码指南”，深入剖析了导致JAV奇葩标题的两大罪魁祸首——日式俚语的文化隔阂与机器翻译的灾难性罢工。有些词源于生动的拟声词或行业黑话，比如用来形容巨乳弹跳感的“Boin”，表示超越极限努力的“120%”，以及将嘴唇比作阴道的深喉术语“Mouth-pussy”；还有些则折射出日本独特的擦边球风俗文化，如“Men’s aesthetic”（男士美容按摩）。更令人啼笑皆非的是那些机翻车祸现场：表示“攻/责”性挑逗的词被生硬地翻成了“Blame”（责备），隐晦的“圣水”（尿液）被直接译成了充满宗教神圣感的“Holy water”，而最著名的莫过于占据各大盗版网站的“Squid”（乌贼）——这并非什么触手系性癖，纯粹是翻译软件遇到日语高潮词汇“Iku”时彻底摆烂的随机乱码。理解了这些词汇，在JAV网站里冲浪就像是在解开一个个古怪的语言谜题。
+</p>
+
+<div style="margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+<div style="display:flex; flex-wrap:wrap; gap:6px;">
+<!-- [规则 2] 此处标签不再带有 # 号，纯净的胶囊风格 -->
+<span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;">业界科普</span>
+<span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;">翻译吐槽</span>
+<span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;">黑话指南</span>
+</div>
+<a href="https://javnews.com/2026/10/15/weird-words-in-jav-titles/" target="_blank" style="font-size: 12.5px; color: #4f46e5; text-decoration: none; font-weight: 600; background: #eef2ff; padding: 5px 12px; border-radius: 16px; border: 1px solid #e0e7ff; display:inline-block;">🔗 阅读原文 ↗</a>
+</div>
+
+<!-- 最佳金句区 -->
+<h2 class="section-header" style="border-left-color: #f59e0b;">💬 最佳金句</h2>
+<div class="content-wrap" style="position:relative; margin-bottom:24px;">
+<blockquote class="litit-target-quote" style="border-left: 3.5px solid #f59e0b; background: linear-gradient(135deg, #fffbeb 0%, #ffffff 100%); padding: 14px 14px; margin: 0; color: #1e293b; border-radius: 0 10px 10px 0; border-top: 1px solid #fef3c7; border-right: 1px solid #fef3c7; border-bottom: 1px solid #fef3c7;">
+<div class="content litit-en-quote" style="position:relative; margin:0 0 8px 0; font-family: var(--font-serif); font-style: italic; font-weight:600; font-size: 16.5px; line-height: 1.55; color:#0f172a; word-break:break-word;">
+"These words show up constantly once you start paying attention to titles. Some are fun Japanese slang, others are just translation engines having a breakdown. Either way, they make browsing JAV feel like solving a weird little puzzle."
+</div>
+<p class="litit-zh-quote" style="margin:0 0 8px 0; font-weight:400; font-size: 14.5px; line-height: 1.6; color:#475569; word-break:break-word;">
+“一旦你开始关注标题，这些词就会频繁出现。有些是有趣的日语俚语，另一些则纯粹是翻译引擎崩溃的产物。无论如何，它们让浏览JAV感觉就像在解开一个古怪的小谜题。”
+</p>
+<footer style="text-align:right; font-size:12px; color:#64748b; font-style:normal; font-weight:600;">—— 摘自 JAV News 对这一亚文化语言现象的幽默总结</footer>
+</blockquote>
+<div class="anno-box" style="display:none;">
+<div class="anno-view markdown-body"></div>
+<textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
+“一旦你开始关注标题，这些词就会频繁出现。有些是有趣的日语俚语，另一些则纯粹是翻译引擎崩溃的产物。无论如何，它们让浏览JAV感觉就像在解开一个古怪的小谜题。”
+
+### 📌 Key Expressions
+- **show up constantly** = 频繁出现
+- **have a breakdown** = 发生故障 / 彻底崩溃（指机器翻译系统失灵）
+- **solve a puzzle** = 解开谜题</textarea>
+</div>
+</div>
+
+<!-- Grid 布局关键数字区 -->
+<h2 class="section-header" style="border-left-color: #10b981;">📊 关键数字</h2>
+<div style="display:grid; grid-template-columns: repeat(2, 1fr); gap:10px; margin:14px 0 24px 0;">
+<div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+<div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+8<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">个</span>
+</div>
+<div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">文中详细解码的奇葩行业黑话与渣翻词汇总数</div>
+</div>
+<div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+<div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+120<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">%</span>
+</div>
+<div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">日式专属夸张表达法，指代超越100%极限的倾尽全力</div>
+</div>
+<div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+<div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+4<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">位</span>
+</div>
+<div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">文中作为影片标题举例提及的业界知名女优人数</div>
+</div>
+<div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+<div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+2<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">类</span>
+</div>
+<div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">导致奇葩标题的两大主因：日式俚语壁垒与机翻故障</div>
+</div>
+</div>
+
+<h2 class="section-header" style="border-left-color: #3b82f6;">⏱️ 事件时间线</h2>
+<ul style="padding-left:18px; line-height:1.8; color:#334155; font-size: 14.5px; margin-bottom:24px; word-break:break-word;">
+<li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">Boin & 120%（传统颜艺与夸张修辞）：</strong> 源自日本本土的拟声词和夸张语言习惯，常用于描绘不真实的、仿佛有弹簧音效的巨乳（Boin）以及承诺超越极限的表现力（120%）。</li>
+<li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">Mouth-pussy & Men's aesthetic（风俗黑话的引入）：</strong> 随着行业发展，将深喉口交（Mouth-pussy）与日本现实中的男性向美容放松服务（メンズエステ/Men's aesthetic）进行概念包装，创造出独特的业界幻想。</li>
+<li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">Blame & Holy water（机翻的灾难现场）：</strong> 翻译引擎将表示“攻/责”的性挑逗（Semeru）生硬错翻成“责备”（Blame），把代表尿液/黄金雨的隐晦词汇“圣水”直译而完全忽略了其性暗示，造就了一大批荒谬标题。</li>
+<li><strong style="color:#1d4ed8;">Squid（终极机翻Bug）：</strong> 并非代表什么触手系性癖，而是批量翻译软件或因日语发音（Iku/Ika）混淆而造成的随机乱码现象，成为了机器翻译彻底摆烂的标志。</li>
+</ul>
+
+<h2 class="section-header" style="border-left-color: #8b5cf6;">✨ 本篇亮点与精读</h2>
+<div style="margin: 14px 0 10px 0;">
+
+<!-- 第一板块：一、重点记忆 -->
+<!-- AI 提示：第一板块【一、重点记忆】。使用 <strong class="litit-badge"> 标记核心单词/词组，冒号后接解释，另起一行提供例句。 -->
+<details class="litit-fold">
+<summary>
+<h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">一、重点记忆</h3>
+</summary>
+<div class="litit-fold-content">
+<ul style="list-style-type: square; margin: 0; padding-left: 18px; line-height: 1.6;">
+<li class="litit-target-sentence" style="margin-bottom: 10px;">
+<strong class="litit-badge">squid</strong>：乌贼 / 机翻乱码（经常代替高潮等日语发音相近的词）<br>
+<strong class="litit-en-sentence">"Squid" pops up in tons of English titles, especially on pirate sites.</strong>
+<span class="litit-zh-sentence">“乌贼”频繁出现在大量的英文标题中，尤其是在盗版网站上。</span>
+</li>
+<li class="litit-target-sentence" style="margin-bottom: 10px;">
+<strong class="litit-badge">holy water</strong>：圣水 / 黄金雨（Golden Showers的委婉语）<br>
+<strong class="litit-en-sentence">"Holy water" is used as a euphemism for golden showers or piss play.</strong>
+<span class="litit-zh-sentence">“圣水”被用作黄金雨或排泄游戏的委婉语。</span>
+</li>
+<li class="litit-target-sentence" style="margin-bottom: 10px;">
+<strong class="litit-badge">cloudy juice</strong>：白浊液 / 起泡的体液<br>
+<strong class="litit-en-sentence">"Cloudy juice" is what you get when intense sex turns fluids into something milky.</strong>
+<span class="litit-zh-sentence">“白浊液”是指激烈的性行为将体液变成乳白色的状态。</span>
+</li>
+<li class="litit-target-sentence" style="margin-bottom: 10px;">
+<strong class="litit-badge">mouth-pussy</strong>：深喉口交（将嘴唇比作另一个阴道）<br>
+<strong class="litit-en-sentence">"Mouth-pussy" describes a blowjob that feels tight enough to compare to actual sex.</strong>
+<span class="litit-zh-sentence">“Mouth-pussy”形容一种紧致到足以媲美真实性交的口交。</span>
+</li>
+<li class="litit-target-sentence" style="margin-bottom: 10px;">
+<strong class="litit-badge">men's aesthetic</strong>：男士美容 / 按摩店（日本风俗黑话 メンズエステ）<br>
+<strong class="litit-en-sentence">"Men’s aesthetic" refers to grooming and relaxation services aimed at men.</strong>
+<span class="litit-zh-sentence">“Men’s aesthetic”指的是针对男性的仪容整理与放松服务。</span>
+</li>
+<li class="litit-target-sentence" style="margin-bottom: 10px;">
+<strong class="litit-badge">boin</strong>：波霸 / 巨乳弹出时的拟声词<br>
+<strong class="litit-en-sentence">"Boin" is basically the sound effect for big, bouncing tits.</strong>
+<span class="litit-zh-sentence">“Boin”基本上就是巨大、富有弹性的乳房所发出的拟声音效。</span>
+</li>
+</ul>
+</div>
+</details>
+
+<!-- 第二板块：二、高价值表达 -->
+<!-- AI 提示：第二板块【二、高价值表达】。使用 <strong class="litit-badge"> 标记高阶词汇，解释部分换行展现呼吸感，注重语境和文化背景解析。 -->
+<details class="litit-fold">
+<summary>
+<h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">二、高价值表达</h3>
+</summary>
+<div class="litit-fold-content">
+<ol style="margin: 0; padding-left: 18px;">
+<li style="margin-bottom: 12px;">
+<strong class="litit-badge">onomatopoeia</strong>：拟声词。&lt;br&gt;
+<span class="litit-zh-sentence" style="margin-top: 4px;">语言学中的高级词汇。日语是一门大量使用拟声拟态词的语言（如文中提到的 <i>Boin</i>）。许多日文原版的标题为了追求生动的感官刺激，充斥着这类词汇，这也是机器翻译经常抓瞎的重灾区。</span>
+</li>
+<li style="margin-bottom: 12px;">
+<strong class="litit-badge">euphemism</strong>：委婉语。&lt;br&gt;
+<span class="litit-zh-sentence" style="margin-top: 4px;">指用温和或隐晦的词句替代直接粗俗的表达。文中解释日本业界用 <i>Holy water</i>（圣水）来作为尿液（piss play）的 <i>euphemism</i>，这种文化上的含蓄却造就了跨语言机翻时“赐福圣水”的爆笑误会。</span>
+</li>
+<li style="margin-bottom: 12px;">
+<strong class="litit-badge">opaque</strong>：晦涩难懂的；不透明的。&lt;br&gt;
+<span class="litit-zh-sentence" style="margin-top: 4px;">原意指光线无法穿透的材质，在文学与语言分析中常用来形容“话语隐晦、外行人听不懂”。文中作者指出，西方自己的黑话如 <i>watersports</i> 对于不了解内情的人来说同样是 <i>opaque</i> 的。</span>
+</li>
+<li style="margin-bottom: 12px;">
+<strong class="litit-badge">glitch</strong>：小故障 / 乱码。&lt;br&gt;
+<span class="litit-zh-sentence" style="margin-top: 4px;">常指电脑软件、电子设备中出现的短暂且难以解释的错误。文中用 <i>machine-translation glitch</i> 精准定性了盗版网站上铺天盖地的“乌贼（Squid）”标题——这根本不是性癖，纯粹是代码跑岔了。</span>
+</li>
+<li style="margin-bottom: 12px;">
+<strong class="litit-badge">sacramental</strong>：神圣的 / 圣礼的。&lt;br&gt;
+<span class="litit-zh-sentence" style="margin-top: 4px;">宗教专有名词。作者极其幽默地使用这个词来讽刺机翻后果：机翻导致那些重口味排泄视频的标题，听起来就像是女演员正在用“神圣的圣水（sacramental water）”为人们进行宗教洗礼一样。</span>
+</li>
+</ol>
+</div>
+</details>
+
+<!-- 第三板块：三、短语和固定搭配 -->
+<!-- AI 提示：第三板块【三、短语和固定搭配】。使用 <strong class="litit-badge"> 标记固定搭配，冒号后接解释，另起一行提供例句。 -->
+<details class="litit-fold">
+<summary>
+<h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">三、短语和固定搭配</h3>
+</summary>
+<div class="litit-fold-content">
+<ul style="list-style-type: square; margin: 0; padding-left: 18px; line-height: 1.6;">
+<li class="litit-target-sentence" style="margin-bottom: 10px;">
+<strong class="litit-badge">come down to</strong>：归结于 / 根本原因在于<br>
+<strong class="litit-en-sentence">A lot of it comes down to playful slang or onomatopoeia.</strong>
+<span class="litit-zh-sentence">这很大程度上归结于俏皮的俚语或拟声词。</span>
+</li>
+<li class="litit-target-sentence" style="margin-bottom: 10px;">
+<strong class="litit-badge">make zero sense</strong>：毫无意义 / 毫无逻辑<br>
+<strong class="litit-en-sentence">They are full of terms that make zero sense once translated.</strong>
+<span class="litit-zh-sentence">它们充满了翻译过来后毫无逻辑可言的词汇。</span>
+</li>
+<li class="litit-target-sentence" style="margin-bottom: 10px;">
+<strong class="litit-badge">lean hard into</strong>：极力侧重于 / 深耕于 / 把……发挥到极致<br>
+<strong class="litit-en-sentence">The series leaned hard into the intense, soul-sucking style.</strong>
+<span class="litit-zh-sentence">该系列极力将这种激烈、吸人灵魂的风格发挥到了极致。</span>
+</li>
+<li class="litit-target-sentence" style="margin-bottom: 10px;">
+<strong class="litit-badge">cut both ways</strong>：双刃剑 / 两面都一样 / 对双方都适用<br>
+<strong class="litit-en-sentence">Western terms are just as opaque, so it cuts both ways.</strong>
+<span class="litit-zh-sentence">西方的黑话也同样晦涩难懂，所以这事儿对双方都是一样的。</span>
+</li>
+<li class="litit-target-sentence" style="margin-bottom: 10px;">
+<strong class="litit-badge">spit out</strong>：吐出 /（机器）直接输出<br>
+<strong class="litit-en-sentence">Auto-translators ignore the context and spit out the religious meaning instead.</strong>
+<span class="litit-zh-sentence">自动翻译器忽略了语境，反而直接输出了其宗教层面的含义。</span>
+</li>
+<li class="litit-target-sentence" style="margin-bottom: 10px;">
+<strong class="litit-badge">give up</strong>：放弃 / 罢工 /（机器）摆烂<br>
+<strong class="litit-en-sentence">Sometimes it is just machine translation completely giving up.</strong>
+<span class="litit-zh-sentence">有时候它干脆就是机器翻译彻底摆烂了。</span>
+</li>
+</ul>
+</div>
+</details>
+
+<!-- 第四板块：四、值得学习的句子结构 -->
+<!-- AI 提示：第四板块【四、值得学习的句子结构】。严禁使用 .litit-badge！长句必须使用 <strong class="litit-en-sentence"> 自然块级排版，下方配合 <ul> 和 <li> 解析语法点。 -->
+<details class="litit-fold">
+<summary>
+<h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">四、值得学习的句子结构</h3>
+</summary>
+<div class="litit-fold-content">
+<ol style="margin: 0; padding-left: 18px;">
+<li class="litit-target-sentence" style="margin-bottom: 12px;">
+<strong class="litit-en-sentence">Japanese adult video titles are famous for being long, chaotic, and full of terms that make zero sense once they hit English.</strong>
+<span class="litit-zh-sentence">日本成人影片的标题向来以冗长、混乱且一旦翻译成英文就毫无逻辑可言的词汇而闻名。</span>
+<ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+<li style="margin-bottom: 3px;"><strong>are famous for being... and full of...</strong>：极其经典的并列结构定场句，清晰利落地抛出论点。</li>
+<li style="margin-bottom: 3px;"><strong>once they hit English</strong>：一旦它们接触到英语（即被翻译成英文时）。hit 在此用法非常地道，带有碰撞与接触的动态感。</li>
+</ul>
+</li>
+<li class="litit-target-sentence" style="margin-bottom: 12px;">
+<strong class="litit-en-sentence">Auto-translators ignore the sexual context and spit out the religious meaning instead, so titles end up sounding like actresses are blessing people with sacramental water.</strong>
+<span class="litit-zh-sentence">自动翻译器忽略了性暗示的语境，反而直接输出了宗教层面的含义，导致这些标题听起来就像是女演员正在用圣水为人们赐福一样。</span>
+<ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+<li style="margin-bottom: 3px;"><strong>spit out the religious meaning instead</strong>：spit out 生动描绘了机器翻译不过脑子、机械吐出对应单词的滑稽场面。</li>
+<li style="margin-bottom: 3px;"><strong>end up sounding like...</strong>：导致最终听起来像是……（用来引出荒谬错位结果的绝佳短语）。</li>
+</ul>
+</li>
+<li class="litit-target-sentence" style="margin-bottom: 12px;">
+<strong class="litit-en-sentence">You’ll often see it paired with words like “vacuum” (for strong suction) or “irrumatio” (deep throat).</strong>
+<span class="litit-zh-sentence">你经常会看到它与“真空”（代表强力吸吮）或“irrumatio”（深喉）之类的词搭配使用。</span>
+<ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+<li style="margin-bottom: 3px;"><strong>see it paired with...</strong>：看到它与……搭配。过去分词 paired 作宾语补足语，表示被动关系。</li>
+<li style="margin-bottom: 3px;"><strong>(for strong suction)</strong>：括号内作为补充解释的简明写法，在科技说明文或专有名词解释中非常实用。</li>
+</ul>
+</li>
+<li class="litit-target-sentence" style="margin-bottom: 12px;">
+<strong class="litit-en-sentence">These terms range from pure translation disasters to actual Japanese slang and industry fantasies.</strong>
+<span class="litit-zh-sentence">这些词汇的范围涵盖了从纯粹的翻译灾难，到真实的日语俚语以及行业的终极幻想。</span>
+<ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+<li style="margin-bottom: 3px;"><strong>range from A to B</strong>：从A涵盖到B（万能的总结与归纳句型，常用于段尾收束全篇的核心现象）。</li>
+</ul>
+</li>
+</ol>
+</div>
+</details>
+
+<!-- 第五板块：五、最值得优先掌握的句型 -->
+<!-- AI 提示：第五板块【五、最值得优先掌握的句型】。绝对禁止使用 .litit-badge 造成挤压！必须使用 <strong class="litit-en-sentence" style="color: #4338ca;"> 确保长文本自然折行。中文解释中的括号内容必须另起一行！ -->
+<details class="litit-fold">
+<summary>
+<h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">五、最值得优先掌握的句型</h3>
+</summary>
+<div class="litit-fold-content">
+<ol style="margin: 0; padding-left: 18px;">
+<li style="margin-bottom: 12px;">
+<strong class="litit-en-sentence" style="color: #4338ca;">[事物] is famous for being [特征A], [特征B], and full of [元素] that make zero sense once they hit [某种环境].</strong>
+<span class="litit-zh-sentence">某事物因极度A、B以及充满了一旦进入某种环境就毫无意义的元素而闻名。<br>（用于吐槽某类亚文化产品在跨文化传播时出现严重水土不服的开场神句）。</span>
+</li>
+<li style="margin-bottom: 12px;">
+<strong class="litit-en-sentence" style="color: #4338ca;">A lot of it comes down to [因素A], [因素B], or just [因素C] completely giving up.</strong>
+<span class="litit-zh-sentence">很大程度上这归结于A、B，或者干脆就是C彻底摆烂了。<br>（极其地道的归因句式，将责任最后推给系统或工具的故障，增加幽默感）。</span>
+</li>
+<li style="margin-bottom: 12px;">
+<strong class="litit-en-sentence" style="color: #4338ca;">Auto-translators ignore the [原本的背景] and spit out the [错误的表面含义] instead, so [事物] end up sounding like [一种极其荒谬的场景].</strong>
+<span class="litit-zh-sentence">自动翻译器忽略了原本的背景，反而直接输出了错误的表面含义，导致事物最终听起来就像是一种极其荒谬的场景。<br>（拆解“语言梗”或因文化差异导致闹笑话的最佳叙事结构）。</span>
+</li>
+<li style="margin-bottom: 12px;">
+<strong class="litit-en-sentence" style="color: #4338ca;">Once you know what they mean, a lot of those [令人困惑的事物] start making a weird kind of sense.</strong>
+<span class="litit-zh-sentence">一旦你知道了它们的意思，很多令人困惑的事物就开始有了一种奇妙的合理性。<br>（文章结尾做升华与总结的黄金句型，点明“存在即合理”的内核）。</span>
+</li>
+</ol>
+</div>
+</details>
+
+</div>
+
+<h2 class="section-header" style="border-left-color: #0d9488;">💡 幕后冷知识 (Fun Facts)</h2>
+<ul style="padding-left:18px; line-height:1.8; color:#334155; font-size:14.5px; margin-bottom:24px; word-break:break-word;">
+<li style="margin-bottom: 8px;"><strong>“Squid（乌贼）”的真实身世之谜：</strong> 文中提到盗版网站上大量的“Squid”是批量翻译工具故障造成的。但更深层的文化原因是，日语中表示“去”（Iku）的词在性语境下代指“高潮”。而它的俗语发音变体（Itta / Ika）经常在缺乏上下文的情况下，被早期的谷歌翻译等机器引擎直接识别成名词“乌贼（イカ/Ika）”。这就是为什么你看某些劣质机翻字幕时，女优在达到顶点时会疯狂高呼“乌贼！乌贼要出来了！”的爆笑根源。</li>
+<li style="margin-bottom: 8px;"><strong>关于“Blame”的日式BDSM底层逻辑：</strong> 为什么机翻会把性挑逗翻成“责备（Blame）”？因为在日式SM文化中，施虐方（S）被称为“攻め”（Semeru，本意为攻击、责罚），而受虐方（M）被称为“受け”（Ukeru，承受）。当女优在视频中说“请多责备我一点（もっと攻めて）”时，她实际上是在请求更猛烈的肉体挑逗；但毫无性经验的机器翻译算法只认字面意思，直接输出了 <i>Blame me more</i>，活生生把一部情色片翻成了道德检讨大会。</li>
+<li><strong>Men's Esthe（メンズエステ）的擦边经济学：</strong> 文中提到的“男士美容/放松服务”在现实日本街头随处可见。表面上，它是一家合法的精油按摩店，但实际上，许多高昂标价的 Men's Esthe 处于灰色地带，暗示着“打飞机”甚至更深度的擦边服务。这类题材在JAV中之所以长盛不衰，正是因为它完美切中了日本底层单身男性对现实中昂贵且隐秘的风俗服务的“代偿性意淫”。</li>
+</ul>
+
+<h2 class="section-header" style="border-left-color: #e11d48;">🎯 全片锐评</h2>
+<p style="line-height:1.75; color:#1e293b; font-weight:500; background:linear-gradient(135deg, #fff1f2 0%, #ffffff 100%); padding:14px 16px; border-radius:10px; font-size:14.5px; margin:0 0 12px 0; border:1px solid #ffe4e6; word-break:break-word;">
+这篇文章简直是一场对日本成人产业和机器翻译灾难的社会学与语言学的搞笑“尸检”。它揭示了人类最原始的欲望与人工智能的低能之间，能碰撞出怎样荒诞不经的火花。有趣之处在于，它并没有用道德高地去审判这些粗俗的色情标题，而是像个硬核语言学家一样，把它们变成了一个个等待解码的迷宫。翻译从来都不仅仅是字面意思的一一对应，它更关乎语境、文化和背后的潜台词。当你把复杂的“性语境”扔给冷冰冰的自动翻译器时，它就会用它那可怜的代码大脑，给你吐出“两个女孩互相责备对方”或是“女演员慷慨赐予观众圣水洗礼”这种极其抽象甚至带有神圣感的车祸现场。这篇科普文在令人捧腹大笑的同时，也完成了一次对现代 AI 技术的完美嘲讽——不管算法吹得多么强大，在理解人类“白浊”与“波霸”的幽微细节时，机器依然是个不可救药的蠢货。
+</p>
+</div>
+
+<script id="core-engine">
+let syncTimeout = null;
+const AI_PROMPT = "请分析以下英文段落，并严格按照以下 Markdown 格式输出（不要输出任何额外的废话）：\n\n### 📌 完整翻译\n\n[此处填写完整翻译]\n\n### 📌 Key Expressions\n\n- **[单词或短语]**\n = [中文释义]\n （[可选的补充说明，如倒装结构或语境等]）\n\n段落内容：\n";
+
+// --- 顶部阅读进度条逻辑 ---
+function initProgressBar() {
+const progressBar = document.getElementById('reading-progress');
+if (!progressBar) return;
+window.addEventListener('scroll', () => {
+const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+if (scrollHeight <= 0) return;
+const scrollPercent = (scrollTop / scrollHeight) * 100;
+progressBar.style.width = scrollPercent + '%';
+}, { passive: true });
+}
+
+async function fetchGroq(text, apiKey, modelName) {
+const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+method: 'POST',
+headers: { 'Authorization': 'Bearer ' + apiKey, 'Content-Type': 'application/json' },
+body: JSON.stringify({
+model: modelName || 'llama-3.3-70b-versatile',
+messages: [
+{ role: 'system', content: 'You are an English teacher. Output EXACTLY in the requested Markdown format.' },
+{ role: 'user', content: AI_PROMPT + '"' + text + '"' }
+],
+temperature: 0.3
+})
+});
+if (!res.ok) throw new Error('Groq Error: ' + res.status);
+const json = await res.json();
+return json.choices[0].message.content.trim();
+}
+
+async function fetchCustomAI(text, url, apiKey, modelName) {
+let headers = { 'Content-Type': 'application/json' };
+let bodyData = {};
+if (url.includes('anthropic.com')) {
+headers['x-api-key'] = apiKey;
+headers['anthropic-version'] = '2023-06-01';
+headers['anthropic-dangerous-direct-browser-access'] = 'true';
+bodyData = { model: modelName || 'claude-3-5-sonnet-20241022', max_tokens: 2000, messages: [{ role: 'user', content: AI_PROMPT + '"' + text + '"' }] };
+} else if (url.includes('generativelanguage.googleapis.com')) {
+let targetUrl = url;
+if (!targetUrl.includes('key=')) { targetUrl += (targetUrl.includes('?') ? '&' : '?') + 'key=' + apiKey; }
+const res = await fetch(targetUrl, {
+method: 'POST', headers: headers,
+body: JSON.stringify({ contents: [{ parts: [{ text: AI_PROMPT + '"' + text + '"' }] }] })
+});
+if (!res.ok) throw new Error('Gemini Error: ' + res.status);
+const json = await res.json();
+return json.candidates[0].content.parts[0].text.trim();
+} else {
+headers['Authorization'] = 'Bearer ' + apiKey;
+bodyData = {
+model: modelName || 'gpt-4o-mini',
+messages: [
+{ role: 'system', content: 'You are an English teacher. Output EXACTLY in the requested Markdown format.' },
+{ role: 'user', content: AI_PROMPT + '"' + text + '"' }
+],
+temperature: 0.3
+};
+}
+const res = await fetch(url, { method: 'POST', headers: headers, body: JSON.stringify(bodyData) });
+if (!res.ok) throw new Error('AI Interface Error: ' + res.status);
+const json = await res.json();
+if (json.choices && json.choices.length > 0) return json.choices[0].message.content.trim();
+throw new Error('AI 返回数据异常');
+}
+
+async function executeAIPipeline(text) {
+const customUrl = localStorage.getItem('CUSTOM_API_URL') || '';
+const customKey = localStorage.getItem('CUSTOM_API_KEY') || '';
+const customModel = localStorage.getItem('CUSTOM_MODEL') || '';
+const groqKey = localStorage.getItem('GROQ_API_KEY') || '';
+const groqModel = localStorage.getItem('GROQ_MODEL') || '';
+if (customUrl && customKey) {
+try { return await fetchCustomAI(text, customUrl, customKey, customModel); }
+catch (err) { if (groqKey) return await fetchGroq(text, groqKey, groqModel); throw err; }
+} else if (groqKey) {
+return await fetchGroq(text, groqKey, groqModel);
+} else {
+const userKey = prompt('⚠️ 当前页面未检测到 AI Key！\n为了安全，密匙只储存在您本地浏览器中。\n\n请输入您的 API Key (如 sk-xxx 或 gsk_xxx):');
+if (userKey && userKey.trim()) {
+const cleanKey = userKey.trim();
+if (cleanKey.startsWith('gsk_')) {
+localStorage.setItem('GROQ_API_KEY', cleanKey);
+} else {
+localStorage.setItem('CUSTOM_API_KEY', cleanKey);
+localStorage.setItem('CUSTOM_API_URL', 'https://api.chatanywhere.tech/v1/chat/completions');
+}
+}
+throw new Error('未设置 AI API Key');
+}
+}
+
+// --- 降级清理防线：净化污染节点 ---
+function getPurifiedFallbackHTML() {
+const clone = document.documentElement.cloneNode(true);
+const foreignSelectors = [
+'relingo-app', 'relin-highlight', 'relin-hc', '[class*="relingo"]', '[data-relin-paragraph]',
+'grammarly-extension', '[data-grammarly-part]',
+'[class*="immersive-translate"]', '[data-immersive-translate]'
+].join(',');
+clone.querySelectorAll(foreignSelectors).forEach(el => el.remove());
+clone.querySelectorAll('relin-highlight, relin-hc').forEach(t => {
+const frag = document.createDocumentFragment();
+while(t.firstChild) frag.appendChild(t.firstChild);
+t.parentNode.replaceChild(frag, t);
+});
+clone.querySelectorAll('script').forEach(s => {
+if (!s.src.includes('marked.min.js') && s.id !== 'core-engine') s.remove();
+});
+clone.querySelectorAll('style').forEach(s => {
+if (s.id !== 'core-style') s.remove();
+});
+const liveTAs = document.querySelectorAll('.anno-edit');
+clone.querySelectorAll('.anno-edit').forEach((ta, i) => {
+if(liveTAs[i]) ta.textContent = liveTAs[i].value.trim();
+const box = ta.closest('.anno-box');
+if (box) box.style.display = 'none';
+const view = box ? box.querySelector('.anno-view') : null;
+if (view) view.innerHTML = '';
+});
+return '<!DOCTYPE html>\n<html lang="zh-CN">\n' + clone.innerHTML + '\n</html>';
+}
+
+// --- 内存反向打补丁同步技术 ---
+async function syncToCloud() {
+const ghToken = localStorage.getItem('LITIT_GH_TOKEN') || localStorage.getItem('GH_TOKEN');
+const ghOwner = 'moodHappy';
+const ghRepo = 'dual-read-notes';
+if (!ghToken) return;
+const pathParts = window.location.pathname.split('/');
+const fileName = pathParts.pop();
+const month = pathParts.pop();
+const year = pathParts.pop();
+if(!fileName || !month || !year) return;
+const fileRelPath = 'Summary/' + year + '/' + month + '/' + fileName;
+try {
+const getRes = await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath + '?t=' + Date.now(), {
+headers: { 'Authorization': 'Bearer ' + ghToken },
+cache: 'no-store'
+});
+let finalHTML = '';
+let sha = '';
+if (getRes.ok) {
+const fileData = await getRes.json();
+sha = fileData.sha;
+const cleanRawHTML = decodeURIComponent(escape(atob(fileData.content.replace(/\n/g, ''))));
+const parser = new DOMParser();
+const cleanDoc = parser.parseFromString(cleanRawHTML, 'text/html');
+const liveTAs = document.querySelectorAll('.anno-edit');
+const cleanTAs = cleanDoc.querySelectorAll('.anno-edit');
+liveTAs.forEach((liveTa, index) => {
+if (cleanTAs[index]) {
+const val = liveTa.value.trim();
+cleanTAs[index].textContent = val;
+const box = cleanTAs[index].closest('.anno-box');
+if (box) box.style.display = 'none';
+const view = box ? box.querySelector('.anno-view') : null;
+if (view) view.innerHTML = '';
+}
+});
+cleanDoc.querySelectorAll('.anno-toggle').forEach(t => {
+t.classList.remove('has-anno');
+const ta = t.closest('.content-wrap, .litit-highlight-block')?.querySelector('.anno-edit');
+if (ta && ta.textContent.trim()) t.classList.add('has-anno');
+});
+finalHTML = '<!DOCTYPE html>\n<html lang="zh-CN">\n' + cleanDoc.documentElement.innerHTML + '\n</html>';
+} else {
+finalHTML = getPurifiedFallbackHTML();
+}
+await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath, {
+method: 'PUT',
+headers: { 'Authorization': 'Bearer ' + ghToken, 'Content-Type': 'application/json' },
+body: JSON.stringify({
+message: 'Silent purified annotation update',
+content: btoa(unescape(encodeURIComponent(finalHTML))),
+sha: sha || undefined
+})
+});
+console.log('✅ [My Litit] 纯净无污染批注已静默同步至 GitHub');
+} catch(e) {
+console.warn('❌ [My Litit] 同步跳过或失败:', e);
+}
+}
+
+function scheduleSync() {
+if (syncTimeout) clearTimeout(syncTimeout);
+syncTimeout = setTimeout(() => { syncToCloud(); }, 3000);
+}
+
+function initAnnotations() {
+document.querySelectorAll('.litit-highlight-block, .content-wrap').forEach(wrap => {
+let content = wrap.querySelector('.content');
+if (!content) {
+const pText = wrap.querySelector('p');
+if (pText) {
+content = document.createElement('div');
+content.className = 'content';
+content.style.cssText = 'position:relative; margin:0 0 6px 0; color:#1a202c; font-family:Georgia, serif; line-height:1.7; font-size:15px; word-break:break-word;';
+content.innerHTML = pText.innerHTML;
+pText.parentNode.replaceChild(content, pText);
+}
+}
+if (!content) return;
+if (!content.querySelector('.anno-toggle')) {
+const toggle = document.createElement('span');
+toggle.className = 'anno-toggle';
+toggle.title = '手写批注/笔记';
+content.appendChild(toggle);
+}
+if (!content.querySelector('.ai-toggle')) {
+const aiToggle = document.createElement('span');
+aiToggle.className = 'ai-toggle';
+aiToggle.title = 'AI智能二次解析';
+content.appendChild(aiToggle);
+}
+let box = wrap.querySelector('.anno-box');
+if (!box) {
+box = document.createElement('div');
+box.className = 'anno-box';
+box.style.display = 'none';
+box.innerHTML = '<div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 解析..."></textarea>';
+wrap.appendChild(box);
+}
+const view = box.querySelector('.anno-view');
+const edit = box.querySelector('.anno-edit');
+const toggle = content.querySelector('.anno-toggle');
+const aiToggle = content.querySelector('.ai-toggle');
+if (edit && edit.value.trim()) {
+toggle.classList.add('has-anno');
+try { view.innerHTML = (typeof marked !== 'undefined') ? marked.parse(edit.value.trim()) : edit.value.trim(); } catch(e){}
+}
+if (aiToggle) {
+aiToggle.onclick = async (e) => {
+e.preventDefault(); e.stopPropagation();
+if (aiToggle.classList.contains('loading')) return;
+if (edit && edit.value.trim() !== '') {
+const confirmOverwrite = confirm('⚠️ 已经存在批注内容。点击"确定"将使用 AI 解析覆盖现有内容。是否继续？');
+if (!confirmOverwrite) return;
+}
+const pClone = content.cloneNode(true);
+pClone.querySelectorAll('.anno-toggle, .ai-toggle').forEach(el => el.remove());
+let pText = pClone.textContent.replace(/https?:\/\/\S+/g, '').trim();
+if (!pText) return;
+aiToggle.classList.add('loading');
+try {
+const aiContent = await executeAIPipeline(pText);
+box.style.display = 'block';
+view.style.display = 'none';
+edit.style.display = 'block';
+edit.value = aiContent;
+edit.focus();
+edit.blur();
+} catch (err) {
+console.error(err);
+} finally {
+aiToggle.classList.remove('loading');
+}
+};
+}
+if (toggle) {
+toggle.onclick = (e) => {
+e.preventDefault(); e.stopPropagation();
+if (box.style.display === 'block') {
+box.style.display = 'none';
+} else {
+box.style.display = 'block';
+if (!edit.value.trim()) {
+view.style.display = 'none';
+edit.style.display = 'block';
+setTimeout(() => { edit.focus(); }, 150);
+} else {
+view.style.display = 'block';
+edit.style.display = 'none';
+}
+}
+};
+}
+const triggerEdit = (e) => {
+if(e) { e.preventDefault(); e.stopPropagation(); }
+view.style.display = 'none';
+edit.style.display = 'block';
+edit.value = edit.value;
+setTimeout(() => { edit.focus(); }, 150);
+};
+view.addEventListener('dblclick', triggerEdit);
+let lastTap = 0;
+view.addEventListener('touchstart', e => {
+if (e.touches.length === 2) {
+triggerEdit(e);
+} else if (e.touches.length === 1) {
+const currentTime = new Date().getTime();
+if (currentTime - lastTap < 500 && currentTime - lastTap > 0) {
+e.preventDefault();
+box.style.display = 'none';
+}
+lastTap = currentTime;
+}
+}, {passive: false});
+if (edit && view) {
+edit.onblur = () => {
+setTimeout(() => {
+const newVal = edit.value.trim();
+try { view.innerHTML = newVal ? ((typeof marked !== 'undefined') ? marked.parse(newVal) : newVal) : ''; } catch(e){}
+edit.style.display = 'none';
+if (newVal) {
+view.style.display = 'block';
+toggle.classList.add('has-anno');
+} else {
+view.style.display = 'none';
+box.style.display = 'none';
+toggle.classList.remove('has-anno');
+}
+if (edit.getAttribute('data-old-val') !== newVal) {
+edit.setAttribute('data-old-val', newVal);
+scheduleSync();
+}
+}, 150);
+};
+edit.setAttribute('data-old-val', edit.value.trim());
+}
+});
+}
+window.addEventListener('DOMContentLoaded', () => {
+initProgressBar();
+initAnnotations();
+});
+window.addEventListener('load', initAnnotations);
+</script>
+</body>
+</html>
