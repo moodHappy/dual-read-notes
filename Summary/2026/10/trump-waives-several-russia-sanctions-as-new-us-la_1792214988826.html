@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Trump waives several Russia sanctions as new US law takes effect</title>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<style id="core-style">
+/* ======================================================================
+   [AI TEMPLATE GUIDELINES - CSS 核心排版规范]
+   致其他 AI 助手：在生成此模板时，请严格遵守以下样式分配规则：
+   1. 序号规则：列表的 NO.01 序号由伪类 `::before` 自动生成且独占一行。千万不要在 HTML 中手动输入“NO.01”。
+   2. 标签规则：文章开头的标签胶囊纯文字即可，禁止带 `#` 号。
+   3. 胶囊高亮（.litit-badge）：仅用于第 1、2、3 板块（重点记忆、高价值表达、短语和固定搭配）的【短词组/单词】，表现为紫色渐变背景的内联胶囊。
+   4. 长句排版（.litit-en-sentence）：用于第 4 板块（值得学习的句子结构）和第 5 板块（最值得优先掌握的句型）的【长句/长句型】。严禁将长句型放入 .litit-badge 中，否则会导致折行错乱。并且中文解释中的括号补充内容需使用 <br> 另起一行。
+====================================================================== */
+:root {
+  --bg-page: #ffffff;
+  --bg-card: #ffffff;
+  --text-main: #0f172a;
+  --text-sub: #334155;
+  --text-muted: #64748b;
+  --accent-primary: #4f46e5;
+  --border-subtle: #e2e8f0;
+  --font-serif: "Georgia", "Charter", "Source Han Serif SC", "Noto Serif CJK SC", serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", Roboto, sans-serif;
+}
+body {
+  font-family: var(--font-sans);
+  padding: 12px 12px 36px 12px;
+  margin: 0 auto;
+  max-width: 780px;
+  background: var(--bg-page);
+  color: var(--text-main);
+  line-height: 1.75;
+  font-size: 16px;
+  word-wrap: break-word;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+* { box-sizing: border-box; max-width: 100%; }
+img { max-width: 100%; height: auto; border-radius: 8px; }
+
+/* 顶部极简阅读进度条 */
+#reading-progress {
+  position: fixed;
+  top: 0; left: 0;
+  width: 0%; height: 3px;
+  background: linear-gradient(90deg, #4f46e5, #9333ea);
+  z-index: 9999;
+  transition: width 0.1s ease-out;
+}
+
+/* 主容器：零冗余边距，最大化阅读视野 */
+.litit-report { background: var(--bg-card); padding: 0; }
+
+/* AI 批注组件样式 */
+.anno-toggle, .ai-toggle {
+  display: inline-block;
+  padding: 2px 5px;
+  margin-left: 5px;
+  cursor: pointer;
+  opacity: 0.45;
+  font-size: 0.85rem;
+  vertical-align: middle;
+  transition: all 0.2s;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.anno-toggle:hover, .ai-toggle:hover { opacity: 1; transform: scale(1.15); }
+.anno-toggle.has-anno { opacity: 1; }
+.anno-toggle::after { content: "🔴"; }
+.ai-toggle { opacity: 0.7; padding: 2px 4px; }
+.ai-toggle::after { content: "🤖"; }
+.ai-toggle.loading::after {
+  content: "⏳"; display: inline-block; animation: spin 1s linear infinite;
+}
+@keyframes spin { 100% { transform: rotate(360deg); } }
+
+.anno-box {
+  display: none; margin-top: 10px;
+  background: #faf8ff; border-left: 3px solid #7c3aed;
+  padding: 12px 14px; border-radius: 0 8px 8px 0; text-align: left;
+}
+.anno-view { font-size: 0.95rem; line-height: 1.65; color: #334155; min-height: 24px; }
+.anno-edit {
+  width: 100%; min-height: 120px; padding: 10px;
+  font-family: monospace; font-size: 0.95rem;
+  border: 1px dashed #a78bfa; border-radius: 6px;
+  resize: vertical; display: none; background: #fff;
+  color: #1e293b; outline: none;
+}
+.anno-edit:focus { border: 1px solid #7c3aed; box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.12); }
+.markdown-body p { margin-top: 0; margin-bottom: 8px; }
+.markdown-body p:last-child { margin-bottom: 0; }
+.markdown-body h1, .markdown-body h2, .markdown-body h3 {
+  color: #5b21b6; font-size: 1.05rem; margin: 10px 0 6px 0;
+  border-bottom: 1px dashed #ddd6fe; padding-bottom: 4px;
+}
+.markdown-body ul, .markdown-body ol { margin: 0 0 8px 0; padding-left: 18px; }
+.markdown-body blockquote {
+  margin: 0 0 10px 0; padding: 8px 12px;
+  background: rgba(124, 58, 237, 0.06); border-left: 3px solid #7c3aed; color: #475569;
+}
+
+/* 杂志风区块标题 */
+.section-header {
+  font-size: 16px; color: #0f172a; font-weight: 700;
+  letter-spacing: 0.02em;
+  background: linear-gradient(90deg, #f8fafc 0%, #ffffff 100%);
+  padding: 8px 12px; border-left: 4px solid #4f46e5;
+  margin: 26px 0 14px 0; border-radius: 0 6px 6px 0;
+  display: flex; align-items: center;
+  box-shadow: inset 0 1px 0 #f1f5f9, inset 0 -1px 0 #f1f5f9;
+}
+
+/* 折叠面板升级：极简无十字图标、最大化宽度 */
+details.litit-fold {
+  margin-bottom: 10px; border: 1px solid #e2e8f0; border-radius: 10px;
+  background: #ffffff; overflow: hidden; transition: border-color 0.2s ease;
+}
+details.litit-fold[open] { border-color: #cbd5e1; }
+details.litit-fold summary {
+  cursor: pointer; padding: 12px 14px; outline: none; list-style: none;
+  display: flex; justify-content: space-between; align-items: center;
+  background: #f8fafc; transition: background 0.2s;
+  user-select: none; -webkit-tap-highlight-color: transparent;
+}
+details.litit-fold summary::-webkit-details-marker { display: none; }
+details.litit-fold summary::after { display: none; }
+details.litit-fold summary:hover { background: #f1f5f9; }
+details.litit-fold[open] summary { border-bottom: 1px solid #e2e8f0; background: #f1f5f9; border-left: 3px solid #4f46e5; }
+.litit-fold-content { padding: 10px 8px; background: #f8fafc; }
+
+/* 精读区列表卡片化 */
+.litit-fold-content > ol, .litit-fold-content > ul {
+  list-style: none !important; padding-left: 0 !important; margin: 0 !important; counter-reset: litit-counter;
+}
+.litit-fold-content > ol > li, .litit-fold-content > ul > li {
+  counter-increment: litit-counter; position: relative;
+  background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px;
+  padding: 12px 12px; margin-bottom: 10px !important; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.015);
+}
+.litit-fold-content > ol > li:last-child, .litit-fold-content > ul > li:last-child { margin-bottom: 0 !important; }
+
+/* [规则 1] 顶部流式微型序号徽章：完美独占一行，追求极致对齐与统一美感 */
+.litit-fold-content > ol > li::before, .litit-fold-content > ul > li::before {
+  content: "NO." counter(litit-counter, decimal-leading-zero);
+  display: block; width: max-content; font-size: 10px; font-weight: 800;
+  font-family: -apple-system, BlinkMacSystemFont, monospace;
+  color: #4f46e5; background: #eef2ff; padding: 1px 6px; border-radius: 4px;
+  margin-bottom: 8px; letter-spacing: 0.04em;
+}
+
+/* [规则 4] 纯英/中长句子专属排版（块级元素，自然折行对齐） */
+.litit-en-sentence {
+  display: block; font-family: var(--font-serif); font-size: 1.04rem;
+  font-weight: 600; color: #0f172a; line-height: 1.5; margin-bottom: 6px;
+}
+.litit-zh-sentence {
+  display: block; font-family: var(--font-sans); font-size: 0.93rem;
+  color: #475569; line-height: 1.55; margin-bottom: 2px;
+}
+li.litit-target-sentence > br { display: none; }
+
+/* [规则 3] 短词组高亮徽章（1、2、3 板块专用短标签） */
+.litit-badge {
+  display: inline-block; background: linear-gradient(135deg, #eef2ff 0%, #f3e8ff 100%);
+  color: #4338ca; padding: 2px 8px; border-radius: 5px; font-size: 0.92rem;
+  font-weight: 700; margin-right: 4px; margin-bottom: 6px;
+  border: 1px solid #e0e7ff; vertical-align: middle;
+}
+
+/* 第 4 板块子级知识点解析区左边框内嵌盒 */
+li.litit-target-sentence > ul {
+  list-style: none !important; margin: 10px 0 0 0 !important; padding: 8px 10px !important;
+  background: #f8fafc; border-radius: 6px; border-left: 2.5px solid #94a3b8;
+}
+li.litit-target-sentence > ul > li {
+  position: relative; padding-left: 10px; margin-bottom: 5px !important; font-size: 0.88rem; color: #334155; line-height: 1.5;
+}
+li.litit-target-sentence > ul > li:last-child { margin-bottom: 0 !important; }
+li.litit-target-sentence > ul > li::before {
+  content: "·"; position: absolute; left: 0; top: 0; color: #4f46e5; font-weight: 900;
+}
+li.litit-target-sentence > ul > li > strong {
+  color: #0f172a; font-weight: 600; background: #e2e8f0; padding: 1px 5px; border-radius: 4px; font-size: 0.84rem; margin-right: 3px;
+}
+
+/* 移动端极限铺开适配 */
+@media (max-width: 600px) {
+  body { padding: 10px 10px 30px 10px; font-size: 15px; }
+  h1.litit-target-title { font-size: 21px !important; }
+  .litit-fold-content { padding: 8px 6px; }
+  .litit-fold-content > ol > li, .litit-fold-content > ul > li { padding: 11px 10px; margin-bottom: 8px !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- 进度条 DOM -->
+<div id="reading-progress"></div>
+
+<div class="litit-report" style="width:100%; max-width:100%; box-sizing:border-box; overflow-x:hidden;">
+  
+  <!-- 顶部杂志刊头装饰 -->
+  <div style="display:flex; justify-content:space-between; align-items:center; border-bottom: 2px solid #0f172a; padding-bottom: 6px; margin-bottom: 14px; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: #64748b; text-transform: uppercase;">
+    <span>The Global Dispatch · 深度双语精读</span>
+    <span>Geopolitics & Energy</span>
+  </div>
+
+  <!-- 支持批注的主标题区 -->
+  <div class="content-wrap" style="position:relative; margin-bottom: 16px;">
+    <h1 class="litit-target-title" style="color:#0f172a; font-size: 24px; line-height: 1.35; font-family: var(--font-serif); font-weight: 800; border-bottom: 1px solid #e2e8f0; padding-bottom: 14px; margin-top:0; margin-bottom:0; word-break:break-word;">
+      <span class="content litit-en-title" style="position:relative;">Trump waives several Russia sanctions as new US law takes effect</span>
+      <br>
+      <span class="litit-zh-title" style="font-family: var(--font-sans); font-size: 17px; font-weight: 600; color: #475569; margin-top: 8px; display: inline-block; line-height: 1.45;">新法生效之际，特朗普动用总统特权豁免多项对俄制裁</span>
+    </h1>
+    <div class="anno-box" style="display:none; margin-top: 10px;">
+      <div class="anno-view markdown-body"></div>
+      <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
+
+新法生效之际，特朗普动用总统特权豁免多项对俄制裁
+
+### 📌 Key Expressions
+
+- **waive sanctions** = 豁免制裁 / 放弃实施制裁
+- **take effect** = 开始生效 / 实行</textarea>
+    </div>
+  </div>
+
+  <!-- 杂志导语（Lead Paragraph） -->
+  <p style="color:#334155; font-size: 15px; line-height: 1.75; margin-bottom:16px; font-weight:400; background: #f8fafc; padding: 12px 14px; border-radius: 8px; border: 1px solid #f1f5f9;">
+    在美国国会旨在严惩俄罗斯对乌战争的严厉制裁法案即将生效的前夕，美国总统唐纳德·特朗普周五签署行政令，以符合美国“国家利益”为由，动用总统特权冻结并豁免了其中多项严厉制裁条款。这一极具争议的举动紧随其数日前宣布将从莫斯科进口柴油以平抑国内高企能源价格的决议之后，迅速引发了国会两党的激烈反弹。该法案以今年7月去世的乌克兰坚定支持者、前参议员林赛·格雷厄姆命名，原本赋予白宫对中印等购油大国加征最高100%关税、并严厉打击普京及俄“影子舰队”的权力。从单方面宣布却迅速破产的“能源停火”，到斥责乌军袭击俄炼油厂是“耻辱”，再到切断情报共享威胁与“星链”突发降速风波，特朗普在11月中期选举前夕向莫斯科抛出的“柴油橄榄枝”，正令美乌同盟及华盛顿的对俄铁幕陷入前所未有的剧烈震荡。
+  </p>
+
+  <div style="margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+    <div style="display:flex; flex-wrap:wrap; gap:6px;">
+      <!-- [规则 2] 纯净的胶囊风格 -->
+      <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;">地缘博弈</span>
+      <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;">能源危机</span>
+      <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;">对俄制裁</span>
+    </div>
+    <a href="https://www.bbc.com/news/articles/cxr5yvzv7rp0o" target="_blank" style="font-size: 12.5px; color: #4f46e5; text-decoration: none; font-weight: 600; background: #eef2ff; padding: 5px 12px; border-radius: 16px; border: 1px solid #e0e7ff; display:inline-block;">🔗 阅读原文 ↗</a>
+  </div>
+
+  <!-- 最佳金句区 -->
+  <h2 class="section-header" style="border-left-color: #f59e0b;">💬 最佳金句</h2>
+  <div class="content-wrap" style="position:relative; margin-bottom:24px;">
+    <blockquote class="litit-target-quote" style="border-left: 3.5px solid #f59e0b; background: linear-gradient(135deg, #fffbeb 0%, #ffffff 100%); padding: 14px 14px; margin: 0; color: #1e293b; border-radius: 0 10px 10px 0; border-top: 1px solid #fef3c7; border-right: 1px solid #fef3c7; border-bottom: 1px solid #fef3c7;">
+      <div class="content litit-en-quote" style="position:relative; margin:0 0 8px 0; font-family: var(--font-serif); font-style: italic; font-weight:600; font-size: 16.5px; line-height: 1.55; color:#0f172a; word-break:break-word;">
+        "Trump's latest surrender to Putin again betrays our Ukrainian partners and defies clear congressional intent of legislation designed to punish Russia for its illegal war of aggression."
+      </div>
+      <p class="litit-zh-quote" style="margin:0 0 8px 0; font-weight:400; font-size: 14.5px; line-height: 1.6; color:#475569; word-break:break-word;">
+        “特朗普对普京的最新投降再次背叛了我们的乌克兰伙伴，并公然违抗了国会通过立法严惩俄罗斯非法侵略战争的明确意图。”
+      </p>
+      <footer style="text-align:right; font-size:12px; color:#64748b; font-style:normal; font-weight:600;">—— 弗吉尼亚州民主党众议员唐·拜尔（Don Beyer）就特朗普豁免制裁发文抨击</footer>
+    </blockquote>
+    <div class="anno-box" style="display:none;">
+      <div class="anno-view markdown-body"></div>
+      <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
+
+“特朗普对普京的最新投降再次背叛了我们的乌克兰伙伴，并公然违抗了国会通过立法严惩俄罗斯非法侵略战争的明确意图。”
+
+### 📌 Key Expressions
+
+- **surrender to** = 向……投降 / 屈服
+- **betray partners** = 背叛伙伴
+- **defy clear congressional intent** = 公然违抗国会明确立法意图
+- **war of aggression** = 侵略战争</textarea>
+    </div>
+  </div>
+
+  <!-- Grid 布局关键数字区 -->
+  <h2 class="section-header" style="border-left-color: #10b981;">📊 关键数字</h2>
+  <div style="display:grid; grid-template-columns: repeat(2, 1fr); gap:10px; margin:14px 0 24px 0;">
+    <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+      <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+        100<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">%</span>
+      </div>
+      <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">法案赋予总统对俄油气前五大买家（如中印）加征的最高关税税率</div>
+    </div>
+    <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+      <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+        20<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">位</span>
+      </div>
+      <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">联名致信特朗普、敦促其毫无保留全面执行新制裁法的跨党派议员人数</div>
+    </div>
+    <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+      <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+        18<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">日</span>
+      </div>
+      <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">以已故参议员格雷厄姆命名的全面对俄制裁法案原定正式生效的10月日期</div>
+    </div>
+    <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+      <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+        3<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">天</span>
+      </div>
+      <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">特朗普单方面宣布“能源停火”后，基辅因俄军持续空袭而恢复反击所维持的停火天数</div>
+    </div>
+  </div>
+
+  <h2 class="section-header" style="border-left-color: #3b82f6;">⏱️ 事件时间线</h2>
+  <ul style="padding-left:18px; line-height:1.8; color:#334155; font-size: 14.5px; margin-bottom:24px; word-break:break-word;">
+    <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">7月11日：</strong> 乌克兰在华盛顿最坚定的捍卫者之一、共和党参议员林赛·格雷厄姆去世，随后的制裁法案以其命名。</li>
+    <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">9月法案通过：</strong> 美国国会正式通过对俄强力制裁法案并由特朗普签署成法，原定于10月18日生效。</li>
+    <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">10月9日柴油交易：</strong> 特朗普宣布与普京通话，达成采购俄柴油协议以压低中期选举前的美国油价，引发盟友震惊。</li>
+    <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">10月11日停火幻影：</strong> 特朗普声称俄乌达成“立即生效的能源停火”，但俄方否认并持续空袭，乌克兰三天后被迫恢复对俄炼油厂的打击。</li>
+    <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">本周中段：</strong> 乌克兰境内“星链”突发降速并遭俄军致命空袭；美方警告若乌军不停止袭击俄炼油厂，将切断对乌情报共享。</li>
+    <li><strong style="color:#1d4ed8;">周五晚间：</strong> 特朗普正式签署行政命令，在法案生效前夕以“国家利益”为由豁免拦截多项对俄关键制裁条款。</li>
+  </ul>
+
+  <h2 class="section-header" style="border-left-color: #8b5cf6;">✨ 本篇亮点与精读</h2>
+  <div style="margin: 14px 0 10px 0;">
+
+    <!-- 第一板块：一、重点记忆 -->
+    <details class="litit-fold">
+      <summary>
+        <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">一、重点记忆</h3>
+      </summary>
+      <div class="litit-fold-content">
+        <ul style="list-style-type: square; margin: 0; padding-left: 18px; line-height: 1.6;">
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">waive</strong>：豁免 / 放弃（适用法律或制裁）<br>
+            <strong class="litit-en-sentence">Trump waives several Russia sanctions as new US law takes effect.</strong>
+            <span class="litit-zh-sentence">在新法生效之际，特朗普豁免了多项对俄制裁。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">capitulate</strong>：投降 / 屈服<br>
+            <strong class="litit-en-sentence">Democrats accused him of capitulating to Moscow and turning his back on Kyiv.</strong>
+            <span class="litit-zh-sentence">民主党人指责他向莫斯科屈服，并背弃了基辅。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">shadow fleet</strong>：影子舰队（规避制裁的幽灵船队）<br>
+            <strong class="litit-en-sentence">The law includes sanctions against Russia's "shadow fleet" of tankers.</strong>
+            <span class="litit-zh-sentence">该法律包括对用于规避既有制裁的俄罗斯油轮“影子舰队”进行制裁。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">staunchest</strong>：最坚定的 / 最忠实的<br>
+            <strong class="litit-en-sentence">He was one of Ukraine's staunchest defenders in Washington.</strong>
+            <span class="litit-zh-sentence">他是华盛顿支持乌克兰最坚定的捍卫者之一。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">scathing</strong>：严厉苛刻的 / 尖刻痛斥的<br>
+            <strong class="litit-en-sentence">This prompted scathing criticism from Trump against the strikes.</strong>
+            <span class="litit-zh-sentence">这引发了特朗普针对这些打击行动的严厉斥责。</span>
+          </li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- 第二板块：二、高价值表达 -->
+    <details class="litit-fold">
+      <summary>
+        <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">二、高价值表达</h3>
+      </summary>
+      <div class="litit-fold-content">
+        <ol style="margin: 0; padding-left: 18px;">
+          <li style="margin-bottom: 12px;">
+            <strong class="litit-badge">bipartisan backlash</strong>：两党一致的强烈反弹。<br>
+            <span class="litit-zh-sentence" style="margin-top: 4px;">由 <i>bipartisan</i>（跨党派的 / 两党的）与 <i>backlash</i>（强烈反对 / 逆反）组合，专指美国政坛中少见的打破党派藩篱、由民主党与共和党共同发起的强烈政治抵制。</span>
+          </li>
+          <li style="margin-bottom: 12px;">
+            <strong class="litit-badge">withhold</strong>：扣留 / 暂缓实施 / 拒绝给予。<br>
+            <span class="litit-zh-sentence" style="margin-top: 4px;">常用于高层政治谈判与法律授权语境中（如 <i>withhold sanctions/intelligence</i>），体现拥有决定权的一方通过“扣下关键资源不予兑现”来进行政治施压。</span>
+          </li>
+          <li style="margin-bottom: 12px;">
+            <strong class="litit-badge">skyrocket</strong>：火箭般飞涨 / 暴涨。<br>
+            <span class="litit-zh-sentence" style="margin-top: 4px;">极具画面感的动态动词，生动传达由于突发地缘冲突导致原油、柴油价格在极短时间内失控攀升的剧烈幅度。</span>
+          </li>
+          <li style="margin-bottom: 12px;">
+            <strong class="litit-badge">circumvent</strong>：规避 / 绕开（规则或法律）。<br>
+            <span class="litit-zh-sentence" style="margin-top: 4px;">政治经济学高级词汇。常用于描述利用离岸中介、非正规注册或第三方漏洞巧妙绕过国际禁运法案的商业行为。</span>
+          </li>
+        </ol>
+      </div>
+    </details>
+
+    <!-- 第三板块：三、短语和固定搭配 -->
+    <details class="litit-fold">
+      <summary>
+        <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">三、短语和固定搭配</h3>
+      </summary>
+      <div class="litit-fold-content">
+        <ul style="list-style-type: square; margin: 0; padding-left: 18px; line-height: 1.6;">
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">in national interests</strong>：出于国家利益考量<br>
+            <strong class="litit-en-sentence">Trump said that it is in the US national interests to withhold some sanctions.</strong>
+            <span class="litit-zh-sentence">特朗普表示，暂缓实施部分制裁符合美国的国家利益。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">levy tariffs on</strong>：对……征收关税<br>
+            <strong class="litit-en-sentence">The law gave Trump broad powers to levy tariffs of up to 100% on purchasers.</strong>
+            <span class="litit-zh-sentence">该法律赋予特朗普对采购方征收高达100%关税的广泛权力。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">turn one's back on</strong>：背弃 / 抛弃某人<br>
+            <strong class="litit-en-sentence">Critics accused him of turning his back on Kyiv and Zelensky.</strong>
+            <span class="litit-zh-sentence">批评人士指责他背弃了基辅和泽连斯基。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">effective immediately</strong>：立即生效<br>
+            <strong class="litit-en-sentence">He insisted the ceasefire was effective immediately but provided no details.</strong>
+            <span class="litit-zh-sentence">他坚称停火协议立即生效，但未透露任何细节。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">stand up for</strong>：挺身捍卫 / 维护……的利益<br>
+            <strong class="litit-en-sentence">Zelensky responded saying he was only standing up for Ukraine's interests.</strong>
+            <span class="litit-zh-sentence">泽连斯基回应称，他只是在坚决捍卫乌克兰的国家利益。</span>
+          </li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- 第四板块：四、值得学习的句子结构 -->
+    <details class="litit-fold">
+      <summary>
+        <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">四、值得学习的句子结构</h3>
+      </summary>
+      <div class="litit-fold-content">
+        <ol style="margin: 0; padding-left: 18px;">
+          <li class="litit-target-sentence" style="margin-bottom: 12px;">
+            <strong class="litit-en-sentence">US President Donald Trump has used his presidential authority to block numerous sanctions on Russia that were recently passed by the US Congress in an effort to punish the country for its war on Ukraine.</strong>
+            <span class="litit-zh-sentence">美国总统唐纳德·特朗普动用其总统权力，拦截了美国国会近期通过的多项对俄制裁，而这些制裁本旨在惩罚俄罗斯对乌克兰发动战争。</span>
+            <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+              <li style="margin-bottom: 3px;"><strong>use authority to block...</strong>：核心动宾搭配，以清晰有力的新闻导语结构直陈事件本质。</li>
+              <li style="margin-bottom: 3px;"><strong>in an effort to...</strong>：目的状语短语，精确概括立法初衷，与前文被行政权力封堵形成强烈冲突感。</li>
+            </ul>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 12px;">
+            <strong class="litit-en-sentence">The law took aim at Russia's economy, and gave Trump broad powers to levy tariffs of up to 100% on the top five purchasers of Russian oil and gas – most significantly China and India.</strong>
+            <span class="litit-zh-sentence">该法律将矛头对准俄罗斯经济，并赋予特朗普广泛权力，可对俄罗斯石油和天然气的前五大买家——最主要的是中国和印度——加征高达100%的关税。</span>
+            <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+              <li style="margin-bottom: 3px;"><strong>took aim at...</strong>：形象化习语，意为“将火力瞄准某事物”。</li>
+              <li style="margin-bottom: 3px;"><strong>most significantly...</strong>：插入语成分，在长句末尾直截了当地点出受影响最深的核心主体。</li>
+            </ul>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 12px;">
+            <strong class="litit-en-sentence">Zelensky called Trump's diesel deal a gift to Putin that amounts to "an investment in a war that must be ended".</strong>
+            <span class="litit-zh-sentence">泽连斯基称特朗普的柴油交易是送给普京的礼物，相当于“对一场必须终结之战争的投资”。</span>
+            <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+              <li style="margin-bottom: 3px;"><strong>amounts to...</strong>：意为“等同于 / 实际上相当于”，常用于对某种政治行为性质的定性抨击。</li>
+            </ul>
+          </li>
+        </ol>
+      </div>
+    </details>
+
+    <!-- 第五板块：五、最值得优先掌握的句型 -->
+    <details class="litit-fold">
+      <summary>
+        <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">五、最值得优先掌握的句型</h3>
+      </summary>
+      <div class="litit-fold-content">
+        <ol style="margin: 0; padding-left: 18px;">
+          <li style="margin-bottom: 12px;">
+            <strong class="litit-en-sentence" style="color: #4338ca;">[行政首脑] has used his presidential authority to block [法案/决议] that were recently passed by [立法机构] in an effort to [宏观政治意图].</strong>
+            <span class="litit-zh-sentence">某国元首动用总统特权拦截了立法机关近期通过的法案，该法案本旨在实现某项政治意图。<br>（极高阶的政务新闻起手句式，精炼交代行政分支与立法分支围绕核心法案的交锋与博弈）。</span>
+          </li>
+          <li style="margin-bottom: 12px;">
+            <strong class="litit-en-sentence" style="color: #4338ca;">The law took aim at [打击目标], and gave [执行者] broad powers to levy [强制措施] on [特定群体] – most significantly [关键代表对象].</strong>
+            <span class="litit-zh-sentence">该法律将矛头直指打击目标，赋予执行者广泛权力对特定群体施加制裁或关税——最关键的是某核心主体。<br>（破折号后用 most significantly 引出核心焦点，层次分明且具有强烈的分析穿透力）。</span>
+          </li>
+          <li style="margin-bottom: 12px;">
+            <strong class="litit-en-sentence" style="color: #4338ca;">[批评者] called [争议方案/协定] a gift to [对手] that amounts to "an investment in [需被遏制的灾难]".</strong>
+            <span class="litit-zh-sentence">批评者将该争议方案称作是送给对手的礼物，这无异于是在对某场危机进行资金扶持。<br>（将商业妥协直接上纲上线为道德与道义灾难的高段位外交修辞句式）。</span>
+          </li>
+        </ol>
+      </div>
+    </details>
+  </div>
+
+  <h2 class="section-header" style="border-left-color: #0d9488;">💡 幕后冷知识 (Fun Facts)</h2>
+  <ul style="padding-left:18px; line-height:1.8; color:#334155; font-size:14.5px; margin-bottom:24px; word-break:break-word;">
+    <li style="margin-bottom: 8px;"><strong>Shadow Fleet（影子舰队）：</strong> 俄乌冲突爆发及西方出台价格上限（Price Cap）后，俄罗斯打造了一支庞大的“影子舰队”。这批油轮船龄普遍偏高、挂着方便旗（Flags of Convenience）、所有权高度隐蔽，且不使用西方保险与海运清算网络。它们在公海通过过驳船作业规避监控，源源不断将俄原油送往亚洲，是克里姆林宫战时财政赖以生存的核心动脉。</li>
+    <li style="margin-bottom: 8px;"><strong>格雷厄姆法案与国会豁免条款：</strong> 该法案以共和党鹰派代表人物林赛·格雷厄姆参议员命名，本身代表了国会强力制俄的最高法理意志。然而，按照美国宪法与相关经贸法案构架，国会在授予总统对外加征高额惩罚性关税（如高达100%）与实施制裁权力的同时，通常必须附带一条“国家安全豁免条款”（National Security Waiver），允许总统在认定涉及核心国家利益时暂缓执行。特朗普正是精准利用了该授权漏洞实施了精准拦截。</li>
+    <li><strong>Starlink（星链）的战场命脉：</strong> SpaceX旗下的“星链”卫星通信是乌克兰全军在地面基础设施瘫痪后的神经中枢，承担了无人机实时侦察、火炮坐标回传与前线指令分发。任何区域性的网络降速（slowdown）或服务中断，都会直接导致前线部队视野致盲。报道中披露的降速伴随俄军致命空袭，再次凸显出关键商用民用科技基础设施在现代混合战争中扮演的不可控致命变量。</li>
+  </ul>
+
+  <h2 class="section-header" style="border-left-color: #e11d48;">🎯 全片锐评</h2>
+  <p style="line-height:1.75; color:#1e293b; font-weight:500; background:linear-gradient(135deg, #fff1f2 0%, #ffffff 100%); padding:14px 16px; border-radius:10px; font-size:14.5px; margin:0 0 12px 0; border:1px solid #ffe4e6; word-break:break-word;">
+    这一纸午夜豁免令，生动拆解了当代超级大国政治中最赤裸的实用主义算计。在美国国内，11月中期选举的临近与高企的柴油价格，构成了一道随时可能引爆民怨的政治引线；而在千里之外的第聂伯河畔，是对抗旷日持久战争所必需的制裁铁网。当“国内选票压力”撞上“国际同盟信义”，特朗普毫不犹豫地选择了前者。从单方面签署法案到生效前夕将其“技术性解冻”，从斥责乌克兰反击炼油厂到以情报共享与星链网络作为施压杠杆，白宫正试图用廉价的俄罗斯柴油来扑灭选区内的通胀怒火。但这笔交易不仅实质上瓦解了国会苦心搭建的对俄经济包围圈，更向外界传递出一种极其危险的信号：只要国内利益需要，任何严肃立法的制裁铁幕与流血誓言，都随时可以被当作筹码摆上降价谈判的柜台。
+  </p>
+
+</div>
+
+<script id="core-engine">
+let syncTimeout = null;
+const AI_PROMPT = "请分析以下英文段落，并严格按照以下 Markdown 格式输出（不要输出任何额外的废话）：\n\n### 📌 完整翻译\n\n[此处填写完整翻译]\n\n### 📌 Key Expressions\n\n- **[单词或短语]**\n = [中文释义]\n （[可选的补充说明，如倒装结构或语境等]）\n\n段落内容：\n";
+
+// --- 顶部阅读进度条逻辑 ---
+function initProgressBar() {
+  const progressBar = document.getElementById('reading-progress');
+  if (!progressBar) return;
+  window.addEventListener('scroll', () => {
+    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    if (scrollHeight <= 0) return;
+    const scrollPercent = (scrollTop / scrollHeight) * 100;
+    progressBar.style.width = scrollPercent + '%';
+  }, { passive: true });
+}
+
+async function fetchGroq(text, apiKey, modelName) {
+  const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+    method: 'POST',
+    headers: { 'Authorization': 'Bearer ' + apiKey, 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      model: modelName || 'llama-3.3-70b-versatile',
+      messages: [
+        { role: 'system', content: 'You are an English teacher. Output EXACTLY in the requested Markdown format.' },
+        { role: 'user', content: AI_PROMPT + '"' + text + '"' }
+      ],
+      temperature: 0.3
+    })
+  });
+  if (!res.ok) throw new Error('Groq Error: ' + res.status);
+  const json = await res.json();
+  return json.choices[0].message.content.trim();
+}
+
+async function fetchCustomAI(text, url, apiKey, modelName) {
+  let headers = { 'Content-Type': 'application/json' };
+  let bodyData = {};
+  if (url.includes('anthropic.com')) {
+    headers['x-api-key'] = apiKey;
+    headers['anthropic-version'] = '2023-06-01';
+    headers['anthropic-dangerous-direct-browser-access'] = 'true';
+    bodyData = {
+      model: modelName || 'claude-3-5-sonnet-20241022',
+      max_tokens: 2000,
+      messages: [{ role: 'user', content: AI_PROMPT + '"' + text + '"' }]
+    };
+  } else if (url.includes('generativelanguage.googleapis.com')) {
+    let targetUrl = url;
+    if (!targetUrl.includes('key=')) {
+      targetUrl += (targetUrl.includes('?') ? '&' : '?') + 'key=' + apiKey;
+    }
+    const res = await fetch(targetUrl, {
+      method: 'POST', headers: headers,
+      body: JSON.stringify({ contents: [{ parts: [{ text: AI_PROMPT + '"' + text + '"' }] }] })
+    });
+    if (!res.ok) throw new Error('Gemini Error: ' + res.status);
+    const json = await res.json();
+    return json.candidates[0].content.parts[0].text.trim();
+  } else {
+    headers['Authorization'] = 'Bearer ' + apiKey;
+    bodyData = {
+      model: modelName || 'gpt-4o-mini',
+      messages: [
+        { role: 'system', content: 'You are an English teacher. Output EXACTLY in the requested Markdown format.' },
+        { role: 'user', content: AI_PROMPT + '"' + text + '"' }
+      ],
+      temperature: 0.3
+    };
+  }
+  const res = await fetch(url, { method: 'POST', headers: headers, body: JSON.stringify(bodyData) });
+  if (!res.ok) throw new Error('AI Interface Error: ' + res.status);
+  const json = await res.json();
+  if (json.choices && json.choices.length > 0) return json.choices[0].message.content.trim();
+  throw new Error('AI 返回数据异常');
+}
+
+async function executeAIPipeline(text) {
+  const customUrl = localStorage.getItem('CUSTOM_API_URL') || '';
+  const customKey = localStorage.getItem('CUSTOM_API_KEY') || '';
+  const customModel = localStorage.getItem('CUSTOM_MODEL') || '';
+  const groqKey = localStorage.getItem('GROQ_API_KEY') || '';
+  const groqModel = localStorage.getItem('GROQ_MODEL') || '';
+
+  if (customUrl && customKey) {
+    try {
+      return await fetchCustomAI(text, customUrl, customKey, customModel);
+    } catch (err) {
+      if (groqKey) return await fetchGroq(text, groqKey, groqModel);
+      throw err;
+    }
+  } else if (groqKey) {
+    return await fetchGroq(text, groqKey, groqModel);
+  } else {
+    const userKey = prompt('⚠️ 当前页面未检测到 AI Key！\n为了安全，密匙只储存在您本地浏览器中。\n\n请输入您的 API Key (如 sk-xxx 或 gsk_xxx):');
+    if (userKey && userKey.trim()) {
+      const cleanKey = userKey.trim();
+      if (cleanKey.startsWith('gsk_')) {
+        localStorage.setItem('GROQ_API_KEY', cleanKey);
+      } else {
+        localStorage.setItem('CUSTOM_API_KEY', cleanKey);
+        localStorage.setItem('CUSTOM_API_URL', 'https://api.chatanywhere.tech/v1/chat/completions');
+      }
+    }
+    throw new Error('未设置 AI API Key');
+  }
+}
+
+function getPurifiedFallbackHTML() {
+  const clone = document.documentElement.cloneNode(true);
+  const foreignSelectors = [
+    'relingo-app', 'relin-highlight', 'relin-hc', '[class*="relingo"]', '[data-relin-paragraph]',
+    'grammarly-extension', '[data-grammarly-part]', '[class*="immersive-translate"]', '[data-immersive-translate]'
+  ].join(',');
+  clone.querySelectorAll(foreignSelectors).forEach(el => el.remove());
+  clone.querySelectorAll('relin-highlight, relin-hc').forEach(t => {
+    const frag = document.createDocumentFragment();
+    while(t.firstChild) frag.appendChild(t.firstChild);
+    t.parentNode.replaceChild(frag, t);
+  });
+  clone.querySelectorAll('script').forEach(s => {
+    if (!s.src.includes('marked.min.js') && s.id !== 'core-engine') s.remove();
+  });
+  clone.querySelectorAll('style').forEach(s => {
+    if (s.id !== 'core-style') s.remove();
+  });
+  const liveTAs = document.querySelectorAll('.anno-edit');
+  clone.querySelectorAll('.anno-edit').forEach((ta, i) => {
+    if(liveTAs[i]) ta.textContent = liveTAs[i].value.trim();
+    const box = ta.closest('.anno-box');
+    if (box) box.style.display = 'none';
+    const view = box ? box.querySelector('.anno-view') : null;
+    if (view) view.innerHTML = '';
+  });
+  return '<!DOCTYPE html>\n<html lang="zh-CN">\n' + clone.innerHTML + '\n</html>';
+}
+
+async function syncToCloud() {
+  const ghToken = localStorage.getItem('LITIT_GH_TOKEN') || localStorage.getItem('GH_TOKEN');
+  const ghOwner = 'moodHappy';
+  const ghRepo = 'dual-read-notes';
+  if (!ghToken) return;
+  const pathParts = window.location.pathname.split('/');
+  const fileName = pathParts.pop();
+  const month = pathParts.pop();
+  const year = pathParts.pop();
+  if(!fileName || !month || !year) return;
+  const fileRelPath = 'Summary/' + year + '/' + month + '/' + fileName;
+  try {
+    const getRes = await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath + '?t=' + Date.now(), {
+      headers: { 'Authorization': 'Bearer ' + ghToken },
+      cache: 'no-store'
+    });
+    let finalHTML = '';
+    let sha = '';
+    if (getRes.ok) {
+      const fileData = await getRes.json();
+      sha = fileData.sha;
+      const cleanRawHTML = decodeURIComponent(escape(atob(fileData.content.replace(/\n/g, ''))));
+      const parser = new DOMParser();
+      const cleanDoc = parser.parseFromString(cleanRawHTML, 'text/html');
+      const liveTAs = document.querySelectorAll('.anno-edit');
+      const cleanTAs = cleanDoc.querySelectorAll('.anno-edit');
+      liveTAs.forEach((liveTa, index) => {
+        if (cleanTAs[index]) {
+          const val = liveTa.value.trim();
+          cleanTAs[index].textContent = val;
+          const box = cleanTAs[index].closest('.anno-box');
+          if (box) box.style.display = 'none';
+          const view = box ? box.querySelector('.anno-view') : null;
+          if (view) view.innerHTML = '';
+        }
+      });
+      cleanDoc.querySelectorAll('.anno-toggle').forEach(t => {
+        t.classList.remove('has-anno');
+        const ta = t.closest('.content-wrap, .litit-highlight-block')?.querySelector('.anno-edit');
+        if (ta && ta.textContent.trim()) t.classList.add('has-anno');
+      });
+      finalHTML = '<!DOCTYPE html>\n<html lang="zh-CN">\n' + cleanDoc.documentElement.innerHTML + '\n</html>';
+    } else {
+      finalHTML = getPurifiedFallbackHTML();
+    }
+    await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath, {
+      method: 'PUT',
+      headers: { 'Authorization': 'Bearer ' + ghToken, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        message: 'Silent purified annotation update',
+        content: btoa(unescape(encodeURIComponent(finalHTML))),
+        sha: sha || undefined
+      })
+    });
+    console.log('✅ [My Litit] 纯净无污染批注已静默同步至 GitHub');
+  } catch(e) {
+    console.warn('❌ [My Litit] 同步跳过或失败:', e);
+  }
+}
+
+function scheduleSync() {
+  if (syncTimeout) clearTimeout(syncTimeout);
+  syncTimeout = setTimeout(() => { syncToCloud(); }, 3000);
+}
+
+function initAnnotations() {
+  document.querySelectorAll('.litit-highlight-block, .content-wrap').forEach(wrap => {
+    let content = wrap.querySelector('.content');
+    if (!content) {
+      const pText = wrap.querySelector('p');
+      if (pText) {
+        content = document.createElement('div');
+        content.className = 'content';
+        content.style.cssText = 'position:relative; margin:0 0 6px 0; color:#1a202c; font-family:Georgia, serif; line-height:1.7; font-size:15px; word-break:break-word;';
+        content.innerHTML = pText.innerHTML;
+        pText.parentNode.replaceChild(content, pText);
+      }
+    }
+    if (!content) return;
+    if (!content.querySelector('.anno-toggle')) {
+      const toggle = document.createElement('span');
+      toggle.className = 'anno-toggle'; toggle.title = '手写批注/笔记';
+      content.appendChild(toggle);
+    }
+    if (!content.querySelector('.ai-toggle')) {
+      const aiToggle = document.createElement('span');
+      aiToggle.className = 'ai-toggle'; aiToggle.title = 'AI智能二次解析';
+      content.appendChild(aiToggle);
+    }
+    let box = wrap.querySelector('.anno-box');
+    if (!box) {
+      box = document.createElement('div'); box.className = 'anno-box'; box.style.display = 'none';
+      box.innerHTML = '<div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 解析..."></textarea>';
+      wrap.appendChild(box);
+    }
+    const view = box.querySelector('.anno-view');
+    const edit = box.querySelector('.anno-edit');
+    const toggle = content.querySelector('.anno-toggle');
+    const aiToggle = content.querySelector('.ai-toggle');
+    if (edit && edit.value.trim()) {
+      toggle.classList.add('has-anno');
+      try { view.innerHTML = (typeof marked !== 'undefined') ? marked.parse(edit.value.trim()) : edit.value.trim(); } catch(e){}
+    }
+    if (aiToggle) {
+      aiToggle.onclick = async (e) => {
+        e.preventDefault(); e.stopPropagation();
+        if (aiToggle.classList.contains('loading')) return;
+        if (edit && edit.value.trim() !== '') {
+          const confirmOverwrite = confirm('⚠️ 已经存在批注内容。点击"确定"将使用 AI 解析覆盖现有内容。是否继续？');
+          if (!confirmOverwrite) return;
+        }
+        const pClone = content.cloneNode(true);
+        pClone.querySelectorAll('.anno-toggle, .ai-toggle').forEach(el => el.remove());
+        let pText = pClone.textContent.replace(/https?:\/\/\S+/g, '').trim();
+        if (!pText) return;
+        aiToggle.classList.add('loading');
+        try {
+          const aiContent = await executeAIPipeline(pText);
+          box.style.display = 'block'; view.style.display = 'none';
+          edit.style.display = 'block'; edit.value = aiContent;
+          edit.focus(); edit.blur();
+        } catch (err) { console.error(err); } finally { aiToggle.classList.remove('loading'); }
+      };
+    }
+    if (toggle) {
+      toggle.onclick = (e) => {
+        e.preventDefault(); e.stopPropagation();
+        if (box.style.display === 'block') {
+          box.style.display = 'none';
+        } else {
+          box.style.display = 'block';
+          if (!edit.value.trim()) {
+            view.style.display = 'none'; edit.style.display = 'block';
+            setTimeout(() => { edit.focus(); }, 150);
+          } else { view.style.display = 'block'; edit.style.display = 'none'; }
+        }
+      };
+    }
+    const triggerEdit = (e) => {
+      if(e) { e.preventDefault(); e.stopPropagation(); }
+      view.style.display = 'none'; edit.style.display = 'block'; edit.value = edit.value;
+      setTimeout(() => { edit.focus(); }, 150);
+    };
+    view.addEventListener('dblclick', triggerEdit);
+    let lastTap = 0;
+    view.addEventListener('touchstart', e => {
+      if (e.touches.length === 2) { triggerEdit(e); }
+      else if (e.touches.length === 1) {
+        const currentTime = new Date().getTime();
+        if (currentTime - lastTap < 500 && currentTime - lastTap > 0) {
+          e.preventDefault(); box.style.display = 'none';
+        }
+        lastTap = currentTime;
+      }
+    }, {passive: false});
+    if (edit && view) {
+      edit.onblur = () => {
+        setTimeout(() => {
+          const newVal = edit.value.trim();
+          try { view.innerHTML = newVal ? ((typeof marked !== 'undefined') ? marked.parse(newVal) : newVal) : ''; } catch(e){}
+          edit.style.display = 'none';
+          if (newVal) {
+            view.style.display = 'block'; toggle.classList.add('has-anno');
+          } else {
+            view.style.display = 'none'; box.style.display = 'none'; toggle.classList.remove('has-anno');
+          }
+          if (edit.getAttribute('data-old-val') !== newVal) {
+            edit.setAttribute('data-old-val', newVal);
+            scheduleSync();
+          }
+        }, 150);
+      };
+      edit.setAttribute('data-old-val', edit.value.trim());
+    }
+  });
+}
+window.addEventListener('DOMContentLoaded', () => { initProgressBar(); initAnnotations(); });
+window.addEventListener('load', initAnnotations);
+</script>
+</body>
+</html>
