@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Burnt out cars and shattered glass on Paris streets after protests turn to riots and looting</title>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<style id="core-style">
+/* ======================================================================
+   [AI TEMPLATE GUIDELINES - CSS 核心排版规范]
+   致其他 AI 助手：在生成此模板时，请严格遵守以下样式分配规则：
+   1. 序号规则：列表的 NO.01 序号由伪类 `::before` 自动生成且独占一行。千万不要在 HTML 中手动输入“NO.01”。
+   2. 标签规则：文章开头的标签胶囊纯文字即可，禁止带 `#` 号。
+   3. 胶囊高亮（.litit-badge）：仅用于第 1、2、3 板块（重点记忆、高价值表达、短语和固定搭配）的【短词组/单词】，表现为紫色渐变背景的内联胶囊。
+   4. 长句排版（.litit-en-sentence）：用于第 4 板块（值得学习的句子结构）和第 5 板块（最值得优先掌握的句型）的【长句/长句型】。严禁将长句型放入 .litit-badge 中，否则会导致折行错乱。并且中文解释中的括号补充内容需使用 <br> 另起一行。
+====================================================================== */
+:root {
+  --bg-page: #ffffff;
+  --bg-card: #ffffff;
+  --text-main: #0f172a;
+  --text-sub: #334155;
+  --text-muted: #64748b;
+  --accent-primary: #4f46e5;
+  --border-subtle: #e2e8f0;
+  --font-serif: "Georgia", "Charter", "Source Han Serif SC", "Noto Serif CJK SC", serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", Roboto, sans-serif;
+}
+body {
+  font-family: var(--font-sans);
+  padding: 12px 12px 36px 12px;
+  margin: 0 auto;
+  max-width: 780px;
+  background: var(--bg-page);
+  color: var(--text-main);
+  line-height: 1.75;
+  font-size: 16px;
+  word-wrap: break-word;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+* { box-sizing: border-box; max-width: 100%; }
+img { max-width: 100%; height: auto; border-radius: 8px; }
+
+/* 顶部极简阅读进度条 */
+#reading-progress {
+  position: fixed;
+  top: 0; left: 0;
+  width: 0%; height: 3px;
+  background: linear-gradient(90deg, #4f46e5, #9333ea);
+  z-index: 9999;
+  transition: width 0.1s ease-out;
+}
+
+/* 主容器：零冗余边距，最大化阅读视野 */
+.litit-report { background: var(--bg-card); padding: 0; }
+
+/* AI 批注组件样式 */
+.anno-toggle, .ai-toggle {
+  display: inline-block;
+  padding: 2px 5px;
+  margin-left: 5px;
+  cursor: pointer;
+  opacity: 0.45;
+  font-size: 0.85rem;
+  vertical-align: middle;
+  transition: all 0.2s;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.anno-toggle:hover, .ai-toggle:hover { opacity: 1; transform: scale(1.15); }
+.anno-toggle.has-anno { opacity: 1; }
+.anno-toggle::after { content: "🔴"; }
+.ai-toggle { opacity: 0.7; padding: 2px 4px; }
+.ai-toggle::after { content: "🤖"; }
+.ai-toggle.loading::after {
+  content: "⏳"; display: inline-block; animation: spin 1s linear infinite;
+}
+@keyframes spin { 100% { transform: rotate(360deg); } }
+
+.anno-box {
+  display: none; margin-top: 10px;
+  background: #faf8ff; border-left: 3px solid #7c3aed;
+  padding: 12px 14px; border-radius: 0 8px 8px 0; text-align: left;
+}
+.anno-view { font-size: 0.95rem; line-height: 1.65; color: #334155; min-height: 24px; }
+.anno-edit {
+  width: 100%; min-height: 120px; padding: 10px;
+  font-family: monospace; font-size: 0.95rem;
+  border: 1px dashed #a78bfa; border-radius: 6px;
+  resize: vertical; display: none; background: #fff;
+  color: #1e293b; outline: none;
+}
+.anno-edit:focus { border: 1px solid #7c3aed; box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.12); }
+.markdown-body p { margin-top: 0; margin-bottom: 8px; }
+.markdown-body p:last-child { margin-bottom: 0; }
+.markdown-body h1, .markdown-body h2, .markdown-body h3 {
+  color: #5b21b6; font-size: 1.05rem; margin: 10px 0 6px 0;
+  border-bottom: 1px dashed #ddd6fe; padding-bottom: 4px;
+}
+.markdown-body ul, .markdown-body ol { margin: 0 0 8px 0; padding-left: 18px; }
+.markdown-body blockquote {
+  margin: 0 0 10px 0; padding: 8px 12px;
+  background: rgba(124, 58, 237, 0.06); border-left: 3px solid #7c3aed; color: #475569;
+}
+
+/* 杂志风区块标题 */
+.section-header {
+  font-size: 16px; color: #0f172a; font-weight: 700;
+  letter-spacing: 0.02em;
+  background: linear-gradient(90deg, #f8fafc 0%, #ffffff 100%);
+  padding: 8px 12px; border-left: 4px solid #4f46e5;
+  margin: 26px 0 14px 0; border-radius: 0 6px 6px 0;
+  display: flex; align-items: center;
+  box-shadow: inset 0 1px 0 #f1f5f9, inset 0 -1px 0 #f1f5f9;
+}
+
+/* 折叠面板升级：极简无十字图标、最大化宽度 */
+details.litit-fold {
+  margin-bottom: 10px; border: 1px solid #e2e8f0; border-radius: 10px;
+  background: #ffffff; overflow: hidden; transition: border-color 0.2s ease;
+}
+details.litit-fold[open] { border-color: #cbd5e1; }
+details.litit-fold summary {
+  cursor: pointer; padding: 12px 14px; outline: none; list-style: none;
+  display: flex; justify-content: space-between; align-items: center;
+  background: #f8fafc; transition: background 0.2s;
+  user-select: none; -webkit-tap-highlight-color: transparent;
+}
+details.litit-fold summary::-webkit-details-marker { display: none; }
+details.litit-fold summary::after { display: none; }
+details.litit-fold summary:hover { background: #f1f5f9; }
+details.litit-fold[open] summary { border-bottom: 1px solid #e2e8f0; background: #f8fafc; border-left: 3px solid #4f46e5; }
+.litit-fold-content { padding: 10px 8px; background: #f8fafc; }
+
+/* 精读区列表卡片化 */
+.litit-fold-content > ol, .litit-fold-content > ul {
+  list-style: none !important; padding-left: 0 !important; margin: 0 !important; counter-reset: litit-counter;
+}
+.litit-fold-content > ol > li, .litit-fold-content > ul > li {
+  counter-increment: litit-counter; position: relative;
+  background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px;
+  padding: 12px 12px; margin-bottom: 10px !important; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.015);
+}
+.litit-fold-content > ol > li:last-child, .litit-fold-content > ul > li:last-child { margin-bottom: 0 !important; }
+
+/* [规则 1] 顶部流式微型序号徽章：完美独占一行，追求极致对齐与统一美感 */
+.litit-fold-content > ol > li::before, .litit-fold-content > ul > li::before {
+  content: "NO." counter(litit-counter, decimal-leading-zero);
+  display: block; width: max-content; font-size: 10px; font-weight: 800;
+  font-family: -apple-system, BlinkMacSystemFont, monospace;
+  color: #4f46e5; background: #eef2ff; padding: 1px 6px; border-radius: 4px;
+  margin-bottom: 8px; letter-spacing: 0.04em;
+}
+
+/* [规则 4] 纯英/中长句子专属排版（块级元素，自然折行对齐） */
+.litit-en-sentence {
+  display: block; font-family: var(--font-serif); font-size: 1.04rem;
+  font-weight: 600; color: #0f172a; line-height: 1.5; margin-bottom: 6px;
+}
+.litit-zh-sentence {
+  display: block; font-family: var(--font-sans); font-size: 0.93rem;
+  color: #475569; line-height: 1.55; margin-bottom: 2px;
+}
+li.litit-target-sentence > br { display: none; }
+
+/* [规则 3] 短词组高亮徽章（1、2、3 板块专用短标签） */
+.litit-badge {
+  display: inline-block; background: linear-gradient(135deg, #eef2ff 0%, #f3e8ff 100%);
+  color: #4338ca; padding: 2px 8px; border-radius: 5px; font-size: 0.92rem;
+  font-weight: 700; margin-right: 4px; margin-bottom: 6px;
+  border: 1px solid #e0e7ff; vertical-align: middle;
+}
+
+/* 第 4 板块子级知识点解析区左边框内嵌盒 */
+li.litit-target-sentence > ul {
+  list-style: none !important; margin: 10px 0 0 0 !important; padding: 8px 10px !important;
+  background: #f8fafc; border-radius: 6px; border-left: 2.5px solid #94a3b8;
+}
+li.litit-target-sentence > ul > li {
+  position: relative; padding-left: 10px; margin-bottom: 5px !important; font-size: 0.88rem; color: #334155; line-height: 1.5;
+}
+li.litit-target-sentence > ul > li:last-child { margin-bottom: 0 !important; }
+li.litit-target-sentence > ul > li::before {
+  content: "·"; position: absolute; left: 0; top: 0; color: #4f46e5; font-weight: 900;
+}
+li.litit-target-sentence > ul > li > strong {
+  color: #0f172a; font-weight: 600; background: #e2e8f0; padding: 1px 5px; border-radius: 4px; font-size: 0.84rem; margin-right: 3px;
+}
+
+/* 移动端极限铺开适配 */
+@media (max-width: 600px) {
+  body { padding: 10px 10px 30px 10px; font-size: 15px; }
+  h1.litit-target-title { font-size: 21px !important; }
+  .litit-fold-content { padding: 8px 6px; }
+  .litit-fold-content > ol > li, .litit-fold-content > ul > li { padding: 11px 10px; margin-bottom: 8px !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- 进度条 DOM -->
+<div id="reading-progress"></div>
+
+<div class="litit-report" style="width:100%; max-width:100%; box-sizing:border-box; overflow-x:hidden;">
+  
+  <!-- 顶部杂志刊头装饰 -->
+  <div style="display:flex; justify-content:space-between; align-items:center; border-bottom: 2px solid #0f172a; padding-bottom: 6px; margin-bottom: 14px; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: #64748b; text-transform: uppercase;">
+    <span>The Global Dispatch · 深度双语精读</span>
+    <span>World & Civil Unrest</span>
+  </div>
+
+  <!-- 支持批注的主标题区 -->
+  <div class="content-wrap" style="position:relative; margin-bottom: 16px;">
+    <h1 class="litit-target-title" style="color:#0f172a; font-size: 24px; line-height: 1.35; font-family: var(--font-serif); font-weight: 800; border-bottom: 1px solid #e2e8f0; padding-bottom: 14px; margin-top:0; margin-bottom:0; word-break:break-word;">
+      <span class="content litit-en-title" style="position:relative;">Burnt out cars and shattered glass on Paris streets after protests turn to riots and looting</span>
+      <br>
+      <span class="litit-zh-title" style="font-family: var(--font-sans); font-size: 17px; font-weight: 600; color: #475569; margin-top: 8px; display: inline-block; line-height: 1.45;">巴黎街头烧毁的汽车与碎玻璃：抗议演变成骚乱与洗劫后的满目疮痍</span>
+    </h1>
+    <div class="anno-box" style="display:none; margin-top: 10px;">
+      <div class="anno-view markdown-body"></div>
+      <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
+
+巴黎街头烧毁的汽车与碎玻璃：抗议演变成骚乱与洗劫后的满目疮痍
+
+### 📌 Key Expressions
+
+- **burnt out** = 烧毁的 / 烧焦的
+- **shattered glass** = 碎裂的玻璃
+- **looting** = 洗劫 / 抢劫</textarea>
+    </div>
+  </div>
+
+  <!-- 杂志导语（Lead Paragraph） -->
+  <p style="color:#334155; font-size: 15px; line-height: 1.75; margin-bottom:16px; font-weight:400; background: #f8fafc; padding: 12px 14px; border-radius: 8px; border: 1px solid #f1f5f9;">
+    经历了一整天激烈的骚乱与游行后，法国在周日清晨醒来时面对的是一片满目疮痍的景象：巴黎街头到处是烧毁的汽车、焦黑的自行车、破碎的奢侈品店面以及堆积如山的玻璃碎片与残骸。周六，约55万名民众走上街头，最初以相对和平的方式抗议不断上涨的燃油价格、生活成本以及包括学校在内的公共服务恶化。然而，极左翼极端分子与乘火打劫的流氓歹徒迅速将示威演变为全城大骚乱。从巴黎各大名品店（Ralph Lauren、Gucci、Versace）被砸、马赛市总督府被金属栅栏撞破、里尔的麦当劳与苹果店遭洗劫焚烧，到利摩日143年历史的市政厅被蓄意烧毁且“基本损毁殆尽”、里昂旅游局遭恶意纵火，周六的暴力动荡导致警方逮捕了约1800人，逾500名警察、宪兵及消防员受伤，约1500家零售商遭到破坏。面对抗议被暴力劫持的现实，法国社会正陷入对公共治安与治理危机的深重反思之中。
+  </p>
+
+  <div style="margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+    <div style="display:flex; flex-wrap:wrap; gap:6px;">
+      <!-- [规则 2] 纯净的胶囊风格 -->
+      <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;">法国骚乱</span>
+      <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;">打砸抢劫</span>
+      <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;">社会危机</span>
+    </div>
+    <a href="https://www.bbc.com/news/articles/c574pdzl0k4no" target="_blank" style="font-size: 12.5px; color: #4f46e5; text-decoration: none; font-weight: 600; background: #eef2ff; padding: 5px 12px; border-radius: 16px; border: 1px solid #e0e7ff; display:inline-block;">🔗 阅读原文 ↗</a>
+  </div>
+
+  <!-- 最佳金句区 -->
+  <h2 class="section-header" style="border-left-color: #f59e0b;">💬 最佳金句</h2>
+  <div class="content-wrap" style="position:relative; margin-bottom:24px;">
+    <blockquote class="litit-target-quote" style="border-left: 3.5px solid #f59e0b; background: linear-gradient(135deg, #fffbeb 0%, #ffffff 100%); padding: 14px 14px; margin: 0; color: #1e293b; border-radius: 0 10px 10px 0; border-top: 1px solid #fef3c7; border-right: 1px solid #fef3c7; border-bottom: 1px solid #fef3c7;">
+      <div class="content litit-en-quote" style="position:relative; margin:0 0 8px 0; font-family: var(--font-serif); font-style: italic; font-weight:600; font-size: 16.5px; line-height: 1.55; color:#0f172a; word-break:break-word;">
+        "It breaks our hearts because it's a very iconic, well-known historic building."
+      </div>
+      <p class="litit-zh-quote" style="margin:0 0 8px 0; font-weight:400; font-size: 14.5px; line-height: 1.6; color:#475569; word-break:break-word;">
+        “这让我们心碎，因为这是一座非常标志性、广为人知的历史建筑。”
+      </p>
+      <footer style="text-align:right; font-size:12px; color:#64748b; font-style:normal; font-weight:600;">—— 里昂市长格雷戈里·杜赛（Grégory Doucet）痛心点评地标旅游局遭恶意纵火</footer>
+    </blockquote>
+    <div class="anno-box" style="display:none;">
+      <div class="anno-view markdown-body"></div>
+      <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
+
+“这让我们心碎，因为这是一座非常标志性、广为人知的历史建筑。”
+
+### 📌 Key Expressions
+
+- **break our hearts** = 让我们心碎
+- **iconic** = 标志性的 / 具代表性的
+- **historic building** = 历史建筑</textarea>
+    </div>
+  </div>
+
+  <!-- Grid 布局关键数字区 -->
+  <h2 class="section-header" style="border-left-color: #10b981;">📊 关键数字</h2>
+  <div style="display:grid; grid-template-columns: repeat(2, 1fr); gap:10px; margin:14px 0 24px 0;">
+    <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+      <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+        1,800<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">人</span>
+      </div>
+      <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">周六全国骚乱中被法国警方依法逮捕的违法人员总数</div>
+    </div>
+    <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+      <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+        55<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">万人</span>
+      </div>
+      <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">周六走上全法街头参与抗议游行的估计示威者总规模</div>
+    </div>
+    <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+      <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+        500<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">+名</span>
+      </div>
+      <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">在周六的冲突与灭火任务中受伤的警察、宪兵及消防员总数</div>
+    </div>
+    <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+      <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+        1,500<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">家</span>
+      </div>
+      <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">根据法国零售商联合会统计，在骚乱中遭受破坏的店铺总数</div>
+    </div>
+  </div>
+
+  <h2 class="section-header" style="border-left-color: #3b82f6;">⏱️ 事件时间线</h2>
+  <ul style="padding-left:18px; line-height:1.8; color:#334155; font-size: 14.5px; margin-bottom:24px; word-break:break-word;">
+    <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">上月末起：</strong> 法国中学生因学校师资短缺、设施破旧及大班额问题发起抗议，数十万人持续数周走上街头。</li>
+    <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">周六白天：</strong> 约55万名示威者涌上全法街头，抗议燃油费上涨、生活成本及公共服务恶化，白日游行大体和平。</li>
+    <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">周六夜间：</strong> 局势急剧恶化，极左翼暴徒与乘火打劫者在巴黎、马赛、里尔等地大肆打砸抢烧，警察发射催泪瓦斯与水炮。</li>
+    <li><strong style="color:#1d4ed8;">周日清晨：</strong> 法国全国醒来面对满目疮痍，店主清理玻璃残骸，内政部证实逮捕1,800人，多处古建筑损毁严重。</li>
+  </ul>
+
+  <h2 class="section-header" style="border-left-color: #8b5cf6;">✨ 本篇亮点与精读</h2>
+  <div style="margin: 14px 0 10px 0;">
+
+    <!-- 第一板块：一、重点记忆 -->
+    <details class="litit-fold">
+      <summary>
+        <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">一、重点记忆</h3>
+      </summary>
+      <div class="litit-fold-content">
+        <ul style="list-style-type: square; margin: 0; padding-left: 18px; line-height: 1.6;">
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">burnt out</strong>：烧毁的 / 焦黑的<br>
+            <strong class="litit-en-sentence">France awoke to burnt out cars and shattered glass on Sunday.</strong>
+            <span class="litit-zh-sentence">法国在周日醒来时面对的是烧毁的汽车和碎裂的玻璃。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">balaclava</strong>：巴拉克拉瓦头套 / 黑色面罩<br>
+            <strong class="litit-en-sentence">Some rioters were dressed in black and wearing masks and balaclavas.</strong>
+            <span class="litit-zh-sentence">一些暴徒身穿黑衣，戴着面具和头套。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">battering ram</strong>：攻城锤 / 撞门锤<br>
+            <strong class="litit-en-sentence">Protesters broke into the city hall by using a metal fence as a battering ram.</strong>
+            <span class="litit-zh-sentence">抗议者用金属栅栏当作撞门锤强行闯入了市政厅。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">daub</strong>：涂抹 / 乱涂（涂鸦）<br>
+            <strong class="litit-en-sentence">Many shops were daubed with graffiti like "tax the rich".</strong>
+            <span class="litit-zh-sentence">许多店铺被涂上了诸如“对富人征税”之类的涂鸦。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">ransacked</strong>：遭到洗劫的 / 翻了个底朝天的<br>
+            <strong class="litit-en-sentence">The BBC visited a clothes shop which had been ransacked.</strong>
+            <span class="litit-zh-sentence">BBC探访了一家遭到血洗的服装店。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">horde</strong>：一大群人 / 游牧部落（贬义指暴徒）<br>
+            <strong class="litit-en-sentence">A "wild horde" had deliberately set fire to the building.</strong>
+            <span class="litit-zh-sentence">一群“野蛮暴徒”蓄意点燃了这座建筑。</span>
+          </li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- 第二板块：二、高价值表达 -->
+    <details class="litit-fold">
+      <summary>
+        <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">二、高价值表达</h3>
+      </summary>
+      <div class="litit-fold-content">
+        <ol style="margin: 0; padding-left: 18px;">
+          <li style="margin-bottom: 12px;">
+            <strong class="litit-badge">take advantage of</strong>：乘机利用 / 趁火打劫。<br>
+            <span class="litit-zh-sentence" style="margin-top: 4px;">极其精准的心理动词词组。在此特指那些根本不关心民生诉求的犯罪分子，纯粹利用大规模游行造成的混乱来掩护自身砸抢商店的恶劣行径。</span>
+          </li>
+          <li style="margin-bottom: 12px;">
+            <strong class="litit-badge">largely lost</strong>：基本彻底损毁 / 大面积失守。<br>
+            <span class="litit-zh-sentence" style="margin-top: 4px;">地方官员对遭遇大火焚烧后的历史建筑（如利摩日市政厅）做出的痛心定性，表达了建筑结构与内部文物几乎全毁的无可挽回感。</span>
+          </li>
+          <li style="margin-bottom: 12px;">
+            <strong class="litit-badge">wild horde</strong>：“野蛮群落 / 狂暴之徒”。<br>
+            <span class="litit-zh-sentence" style="margin-top: 4px;">带有强烈贬义与情感色彩的高级修饰语，地方官员用来谴责那些丧失理性、恶意摧毁百年文化遗产的极端暴徒。</span>
+          </li>
+          <li style="margin-bottom: 12px;">
+            <strong class="litit-badge">outrage</strong>：暴行 / 令人发指的罪行。<br>
+            <span class="litit-zh-sentence" style="margin-top: 4px;">内政部长用来定性极端左翼分子蓄意袭击公共建筑、对抗警察的违法行为，措辞严厉，强调其越过了和平抗议的法律底线。</span>
+          </li>
+        </ol>
+      </div>
+    </details>
+
+    <!-- 第三板块：三、短语和固定搭配 -->
+    <details class="litit-fold">
+      <summary>
+        <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">三、短语和固定搭配</h3>
+      </summary>
+      <div class="litit-fold-content">
+        <ul style="list-style-type: square; margin: 0; padding-left: 18px; line-height: 1.6;">
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">take to the streets</strong>：走上街头（抗议/游行）<br>
+            <strong class="litit-en-sentence">Some 550,000 demonstrators took to the streets.</strong>
+            <span class="litit-zh-sentence">约有55万名示威者走上了街头。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">turn tear gas and water cannon on</strong>：向……发射催泪瓦斯和高压水炮<br>
+            <strong class="litit-en-sentence">Riot police turned tear gas and water cannon on the crowds.</strong>
+            <span class="litit-zh-sentence">防暴警察向人群发射了催泪瓦斯和高压水炮。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">break into</strong>：强行闯入 / 撬开<br>
+            <strong class="litit-en-sentence">Protesters broke into the city hall.</strong>
+            <span class="litit-zh-sentence">抗议者强行闯入了市政厅。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">be daubed with</strong>：被涂抹上……<br>
+            <strong class="litit-en-sentence">Many shops were daubed with graffiti.</strong>
+            <span class="litit-zh-sentence">许多店铺被涂上了涂鸦。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">tackle a blaze</strong>：扑灭大火<br>
+            <strong class="litit-en-sentence">Hostile individuals prevented firefighters from safely tackling the blaze.</strong>
+            <span class="litit-zh-sentence">敌对人员阻碍了消防员安全扑灭大火。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">blow off</strong>：被炸飞 / 炸断<br>
+            <strong class="litit-en-sentence">A young man had his hand blown off by a small explosive.</strong>
+            <span class="litit-zh-sentence">一名年轻男子的手被小型爆炸物炸断。</span>
+          </li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- 第四板块：四、值得学习的句子结构 -->
+    <details class="litit-fold">
+      <summary>
+        <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">四、值得学习的句子结构</h3>
+      </summary>
+      <div class="litit-fold-content">
+        <ol style="margin: 0; padding-left: 18px;">
+          <li class="litit-target-sentence" style="margin-bottom: 12px;">
+            <strong class="litit-en-sentence">France awoke to scenes of widespread damage on Sunday after a day of riots and demonstrations, with shopfronts shattered, burnt out cars, charred bikes, and piles of glass and debris on the pavements of Paris.</strong>
+            <span class="litit-zh-sentence">经历了一天的骚乱和示威后，法国在周日醒来时面对的是一片大范围破坏的景象：巴黎的街头布满了粉碎的店面、烧毁的汽车、焦黑的自行车以及堆积如山的玻璃碎片与残骸。</span>
+            <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+              <li style="margin-bottom: 3px;"><strong>with + 名词并列短语（shopfronts shattered, burnt out cars...）</strong>：独立的 <code>with</code> 复合结构作伴随状语，极为传神地描绘了灾后触目惊心的定格画面。</li>
+              <li style="margin-bottom: 3px;"><strong>awoke to scenes of...</strong>：拟人化动词 <i>awake to</i>，赋予国家以感知灾难苏醒的戏剧张力。</li>
+            </ul>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 12px;">
+            <strong class="litit-en-sentence">The owner - who asked not to be identified - told the BBC he did not believe any of those who robbed the shop were genuine protesters against school conditions or the cost of living.</strong>
+            <span class="litit-zh-sentence">这位店主（他要求匿名）告诉BBC，他认为那些抢劫店铺的人绝对不是真正抗议学校条件或生活成本的示威者。</span>
+            <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+              <li style="margin-bottom: 3px;"><strong>破折号夹带的非限制性插入语 (- who asked not to be identified -)</strong>：新闻报道中保护受访者匿名的标准句法。</li>
+              <li style="margin-bottom: 3px;"><strong>genuine protesters against...</strong>：精准剥离合法抗议者与恶意暴徒的身份界限。</li>
+            </ul>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 12px;">
+            <strong class="litit-en-sentence">France's Interior Minister Laurent Nuñez said that while demonstrating was a fundamental right, there were "outrages" committed by "several thousand far-left individuals" who were determined to target public buildings and confront the police.</strong>
+            <span class="litit-zh-sentence">法国内政部长洛朗·努涅斯表示，尽管游行示威是一项基本权利，但仍有“数千名极左翼分子”犯下了“暴行”，他们决心将公共建筑和警察作为袭击目标。</span>
+            <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+              <li style="margin-bottom: 3px;"><strong>while demonstrating was a fundamental right, there were...</strong>：官方表态经典的高级平衡句型（先承认合法权利，再严厉指控非法暴力），兼顾政治正确与严厉打击立场。</li>
+            </ul>
+          </li>
+        </ol>
+      </div>
+    </details>
+
+    <!-- 第五板块：五、最值得优先掌握的句型 -->
+    <details class="litit-fold">
+      <summary>
+        <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">五、最值得优先掌握的句型</h3>
+      </summary>
+      <div class="litit-fold-content">
+        <ol style="margin: 0; padding-left: 18px;">
+          <li style="margin-bottom: 12px;">
+            <strong class="litit-en-sentence" style="color: #4338ca;">[某国] awoke to scenes of [灾后景象] on [星期几] after a day of [冲突], with [受损细节1], [细节2], and [细节3] on the [地点].</strong>
+            <span class="litit-zh-sentence">某国在某天醒来面对的是一片怎样景象，某处到处都是细节1、细节2和细节3。<br>（描绘灾难或骚乱过后触目惊心现场的顶级新闻导语模版）。</span>
+          </li>
+          <li style="margin-bottom: 12px;">
+            <strong class="litit-en-sentence" style="color: #4338ca;">[某受害者/店主] told [媒体] he did not believe any of those who [犯罪行为] were genuine [合法群体], saying that they were simply taking advantage of [混乱局势].</strong>
+            <span class="litit-zh-sentence">某受害者告诉媒体，他认为那些作恶的人绝非真正的某合法群体，并称他们只是在利用混乱局势。<br>（揭露恶意分子混入和平抗议、浑水摸鱼现象的标准采访转述句型）。</span>
+          </li>
+          <li style="margin-bottom: 12px;">
+            <strong class="litit-en-sentence" style="color: #4338ca;">While [合法行为] was a fundamental right, there were "outrages" committed by [极端群体] who were determined to [暴力目标].</strong>
+            <span class="litit-zh-sentence">尽管某行为是一项基本权利，但仍有一些由某些人犯下的“暴行”，他们决心将矛头对准某类目标。<br>（官方在平衡“保护抗议权”与“严厉打击暴徒”时兼顾严谨与强硬的发言句型）。</span>
+          </li>
+        </ol>
+      </div>
+    </details>
+  </div>
+
+  <h2 class="section-header" style="border-left-color: #0d9488;">💡 幕后冷知识 (Fun Facts)</h2>
+  <ul style="padding-left:18px; line-height:1.8; color:#334155; font-size:14.5px; margin-bottom:24px; word-break:break-word;">
+    <li style="margin-bottom: 8px;"><strong>奢侈品旗舰店的首要受害者：</strong> 巴黎的香榭丽舍大街、奥斯曼大道以及共和国广场周边聚集了大量高档旗舰店。在历次法国社会骚乱中，诸如 Ralph Lauren、Gucci、Versace 以及苹果（Apple Store）这类拥有巨幅落地玻璃窗且陈列高价值商品的店铺，往往最先成为有组织洗劫团伙（Looters）用重物砸碎并搬空的重灾区。</li>
+    <li style="margin-bottom: 8px;"><strong>利摩日市政厅（Limoges Town Hall）的毁灭：</strong> 位于法国中西部的利摩日以精美的瓷器闻名。惨遭焚烧并部分坍塌的143年历史市政厅被当地官员形容为“largely lost（基本彻底毁了）”。对于一座历史悠久的法国省会城市而言，这种百年核心市政建筑的损毁是不可逆的文化浩劫。</li>
+    <li><strong>"Eat the Rich"（吃掉富人）的口号渊源：</strong> 报道中提到许多被砸店铺外墙上被喷上了“eat the rich”和“tax the rich”的涂鸦。这句话最初由18世纪启蒙思想家让-雅克·卢梭（Jean-Jacques Rousseau）的一句名言演变而来（原意指当穷人无饭可吃时，他们就会把富人吃掉），如今已演变为西方左翼及激进抗议者在面对贫富差距和通胀危机时最经典的视觉抗议符号。</li>
+  </ul>
+
+  <h2 class="section-header" style="border-left-color: #e11d48;">🎯 全片锐评</h2>
+  <p style="line-height:1.75; color:#1e293b; font-weight:500; background:linear-gradient(135deg, #fff1f2 0%, #ffffff 100%); padding:14px 16px; border-radius:10px; font-size:14.5px; margin:0 0 12px 0; border:1px solid #ffe4e6; word-break:break-word;">
+    从抗议高通胀、燃油费与校舍破旧的和平民生诉求，到演变成席卷全法的打砸抢烧狂潮，这场周末骚乱再次暴露出法兰西社会根深蒂固的脆弱性与治理困境。当成千上万蒙面黑衣人与浑水摸鱼的流氓歹徒举着“吃掉富人”的标语，将百年历史的利摩日市政厅付之一炬、将奢侈品店搬空、甚至用炸弹将年轻人的手掌炸飞时，所谓“合法的游行示威”早已被彻底异化和劫持。正如受害店主所言，真正的抗议者绝不会在店里洗劫一个半小时却看不到半个警察。暴力的泛滥不仅无法解决生活成本和教育资源的枯竭，反而将国家的公共财政进一步拖入修复满目疮痍的无底深渊。在烟尘与碎玻璃交织的巴黎街头，法兰西不得不再次面对这个残酷的现实：当民粹的怒火与无政府的破坏欲挣脱法治的缰绳，受伤的永远是每一个渴望安居乐业的普通公民。
+  </p>
+
+</div>
+
+<script id="core-engine">
+let syncTimeout = null;
+const AI_PROMPT = "请分析以下英文段落，并严格按照以下 Markdown 格式输出（不要输出任何额外的废话）：\n\n### 📌 完整翻译\n\n[此处填写完整翻译]\n\n### 📌 Key Expressions\n\n- **[单词或短语]**\n = [中文释义]\n （[可选的补充说明，如倒装结构或语境等]）\n\n段落内容：\n";
+
+// --- 顶部阅读进度条逻辑 ---
+function initProgressBar() {
+  const progressBar = document.getElementById('reading-progress');
+  if (!progressBar) return;
+  window.addEventListener('scroll', () => {
+    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    if (scrollHeight <= 0) return;
+    const scrollPercent = (scrollTop / scrollHeight) * 100;
+    progressBar.style.width = scrollPercent + '%';
+  }, { passive: true });
+}
+
+async function fetchGroq(text, apiKey, modelName) {
+  const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+    method: 'POST',
+    headers: { 'Authorization': 'Bearer ' + apiKey, 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      model: modelName || 'llama-3.3-70b-versatile',
+      messages: [
+        { role: 'system', content: 'You are an English teacher. Output EXACTLY in the requested Markdown format.' },
+        { role: 'user', content: AI_PROMPT + '"' + text + '"' }
+      ],
+      temperature: 0.3
+    })
+  });
+  if (!res.ok) throw new Error('Groq Error: ' + res.status);
+  const json = await res.json();
+  return json.choices[0].message.content.trim();
+}
+
+async function fetchCustomAI(text, url, apiKey, modelName) {
+  let headers = { 'Content-Type': 'application/json' };
+  let bodyData = {};
+  if (url.includes('anthropic.com')) {
+    headers['x-api-key'] = apiKey;
+    headers['anthropic-version'] = '2023-06-01';
+    headers['anthropic-dangerous-direct-browser-access'] = 'true';
+    bodyData = {
+      model: modelName || 'claude-3-5-sonnet-20241022',
+      max_tokens: 2000,
+      messages: [{ role: 'user', content: AI_PROMPT + '"' + text + '"' }]
+    };
+  } else if (url.includes('generativelanguage.googleapis.com')) {
+    let targetUrl = url;
+    if (!targetUrl.includes('key=')) {
+      targetUrl += (targetUrl.includes('?') ? '&' : '?') + 'key=' + apiKey;
+    }
+    const res = await fetch(targetUrl, {
+      method: 'POST', headers: headers,
+      body: JSON.stringify({ contents: [{ parts: [{ text: AI_PROMPT + '"' + text + '"' }] }] })
+    });
+    if (!res.ok) throw new Error('Gemini Error: ' + res.status);
+    const json = await res.json();
+    return json.candidates[0].content.parts[0].text.trim();
+  } else {
+    headers['Authorization'] = 'Bearer ' + apiKey;
+    bodyData = {
+      model: modelName || 'gpt-4o-mini',
+      messages: [
+        { role: 'system', content: 'You are an English teacher. Output EXACTLY in the requested Markdown format.' },
+        { role: 'user', content: AI_PROMPT + '"' + text + '"' }
+      ],
+      temperature: 0.3
+    };
+  }
+  const res = await fetch(url, { method: 'POST', headers: headers, body: JSON.stringify(bodyData) });
+  if (!res.ok) throw new Error('AI Interface Error: ' + res.status);
+  const json = await res.json();
+  if (json.choices && json.choices.length > 0) return json.choices[0].message.content.trim();
+  throw new Error('AI 返回数据异常');
+}
+
+async function executeAIPipeline(text) {
+  const customUrl = localStorage.getItem('CUSTOM_API_URL') || '';
+  const customKey = localStorage.getItem('CUSTOM_API_KEY') || '';
+  const customModel = localStorage.getItem('CUSTOM_MODEL') || '';
+  const groqKey = localStorage.getItem('GROQ_API_KEY') || '';
+  const groqModel = localStorage.getItem('GROQ_MODEL') || '';
+
+  if (customUrl && customKey) {
+    try {
+      return await fetchCustomAI(text, customUrl, customKey, customModel);
+    } catch (err) {
+      if (groqKey) return await fetchGroq(text, groqKey, groqModel);
+      throw err;
+    }
+  } else if (groqKey) {
+    return await fetchGroq(text, groqKey, groqModel);
+  } else {
+    const userKey = prompt('⚠️ 当前页面未检测到 AI Key！\n为了安全，密匙只储存在您本地浏览器中。\n\n请输入您的 API Key (如 sk-xxx 或 gsk_xxx):');
+    if (userKey && userKey.trim()) {
+      const cleanKey = userKey.trim();
+      if (cleanKey.startsWith('gsk_')) {
+        localStorage.setItem('GROQ_API_KEY', cleanKey);
+      } else {
+        localStorage.setItem('CUSTOM_API_KEY', cleanKey);
+        localStorage.setItem('CUSTOM_API_URL', 'https://api.chatanywhere.tech/v1/chat/completions');
+      }
+    }
+    throw new Error('未设置 AI API Key');
+  }
+}
+
+function getPurifiedFallbackHTML() {
+  const clone = document.documentElement.cloneNode(true);
+  const foreignSelectors = [
+    'relingo-app', 'relin-highlight', 'relin-hc', '[class*="relingo"]', '[data-relin-paragraph]',
+    'grammarly-extension', '[data-grammarly-part]', '[class*="immersive-translate"]', '[data-immersive-translate]'
+  ].join(',');
+  clone.querySelectorAll(foreignSelectors).forEach(el => el.remove());
+  clone.querySelectorAll('relin-highlight, relin-hc').forEach(t => {
+    const frag = document.createDocumentFragment();
+    while(t.firstChild) frag.appendChild(t.firstChild);
+    t.parentNode.replaceChild(frag, t);
+  });
+  clone.querySelectorAll('script').forEach(s => {
+    if (!s.src.includes('marked.min.js') && s.id !== 'core-engine') s.remove();
+  });
+  clone.querySelectorAll('style').forEach(s => {
+    if (s.id !== 'core-style') s.remove();
+  });
+  const liveTAs = document.querySelectorAll('.anno-edit');
+  clone.querySelectorAll('.anno-edit').forEach((ta, i) => {
+    if(liveTAs[i]) ta.textContent = liveTAs[i].value.trim();
+    const box = ta.closest('.anno-box');
+    if (box) box.style.display = 'none';
+    const view = box ? box.querySelector('.anno-view') : null;
+    if (view) view.innerHTML = '';
+  });
+  return '<!DOCTYPE html>\n<html lang="zh-CN">\n' + clone.innerHTML + '\n</html>';
+}
+
+async function syncToCloud() {
+  const ghToken = localStorage.getItem('LITIT_GH_TOKEN') || localStorage.getItem('GH_TOKEN');
+  const ghOwner = 'moodHappy';
+  const ghRepo = 'dual-read-notes';
+  if (!ghToken) return;
+  const pathParts = window.location.pathname.split('/');
+  const fileName = pathParts.pop();
+  const month = pathParts.pop();
+  const year = pathParts.pop();
+  if(!fileName || !month || !year) return;
+  const fileRelPath = 'Summary/' + year + '/' + month + '/' + fileName;
+  try {
+    const getRes = await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath + '?t=' + Date.now(), {
+      headers: { 'Authorization': 'Bearer ' + ghToken },
+      cache: 'no-store'
+    });
+    let finalHTML = '';
+    let sha = '';
+    if (getRes.ok) {
+      const fileData = await getRes.json();
+      sha = fileData.sha;
+      const cleanRawHTML = decodeURIComponent(escape(atob(fileData.content.replace(/\n/g, ''))));
+      const parser = new DOMParser();
+      const cleanDoc = parser.parseFromString(cleanRawHTML, 'text/html');
+      const liveTAs = document.querySelectorAll('.anno-edit');
+      const cleanTAs = cleanDoc.querySelectorAll('.anno-edit');
+      liveTAs.forEach((liveTa, index) => {
+        if (cleanTAs[index]) {
+          const val = liveTa.value.trim();
+          cleanTAs[index].textContent = val;
+          const box = cleanTAs[index].closest('.anno-box');
+          if (box) box.style.display = 'none';
+          const view = box ? box.querySelector('.anno-view') : null;
+          if (view) view.innerHTML = '';
+        }
+      });
+      cleanDoc.querySelectorAll('.anno-toggle').forEach(t => {
+        t.classList.remove('has-anno');
+        const ta = t.closest('.content-wrap, .litit-highlight-block')?.querySelector('.anno-edit');
+        if (ta && ta.textContent.trim()) t.classList.add('has-anno');
+      });
+      finalHTML = '<!DOCTYPE html>\n<html lang="zh-CN">\n' + cleanDoc.documentElement.innerHTML + '\n</html>';
+    } else {
+      finalHTML = getPurifiedFallbackHTML();
+    }
+    await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath, {
+      method: 'PUT',
+      headers: { 'Authorization': 'Bearer ' + ghToken, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        message: 'Silent purified annotation update',
+        content: btoa(unescape(encodeURIComponent(finalHTML))),
+        sha: sha || undefined
+      })
+    });
+    console.log('✅ [My Litit] 纯净无污染批注已静默同步至 GitHub');
+  } catch(e) {
+    console.warn('❌ [My Litit] 同步跳过或失败:', e);
+  }
+}
+
+function scheduleSync() {
+  if (syncTimeout) clearTimeout(syncTimeout);
+  syncTimeout = setTimeout(() => { syncToCloud(); }, 3000);
+}
+
+function initAnnotations() {
+  document.querySelectorAll('.litit-highlight-block, .content-wrap').forEach(wrap => {
+    let content = wrap.querySelector('.content');
+    if (!content) {
+      const pText = wrap.querySelector('p');
+      if (pText) {
+        content = document.createElement('div');
+        content.className = 'content';
+        content.style.cssText = 'position:relative; margin:0 0 6px 0; color:#1a202c; font-family:Georgia, serif; line-height:1.7; font-size:15px; word-break:break-word;';
+        content.innerHTML = pText.innerHTML;
+        pText.parentNode.replaceChild(content, pText);
+      }
+    }
+    if (!content) return;
+    if (!content.querySelector('.anno-toggle')) {
+      const toggle = document.createElement('span');
+      toggle.className = 'anno-toggle'; toggle.title = '手写批注/笔记';
+      content.appendChild(toggle);
+    }
+    if (!content.querySelector('.ai-toggle')) {
+      const aiToggle = document.createElement('span');
+      aiToggle.className = 'ai-toggle'; aiToggle.title = 'AI智能二次解析';
+      content.appendChild(aiToggle);
+    }
+    let box = wrap.querySelector('.anno-box');
+    if (!box) {
+      box = document.createElement('div'); box.className = 'anno-box'; box.style.display = 'none';
+      box.innerHTML = '<div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 解析..."></textarea>';
+      wrap.appendChild(box);
+    }
+    const view = box.querySelector('.anno-view');
+    const edit = box.querySelector('.anno-edit');
+    const toggle = content.querySelector('.anno-toggle');
+    const aiToggle = content.querySelector('.ai-toggle');
+    if (edit && edit.value.trim()) {
+      toggle.classList.add('has-anno');
+      try { view.innerHTML = (typeof marked !== 'undefined') ? marked.parse(edit.value.trim()) : edit.value.trim(); } catch(e){}
+    }
+    if (aiToggle) {
+      aiToggle.onclick = async (e) => {
+        e.preventDefault(); e.stopPropagation();
+        if (aiToggle.classList.contains('loading')) return;
+        if (edit && edit.value.trim() !== '') {
+          const confirmOverwrite = confirm('⚠️ 已经存在批注内容。点击"确定"将使用 AI 解析覆盖现有内容。是否继续？');
+          if (!confirmOverwrite) return;
+        }
+        const pClone = content.cloneNode(true);
+        pClone.querySelectorAll('.anno-toggle, .ai-toggle').forEach(el => el.remove());
+        let pText = pClone.textContent.replace(/https?:\/\/\S+/g, '').trim();
+        if (!pText) return;
+        aiToggle.classList.add('loading');
+        try {
+          const aiContent = await executeAIPipeline(pText);
+          box.style.display = 'block'; view.style.display = 'none';
+          edit.style.display = 'block'; edit.value = aiContent;
+          edit.focus(); edit.blur();
+        } catch (err) { console.error(err); } finally { aiToggle.classList.remove('loading'); }
+      };
+    }
+    if (toggle) {
+      toggle.onclick = (e) => {
+        e.preventDefault(); e.stopPropagation();
+        if (box.style.display === 'block') {
+          box.style.display = 'none';
+        } else {
+          box.style.display = 'block';
+          if (!edit.value.trim()) {
+            view.style.display = 'none'; edit.style.display = 'block';
+            setTimeout(() => { edit.focus(); }, 150);
+          } else { view.style.display = 'block'; edit.style.display = 'none'; }
+        }
+      };
+    }
+    const triggerEdit = (e) => {
+      if(e) { e.preventDefault(); e.stopPropagation(); }
+      view.style.display = 'none'; edit.style.display = 'block'; edit.value = edit.value;
+      setTimeout(() => { edit.focus(); }, 150);
+    };
+    view.addEventListener('dblclick', triggerEdit);
+    let lastTap = 0;
+    view.addEventListener('touchstart', e => {
+      if (e.touches.length === 2) { triggerEdit(e); }
+      else if (e.touches.length === 1) {
+        const currentTime = new Date().getTime();
+        if (currentTime - lastTap < 500 && currentTime - lastTap > 0) {
+          e.preventDefault(); box.style.display = 'none';
+        }
+        lastTap = currentTime;
+      }
+    }, {passive: false});
+    if (edit && view) {
+      edit.onblur = () => {
+        setTimeout(() => {
+          const newVal = edit.value.trim();
+          try { view.innerHTML = newVal ? ((typeof marked !== 'undefined') ? marked.parse(newVal) : newVal) : ''; } catch(e){}
+          edit.style.display = 'none';
+          if (newVal) {
+            view.style.display = 'block'; toggle.classList.add('has-anno');
+          } else {
+            view.style.display = 'none'; box.style.display = 'none'; toggle.classList.remove('has-anno');
+          }
+          if (edit.getAttribute('data-old-val') !== newVal) {
+            edit.setAttribute('data-old-val', newVal);
+            scheduleSync();
+          }
+        }, 150);
+      };
+      edit.setAttribute('data-old-val', edit.value.trim());
+    }
+  });
+}
+window.addEventListener('DOMContentLoaded', () => { initProgressBar(); initAnnotations(); });
+window.addEventListener('load', initAnnotations);
+</script>
+</body>
+</html>
