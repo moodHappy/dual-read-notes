@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Alexander the Great's empire crumbled into chaos after his death. How did it fall apart so quickly?</title>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<style id="core-style">
+/* ======================================================================
+   [AI TEMPLATE GUIDELINES - CSS 核心排版规范]
+   致其他 AI 助手：在生成此模板时，请严格遵守以下样式分配规则：
+   1. 序号规则：列表的 NO.01 序号由伪类 `::before` 自动生成且独占一行。千万不要在 HTML 中手动输入“NO.01”。
+   2. 标签规则：文章开头的标签胶囊纯文字即可，禁止带 `#` 号。
+   3. 胶囊高亮（.litit-badge）：仅用于第 1、2、3 板块（重点记忆、高价值表达、短语和固定搭配）的【短词组/单词】，表现为紫色渐变背景的内联胶囊。
+   4. 长句排版（.litit-en-sentence）：用于第 4 板块（值得学习的句子结构）和第 5 板块（最值得优先掌握的句型）的【长句/长句型】。严禁将长句型放入 .litit-badge 中，否则会导致折行错乱。并且中文解释中的括号补充内容需使用 <br> 另起一行。
+====================================================================== */
+:root {
+  --bg-page: #ffffff;
+  --bg-card: #ffffff;
+  --text-main: #0f172a;
+  --text-sub: #334155;
+  --text-muted: #64748b;
+  --accent-primary: #4f46e5;
+  --border-subtle: #e2e8f0;
+  --font-serif: "Georgia", "Charter", "Source Han Serif SC", "Noto Serif CJK SC", serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", Roboto, sans-serif;
+}
+body {
+  font-family: var(--font-sans);
+  padding: 12px 12px 36px 12px;
+  margin: 0 auto;
+  max-width: 780px;
+  background: var(--bg-page);
+  color: var(--text-main);
+  line-height: 1.75;
+  font-size: 16px;
+  word-wrap: break-word;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+* { box-sizing: border-box; max-width: 100%; }
+img { max-width: 100%; height: auto; border-radius: 8px; }
+
+/* 顶部极简阅读进度条 */
+#reading-progress {
+  position: fixed;
+  top: 0; left: 0;
+  width: 0%; height: 3px;
+  background: linear-gradient(90deg, #4f46e5, #9333ea);
+  z-index: 9999;
+  transition: width 0.1s ease-out;
+}
+
+/* 主容器：零冗余边距，最大化阅读视野 */
+.litit-report { background: var(--bg-card); padding: 0; }
+
+/* AI 批注组件样式 */
+.anno-toggle, .ai-toggle {
+  display: inline-block;
+  padding: 2px 5px;
+  margin-left: 5px;
+  cursor: pointer;
+  opacity: 0.45;
+  font-size: 0.85rem;
+  vertical-align: middle;
+  transition: all 0.2s;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.anno-toggle:hover, .ai-toggle:hover { opacity: 1; transform: scale(1.15); }
+.anno-toggle.has-anno { opacity: 1; }
+.anno-toggle::after { content: "🔴"; }
+.ai-toggle { opacity: 0.7; padding: 2px 4px; }
+.ai-toggle::after { content: "🤖"; }
+.ai-toggle.loading::after {
+  content: "⏳"; display: inline-block; animation: spin 1s linear infinite;
+}
+@keyframes spin { 100% { transform: rotate(360deg); } }
+
+.anno-box {
+  display: none; margin-top: 10px;
+  background: #faf8ff; border-left: 3px solid #7c3aed;
+  padding: 12px 14px; border-radius: 0 8px 8px 0; text-align: left;
+}
+.anno-view { font-size: 0.95rem; line-height: 1.65; color: #334155; min-height: 24px; }
+.anno-edit {
+  width: 100%; min-height: 120px; padding: 10px;
+  font-family: monospace; font-size: 0.95rem;
+  border: 1px dashed #a78bfa; border-radius: 6px;
+  resize: vertical; display: none; background: #fff;
+  color: #1e293b; outline: none;
+}
+.anno-edit:focus { border: 1px solid #7c3aed; box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.12); }
+.markdown-body p { margin-top: 0; margin-bottom: 8px; }
+.markdown-body p:last-child { margin-bottom: 0; }
+.markdown-body h1, .markdown-body h2, .markdown-body h3 {
+  color: #5b21b6; font-size: 1.05rem; margin: 10px 0 6px 0;
+  border-bottom: 1px dashed #ddd6fe; padding-bottom: 4px;
+}
+.markdown-body ul, .markdown-body ol { margin: 0 0 8px 0; padding-left: 18px; }
+.markdown-body blockquote {
+  margin: 0 0 10px 0; padding: 8px 12px;
+  background: rgba(124, 58, 237, 0.06); border-left: 3px solid #7c3aed; color: #475569;
+}
+
+/* 杂志风区块标题 */
+.section-header {
+  font-size: 16px; color: #0f172a; font-weight: 700;
+  letter-spacing: 0.02em;
+  background: linear-gradient(90deg, #f8fafc 0%, #ffffff 100%);
+  padding: 8px 12px; border-left: 4px solid #4f46e5;
+  margin: 26px 0 14px 0; border-radius: 0 6px 6px 0;
+  display: flex; align-items: center;
+  box-shadow: inset 0 1px 0 #f1f5f9, inset 0 -1px 0 #f1f5f9;
+}
+
+/* 折叠面板升级：极简无十字图标、最大化宽度 */
+details.litit-fold {
+  margin-bottom: 10px; border: 1px solid #e2e8f0; border-radius: 10px;
+  background: #ffffff; overflow: hidden; transition: border-color 0.2s ease;
+}
+details.litit-fold[open] { border-color: #cbd5e1; }
+details.litit-fold summary {
+  cursor: pointer; padding: 12px 14px; outline: none; list-style: none;
+  display: flex; justify-content: space-between; align-items: center;
+  background: #f8fafc; transition: background 0.2s;
+  user-select: none; -webkit-tap-highlight-color: transparent;
+}
+details.litit-fold summary::-webkit-details-marker { display: none; }
+details.litit-fold summary::after { display: none; }
+details.litit-fold summary:hover { background: #f1f5f9; }
+details.litit-fold[open] summary { border-bottom: 1px solid #e2e8f0; background: #f8fafc; border-left: 3px solid #4f46e5; }
+.litit-fold-content { padding: 10px 8px; background: #f8fafc; }
+
+/* 精读区列表卡片化 */
+.litit-fold-content > ol, .litit-fold-content > ul {
+  list-style: none !important; padding-left: 0 !important; margin: 0 !important; counter-reset: litit-counter;
+}
+.litit-fold-content > ol > li, .litit-fold-content > ul > li {
+  counter-increment: litit-counter; position: relative;
+  background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px;
+  padding: 12px 12px; margin-bottom: 10px !important; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.015);
+}
+.litit-fold-content > ol > li:last-child, .litit-fold-content > ul > li:last-child { margin-bottom: 0 !important; }
+
+/* [规则 1] 顶部流式微型序号徽章：完美独占一行，追求极致对齐与统一美感 */
+.litit-fold-content > ol > li::before, .litit-fold-content > ul > li::before {
+  content: "NO." counter(litit-counter, decimal-leading-zero);
+  display: block; width: max-content; font-size: 10px; font-weight: 800;
+  font-family: -apple-system, BlinkMacSystemFont, monospace;
+  color: #4f46e5; background: #eef2ff; padding: 1px 6px; border-radius: 4px;
+  margin-bottom: 8px; letter-spacing: 0.04em;
+}
+
+/* [规则 4] 纯英/中长句子专属排版（块级元素，自然折行对齐） */
+.litit-en-sentence {
+  display: block; font-family: var(--font-serif); font-size: 1.04rem;
+  font-weight: 600; color: #0f172a; line-height: 1.5; margin-bottom: 6px;
+}
+.litit-zh-sentence {
+  display: block; font-family: var(--font-sans); font-size: 0.93rem;
+  color: #475569; line-height: 1.55; margin-bottom: 2px;
+}
+li.litit-target-sentence > br { display: none; }
+
+/* [规则 3] 短词组高亮徽章（1、2、3 板块专用短标签） */
+.litit-badge {
+  display: inline-block; background: linear-gradient(135deg, #eef2ff 0%, #f3e8ff 100%);
+  color: #4338ca; padding: 2px 8px; border-radius: 5px; font-size: 0.92rem;
+  font-weight: 700; margin-right: 4px; margin-bottom: 6px;
+  border: 1px solid #e0e7ff; vertical-align: middle;
+}
+
+/* 第 4 板块子级知识点解析区左边框内嵌盒 */
+li.litit-target-sentence > ul {
+  list-style: none !important; margin: 10px 0 0 0 !important; padding: 8px 10px !important;
+  background: #f8fafc; border-radius: 6px; border-left: 2.5px solid #94a3b8;
+}
+li.litit-target-sentence > ul > li {
+  position: relative; padding-left: 10px; margin-bottom: 5px !important; font-size: 0.88rem; color: #334155; line-height: 1.5;
+}
+li.litit-target-sentence > ul > li:last-child { margin-bottom: 0 !important; }
+li.litit-target-sentence > ul > li::before {
+  content: "·"; position: absolute; left: 0; top: 0; color: #4f46e5; font-weight: 900;
+}
+li.litit-target-sentence > ul > li > strong {
+  color: #0f172a; font-weight: 600; background: #e2e8f0; padding: 1px 5px; border-radius: 4px; font-size: 0.84rem; margin-right: 3px;
+}
+
+/* 移动端极限铺开适配 */
+@media (max-width: 600px) {
+  body { padding: 10px 10px 30px 10px; font-size: 15px; }
+  h1.litit-target-title { font-size: 21px !important; }
+  .litit-fold-content { padding: 8px 6px; }
+  .litit-fold-content > ol > li, .litit-fold-content > ul > li { padding: 11px 10px; margin-bottom: 8px !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- 进度条 DOM -->
+<div id="reading-progress"></div>
+
+<div class="litit-report" style="width:100%; max-width:100%; box-sizing:border-box; overflow-x:hidden;">
+  
+  <!-- 顶部杂志刊头装饰 -->
+  <div style="display:flex; justify-content:space-between; align-items:center; border-bottom: 2px solid #0f172a; padding-bottom: 6px; margin-bottom: 14px; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: #64748b; text-transform: uppercase;">
+    <span>The Global Dispatch · 深度双语精读</span>
+    <span>Ancient History & Empire</span>
+  </div>
+
+  <!-- 支持批注的主标题区 -->
+  <div class="content-wrap" style="position:relative; margin-bottom: 1px;">
+    <h1 class="litit-target-title" style="color:#0f172a; font-size: 24px; line-height: 1.35; font-family: var(--font-serif); font-weight: 800; border-bottom: 1px solid #e2e8f0; padding-bottom: 14px; margin-top:0; margin-bottom:0; word-break:break-word;">
+      <span class="content litit-en-title" style="position:relative;">Alexander the Great's empire crumbled into chaos after his death. How did it fall apart so quickly?</span>
+      <br>
+      <span class="litit-zh-title" style="font-family: var(--font-sans); font-size: 17px; font-weight: 600; color: #475569; margin-top: 8px; display: inline-block; line-height: 1.45;">亚历山大大帝死后帝国迅速陷入混乱：它是如何这么快崩塌的？</span>
+    </h1>
+    <div class="anno-box" style="display:none; margin-top: 10px;">
+      <div class="anno-view markdown-body"></div>
+      <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
+
+亚历山大大帝死后帝国迅速陷入混乱：它是如何这么快崩塌的？
+
+### 📌 Key Expressions
+
+- **crumbled into chaos** = 陷入混乱 / 四分五裂
+- **succession crisis** = 继承危机
+- **heir** = 继承人</textarea>
+    </div>
+  </div>
+
+  <!-- 杂志导语（Lead Paragraph） -->
+  <p style="color:#334155; font-size: 15px; line-height: 1.75; margin-bottom:16px; font-weight:400; background: #f8fafc; padding: 12px 14px; border-radius: 8px; border: 1px solid #f1f5f9;">
+    亚历山大大帝曾征服了一片从地中海延伸至印度的庞大帝国，并屡次在战场上的致命伤中幸存。然而，当他在公元前323年于巴比伦突然因神秘高烧离世时，年仅32岁的他却从未留下任何关于继承人的计划。这一重大疏忽瞬间将这个庞大帝国推向了腥风血雨的继承危机。由于帝国极度依赖他个人的军事威望维系，他的将领与行省总督们立刻开始各自为政争夺权力。从弱不禁风的双王共治、托勒密“劫持”遗体以获取政治正统性，到长达数十年的继承者内战，这个威震欧亚的古代超级帝国在失去其缔造者之后，以惊人的速度走向了彻底瓦解与分裂。
+  </p>
+
+  <div style="margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+    <div style="display:flex; flex-wrap:wrap; gap:6px;">
+      <!-- [规则 2] 纯净的胶囊风格 -->
+      <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;">古代历史</span>
+      <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;">亚历山大大帝</span>
+      <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;">帝国崩塌</span>
+    </div>
+    <a href="https://www.historyextra.com/period/ancient-history/alexander-the-great-came-close-to-death-no-succession-plan/" target="_blank" style="font-size: 12.5px; color: #4f46e5; text-decoration: none; font-weight: 600; background: #eef2ff; padding: 5px 12px; border-radius: 16px; border: 1px solid #e0e7ff; display:inline-block;">🔗 阅读原文 ↗</a>
+  </div>
+
+  <!-- 最佳金句区 -->
+  <h2 class="section-header" style="border-left-color: #f59e0b;">💬 最佳金句</h2>
+  <div class="content-wrap" style="position:relative; margin-bottom:24px;">
+    <blockquote class="litit-target-quote" style="border-left: 3.5px solid #f59e0b; background: linear-gradient(135deg, #fffbeb 0%, #ffffff 100%); padding: 14px 14px; margin: 0; color: #1e293b; border-radius: 0 10px 10px 0; border-top: 1px solid #fef3c7; border-right: 1px solid #fef3c7; border-bottom: 1px solid #fef3c7;">
+      <div class="content litit-en-quote" style="position:relative; margin:0 0 8px 0; font-family: var(--font-serif); font-style: italic; font-weight:600; font-size: 16.5px; line-height: 1.55; color:#0f172a; word-break:break-word;">
+        "Alexander made no plan to die so young, which seems absurd because he'd come so close to death so many times... But he makes no plan. He names no heir."
+      </div>
+      <p class="litit-zh-quote" style="margin:0 0 8px 0; font-weight:400; font-size: 14.5px; line-height: 1.6; color:#475569; word-break:break-word;">
+        “亚历山大从没计划过自己会死得这么年轻，这听起来似乎很荒谬，因为他此前曾无数次濒临死亡……但他就是没有做任何计划，也没有指定任何继承人。”
+      </p>
+      <footer style="text-align:right; font-size:12px; color:#64748b; font-style:normal; font-weight:600;">—— 达勒姆大学古典学教授埃德蒙·理查森（Edmund Richardson）评述亚历山大未留遗嘱的悖论</footer>
+    </blockquote>
+    <div class="anno-box" style="display:none;">
+      <div class="anno-view markdown-body"></div>
+      <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
+
+“亚历山大从没计划过自己会死得这么年轻，这听起来似乎很荒谬，因为他此前曾无数次濒临死亡……但他就是没有做任何计划，也没有指定任何继承人。”
+
+### 📌 Key Expressions
+
+- **absurd** = 荒谬的 / 荒唐的
+- **come close to death** = 濒临死亡 / 险些丧命
+- **name no heir** = 没有指定任何继承人</textarea>
+    </div>
+  </div>
+
+  <!-- Grid 布局关键数字区 -->
+  <h2 class="section-header" style="border-left-color: #10b981;">📊 关键数字</h2>
+  <div style="display:grid; grid-template-columns: repeat(2, 1fr); gap:10px; margin:14px 0 24px 0;">
+    <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+      <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+        32<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">岁</span>
+      </div>
+      <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">公元前323年6月亚历山大在巴比伦骤然离世时的年龄</div>
+    </div>
+    <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+      <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+        326<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">BC</span>
+      </div>
+      <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">他在巴基斯坦征战时胸部被箭射穿、死里逃生的年份</div>
+    </div>
+    <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+      <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+        2<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">位国王</span>
+      </div>
+      <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">妥协产下的名义双王共治格局（菲利普三世与亚历山大四世）</div>
+    </div>
+    <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+      <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+        310<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">BC</span>
+      </div>
+      <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">亚历山大遗腹子亚历山大四世及其母罗克珊娜被谋杀的年份</div>
+    </div>
+  </div>
+
+  <h2 class="section-header" style="border-left-color: #3b82f6;">⏱️ 事件时间线</h2>
+  <ul style="padding-left:18px; line-height:1.8; color:#334155; font-size: 14.5px; margin-bottom:24px; word-break:break-word;">
+    <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">公元前336年：</strong> 亚历山大登基成为马其顿国王，两年后挥师渡过赫勒斯海峡进攻波斯帝国。</li>
+    <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">公元前323年6月：</strong> 亚历山大在巴比伦因不明高烧骤然离世，年仅32岁，未留下任何继承人计划。</li>
+    <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">公元前321或320年：</strong> 埃及总督托勒密“劫持”亚历山大遗体运往埃及，引发内战，摄政王佩尔狄卡斯在远征埃及期间被部下谋杀。</li>
+    <li><strong style="color:#1d4ed8;">公元前317年 - 公元前310年：</strong> 两位名义上的傀儡国王（菲利普三世、亚历山大四世）及王后罗克珊娜相继被谋杀，继承者（Diadochi）进入长达数十年的全面内战与帝国彻底分裂期。</li>
+  </ul>
+
+  <h2 class="section-header" style="border-left-color: #8b5cf6;">✨ 本篇亮点与精读</h2>
+  <div style="margin: 14px 0 10px 0;">
+
+    <!-- 第一板块：一、重点记忆 -->
+    <details class="litit-fold">
+      <summary>
+        <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">一、重点记忆</h3>
+      </summary>
+      <div class="litit-fold-content">
+        <ul style="list-style-type: square; margin: 0; padding-left: 18px; line-height: 1.6;">
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">succession crisis</strong>：继承危机<br>
+            <strong class="litit-en-sentence">Alexander's death plunged his empire into a succession crisis.</strong>
+            <span class="litit-zh-sentence">亚历山大的死将他的帝国推入了一场继承危机。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">signet ring</strong>：玺戒 / 权戒<br>
+            <strong class="litit-en-sentence">Ancient accounts suggest Alexander passed his signet ring to Perdiccas.</strong>
+            <span class="litit-zh-sentence">古代记载表明亚历山大将他的玺戒交给了佩尔狄卡斯。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">figurehead</strong>：名义领袖 / 傀儡<br>
+            <strong class="litit-en-sentence">Both of those kings are meant to be figureheads.</strong>
+            <span class="litit-zh-sentence">这两位国王本意都只是作为名义上的傀儡。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">regent</strong>：摄政王 / 摄政者<br>
+            <strong class="litit-en-sentence">Perdiccas served as the leading figure acting as regent.</strong>
+            <span class="litit-zh-sentence">佩尔狄卡斯担任了行使摄政权力的核心人物。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">custodian</strong>：保管人 / 监护人<br>
+            <strong class="litit-en-sentence">Ptolemy presented himself as its custodian.</strong>
+            <span class="litit-zh-sentence">托勒密把自己塑造成了亚历山大记忆的保管人。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">prestige</strong>：威望 / 声望<br>
+            <strong class="litit-en-sentence">The dead king remained a source of prestige and authority.</strong>
+            <span class="litit-zh-sentence">这位已故的国王依然是威望与权威的源泉。</span>
+          </li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- 第二板块：二、高价值表达 -->
+    <details class="litit-fold">
+      <summary>
+        <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">二、高价值表达</h3>
+      </summary>
+      <div class="litit-fold-content">
+        <ol style="margin: 0; padding-left: 18px;">
+          <li style="margin-bottom: 12px;">
+            <strong class="litit-badge">faultline</strong>：地质断层线 / 潜在裂痕。<br>
+            <span class="litit-zh-sentence" style="margin-top: 4px;">原指地壳断层，在政治和历史语境中（如 <i>fractured along these faultlines</i>），用来极其生动地形容内部因利益、立场不同而产生的深刻分裂根源。</span>
+          </li>
+          <li style="margin-bottom: 12px;">
+            <strong class="litit-badge">ace card</strong>：王牌 / 绝招。<br>
+            <span class="litit-zh-sentence" style="margin-top: 4px;">扑克牌用语的引申。指在激烈的政治或军事博弈中，能够决定胜负、对手无法复制的核心筹码（如托勒密夺取亚历山大遗体作为王牌）。</span>
+          </li>
+          <li style="margin-bottom: 12px;">
+            <strong class="litit-badge">it's everyone for themselves</strong>：各人自扫门前雪 / 各自为战陷入混战。<br>
+            <span class="litit-zh-sentence" style="margin-top: 4px;">极具画面感的短语。用来形容秩序崩塌后，所有人都只为自身利益谋求出路、没有任何集体约束的混乱无序状态。</span>
+          </li>
+          <li style="margin-bottom: 12px;">
+            <strong class="litit-badge">hijack</strong>：劫持 / 强行拦截。<br>
+            <span class="litit-zh-sentence" style="margin-top: 4px;">不仅可用于劫持飞机或车辆，在历史政治事件中也常用于形容强行截夺运送途中极为贵重的政治资产或遗体。</span>
+          </li>
+        </ol>
+      </div>
+    </details>
+
+    <!-- 第三板块：三、短语和固定搭配 -->
+    <details class="litit-fold">
+      <summary>
+        <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">三、短语和固定搭配</h3>
+      </summary>
+      <div class="litit-fold-content">
+        <ul style="list-style-type: square; margin: 0; padding-left: 18px; line-height: 1.6;">
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">depend heavily on</strong>：极大地依赖于<br>
+            <strong class="litit-en-sentence">Keeping those territories together depended heavily on his personal authority.</strong>
+            <span class="litit-zh-sentence">将这些领土凝聚在一起极大地依赖于他的个人权威。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">claim power for themselves</strong>：为自己争夺权力<br>
+            <strong class="litit-en-sentence">His commanders start to try to claim power for themselves.</strong>
+            <span class="litit-zh-sentence">他的指挥官们开始试图为自己攫取权力。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">hold together</strong>：保持团结 / 维持整体不散<br>
+            <strong class="litit-en-sentence">No one has the power to hold it all together.</strong>
+            <span class="litit-zh-sentence">没有人有能力把整个帝国维系在一起。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">bring under control</strong>：使之归顺 / 控制住<br>
+            <strong class="litit-en-sentence">Perdiccas invaded Egypt, attempting to bring Ptolemy under control.</strong>
+            <span class="litit-zh-sentence">佩尔狄卡斯入侵埃及，试图将托勒密置于控制之下。</span>
+          </li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- 第四板块：四、值得学习的句子结构 -->
+    <details class="litit-fold">
+      <summary>
+        <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">四、值得学习的句子结构</h3>
+      </summary>
+      <div class="litit-fold-content">
+        <ol style="margin: 0; padding-left: 18px;">
+          <li class="litit-target-sentence" style="margin-bottom: 12px;">
+            <strong class="litit-en-sentence">“Alexander made no plan to die so young, which seems absurd because he'd come so close to death so many times,” says Edmund Richardson.</strong>
+            <span class="litit-zh-sentence">“亚历山大从没计划过自己会死得这么年轻，这听起来似乎很荒谬，因为他此前曾无数次濒临死亡，”埃德蒙·理查森说道。</span>
+            <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+              <li style="margin-bottom: 3px;"><strong>which seems absurd because...</strong>：由非限制性定语从句对前文主句进行辛辣评价，再用 because 引导原因状语，完美阐述了历史戏剧性。</li>
+            </ul>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 12px;">
+            <strong class="litit-en-sentence">Ptolemy then acquired an ace card that his rivals couldn’t reproduce: Alexander himself.</strong>
+            <span class="litit-zh-sentence">随后，托勒密获得了一张竞争对手们无法复制的王牌：亚历山大本人。</span>
+            <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+              <li style="margin-bottom: 3px;"><strong>an ace card that...</strong>：先行词后接定语从句，末尾用冒号直接引出核心实体，极具文学张力和叙事悬念感。</li>
+            </ul>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 12px;">
+            <strong class="litit-en-sentence">Perdiccas could claim authority over Alexander’s empire, but wasn’t even able to determine where its founder would be buried.</strong>
+            <span class="litit-zh-sentence">佩尔狄卡斯虽然可以宣称对亚历山大的帝国拥有最高权威，但甚至无法决定其缔造者将被安葬在何处。</span>
+            <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+              <li style="margin-bottom: 3px;"><strong>could claim... but wasn't even able to...</strong>：通过强烈的转折对比，辛辣讽刺了名义最高摄政王在现实政治博弈中的苍白无力。</li>
+            </ul>
+          </li>
+        </ol>
+      </div>
+    </details>
+
+    <!-- 第五板块：五、最值得优先掌握的句型 -->
+    <details class="litit-fold">
+      <summary>
+        <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">五、最值得优先掌握的句型</h3>
+      </summary>
+      <div class="litit-fold-content">
+        <ol style="margin: 0; padding-left: 18px;">
+          <li style="margin-bottom: 12px;">
+            <strong class="litit-en-sentence" style="color: #4338ca;">[某历史人物] made no plan to [遭遇重大变故], which seems absurd because [先前拥有丰富的应对经验/极端情况].</strong>
+            <span class="litit-zh-sentence">某人从未计划过会遭遇某种变故，这看起来十分荒谬，因为他此前曾经历过无数次类似的高风险状况。<br>（用于历史人物评传或深度剖析“百密一疏、毫无防范”的绝佳修辞句式）。</span>
+          </li>
+          <li style="margin-bottom: 12px;">
+            <strong class="litit-en-sentence" style="color: #4338ca;">Keeping [庞大系统/组织] together depended heavily on [个人威望/核心资源], backed by [实际支撑手段].</strong>
+            <span class="litit-zh-sentence">将某种庞大体系凝聚在一起，在很大程度上依赖于某人的个人权威，并有某种实际手段作为后盾。<br>（剖析集权帝国、家族企业或脆弱生态无法长久维系的精辟理论框架句式）。</span>
+          </li>
+          <li style="margin-bottom: 12px;">
+            <strong class="litit-en-sentence" style="color: #4338ca;">[某方势力] then acquired an ace card that [竞争对手] couldn’t reproduce: [核心筹码].</strong>
+            <span class="litit-zh-sentence">某方随后获得了一张对手无法复制的王牌：某种核心筹码。<br>（在商业竞争、政治博弈叙事中，用来描写某人通过“奇招”奠定胜局的高级写作句型）。</span>
+          </li>
+        </ol>
+      </div>
+    </details>
+  </div>
+
+  <h2 class="section-header" style="border-left-color: #0d9488;">💡 幕后冷知识 (Fun Facts)</h2>
+  <ul style="padding-left:18px; line-height:1.8; color:#334155; font-size:14.5px; margin-bottom:24px; word-break:break-word;">
+    <li style="margin-bottom: 8px;"><strong>Diadochi（继承者战争）：</strong> 亚历山大死后，他的核心将领们爆发了长达近四十年的内战，这段历史在西方史学中被称为“继承者战争”（Wars of the Diadochi）。正是在这场残酷洗牌中，托勒密开创了埃及托勒密王朝（最后一位法老是著名的埃及艳后克莉奥帕特拉七世），塞琉古夺取了美索不达米亚与波斯故地，而马其顿本土则落入安提柯家族手中。</li>
+    <li style="margin-bottom: 8px;"><strong>遗体争夺战的政治象征：</strong> 在古代马其顿传统中，谁能掌控并安葬前任国王的遗体，谁就拥有了合法继承与号令天下的巨大正统性。托勒密半路“劫走”亚历山大遗体并将其安葬在埃及孟菲斯（后迁至亚历山大港），不仅让摄政王佩尔狄卡斯颜面扫地，也奠定了埃及作为独立王国的绝对底蕴。</li>
+    <li><strong>神话化与亚历山大的死因之谜：</strong> 亚历山大年仅32岁便在巴比伦暴毙，古代史料留下了多种说法，包括疟疾、伤寒、酒精中毒甚至是被谋杀（由其幕僚下毒）。由于他生前刻意将自己神话为宙斯之子，他的突然离世打破了当时地中海世界对于“不可战胜之神”的迷信，直接导致其庞大帝国在没有制度化官僚支撑的情况下瞬间雪崩。</li>
+  </ul>
+
+  <h2 class="section-header" style="border-left-color: #e11d48;">🎯 全片锐评</h2>
+  <p style="line-height:1.75; color:#1e293b; font-weight:500; background:linear-gradient(135deg, #fff1f2 0%, #ffffff 100%); padding:14px 16px; border-radius:10px; font-size:14.5px; margin:0 0 12px 0; border:1px solid #ffe4e6; word-break:break-word;">
+    亚历山大大帝用短短十数年时间，挥师东征建立了一个横跨欧亚非的庞大帝国，堪称人类军事史上的奇迹。然而，这个帝国的最大软肋恰恰刻在其缔造者的辉煌功绩之中——它是一个完全依附于亚历山大个人威望、军事天才以及战神般肉身所维系的“一人帝国”。当32岁的亚历山大在巴比伦戛然而止，连一句遗言或一份继承计划都未曾留下时，历史便迅速露出了它冷酷而现实的底牌：权力真空引发的从来不是理性的过渡，而是赤裸裸的血腥撕咬。从将弱智兄长与未出生婴儿推上前台的虚伪双王共治，到托勒密半路劫走遗体、用死去的征服者作为政治护身符；从摄政王兵败身亡到王室血脉被悉数清洗，继承者们的贪婪与短视以最残酷的方式证明了——没有现代制度、法律与成熟官僚体系支撑的军事征服，终究不过是风中残烛。亚历山大用长矛铸就了帝国的版图，却因缺乏对未来的制度设计，让他的宏图伟业在死后瞬间坍塌为各方军阀瓜分天下的血色修罗场。
+  </p>
+
+</div>
+
+<script id="core-engine">
+let syncTimeout = null;
+const AI_PROMPT = "请分析以下英文段落，并严格按照以下 Markdown 格式输出（不要输出任何额外的废话）：\n\n### 📌 完整翻译\n\n[此处填写完整翻译]\n\n### 📌 Key Expressions\n\n- **[单词或短语]**\n = [中文释义]\n （[可选的补充说明，如倒装结构或语境等]）\n\n段落内容：\n";
+
+// --- 顶部阅读进度条逻辑 ---
+function initProgressBar() {
+  const progressBar = document.getElementById('reading-progress');
+  if (!progressBar) return;
+  window.addEventListener('scroll', () => {
+    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    if (scrollHeight <= 0) return;
+    const scrollPercent = (scrollTop / scrollHeight) * 100;
+    progressBar.style.width = scrollPercent + '%';
+  }, { passive: true });
+}
+
+async function fetchGroq(text, apiKey, modelName) {
+  const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+    method: 'POST',
+    headers: { 'Authorization': 'Bearer ' + apiKey, 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      model: modelName || 'llama-3.3-70b-versatile',
+      messages: [
+        { role: 'system', content: 'You are an English teacher. Output EXACTLY in the requested Markdown format.' },
+        { role: 'user', content: AI_PROMPT + '"' + text + '"' }
+      ],
+      temperature: 0.3
+    })
+  });
+  if (!res.ok) throw new Error('Groq Error: ' + res.status);
+  const json = await res.json();
+  return json.choices[0].message.content.trim();
+}
+
+async function fetchCustomAI(text, url, apiKey, modelName) {
+  let headers = { 'Content-Type': 'application/json' };
+  let bodyData = {};
+  if (url.includes('anthropic.com')) {
+    headers['x-api-key'] = apiKey;
+    headers['anthropic-version'] = '2023-06-01';
+    headers['anthropic-dangerous-direct-browser-access'] = 'true';
+    bodyData = {
+      model: modelName || 'claude-3-5-sonnet-20241022',
+      max_tokens: 2000,
+      messages: [{ role: 'user', content: AI_PROMPT + '"' + text + '"' }]
+    };
+  } else if (url.includes('generativelanguage.googleapis.com')) {
+    let targetUrl = url;
+    if (!targetUrl.includes('key=')) {
+      targetUrl += (targetUrl.includes('?') ? '&' : '?') + 'key=' + apiKey;
+    }
+    const res = await fetch(targetUrl, {
+      method: 'POST', headers: headers,
+      body: JSON.stringify({ contents: [{ parts: [{ text: AI_PROMPT + '"' + text + '"' }] }] })
+    });
+    if (!res.ok) throw new Error('Gemini Error: ' + res.status);
+    const json = await res.json();
+    return json.candidates[0].content.parts[0].text.trim();
+  } else {
+    headers['Authorization'] = 'Bearer ' + apiKey;
+    bodyData = {
+      model: modelName || 'gpt-4o-mini',
+      messages: [
+        { role: 'system', content: 'You are an English teacher. Output EXACTLY in the requested Markdown format.' },
+        { role: 'user', content: AI_PROMPT + '"' + text + '"' }
+      ],
+      temperature: 0.3
+    };
+  }
+  const res = await fetch(url, { method: 'POST', headers: headers, body: JSON.stringify(bodyData) });
+  if (!res.ok) throw new Error('AI Interface Error: ' + res.status);
+  const json = await res.json();
+  if (json.choices && json.choices.length > 0) return json.choices[0].message.content.trim();
+  throw new Error('AI 返回数据异常');
+}
+
+async function executeAIPipeline(text) {
+  const customUrl = localStorage.getItem('CUSTOM_API_URL') || '';
+  const customKey = localStorage.getItem('CUSTOM_API_KEY') || '';
+  const customModel = localStorage.getItem('CUSTOM_MODEL') || '';
+  const groqKey = localStorage.getItem('GROQ_API_KEY') || '';
+  const groqModel = localStorage.getItem('GROQ_MODEL') || '';
+
+  if (customUrl && customKey) {
+    try {
+      return await fetchCustomAI(text, customUrl, customKey, customModel);
+    } catch (err) {
+      if (groqKey) return await fetchGroq(text, groqKey, groqModel);
+      throw err;
+    }
+  } else if (groqKey) {
+    return await fetchGroq(text, groqKey, groqModel);
+  } else {
+    const userKey = prompt('⚠️ 当前页面未检测到 AI Key！\n为了安全，密匙只储存在您本地浏览器中。\n\n请输入您的 API Key (如 sk-xxx 或 gsk_xxx):');
+    if (userKey && userKey.trim()) {
+      const cleanKey = userKey.trim();
+      if (cleanKey.startsWith('gsk_')) {
+        localStorage.setItem('GROQ_API_KEY', cleanKey);
+      } else {
+        localStorage.setItem('CUSTOM_API_KEY', cleanKey);
+        localStorage.setItem('CUSTOM_API_URL', 'https://api.chatanywhere.tech/v1/chat/completions');
+      }
+    }
+    throw new Error('未设置 AI API Key');
+  }
+}
+
+function getPurifiedFallbackHTML() {
+  const clone = document.documentElement.cloneNode(true);
+  const foreignSelectors = [
+    'relingo-app', 'relin-highlight', 'relin-hc', '[class*="relingo"]', '[data-relin-paragraph]',
+    'grammarly-extension', '[data-grammarly-part]', '[class*="immersive-translate"]', '[data-immersive-translate]'
+  ].join(',');
+  clone.querySelectorAll(foreignSelectors).forEach(el => el.remove());
+  clone.querySelectorAll('relin-highlight, relin-hc').forEach(t => {
+    const frag = document.createDocumentFragment();
+    while(t.firstChild) frag.appendChild(t.firstChild);
+    t.parentNode.replaceChild(frag, t);
+  });
+  clone.querySelectorAll('script').forEach(s => {
+    if (!s.src.includes('marked.min.js') && s.id !== 'core-engine') s.remove();
+  });
+  clone.querySelectorAll('style').forEach(s => {
+    if (s.id !== 'core-style') s.remove();
+  });
+  const liveTAs = document.querySelectorAll('.anno-edit');
+  clone.querySelectorAll('.anno-edit').forEach((ta, i) => {
+    if(liveTAs[i]) ta.textContent = liveTAs[i].value.trim();
+    const box = ta.closest('.anno-box');
+    if (box) box.style.display = 'none';
+    const view = box ? box.querySelector('.anno-view') : null;
+    if (view) view.innerHTML = '';
+  });
+  return '<!DOCTYPE html>\n<html lang="zh-CN">\n' + clone.innerHTML + '\n</html>';
+}
+
+async function syncToCloud() {
+  const ghToken = localStorage.getItem('LITIT_GH_TOKEN') || localStorage.getItem('GH_TOKEN');
+  const ghOwner = 'moodHappy';
+  const ghRepo = 'dual-read-notes';
+  if (!ghToken) return;
+  const pathParts = window.location.pathname.split('/');
+  const fileName = pathParts.pop();
+  const month = pathParts.pop();
+  const year = pathParts.pop();
+  if(!fileName || !month || !year) return;
+  const fileRelPath = 'Summary/' + year + '/' + month + '/' + fileName;
+  try {
+    const getRes = await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath + '?t=' + Date.now(), {
+      headers: { 'Authorization': 'Bearer ' + ghToken },
+      cache: 'no-store'
+    });
+    let finalHTML = '';
+    let sha = '';
+    if (getRes.ok) {
+      const fileData = await getRes.json();
+      sha = fileData.sha;
+      const cleanRawHTML = decodeURIComponent(escape(atob(fileData.content.replace(/\n/g, ''))));
+      const parser = new DOMParser();
+      const cleanDoc = parser.parseFromString(cleanRawHTML, 'text/html');
+      const liveTAs = document.querySelectorAll('.anno-edit');
+      const cleanTAs = cleanDoc.querySelectorAll('.anno-edit');
+      liveTAs.forEach((liveTa, index) => {
+        if (cleanTAs[index]) {
+          const val = liveTa.value.trim();
+          cleanTAs[index].textContent = val;
+          const box = cleanTAs[index].closest('.anno-box');
+          if (box) box.style.display = 'none';
+          const view = box ? box.querySelector('.anno-view') : null;
+          if (view) view.innerHTML = '';
+        }
+      });
+      cleanDoc.querySelectorAll('.anno-toggle').forEach(t => {
+        t.classList.remove('has-anno');
+        const ta = t.closest('.content-wrap, .litit-highlight-block')?.querySelector('.anno-edit');
+        if (ta && ta.textContent.trim()) t.classList.add('has-anno');
+      });
+      finalHTML = '<!DOCTYPE html>\n<html lang="zh-CN">\n' + cleanDoc.documentElement.innerHTML + '\n</html>';
+    } else {
+      finalHTML = getPurifiedFallbackHTML();
+    }
+    await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath, {
+      method: 'PUT',
+      headers: { 'Authorization': 'Bearer ' + ghToken, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        message: 'Silent purified annotation update',
+        content: btoa(unescape(encodeURIComponent(finalHTML))),
+        sha: sha || undefined
+      })
+    });
+    console.log('✅ [My Litit] 纯净无污染批注已静默同步至 GitHub');
+  } catch(e) {
+    console.warn('❌ [My Litit] 同步跳过或失败:', e);
+  }
+}
+
+function scheduleSync() {
+  if (syncTimeout) clearTimeout(syncTimeout);
+  syncTimeout = setTimeout(() => { syncToCloud(); }, 3000);
+}
+
+function initAnnotations() {
+  document.querySelectorAll('.litit-highlight-block, .content-wrap').forEach(wrap => {
+    let content = wrap.querySelector('.content');
+    if (!content) {
+      const pText = wrap.querySelector('p');
+      if (pText) {
+        content = document.createElement('div');
+        content.className = 'content';
+        content.style.cssText = 'position:relative; margin:0 0 6px 0; color:#1a202c; font-family:Georgia, serif; line-height:1.7; font-size:15px; word-break:break-word;';
+        content.innerHTML = pText.innerHTML;
+        pText.parentNode.replaceChild(content, pText);
+      }
+    }
+    if (!content) return;
+    if (!content.querySelector('.anno-toggle')) {
+      const toggle = document.createElement('span');
+      toggle.className = 'anno-toggle'; toggle.title = '手写批注/笔记';
+      content.appendChild(toggle);
+    }
+    if (!content.querySelector('.ai-toggle')) {
+      const aiToggle = document.createElement('span');
+      aiToggle.className = 'ai-toggle'; aiToggle.title = 'AI智能二次解析';
+      content.appendChild(aiToggle);
+    }
+    let box = wrap.querySelector('.anno-box');
+    if (!box) {
+      box = document.createElement('div'); box.className = 'anno-box'; box.style.display = 'none';
+      box.innerHTML = '<div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 解析..."></textarea>';
+      wrap.appendChild(box);
+    }
+    const view = box.querySelector('.anno-view');
+    const edit = box.querySelector('.anno-edit');
+    const toggle = content.querySelector('.anno-toggle');
+    const aiToggle = content.querySelector('.ai-toggle');
+    if (edit && edit.value.trim()) {
+      toggle.classList.add('has-anno');
+      try { view.innerHTML = (typeof marked !== 'undefined') ? marked.parse(edit.value.trim()) : edit.value.trim(); } catch(e){}
+    }
+    if (aiToggle) {
+      aiToggle.onclick = async (e) => {
+        e.preventDefault(); e.stopPropagation();
+        if (aiToggle.classList.contains('loading')) return;
+        if (edit && edit.value.trim() !== '') {
+          const confirmOverwrite = confirm('⚠️ 已经存在批注内容。点击"确定"将使用 AI 解析覆盖现有内容。是否继续？');
+          if (!confirmOverwrite) return;
+        }
+        const pClone = content.cloneNode(true);
+        pClone.querySelectorAll('.anno-toggle, .ai-toggle').forEach(el => el.remove());
+        let pText = pClone.textContent.replace(/https?:\/\/\S+/g, '').trim();
+        if (!pText) return;
+        aiToggle.classList.add('loading');
+        try {
+          const aiContent = await executeAIPipeline(pText);
+          box.style.display = 'block'; view.style.display = 'none';
+          edit.style.display = 'block'; edit.value = aiContent;
+          edit.focus(); edit.blur();
+        } catch (err) { console.error(err); } finally { aiToggle.classList.remove('loading'); }
+      };
+    }
+    if (toggle) {
+      toggle.onclick = (e) => {
+        e.preventDefault(); e.stopPropagation();
+        if (box.style.display === 'block') {
+          box.style.display = 'none';
+        } else {
+          box.style.display = 'block';
+          if (!edit.value.trim()) {
+            view.style.display = 'none'; edit.style.display = 'block';
+            setTimeout(() => { edit.focus(); }, 150);
+          } else { view.style.display = 'block'; edit.style.display = 'none'; }
+        }
+      };
+    }
+    const triggerEdit = (e) => {
+      if(e) { e.preventDefault(); e.stopPropagation(); }
+      view.style.display = 'none'; edit.style.display = 'block'; edit.value = edit.value;
+      setTimeout(() => { edit.focus(); }, 150);
+    };
+    view.addEventListener('dblclick', triggerEdit);
+    let lastTap = 0;
+    view.addEventListener('touchstart', e => {
+      if (e.touches.length === 2) { triggerEdit(e); }
+      else if (e.touches.length === 1) {
+        const currentTime = new Date().getTime();
+        if (currentTime - lastTap < 500 && currentTime - lastTap > 0) {
+          e.preventDefault(); box.style.display = 'none';
+        }
+        lastTap = currentTime;
+      }
+    }, {passive: false});
+    if (edit && view) {
+      edit.onblur = () => {
+        setTimeout(() => {
+          const newVal = edit.value.trim();
+          try { view.innerHTML = newVal ? ((typeof marked !== 'undefined') ? marked.parse(newVal) : newVal) : ''; } catch(e){}
+          edit.style.display = 'none';
+          if (newVal) {
+            view.style.display = 'block'; toggle.classList.add('has-anno');
+          } else {
+            view.style.display = 'none'; box.style.display = 'none'; toggle.classList.remove('has-anno');
+          }
+          if (edit.getAttribute('data-old-val') !== newVal) {
+            edit.setAttribute('data-old-val', newVal);
+            scheduleSync();
+          }
+        }, 150);
+      };
+      edit.setAttribute('data-old-val', edit.value.trim());
+    }
+  });
+}
+window.addEventListener('DOMContentLoaded', () => { initProgressBar(); initAnnotations(); });
+window.addEventListener('load', initAnnotations);
+</script>
+</body>
+</html>
