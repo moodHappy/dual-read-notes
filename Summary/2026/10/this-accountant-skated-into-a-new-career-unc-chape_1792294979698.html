@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>This accountant skated into a new career | UNC-Chapel Hill</title>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<style id="core-style">
+/* ======================================================================
+   [AI TEMPLATE GUIDELINES - CSS 核心排版规范]
+   致其他 AI 助手：在生成此模板时，请严格遵守以下样式分配规则：
+   1. 序号规则：列表的 NO.01 序号由伪类 `::before` 自动生成且独占一行。千万不要在 HTML 中手动输入“NO.01”。
+   2. 标签规则：文章开头的标签胶囊纯文字即可，禁止带 `#` 号。
+   3. 胶囊高亮（.litit-badge）：仅用于第 1、2、3 板块（重点记忆、高价值表达、短语和固定搭配）的【短词组/单词】，表现为紫色渐变背景的内联胶囊。
+   4. 长句排版（.litit-en-sentence）：用于第 4 板块（值得学习的句子结构）和第 5 板块（最值得优先掌握的句型）的【长句/长句型】。严禁将长句型放入 .litit-badge 中，否则会导致折行错乱。并且中文解释中的括号补充内容需使用 <br> 另起一行。
+====================================================================== */
+:root {
+  --bg-page: #ffffff;
+  --bg-card: #ffffff;
+  --text-main: #0f172a;
+  --text-sub: #334155;
+  --text-muted: #64748b;
+  --accent-primary: #4f46e5;
+  --border-subtle: #e2e8f0;
+  --font-serif: "Georgia", "Charter", "Source Han Serif SC", "Noto Serif CJK SC", serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", Roboto, sans-serif;
+}
+body {
+  font-family: var(--font-sans);
+  padding: 12px 12px 36px 12px;
+  margin: 0 auto;
+  max-width: 780px;
+  background: var(--bg-page);
+  color: var(--text-main);
+  line-height: 1.75;
+  font-size: 16px;
+  word-wrap: break-word;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+* { box-sizing: border-box; max-width: 100%; }
+img { max-width: 100%; height: auto; border-radius: 8px; }
+
+/* 顶部极简阅读进度条 */
+#reading-progress {
+  position: fixed;
+  top: 0; left: 0;
+  width: 0%; height: 3px;
+  background: linear-gradient(90deg, #4f46e5, #9333ea);
+  z-index: 9999;
+  transition: width 0.1s ease-out;
+}
+
+/* 主容器：零冗余边距，最大化阅读视野 */
+.litit-report { background: var(--bg-card); padding: 0; }
+
+/* AI 批注组件样式 */
+.anno-toggle, .ai-toggle {
+  display: inline-block;
+  padding: 2px 5px;
+  margin-left: 5px;
+  cursor: pointer;
+  opacity: 0.45;
+  font-size: 0.85rem;
+  vertical-align: middle;
+  transition: all 0.2s;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.anno-toggle:hover, .ai-toggle:hover { opacity: 1; transform: scale(1.15); }
+.anno-toggle.has-anno { opacity: 1; }
+.anno-toggle::after { content: "🔴"; }
+.ai-toggle { opacity: 0.7; padding: 2px 4px; }
+.ai-toggle::after { content: "🤖"; }
+.ai-toggle.loading::after {
+  content: "⏳"; display: inline-block; animation: spin 1s linear infinite;
+}
+@keyframes spin { 100% { transform: rotate(360deg); } }
+
+.anno-box {
+  display: none; margin-top: 10px;
+  background: #faf8ff; border-left: 3px solid #7c3aed;
+  padding: 12px 14px; border-radius: 0 8px 8px 0; text-align: left;
+}
+.anno-view { font-size: 0.95rem; line-height: 1.65; color: #334155; min-height: 24px; }
+.anno-edit {
+  width: 100%; min-height: 120px; padding: 10px;
+  font-family: monospace; font-size: 0.95rem;
+  border: 1px dashed #a78bfa; border-radius: 6px;
+  resize: vertical; display: none; background: #fff;
+  color: #1e293b; outline: none;
+}
+.anno-edit:focus { border: 1px solid #7c3aed; box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.12); }
+.markdown-body p { margin-top: 0; margin-bottom: 8px; }
+.markdown-body p:last-child { margin-bottom: 0; }
+.markdown-body h1, .markdown-body h2, .markdown-body h3 {
+  color: #5b21b6; font-size: 1.05rem; margin: 10px 0 6px 0;
+  border-bottom: 1px dashed #ddd6fe; padding-bottom: 4px;
+}
+.markdown-body ul, .markdown-body ol { margin: 0 0 8px 0; padding-left: 18px; }
+.markdown-body blockquote {
+  margin: 0 0 10px 0; padding: 8px 12px;
+  background: rgba(124, 58, 237, 0.06); border-left: 3px solid #7c3aed; color: #475569;
+}
+
+/* 杂志风区块标题 */
+.section-header {
+  font-size: 16px; color: #0f172a; font-weight: 700;
+  letter-spacing: 0.02em;
+  background: linear-gradient(90deg, #f8fafc 0%, #ffffff 100%);
+  padding: 8px 12px; border-left: 4px solid #4f46e5;
+  margin: 26px 0 14px 0; border-radius: 0 6px 6px 0;
+  display: flex; align-items: center;
+  box-shadow: inset 0 1px 0 #f1f5f9, inset 0 -1px 0 #f1f5f9;
+}
+
+/* 折叠面板升级：极简无十字图标、最大化宽度 */
+details.litit-fold {
+  margin-bottom: 10px; border: 1px solid #e2e8f0; border-radius: 10px;
+  background: #ffffff; overflow: hidden; transition: border-color 0.2s ease;
+}
+details.litit-fold[open] { border-color: #cbd5e1; }
+details.litit-fold summary {
+  cursor: pointer; padding: 12px 14px; outline: none; list-style: none;
+  display: flex; justify-content: space-between; align-items: center;
+  background: #f8fafc; transition: background 0.2s;
+  user-select: none; -webkit-tap-highlight-color: transparent;
+}
+details.litit-fold summary::-webkit-details-marker { display: none; }
+details.litit-fold summary::after { display: none; }
+details.litit-fold summary:hover { background: #f1f5f9; }
+details.litit-fold[open] summary { border-bottom: 1px solid #e2e8f0; background: #f8fafc; border-left: 3px solid #4f46e5; }
+.litit-fold-content { padding: 10px 8px; background: #f8fafc; }
+
+/* 精读区列表卡片化 */
+.litit-fold-content > ol, .litit-fold-content > ul {
+  list-style: none !important; padding-left: 0 !important; margin: 0 !important; counter-reset: litit-counter;
+}
+.litit-fold-content > ol > li, .litit-fold-content > ul > li {
+  counter-increment: litit-counter; position: relative;
+  background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px;
+  padding: 12px 12px; margin-bottom: 10px !important; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.015);
+}
+.litit-fold-content > ol > li:last-child, .litit-fold-content > ul > li:last-child { margin-bottom: 0 !important; }
+
+/* [规则 1] 顶部流式微型序号徽章：完美独占一行，追求极致对齐与统一美感 */
+.litit-fold-content > ol > li::before, .litit-fold-content > ul > li::before {
+  content: "NO." counter(litit-counter, decimal-leading-zero);
+  display: block; width: max-content; font-size: 10px; font-weight: 800;
+  font-family: -apple-system, BlinkMacSystemFont, monospace;
+  color: #4f46e5; background: #eef2ff; padding: 1px 6px; border-radius: 4px;
+  margin-bottom: 8px; letter-spacing: 0.04em;
+}
+
+/* [规则 4] 纯英/中长句子专属排版（块级元素，自然折行对齐） */
+.litit-en-sentence {
+  display: block; font-family: var(--font-serif); font-size: 1.04rem;
+  font-weight: 600; color: #0f172a; line-height: 1.5; margin-bottom: 6px;
+}
+.litit-zh-sentence {
+  display: block; font-family: var(--font-sans); font-size: 0.93rem;
+  color: #475569; line-height: 1.55; margin-bottom: 2px;
+}
+li.litit-target-sentence > br { display: none; }
+
+/* [规则 3] 短词组高亮徽章（1、2、3 板块专用短标签） */
+.litit-badge {
+  display: inline-block; background: linear-gradient(135deg, #eef2ff 0%, #f3e8ff 100%);
+  color: #4338ca; padding: 2px 8px; border-radius: 5px; font-size: 0.92rem;
+  font-weight: 700; margin-right: 4px; margin-bottom: 6px;
+  border: 1px solid #e0e7ff; vertical-align: middle;
+}
+
+/* 第 4 板块子级知识点解析区左边框内嵌盒 */
+li.litit-target-sentence > ul {
+  list-style: none !important; margin: 10px 0 0 0 !important; padding: 8px 10px !important;
+  background: #f8fafc; border-radius: 6px; border-left: 2.5px solid #94a3b8;
+}
+li.litit-target-sentence > ul > li {
+  position: relative; padding-left: 10px; margin-bottom: 5px !important; font-size: 0.88rem; color: #334155; line-height: 1.5;
+}
+li.litit-target-sentence > ul > li:last-child { margin-bottom: 0 !important; }
+li.litit-target-sentence > ul > li::before {
+  content: "·"; position: absolute; left: 0; top: 0; color: #4f46e5; font-weight: 900;
+}
+li.litit-target-sentence > ul > li > strong {
+  color: #0f172a; font-weight: 600; background: #e2e8f0; padding: 1px 5px; border-radius: 4px; font-size: 0.84rem; margin-right: 3px;
+}
+
+/* 移动端极限铺开适配 */
+@media (max-width: 600px) {
+  body { padding: 10px 10px 30px 10px; font-size: 15px; }
+  h1.litit-target-title { font-size: 21px !important; }
+  .litit-fold-content { padding: 8px 6px; }
+  .litit-fold-content > ol > li, .litit-fold-content > ul > li { padding: 11px 10px; margin-bottom: 8px !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- 进度条 DOM -->
+<div id="reading-progress"></div>
+
+<div class="litit-report" style="width:100%; max-width:100%; box-sizing:border-box; overflow-x:hidden;">
+  
+  <!-- 顶部杂志刊头装饰 -->
+  <div style="display:flex; justify-content:space-between; align-items:center; border-bottom: 2px solid #0f172a; padding-bottom: 6px; margin-bottom: 14px; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: #64748b; text-transform: uppercase;">
+    <span>The Global Dispatch · 深度双语精读</span>
+    <span>Career</span>
+  </div>
+
+  <!-- 支持批注的主标题区 -->
+  <div class="content-wrap" style="position:relative; margin-bottom: 16px;">
+    <h1 class="litit-target-title" style="color:#0f172a; font-size: 24px; line-height: 1.35; font-family: var(--font-serif); font-weight: 800; border-bottom: 1px solid #e2e8f0; padding-bottom: 14px; margin-top:0; margin-bottom:0; word-break:break-word;">
+      <span class="content litit-en-title" style="position:relative;">This accountant skated into a new career | UNC-Chapel Hill</span>
+      <br>
+      <span class="litit-zh-title" style="font-family: var(--font-sans); font-size: 17px; font-weight: 600; color: #475569; margin-top: 8px; display: inline-block; line-height: 1.45;">这位会计师“滑”出职业新赛道：从四大税务走向职业冰球巅峰</span>
+    </h1>
+    <div class="anno-box" style="display:none; margin-top: 10px;">
+      <div class="anno-view markdown-body"></div>
+      <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
+
+这位会计师“滑”出职业新赛道：从四大税务走向职业冰球巅峰
+
+### 📌 Key Expressions
+
+- **skate into** = 轻松滑入 / 顺畅跨入
+- **staff accountant** = 专职会计 / 员工会计</textarea>
+    </div>
+  </div>
+
+  <!-- 杂志导语（Lead Paragraph） -->
+  <p style="color:#334155; font-size: 15px; line-height: 1.75; margin-bottom:16px; font-weight:400; background: #f8fafc; padding: 12px 14px; border-radius: 8px; border: 1px solid #f1f5f9;">
+    对于北卡罗来纳大学教堂山分校（UNC-Chapel Hill）校友莫莉·西茨（Molly Sytz）而言，选择会计并非关于“要不要做”，而是“在哪里做”。凭借在高中课堂萌发的兴趣，她一路扎根财会领域，如今成功华丽转身，成为了北美职业冰球联赛（NHL）新科斯坦利杯冠军得主——卡罗莱纳飓风队（Carolina Hurricanes）的专职会计。从UNC凯南-弗拉格勒商学院本科起步，到攻读校园会计学硕士（MAC），并在普华永道（PwC）“四大”事务所历练，西茨在经历职业迷茫与自我审视后，勇敢打破传统税务的条条框框，将严谨的财会技能无缝应用到体育与娱乐产业的宏大舞台中。
+  </p>
+
+  <div style="margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+    <div style="display:flex; flex-wrap:wrap; gap:6px;">
+      <!-- [规则 2] 纯净的胶囊风格 -->
+      <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;">职业发展</span>
+      <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;">体育商业</span>
+      <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;">北卡罗来纳大学</span>
+    </div>
+    <a href="https://www.unc.edu/posts/2026/06/15/this-accountant-skated-into-a-new-career/" target="_blank" style="font-size: 12.5px; color: #4f46e5; text-decoration: none; font-weight: 600; background: #eef2ff; padding: 5px 12px; border-radius: 16px; border: 1px solid #e0e7ff; display:inline-block;">🔗 阅读原文 ↗</a>
+  </div>
+
+  <!-- 最佳金句区 -->
+  <h2 class="section-header" style="border-left-color: #f59e0b;">💬 最佳金句</h2>
+  <div class="content-wrap" style="position:relative; margin-bottom:24px;">
+    <blockquote class="litit-target-quote" style="border-left: 3.5px solid #f59e0b; background: linear-gradient(135deg, #fffbeb 0%, #ffffff 100%); padding: 14px 14px; margin: 0; color: #1e293b; border-radius: 0 10px 10px 0; border-top: 1px solid #fef3c7; border-right: 1px solid #fef3c7; border-bottom: 1px solid #fef3c7;">
+      <div class="content litit-en-quote" style="position:relative; margin:0 0 8px 0; font-family: var(--font-serif); font-style: italic; font-weight:600; font-size: 16.5px; line-height: 1.55; color:#0f172a; word-break:break-word;">
+        "I was very nervous to accept that tax and Big Four weren’t for me. But it is OK to realize something isn’t a good fit."
+      </div>
+      <p class="litit-zh-quote" style="margin:0 0 8px 0; font-weight:400; font-size: 14.5px; line-height: 1.6; color:#475569; word-break:break-word;">
+        “当我不得不承认税务工作和‘四大’并不适合我时，我感到非常紧张。但意识到某件事并不适合自己，其实完全没问题。”
+      </p>
+      <footer style="text-align:right; font-size:12px; color:#64748b; font-style:normal; font-weight:600;">—— 莫莉·西茨（Molly Sytz）谈勇敢跳出传统会计路径的心路历程</footer>
+    </blockquote>
+    <div class="anno-box" style="display:none;">
+      <div class="anno-view markdown-body"></div>
+      <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
+
+“当我不得不承认税务工作和‘四大’并不适合我时，我感到非常紧张。但意识到某件事并不适合自己，其实完全没问题。”
+
+### 📌 Key Expressions
+
+- **not for me** = 不适合我
+- **good fit** = 合适的契合点 / 适合的选择</textarea>
+    </div>
+  </div>
+
+  <!-- Grid 布局关键数字区 -->
+  <h2 class="section-header" style="border-left-color: #10b981;">📊 关键数字</h2>
+  <div style="display:grid; grid-template-columns: repeat(2, 1fr); gap:10px; margin:14px 0 24px 0;">
+    <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+      <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+        '23, '24<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">届</span>
+      </div>
+      <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">莫莉·西茨在北卡罗来纳大学教堂山分校获得本科学位及MAC硕士学位的年份</div>
+    </div>
+    <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+      <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+        4<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">大</span>
+      </div>
+      <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">她毕业后曾任职的国际顶尖会计师事务所——普华永道（PwC）背景</div>
+    </div>
+    <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+      <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+        NHL<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">联盟</span>
+      </div>
+      <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">她目前供职的北美职业冰球联赛新科斯坦利杯冠军队伍卡罗莱纳飓风队</div>
+    </div>
+    <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+      <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+        1<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">座场馆</span>
+      </div>
+      <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">涵盖冰球赛、演唱会及大学篮球等重大赛事的联想中心（Lenovo Center）</div>
+    </div>
+  </div>
+
+  <h2 class="section-header" style="border-left-color: #3b82f6;">⏱️ 事件时间线</h2>
+  <ul style="padding-left:18px; line-height:1.8; color:#334155; font-size: 14.5px; margin-bottom:24px; word-break:break-word;">
+    <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">本科与硕士阶段：</strong> 就读于 UNC 凯南-弗拉格勒商学院（UBP项目），随后升入校园 MAC 硕士项目，师从 Courtney Knoll 教授，建立起深厚财会基础。</li>
+    <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">四大磨砺期：</strong> 毕业后加入普华永道（PwC）从事税务工作，在快节奏的公共会计环境中积累了宝贵经验。</li>
+    <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">职业转折点：</strong> 经过自我审视，意识到传统的税务路径并不适合自己，鼓起勇气探索新的职业可能性。</li>
+    <li><strong style="color:#1d4ed8;">华丽转身：</strong> 成功入职 NHL 卡罗莱纳飓风队与联想中心担任专职会计，将扎实的财会基本功完美应用到体育娱乐商业运营中。</li>
+  </ul>
+
+  <h2 class="section-header" style="border-left-color: #8b5cf6;">✨ 本篇亮点与精读</h2>
+  <div style="margin: 14px 0 10px 0;">
+
+    <!-- 第一板块：一、重点记忆 -->
+    <details class="litit-fold">
+      <summary>
+        <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">一、重点记忆</h3>
+      </summary>
+      <div class="litit-fold-content">
+        <ul style="list-style-type: square; margin: 0; padding-left: 18px; line-height: 1.6;">
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">staff accountant</strong>：专职会计 / 员工会计<br>
+            <strong class="litit-en-sentence">Sytz works as a staff accountant for the NHL’s Carolina Hurricanes.</strong>
+            <span class="litit-zh-sentence">西茨担任 NHL 卡罗莱纳飓风队的专职会计。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">public accounting</strong>：公共会计 / 社会会计业务<br>
+            <strong class="litit-en-sentence">Like many MAC graduates, Sytz started in public accounting.</strong>
+            <span class="litit-zh-sentence">和许多 MAC 毕业生一样，西茨从公共会计领域起步。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">tax concentration</strong>：税务方向 / 税务专业分支<br>
+            <strong class="litit-en-sentence">As a tax concentration student, Sytz took multiple courses with Knoll.</strong>
+            <span class="litit-zh-sentence">作为一名税务方向的学生，西茨上了诺尔教授的多门课程。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">professional network</strong>：职业人脉网<br>
+            <strong class="litit-en-sentence">My professional network has always been supportive.</strong>
+            <span class="litit-zh-sentence">我的职业人脉网络一直都非常支持我。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">self-awareness</strong>：自我认知 / 自我觉察<br>
+            <strong class="litit-en-sentence">This realization required both self-awareness and confidence.</strong>
+            <span class="litit-zh-sentence">这一认识既需要自我认知，也需要自信。</span>
+          </li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- 第二板块：二、高价值表达 -->
+    <details class="litit-fold">
+      <summary>
+        <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">二、高价值表达</h3>
+      </summary>
+      <div class="litit-fold-content">
+        <ol style="margin: 0; padding-left: 18px;">
+          <li style="margin-bottom: 12px;">
+            <strong class="litit-badge">pivot</strong>：转向 / 转型 / 转换跑道。<br>
+            <span class="litit-zh-sentence" style="margin-top: 4px;">职场和商业报道的高频核心词。原意指以一点为轴进行旋转，引申为职业生涯中灵活调整方向、跳出舒适区开辟新赛道的果断抉择。</span>
+          </li>
+          <li style="margin-bottom: 12px;">
+            <strong class="litit-badge">recommender</strong>：推荐人。<br>
+            <span class="litit-zh-sentence" style="margin-top: 4px;">指在求职、考证或升学时，愿意为其职业品格或专业能力出具背书信函的导师或前主管。</span>
+          </li>
+          <li style="margin-bottom: 12px;">
+            <strong class="litit-badge">exposure</strong>：接触机会 / 历练 / 曝光度。<br>
+            <span class="litit-zh-sentence" style="margin-top: 4px;">描述在顶尖大厂或复杂环境中开阔眼界、积累高强度实战经验的过程（如 <i>exposure to the fast-paced environment</i>）。</span>
+          </li>
+          <li style="margin-bottom: 12px;">
+            <strong class="litit-badge">grounded</strong>：扎根的 / 立足于……的。<br>
+            <span class="litit-zh-sentence" style="margin-top: 4px;">形容工作虽然环境独特，但其底层逻辑和专业内核依然稳固地扎根在基础原理之上。</span>
+          </li>
+        </ol>
+      </div>
+    </details>
+
+    <!-- 第三板块：三、短语和固定搭配 -->
+    <details class="litit-fold">
+      <summary>
+        <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">三、短语和固定搭配</h3>
+      </summary>
+      <div class="litit-fold-content">
+        <ul style="list-style-type: square; margin: 0; padding-left: 18px; line-height: 1.6;">
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">take the leap</strong>：勇敢尝试 / 纵身一跃（做出重大决定）<br>
+            <strong class="litit-en-sentence">She took the leap and hasn't looked back.</strong>
+            <span class="litit-zh-sentence">她勇敢地迈出了这一步，并且再也没有回头。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">surround yourself with</strong>：与……人为伍 / 周围环绕着……<br>
+            <strong class="litit-en-sentence">It’s important to surround yourself with people who will support you.</strong>
+            <span class="litit-zh-sentence">重要的一点是，要让自己身边环绕着那些无论如何都会支持你的人。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">behind the scenes</strong>：在幕后 / 幕后运营<br>
+            <strong class="litit-en-sentence">She plays a key role in the financial operations behind major events.</strong>
+            <span class="litit-zh-sentence">她在重大活动的幕后财务运营中发挥着关键作用。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">align with</strong>：与……相一致 / 契合<br>
+            <strong class="litit-en-sentence">A role that aligns with both her interests and strengths.</strong>
+            <span class="litit-zh-sentence">一个既符合她的兴趣又契合其优势的岗位。</span>
+          </li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- 第四板块：四、值得学习的句子结构 -->
+    <details class="litit-fold">
+      <summary>
+        <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">四、值得学习的句子结构</h3>
+      </summary>
+      <div class="litit-fold-content">
+        <ol style="margin: 0; padding-left: 18px;">
+          <li class="litit-target-sentence" style="margin-bottom: 12px;">
+            <strong class="litit-en-sentence">The MAC program allowed Sytz to build relationships through networking opportunities provided by the curriculum.</strong>
+            <span class="litit-zh-sentence">MAC 项目让西茨得以通过课程提供的人脉拓展机会建立社会关系。</span>
+            <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+              <li style="margin-bottom: 3px;"><strong>allow sb to do sth through...</strong>：经典的使役与方式状语搭配，突出教育项目赋能职业发展的路径。</li>
+            </ul>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 12px;">
+            <strong class="litit-en-sentence">While she had initially envisioned a long term path in tax accounting, she realized that the traditional route might not be the right fit.</strong>
+            <span class="litit-zh-sentence">尽管她最初曾设想在税务会计领域走一条长期发展的道路，但她意识到传统路线可能并不适合自己。</span>
+            <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+              <li style="margin-bottom: 3px;"><strong>While... initially..., she realized that...</strong>：让步状语从句搭配主句的转折认知，完美刻画了职场人心理预期的转变。</li>
+            </ul>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 12px;">
+            <strong class="litit-en-sentence">The skills Sytz developed at UNC Kenan-Flagler provided a strong foundation, while her willingness to reassess and pursue new opportunities led her to a role that aligns with both her interests and strengths.</strong>
+            <span class="litit-zh-sentence">西茨在 UNC 凯南-弗拉格勒商学院培养的技能奠定了坚实的基础，而她审时度势、积极寻求新机遇的意愿则引领她走向了一个既符合兴趣又发挥优势的岗位。</span>
+            <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+              <li style="margin-bottom: 3px;"><strong>Sytz developed...</strong>：省略关系代词的定语从句，修饰 skills。</li>
+              <li style="margin-bottom: 3px;"><strong>while her willingness... led her to a role that...</strong>：并列句式中嵌套定语从句，极具人物传记和深度人物侧写的文学美感。</li>
+            </ul>
+          </li>
+        </ol>
+      </div>
+    </details>
+
+    <!-- 第五板块：五、最值得优先掌握的句型 -->
+    <details class="litit-fold">
+      <summary>
+        <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">五、最值得优先掌握的句型</h3>
+      </summary>
+      <div class="litit-fold-content">
+        <ol style="margin: 0; padding-left: 18px;">
+          <li style="margin-bottom: 12px;">
+            <strong class="litit-en-sentence" style="color: #4338ca;">While the [环境/场景] might be unique, the core of her work remains grounded in the fundamentals she learned at [母校/机构].</strong>
+            <span class="litit-zh-sentence">虽然环境或许很独特，但她工作的核心依然扎根于在某机构所学的基础原理之中。<br>（跨界转行、跨行业大牛专访中描述“万变不离其宗”的高级叙事句型）。</span>
+          </li>
+          <li style="margin-bottom: 12px;">
+            <strong class="litit-en-sentence" style="color: #4338ca;">I was very nervous to accept that [令人不安的现实], but it is OK to realize something isn’t a good fit.</strong>
+            <span class="litit-zh-sentence">对于接受某个现实我曾感到十分紧张，但意识到某件事并不适合自己，其实完全没问题。<br>（表达职场试错、打破沉没成本、进行自我和解的极佳心理描写句式）。</span>
+          </li>
+          <li style="margin-bottom: 12px;">
+            <strong class="litit-en-sentence" style="color: #4338ca;">The journey from [起点] to [终点] has been defined by both [品质A] and [品质B].</strong>
+            <span class="litit-zh-sentence">从起点到终点的这段旅程，由品质A和品质B共同定义。<br>（人物故事总结、年终盘点或职场进阶文章中最具分量的收尾句式）。</span>
+          </li>
+        </ol>
+      </div>
+    </details>
+  </div>
+
+  <h2 class="section-header" style="border-left-color: #0d9488;">💡 幕后冷知识 (Fun Facts)</h2>
+  <ul style="padding-left:18px; line-height:1.8; color:#334155; font-size:14.5px; margin-bottom:24px; word-break:break-word;">
+    <li style="margin-bottom: 8px;"><strong>UNC Kenan-Flagler 商学院与 MAC 项目：</strong> 北卡罗来纳大学教堂山分校的凯南-弗拉格勒商学院（UNC Kenan-Flagler）在全美享有极高声誉。其开设的 Master of Accounting (MAC) 项目因极高的注册会计师（CPA）通过率、强大的四大（Big Four）招聘资源以及严谨的税务与审计课程，被誉为通往高端财会精英圈的黄金跳板。</li>
+    <li style="margin-bottom: 8px;"><strong>Carolina Hurricanes（卡罗莱纳飓风队）与斯坦利杯：</strong> 作为 NHL（北美职业冰球联赛）的劲旅，卡罗莱纳飓风队总部位于北卡罗来纳州罗利市。文中提到他们是“新科斯坦利杯冠军（newly crowned Stanley Cup champions）”，斯坦利杯（Stanley Cup）作为北美历史最悠久、争夺最残酷的职业体育奖杯，其背后庞大的赛事运营、场馆财务结算和商业赞助为西茨这样的专职会计提供了绝佳的广阔舞台。</li>
+    <li>Lenovo Center（联想中心）：飓风队的主场场馆原名 PNC Arena，后于近年由中国科技巨头联想集团（Lenovo）冠名赞助更名为 Lenovo Center。这座超级场馆不仅承办 NHL 冰球主场比赛，还要高强度处理大型巡回演唱会、NCAA 大学篮球赛等多元化娱乐商业活动的财务收支，堪称体育娱乐商业运营的枢纽。</li>
+  </ul>
+
+  <h2 class="section-header" style="border-left-color: #e11d48;">🎯 全片锐评</h2>
+  <p style="line-height:1.75; color:#1e293b; font-weight:500; background:linear-gradient(135deg, #fff1f2 0%, #ffffff 100%); padding:14px 16px; border-radius:10px; font-size:14.5px; margin:0 0 12px 0; border:1px solid #ffe4e6; word-break:break-word;">
+    这是一则关于“打破常规、勇敢试错”的现代职场童话，同时也是一堂生动的职业生涯规划课。在许多人的刻板印象中，优秀的财会专业毕业生似乎有着一条无可撼动的标准轨道：本科毕业、考取 MAC、杀入“四大”会计师事务所、在税务或审计的无休止报表中熬成合伙人。然而，莫莉·西茨（Molly Sytz）用她的亲身经历向世人证明：传统路径的终点并非唯一的标准答案。当她鼓起勇气承认“四大税务并不适合我”时，她展现出的不是逃避，而是极高的自我认知（Self-awareness）与自信。扎根于 UNC 凯南-弗拉格勒商学院所学得的扎实基本功，化作了她跨界的底气；而导师的推荐与良好的人脉网，则成为了她推开职业新大门的钥匙。当她把严谨的借贷平衡表带进冰球场、在斯坦利杯冠军球队和联想中心的欢呼声中处理着演唱会与赛事的财务运营时，她完美诠释了什么是真正的跨界降维打击——在这个瞬息万变的时代，最顶级的财务技能永远不会被埋没，只要你敢于跳出格子的束缚，去寻找那个真正与你的兴趣和优势同频共振的精彩舞台。
+  </p>
+
+</div>
+
+<script id="core-engine">
+let syncTimeout = null;
+const AI_PROMPT = "请分析以下英文段落，并严格按照以下 Markdown 格式输出（不要输出任何额外的废话）：\n\n### 📌 完整翻译\n\n[此处填写完整翻译]\n\n### 📌 Key Expressions\n\n- **[单词或短语]**\n = [中文释义]\n （[可选的补充说明，如倒装结构或语境等]）\n\n段落内容：\n";
+
+// --- 顶部阅读进度条逻辑 ---
+function initProgressBar() {
+  const progressBar = document.getElementById('reading-progress');
+  if (!progressBar) return;
+  window.addEventListener('scroll', () => {
+    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    if (scrollHeight <= 0) return;
+    const scrollPercent = (scrollTop / scrollHeight) * 100;
+    progressBar.style.width = scrollPercent + '%';
+  }, { passive: true });
+}
+
+async function fetchGroq(text, apiKey, modelName) {
+  const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+    method: 'POST',
+    headers: { 'Authorization': 'Bearer ' + apiKey, 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      model: modelName || 'llama-3.3-70b-versatile',
+      messages: [
+        { role: 'system', content: 'You are an English teacher. Output EXACTLY in the requested Markdown format.' },
+        { role: 'user', content: AI_PROMPT + '"' + text + '"' }
+      ],
+      temperature: 0.3
+    })
+  });
+  if (!res.ok) throw new Error('Groq Error: ' + res.status);
+  const json = await res.json();
+  return json.choices[0].message.content.trim();
+}
+
+async function fetchCustomAI(text, url, apiKey, modelName) {
+  let headers = { 'Content-Type': 'application/json' };
+  let bodyData = {};
+  if (url.includes('anthropic.com')) {
+    headers['x-api-key'] = apiKey;
+    headers['anthropic-version'] = '2023-06-01';
+    headers['anthropic-dangerous-direct-browser-access'] = 'true';
+    bodyData = {
+      model: modelName || 'claude-3-5-sonnet-20241022',
+      max_tokens: 2000,
+      messages: [{ role: 'user', content: AI_PROMPT + '"' + text + '"' }]
+    };
+  } else if (url.includes('generativelanguage.googleapis.com')) {
+    let targetUrl = url;
+    if (!targetUrl.includes('key=')) {
+      targetUrl += (targetUrl.includes('?') ? '&' : '?') + 'key=' + apiKey;
+    }
+    const res = await fetch(targetUrl, {
+      method: 'POST', headers: headers,
+      body: JSON.stringify({ contents: [{ parts: [{ text: AI_PROMPT + '"' + text + '"' }] }] })
+    });
+    if (!res.ok) throw new Error('Gemini Error: ' + res.status);
+    const json = await res.json();
+    return json.candidates[0].content.parts[0].text.trim();
+  } else {
+    headers['Authorization'] = 'Bearer ' + apiKey;
+    bodyData = {
+      model: modelName || 'gpt-4o-mini',
+      messages: [
+        { role: 'system', content: 'You are an English teacher. Output EXACTLY in the requested Markdown format.' },
+        { role: 'user', content: AI_PROMPT + '"' + text + '"' }
+      ],
+      temperature: 0.3
+    };
+  }
+  const res = await fetch(url, { method: 'POST', headers: headers, body: JSON.stringify(bodyData) });
+  if (!res.ok) throw new Error('AI Interface Error: ' + res.status);
+  const json = await res.json();
+  if (json.choices && json.choices.length > 0) return json.choices[0].message.content.trim();
+  throw new Error('AI 返回数据异常');
+}
+
+async function executeAIPipeline(text) {
+  const customUrl = localStorage.getItem('CUSTOM_API_URL') || '';
+  const customKey = localStorage.getItem('CUSTOM_API_KEY') || '';
+  const customModel = localStorage.getItem('CUSTOM_MODEL') || '';
+  const groqKey = localStorage.getItem('GROQ_API_KEY') || '';
+  const groqModel = localStorage.getItem('GROQ_MODEL') || '';
+
+  if (customUrl && customKey) {
+    try {
+      return await fetchCustomAI(text, customUrl, customKey, customModel);
+    } catch (err) {
+      if (groqKey) return await fetchGroq(text, groqKey, groqModel);
+      throw err;
+    }
+  } else if (groqKey) {
+    return await fetchGroq(text, groqKey, groqModel);
+  } else {
+    const userKey = prompt('⚠️ 当前页面未检测到 AI Key！\n为了安全，密匙只储存在您本地浏览器中。\n\n请输入您的 API Key (如 sk-xxx 或 gsk_xxx):');
+    if (userKey && userKey.trim()) {
+      const cleanKey = userKey.trim();
+      if (cleanKey.startsWith('gsk_')) {
+        localStorage.setItem('GROQ_API_KEY', cleanKey);
+      } else {
+        localStorage.setItem('CUSTOM_API_KEY', cleanKey);
+        localStorage.setItem('CUSTOM_API_URL', 'https://api.chatanywhere.tech/v1/chat/completions');
+      }
+    }
+    throw new Error('未设置 AI API Key');
+  }
+}
+
+function getPurifiedFallbackHTML() {
+  const clone = document.documentElement.cloneNode(true);
+  const foreignSelectors = [
+    'relingo-app', 'relin-highlight', 'relin-hc', '[class*="relingo"]', '[data-relin-paragraph]',
+    'grammarly-extension', '[data-grammarly-part]', '[class*="immersive-translate"]', '[data-immersive-translate]'
+  ].join(',');
+  clone.querySelectorAll(foreignSelectors).forEach(el => el.remove());
+  clone.querySelectorAll('relin-highlight, relin-hc').forEach(t => {
+    const frag = document.createDocumentFragment();
+    while(t.firstChild) frag.appendChild(t.firstChild);
+    t.parentNode.replaceChild(frag, t);
+  });
+  clone.querySelectorAll('script').forEach(s => {
+    if (!s.src.includes('marked.min.js') && s.id !== 'core-engine') s.remove();
+  });
+  clone.querySelectorAll('style').forEach(s => {
+    if (s.id !== 'core-style') s.remove();
+  });
+  const liveTAs = document.querySelectorAll('.anno-edit');
+  clone.querySelectorAll('.anno-edit').forEach((ta, i) => {
+    if(liveTAs[i]) ta.textContent = liveTAs[i].value.trim();
+    const box = ta.closest('.anno-box');
+    if (box) box.style.display = 'none';
+    const view = box ? box.querySelector('.anno-view') : null;
+    if (view) view.innerHTML = '';
+  });
+  return '<!DOCTYPE html>\n<html lang="zh-CN">\n' + clone.innerHTML + '\n</html>';
+}
+
+async function syncToCloud() {
+  const ghToken = localStorage.getItem('LITIT_GH_TOKEN') || localStorage.getItem('GH_TOKEN');
+  const ghOwner = 'moodHappy';
+  const ghRepo = 'dual-read-notes';
+  if (!ghToken) return;
+  const pathParts = window.location.pathname.split('/');
+  const fileName = pathParts.pop();
+  const month = pathParts.pop();
+  const year = pathParts.pop();
+  if(!fileName || !month || !year) return;
+  const fileRelPath = 'Summary/' + year + '/' + month + '/' + fileName;
+  try {
+    const getRes = await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath + '?t=' + Date.now(), {
+      headers: { 'Authorization': 'Bearer ' + ghToken },
+      cache: 'no-store'
+    });
+    let finalHTML = '';
+    let sha = '';
+    if (getRes.ok) {
+      const fileData = await getRes.json();
+      sha = fileData.sha;
+      const cleanRawHTML = decodeURIComponent(escape(atob(fileData.content.replace(/\n/g, ''))));
+      const parser = new DOMParser();
+      const cleanDoc = parser.parseFromString(cleanRawHTML, 'text/html');
+      const liveTAs = document.querySelectorAll('.anno-edit');
+      const cleanTAs = cleanDoc.querySelectorAll('.anno-edit');
+      liveTAs.forEach((liveTa, index) => {
+        if (cleanTAs[index]) {
+          const val = liveTa.value.trim();
+          cleanTAs[index].textContent = val;
+          const box = cleanTAs[index].closest('.anno-box');
+          if (box) box.style.display = 'none';
+          const view = box ? box.querySelector('.anno-view') : null;
+          if (view) view.innerHTML = '';
+        }
+      });
+      cleanDoc.querySelectorAll('.anno-toggle').forEach(t => {
+        t.classList.remove('has-anno');
+        const ta = t.closest('.content-wrap, .litit-highlight-block')?.querySelector('.anno-edit');
+        if (ta && ta.textContent.trim()) t.classList.add('has-anno');
+      });
+      finalHTML = '<!DOCTYPE html>\n<html lang="zh-CN">\n' + cleanDoc.documentElement.innerHTML + '\n</html>';
+    } else {
+      finalHTML = getPurifiedFallbackHTML();
+    }
+    await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath, {
+      method: 'PUT',
+      headers: { 'Authorization': 'Bearer ' + ghToken, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        message: 'Silent purified annotation update',
+        content: btoa(unescape(encodeURIComponent(finalHTML))),
+        sha: sha || undefined
+      })
+    });
+    console.log('✅ [My Litit] 纯净无污染批注已静默同步至 GitHub');
+  } catch(e) {
+    console.warn('❌ [My Litit] 同步跳过或失败:', e);
+  }
+}
+
+function scheduleSync() {
+  if (syncTimeout) clearTimeout(syncTimeout);
+  syncTimeout = setTimeout(() => { syncToCloud(); }, 3000);
+}
+
+function initAnnotations() {
+  document.querySelectorAll('.litit-highlight-block, .content-wrap').forEach(wrap => {
+    let content = wrap.querySelector('.content');
+    if (!content) {
+      const pText = wrap.querySelector('p');
+      if (pText) {
+        content = document.createElement('div');
+        content.className = 'content';
+        content.style.cssText = 'position:relative; margin:0 0 6px 0; color:#1a202c; font-family:Georgia, serif; line-height:1.7; font-size:15px; word-break:break-word;';
+        content.innerHTML = pText.innerHTML;
+        pText.parentNode.replaceChild(content, pText);
+      }
+    }
+    if (!content) return;
+    if (!content.querySelector('.anno-toggle')) {
+      const toggle = document.createElement('span');
+      toggle.className = 'anno-toggle'; toggle.title = '手写批注/笔记';
+      content.appendChild(toggle);
+    }
+    if (!content.querySelector('.ai-toggle')) {
+      const aiToggle = document.createElement('span');
+      aiToggle.className = 'ai-toggle'; aiToggle.title = 'AI智能二次解析';
+      content.appendChild(aiToggle);
+    }
+    let box = wrap.querySelector('.anno-box');
+    if (!box) {
+      box = document.createElement('div'); box.className = 'anno-box'; box.style.display = 'none';
+      box.innerHTML = '<div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 解析..."></textarea>';
+      wrap.appendChild(box);
+    }
+    const view = box.querySelector('.anno-view');
+    const edit = box.querySelector('.anno-edit');
+    const toggle = content.querySelector('.anno-toggle');
+    const aiToggle = content.querySelector('.ai-toggle');
+    if (edit && edit.value.trim()) {
+      toggle.classList.add('has-anno');
+      try { view.innerHTML = (typeof marked !== 'undefined') ? marked.parse(edit.value.trim()) : edit.value.trim(); } catch(e){}
+    }
+    if (aiToggle) {
+      aiToggle.onclick = async (e) => {
+        e.preventDefault(); e.stopPropagation();
+        if (aiToggle.classList.contains('loading')) return;
+        if (edit && edit.value.trim() !== '') {
+          const confirmOverwrite = confirm('⚠️ 已经存在批注内容。点击"确定"将使用 AI 解析覆盖现有内容。是否继续？');
+          if (!confirmOverwrite) return;
+        }
+        const pClone = content.cloneNode(true);
+        pClone.querySelectorAll('.anno-toggle, .ai-toggle').forEach(el => el.remove());
+        let pText = pClone.textContent.replace(/https?:\/\/\S+/g, '').trim();
+        if (!pText) return;
+        aiToggle.classList.add('loading');
+        try {
+          const aiContent = await executeAIPipeline(pText);
+          box.style.display = 'block'; view.style.display = 'none';
+          edit.style.display = 'block'; edit.value = aiContent;
+          edit.focus(); edit.blur();
+        } catch (err) { console.error(err); } finally { aiToggle.classList.remove('loading'); }
+      };
+    }
+    if (toggle) {
+      toggle.onclick = (e) => {
+        e.preventDefault(); e.stopPropagation();
+        if (box.style.display === 'block') {
+          box.style.display = 'none';
+        } else {
+          box.style.display = 'block';
+          if (!edit.value.trim()) {
+            view.style.display = 'none'; edit.style.display = 'block';
+            setTimeout(() => { edit.focus(); }, 150);
+          } else { view.style.display = 'block'; edit.style.display = 'none'; }
+        }
+      };
+    }
+    const triggerEdit = (e) => {
+      if(e) { e.preventDefault(); e.stopPropagation(); }
+      view.style.display = 'none'; edit.style.display = 'block'; edit.value = edit.value;
+      setTimeout(() => { edit.focus(); }, 150);
+    };
+    view.addEventListener('dblclick', triggerEdit);
+    let lastTap = 0;
+    view.addEventListener('touchstart', e => {
+      if (e.touches.length === 2) { triggerEdit(e); }
+      else if (e.touches.length === 1) {
+        const currentTime = new Date().getTime();
+        if (currentTime - lastTap < 500 && currentTime - lastTap > 0) {
+          e.preventDefault(); box.style.display = 'none';
+        }
+        lastTap = currentTime;
+      }
+    }, {passive: false});
+    if (edit && view) {
+      edit.onblur = () => {
+        setTimeout(() => {
+          const newVal = edit.value.trim();
+          try { view.innerHTML = newVal ? ((typeof marked !== 'undefined') ? marked.parse(newVal) : newVal) : ''; } catch(e){}
+          edit.style.display = 'none';
+          if (newVal) {
+            view.style.display = 'block'; toggle.classList.add('has-anno');
+          } else {
+            view.style.display = 'none'; box.style.display = 'none'; toggle.classList.remove('has-anno');
+          }
+          if (edit.getAttribute('data-old-val') !== newVal) {
+            edit.setAttribute('data-old-val', newVal);
+            scheduleSync();
+          }
+        }, 150);
+      };
+      edit.setAttribute('data-old-val', edit.value.trim());
+    }
+  });
+}
+window.addEventListener('DOMContentLoaded', () => { initProgressBar(); initAnnotations(); });
+window.addEventListener('load', initAnnotations);
+</script>
+</body>
+</html>
