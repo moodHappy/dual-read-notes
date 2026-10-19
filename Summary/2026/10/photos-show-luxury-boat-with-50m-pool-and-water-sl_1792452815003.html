@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Photos show luxury boat with 50m pool and water slides near Kim Jong Un's summer retreat</title>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<style id="core-style">
+/* ======================================================================
+   [AI TEMPLATE GUIDELINES - CSS 核心排版规范]
+   致其他 AI 助手：在生成此模板时，请严格遵守以下样式分配规则：
+   1. 序号规则：列表的 NO.01 序号由伪类 `::before` 自动生成且独占一行。千万不要在 HTML 中手动输入“NO.01”。
+   2. 标签规则：文章开头的标签胶囊纯文字即可，禁止带 `#` 号。
+   3. 胶囊高亮（.litit-badge）：仅用于第 1、2、3 板块（重点记忆、高价值表达、短语和固定搭配）的【短词组/单词】，表现为紫色渐变背景的内联胶囊。
+   4. 长句排版（.litit-en-sentence）：用于第 4 板块（值得学习的句子结构）和第 5 板块（最值得优先掌握的句型）的【长句/长句型】。严禁将长句型放入 .litit-badge 中，否则会导致折行错乱。并且中文解释中的括号补充内容需使用 <br> 另起一行。
+====================================================================== */
+:root {
+  --bg-page: #ffffff;
+  --bg-card: #ffffff;
+  --text-main: #0f172a;
+  --text-sub: #334155;
+  --text-muted: #64748b;
+  --accent-primary: #4f46e5;
+  --border-subtle: #e2e8f0;
+  --font-serif: "Georgia", "Charter", "Source Han Serif SC", "Noto Serif CJK SC", serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", Roboto, sans-serif;
+}
+body {
+  font-family: var(--font-sans);
+  padding: 12px 12px 36px 12px;
+  margin: 0 auto;
+  max-width: 780px;
+  background: var(--bg-page);
+  color: var(--text-main);
+  line-height: 1.75;
+  font-size: 16px;
+  word-wrap: break-word;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+* { box-sizing: border-box; max-width: 100%; }
+img { max-width: 100%; height: auto; border-radius: 8px; }
+
+/* 顶部极简阅读进度条 */
+#reading-progress {
+  position: fixed;
+  top: 0; left: 0;
+  width: 0%; height: 3px;
+  background: linear-gradient(90deg, #4f46e5, #9333ea);
+  z-index: 9999;
+  transition: width 0.1s ease-out;
+}
+
+/* 主容器：零冗余边距，最大化阅读视野 */
+.litit-report { background: var(--bg-card); padding: 0; }
+
+/* AI 批注组件样式 */
+.anno-toggle, .ai-toggle {
+  display: inline-block;
+  padding: 2px 5px;
+  margin-left: 5px;
+  cursor: pointer;
+  opacity: 0.45;
+  font-size: 0.85rem;
+  vertical-align: middle;
+  transition: all 0.2s;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.anno-toggle:hover, .ai-toggle:hover { opacity: 1; transform: scale(1.15); }
+.anno-toggle.has-anno { opacity: 1; }
+.anno-toggle::after { content: "🔴"; }
+.ai-toggle { opacity: 0.7; padding: 2px 4px; }
+.ai-toggle::after { content: "🤖"; }
+.ai-toggle.loading::after {
+  content: "⏳"; display: inline-block; animation: spin 1s linear infinite;
+}
+@keyframes spin { 100% { transform: rotate(360deg); } }
+
+.anno-box {
+  display: none; margin-top: 10px;
+  background: #faf8ff; border-left: 3px solid #7c3aed;
+  padding: 12px 14px; border-radius: 0 8px 8px 0; text-align: left;
+}
+.anno-view { font-size: 0.95rem; line-height: 1.65; color: #334155; min-height: 24px; }
+.anno-edit {
+  width: 100%; min-height: 120px; padding: 10px;
+  font-family: monospace; font-size: 0.95rem;
+  border: 1px dashed #a78bfa; border-radius: 6px;
+  resize: vertical; display: none; background: #fff;
+  color: #1e293b; outline: none;
+}
+.anno-edit:focus { border: 1px solid #7c3aed; box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.12); }
+.markdown-body p { margin-top: 0; margin-bottom: 8px; }
+.markdown-body p:last-child { margin-bottom: 0; }
+.markdown-body h1, .markdown-body h2, .markdown-body h3 {
+  color: #5b21b6; font-size: 1.05rem; margin: 10px 0 6px 0;
+  border-bottom: 1px dashed #ddd6fe; padding-bottom: 4px;
+}
+.markdown-body ul, .markdown-body ol { margin: 0 0 8px 0; padding-left: 18px; }
+.markdown-body blockquote {
+  margin: 0 0 10px 0; padding: 8px 12px;
+  background: rgba(124, 58, 237, 0.06); border-left: 3px solid #7c3aed; color: #475569;
+}
+
+/* 杂志风区块标题 */
+.section-header {
+  font-size: 16px; color: #0f172a; font-weight: 700;
+  letter-spacing: 0.02em;
+  background: linear-gradient(90deg, #f8fafc 0%, #ffffff 100%);
+  padding: 8px 12px; border-left: 4px solid #4f46e5;
+  margin: 26px 0 14px 0; border-radius: 0 6px 6px 0;
+  display: flex; align-items: center;
+  box-shadow: inset 0 1px 0 #f1f5f9, inset 0 -1px 0 #f1f5f9;
+}
+
+/* 折叠面板升级：极简无十字图标、最大化宽度 */
+details.litit-fold {
+  margin-bottom: 10px; border: 1px solid #e2e8f0; border-radius: 10px;
+  background: #ffffff; overflow: hidden; transition: border-color 0.2s ease;
+}
+details.litit-fold[open] { border-color: #cbd5e1; }
+details.litit-fold summary {
+  cursor: pointer; padding: 12px 14px; outline: none; list-style: none;
+  display: flex; justify-content: space-between; align-items: center;
+  background: #f8fafc; transition: background 0.2s;
+  user-select: none; -webkit-tap-highlight-color: transparent;
+}
+details.litit-fold summary::-webkit-details-marker { display: none; }
+details.litit-fold summary::after { display: none; }
+details.litit-fold summary:hover { background: #f1f5f9; }
+details.litit-fold[open] summary { border-bottom: 1px solid #e2e8f0; background: #f8fafc; border-left: 3px solid #4f46e5; }
+.litit-fold-content { padding: 10px 8px; background: #f8fafc; }
+
+/* 精读区列表卡片化 */
+.litit-fold-content > ol, .litit-fold-content > ul {
+  list-style: none !important; padding-left: 0 !important; margin: 0 !important; counter-reset: litit-counter;
+}
+.litit-fold-content > ol > li, .litit-fold-content > ul > li {
+  counter-increment: litit-counter; position: relative;
+  background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px;
+  padding: 12px 12px; margin-bottom: 10px !important; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.015);
+}
+.litit-fold-content > ol > li:last-child, .litit-fold-content > ul > li:last-child { margin-bottom: 0 !important; }
+
+/* [规则 1] 顶部流式微型序号徽章：完美独占一行，追求极致对齐与统一美感 */
+.litit-fold-content > ol > li::before, .litit-fold-content > ul > li::before {
+  content: "NO." counter(litit-counter, decimal-leading-zero);
+  display: block; width: max-content; font-size: 10px; font-weight: 800;
+  font-family: -apple-system, BlinkMacSystemFont, monospace;
+  color: #4f46e5; background: #eef2ff; padding: 1px 6px; border-radius: 4px;
+  margin-bottom: 8px; letter-spacing: 0.04em;
+}
+
+/* [规则 4] 纯英/中长句子专属排版（块级元素，自然折行对齐） */
+.litit-en-sentence {
+  display: block; font-family: var(--font-serif); font-size: 1.04rem;
+  font-weight: 600; color: #0f172a; line-height: 1.5; margin-bottom: 6px;
+}
+.litit-zh-sentence {
+  display: block; font-family: var(--font-sans); font-size: 0.93rem;
+  color: #475569; line-height: 1.55; margin-bottom: 2px;
+}
+li.litit-target-sentence > br { display: none; }
+
+/* [规则 3] 短词组高亮徽章（1、2、3 板块专用短标签） */
+.litit-badge {
+  display: inline-block; background: linear-gradient(135deg, #eef2ff 0%, #f3e8ff 100%);
+  color: #4338ca; padding: 2px 8px; border-radius: 5px; font-size: 0.92rem;
+  font-weight: 700; margin-right: 4px; margin-bottom: 6px;
+  border: 1px solid #e0e7ff; vertical-align: middle;
+}
+
+/* 第 4 板块子级知识点解析区左边框内嵌盒 */
+li.litit-target-sentence > ul {
+  list-style: none !important; margin: 10px 0 0 0 !important; padding: 8px 10px !important;
+  background: #f8fafc; border-radius: 6px; border-left: 2.5px solid #94a3b8;
+}
+li.litit-target-sentence > ul > li {
+  position: relative; padding-left: 10px; margin-bottom: 5px !important; font-size: 0.88rem; color: #334155; line-height: 1.5;
+}
+li.litit-target-sentence > ul > li:last-child { margin-bottom: 0 !important; }
+li.litit-target-sentence > ul > li::before {
+  content: "·"; position: absolute; left: 0; top: 0; color: #4f46e5; font-weight: 900;
+}
+li.litit-target-sentence > ul > li > strong {
+  color: #0f172a; font-weight: 600; background: #e2e8f0; padding: 1px 5px; border-radius: 4px; font-size: 0.84rem; margin-right: 3px;
+}
+
+/* 移动端极限铺开适配 */
+@media (max-width: 600px) {
+  body { padding: 10px 10px 30px 10px; font-size: 15px; }
+  h1.litit-target-title { font-size: 21px !important; }
+  .litit-fold-content { padding: 8px 6px; }
+  .litit-fold-content > ol > li, .litit-fold-content > ul > li { padding: 11px 10px; margin-bottom: 8px !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- 进度条 DOM -->
+<div id="reading-progress"></div>
+
+<div class="litit-report" style="width:100%; max-width:100%; box-sizing:border-box; overflow-x:hidden;">
+  
+  <!-- 顶部杂志刊头装饰 -->
+  <div style="display:flex; justify-content:space-between; align-items:center; border-bottom: 2px solid #0f172a; padding-bottom: 6px; margin-bottom: 14px; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: #64748b; text-transform: uppercase;">
+    <span>The Global Dispatch · 深度双语精读</span>
+    <!-- 分类标签：最多两个单词以避免换行 -->
+    <span>North Korea</span>
+  </div>
+
+  <!-- 支持批注的主标题区 -->
+  <div class="content-wrap" style="position:relative; margin-bottom: 16px;">
+    <h1 class="litit-target-title" style="color:#0f172a; font-size: 24px; line-height: 1.35; font-family: var(--font-serif); font-weight: 800; border-bottom: 1px solid #e2e8f0; padding-bottom: 14px; margin-top:0; margin-bottom:0; word-break:break-word;">
+      <span class="content litit-en-title" style="position:relative;">Photos show luxury boat with 50m pool and water slides near Kim Jong Un's summer retreat</span>
+      <br>
+      <span class="litit-zh-title" style="font-family: var(--font-sans); font-size: 17px; font-weight: 600; color: #475569; margin-top: 8px; display: inline-block; line-height: 1.45;">卫星照片显示朝鲜元山金正恩避暑胜地附近出现配备50米泳池和水滑梯的豪华游艇</span>
+    </h1>
+    <div class="anno-box" style="display:none; margin-top: 10px;">
+      <div class="anno-view markdown-body"></div>
+      <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
+
+卫星照片显示朝鲜元山金正恩避暑胜地附近出现配备50米泳池和水滑梯的豪华游艇
+
+### 📌 Key Expressions
+
+- **luxury vessel** = 豪华游艇 / 豪华船舶
+- **waterslides** = 水滑梯
+- **summer retreat** = 避暑胜地 / 度假胜地</textarea>
+    </div>
+  </div>
+
+  <!-- 杂志导语（Lead Paragraph） -->
+  <p style="color:#334155; font-size: 15px; line-height: 1.75; margin-bottom:16px; font-weight:400; background: #f8fafc; padding: 12px 14px; border-radius: 8px; border: 1px solid #f1f5f9;">
+    卫星图片显示，今年7月至10月中旬期间，一艘长达80米的豪华游艇频繁出没于朝鲜元山海岸，其船甲板上醒目地建有50米长的游泳池及一组水滑梯。这艘游艇在经历了几个月的闲置后，于7月初转移至卡尔马半岛（Kalma Peninsula）附近水域，该处靠近朝鲜最高领导人金正恩及其家人经常使用的广阔海滨别墅度假胜地。多位前朝鲜官员、脱北者及专家指出，这艘以及其他几艘（包括50米、55米、60米长的大型船只）被广泛认为供金氏家族专用的豪华船舶，与普通朝鲜民众长期在系统性压迫、长期食品短缺及缺乏基本假期（甚至多数人无法自由旅行）的极度贫困生活形成了极其鲜明的讽刺对比。
+  </p>
+
+  <div style="margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+    <div style="display:flex; flex-wrap:wrap; gap:6px;">
+      <!-- [规则 2] 纯净的胶囊风格 -->
+      <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;">朝鲜局势</span>
+      <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;">特权阶层</span>
+      <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;">卫星追踪</span>
+    </div>
+    <a href="https://www.bbc.com/news/articles/cmy4xnyyg1lyo" target="_blank" style="font-size: 12.5px; color: #4f46e5; text-decoration: none; font-weight: 600; background: #eef2ff; padding: 5px 12px; border-radius: 16px; border: 1px solid #e0e7ff; display:inline-block;">🔗 阅读原文 ↗</a>
+  </div>
+
+  <!-- 最佳金句区 -->
+  <h2 class="section-header" style="border-left-color: #f59e0b;">💬 最佳金句</h2>
+  <div class="content-wrap" style="position:relative; margin-bottom:24px;">
+    <blockquote class="litit-target-quote" style="border-left: 3.5px solid #f59e0b; background: linear-gradient(135deg, #fffbeb 0%, #ffffff 100%); padding: 14px 14px; margin: 0; color: #1e293b; border-radius: 0 10px 10px 0; border-top: 1px solid #fef3c7; border-right: 1px solid #fef3c7; border-bottom: 1px solid #fef3c7;">
+      <div class="content litit-en-quote" style="position:relative; margin:0 0 8px 0; font-family: var(--font-serif); font-style: italic; font-weight:600; font-size: 16.5px; line-height: 1.55; color:#0f172a; word-break:break-word;">
+        "Kim Jong Un is supposed to be a 'leader of the people', yet he has four luxury vessels like these while ordinary people are struggling just to get one meal a day."
+      </div>
+      <p class="litit-zh-quote" style="margin:0 0 8px 0; font-weight:400; font-size: 14.5px; line-height: 1.6; color:#475569; word-break:break-word;">
+        “金正恩本应是‘人民的领袖’，然而当普通百姓正为每天吃上一顿饭而苦苦挣扎时，他却拥有四艘这样的豪华游艇。”
+      </p>
+      <footer style="text-align:right; font-size:12px; color:#64748b; font-style:normal; font-weight:600;">—— 前朝鲜劳动党39号室官员李正浩（Ri Jong Ho）痛斥金氏家族特权与底层民众饥饿之间的反差</footer>
+    </blockquote>
+    <div class="anno-box" style="display:none;">
+      <div class="anno-view markdown-body"></div>
+      <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
+
+“金正恩本应是‘人民的领袖’，然而当普通百姓正为每天吃上一顿饭而苦苦挣扎时，他却拥有四艘这样的豪华游艇。”
+
+### 📌 Key Expressions
+
+- **leader of the people** = 人民的领袖
+- **luxury vessel** = 豪华游艇
+- **struggle just to get one meal a day** = 为每天吃上一顿饭而苦苦挣扎</textarea>
+    </div>
+  </div>
+
+  <!-- Grid 布局关键数字区 -->
+  <h2 class="section-header" style="border-left-color: #10b981;">📊 关键数字</h2>
+  <div style="display:grid; grid-template-columns: repeat(2, 1fr); gap:10px; margin:14px 0 24px 0;">
+    <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+      <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+        80<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">米</span>
+      </div>
+      <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">在元山海岸被卫星反复捕捉到的最大豪华游艇长度（配有50米泳池和水滑梯）</div>
+    </div>
+    <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+      <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+        4<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">艘</span>
+      </div>
+      <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">BBC通过卫星追踪并在今年频繁出现于元山金正恩别墅附近的大型游艇总数</div>
+    </div>
+    <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+      <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+        40<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">%</span>
+      </div>
+      <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">根据2025年联合国报告，因国家系统控制与慢性食品短缺而处于营养不良状态的朝鲜人口比例</div>
+    </div>
+    <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+      <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+        $667<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">美元</span>
+      </div>
+      <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">联合国统计的朝鲜2024年人均GDP，仅为韩国（$36,227）的一小部分</div>
+    </div>
+  </div>
+
+  <h2 class="section-header" style="border-left-color: #3b82f6;">⏱️ 事件时间线</h2>
+  <ul style="padding-left:18px; line-height:1.8; color:#334155; font-size: 14.5px; margin-bottom:24px; word-break:break-word;">
+    <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">历史时期（2002年至今）：</strong> 历史卫星图像证实，早在金正日统治时期及之后的金正恩时期，元山海域就多次出现相同特征的豪华船只。</li>
+    <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">2013年：</strong> 前NBA球星丹尼斯·罗德曼访朝，曾披露在元山与金正恩一同度过7天，并乘坐过一艘60米长的游艇。</li>
+    <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">2025年7月：</strong> 朝鲜大力开发的元山卡尔马（Wonsan Kalma）旅游度假村正式开业，开始接待少量国内外游客。</li>
+    <li><strong style="color:#1d4ed8;">今年7月至10月中旬：</strong> 卫星图像反复捕捉到一艘80米长、配有50米泳池和水滑梯的超级游艇从维护设施移至卡尔马半岛及元山别墅附近水域活动。</li>
+  </ul>
+
+  <h2 class="section-header" style="border-left-color: #8b5cf6;">✨ 本篇亮点与精读</h2>
+  <div style="margin: 14px 0 10px 0;">
+
+    <!-- 第一板块：一、重点记忆 -->
+    <details class="litit-fold">
+      <summary>
+        <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">一、重点记忆</h3>
+      </summary>
+      <div class="litit-fold-content">
+        <ul style="list-style-type: square; margin: 0; padding-left: 18px; line-height: 1.6;">
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">idle</strong>：闲置的 / 停用的<br>
+            <strong class="litit-en-sentence">After sitting idle for months at a maintenance facility...</strong>
+            <span class="litit-zh-sentence">在维护设施内闲置了几个月之后……</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">defector</strong>：脱北者 / 叛逃者<br>
+            <strong class="litit-en-sentence">Former North Korean officials, defectors and experts say...</strong>
+            <span class="litit-zh-sentence">前朝鲜官员、脱北者和专家表示……</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">undernourished</strong>：营养不良的<br>
+            <strong class="litit-en-sentence">Chronic food shortages leave an estimated 40% of the population undernourished.</strong>
+            <span class="litit-zh-sentence">慢性的粮食短缺导致估计40%的人口营养不良。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">sheltered</strong>：受庇护的 / 与世隔绝的<br>
+            <strong class="litit-en-sentence">The defector who served as a guard described a sheltered elite lifestyle.</strong>
+            <span class="litit-zh-sentence">曾担任警卫的脱北者描述了一种与世隔绝的精英生活方式。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">ferry</strong>：运送 / 摆渡（动词）<br>
+            <strong class="litit-en-sentence">Smaller boats ferried people, fuel and supplies to the larger vessel.</strong>
+            <span class="litit-zh-sentence">较小的船只向大型游艇运送人员、燃料和物资。</span>
+          </li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- 第二板块：二、高价值表达 -->
+    <details class="litit-fold">
+      <summary>
+        <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">二、高价值表达</h3>
+      </summary>
+      <div class="litit-fold-content">
+        <ol style="margin: 0; padding-left: 18px;">
+          <li style="margin-bottom: 12px;">
+            <strong class="litit-badge">pin down</strong>：查明 / 确定 / 锁定。<br>
+            <span class="litit-zh-sentence" style="margin-top: 4px;">常用于调查或新闻分析中（如 <i>hard to pin down</i>），形容由于信息不透明或数据隐秘，很难精确测算或掌握某个复杂事物的真实情况。</span>
+          </li>
+          <li style="margin-bottom: 12px;">
+            <strong class="litit-badge">out of reach</strong>：遥不可及 / 够不到。<br>
+            <span class="litit-zh-sentence" style="margin-top: 4px;">形容某种物质财富、度假休闲或基本权利对于社会底层阶层而言是完全无法企及的梦想。</span>
+          </li>
+          <li style="margin-bottom: 12px;">
+            <strong class="litit-badge">secluded maritime retreat</strong>：隐秘的海上避暑胜地。<br>
+            <span class="litit-zh-sentence" style="margin-top: 4px;">极具画面感的地理与政治词汇，形容远离公众视线、地理位置偏僻且戒备森严的专属于统治阶层的私密度假水域。</span>
+          </li>
+        </ol>
+      </div>
+    </details>
+
+    <!-- 第三板块：三、短语和固定搭配 -->
+    <details class="litit-fold">
+      <summary>
+        <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">三、短语和固定搭配</h3>
+      </summary>
+      <div class="litit-fold-content">
+        <ul style="list-style-type: square; margin: 0; padding-left: 18px; line-height: 1.6;">
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">spare no expense</strong>：不惜血本 / 挥金如土<br>
+            <strong class="litit-en-sentence">Her parents spared no expense on education and hobbies.</strong>
+            <span class="litit-zh-sentence">她的父母在教育和兴趣上不惜血本。（注：本文另一段落中体现精英特权时常有类似表述）</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">live in luxury</strong>：过着穷奢极欲的生活<br>
+            <strong class="litit-en-sentence">The regime has long been known to live in luxury.</strong>
+            <span class="litit-zh-sentence">该政权长期以来以过着穷奢极欲的生活而闻名。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">public view</strong>：公众视线 / 公众视野<br>
+            <strong class="litit-en-sentence">Activities that would otherwise remain out of public view.</strong>
+            <span class="litit-zh-sentence">原本会一直处于公众视野之外的活动。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">consecutive days off</strong>：连续休假<br>
+            <strong class="litit-en-sentence">Taking consecutive days off to travel is unusual.</strong>
+            <span class="litit-zh-sentence">请连假去旅游是不寻常的。</span>
+          </li>
+        </ul>
+      </div>
+    </details>
+
+    <!-- 第四板块：四、值得学习的句子结构 -->
+    <details class="litit-fold">
+      <summary>
+        <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">四、值得学习的句子结构</h3>
+      </summary>
+      <div class="litit-fold-content">
+        <ol style="margin: 0; padding-left: 18px;">
+          <li class="litit-target-sentence" style="margin-bottom: 12px;">
+            <strong class="litit-en-sentence">An 80m luxury vessel has been repeatedly spotted in satellite images off North Korea's Wonsan coast from July to mid-October this year.</strong>
+            <span class="litit-zh-sentence">今年7月至10月中旬期间，在朝鲜元山海岸的卫星图像中，一艘80米长的豪华游艇被多次发现。</span>
+            <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+              <li style="margin-bottom: 3px;"><strong>has been repeatedly spotted</strong>：现在完成时的被动语态，凸显卫星侦察的持续性与客观性。</li>
+              <li style="margin-bottom: 3px;"><strong>off North Korea's Wonsan coast</strong>：介词短语作后置定语，精准锁定地理方位。</li>
+            </ul>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 12px;">
+            <strong class="litit-en-sentence">Former North Korean officials, defectors and experts say it would be difficult for anyone unconnected to the regime's leadership to own or freely use vessels of this size.</strong>
+            <span class="litit-zh-sentence">前朝鲜官员、脱北者和专家表示，对于任何与该政权领导层毫无关联的人来说，拥有或自由使用这种规模的船只将是非常困难的。</span>
+            <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+              <li style="margin-bottom: 3px;"><strong>it would be difficult for sb to do sth</strong>：经典的形式主语结构，委婉而尖锐地揭示了特权阶层的排他性。</li>
+            </ul>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 12px;">
+            <strong class="litit-en-sentence">For the majority of North Koreans, holidays are out of reach, and while a growing middle class does exist, they might not have much time for leisure.</strong>
+            <span class="litit-zh-sentence">对于大多数朝鲜人来说，度假是遥不可及的，尽管不断壮大的中产阶级确实存在，但他们可能并没有多少闲暇时间。C</span>
+            <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+              <li style="margin-bottom: 3px;"><strong>While... does exist, they might not...</strong>：让步状语从句搭配助动词 does 的强调用法，层层递进地剖析了普通民众与中产阶级在闲暇权利上的局限。</li>
+            </ul>
+          </li>
+        </ol>
+      </div>
+    </details>
+
+    <!-- 第五板块：五、最值得优先掌握的句型 -->
+    <details class="litit-fold">
+      <summary>
+        <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">五、最值得优先掌握的句型</h3>
+      </summary>
+      <div class="litit-fold-content">
+        <ol style="margin: 0; padding-left: 18px;">
+          <li style="margin-bottom: 12px;">
+            <strong class="litit-en-sentence" style="color: #4338ca;">An [数字]m luxury vessel has been repeatedly spotted in [监测数据] off [地点] from [时间A] to [时间B].</strong>
+            <span class="litit-zh-sentence">在某时段的某地监测数据中，一艘某米长的豪华游艇被多次发现。<br>（用于新闻调查、情报分析或卫星侦察报道的黄金起手式）。</span>
+          </li>
+          <li style="margin-bottom: 12px;">
+            <strong class="litit-en-sentence" style="color: #4338ca;">While [底层群体] are struggling just to get [基本生存需求], [特权阶层] enjoy [奢华资产].</strong>
+            <span class="litit-zh-sentence">当底层群体正为获取基本生存需求而苦苦挣扎时，特权阶层却在享受奢华资产。<br>（揭露贫富差距、抗议社会不公或剖析特权阶层冷血无情的经典对比句型）。</span>
+          </li>
+          <li style="margin-bottom: 12px;">
+            <strong class="litit-en-sentence" style="color: #4338ca;">Though [某政权] has never publicly disclosed [官方所有权], [分析手段] found [核心证据].</strong>
+            <span class="litit-zh-sentence">尽管某政权从未公开披露过官方所有权，但某种分析手段却发现了核心证据。<br>（用于调查性报道中打破官方信息黑洞、用事实说话的高级句式）。</span>
+          </li>
+        </ol>
+      </div>
+    </details>
+  </div>
+
+  <h2 class="section-header" style="border-left-color: #0d9488;">💡 幕后冷知识 (Fun Facts)</h2>
+  <ul style="padding-left:18px; line-height:1.8; color:#334155; font-size:14.5px; margin-bottom:24px; word-break:break-word;">
+    <li style="margin-bottom: 8px;"><strong>Office 39（朝鲜劳动党39号室）：</strong> 成立于1970年代的朝鲜劳动党中央委员会39号室，是专门负责为最高领导层筹集和管理外汇的神秘机构。它被外界广泛指控参与武器走私、毒品贩运及海外洗钱，其庞大资金直接用于维持金氏家族的穷奢极欲与核计划。</li>
+    <li style="margin-bottom: 8px;"><strong>Dennis Rodman（罗德曼的元山之旅）：</strong> 前NBA球星丹尼斯·罗德曼在2013年受邀访问朝鲜时，曾向媒体透露自己在元山与金正恩度过了7天私密假期，并描述金正恩拥有的一艘60米游艇“像渡轮和迪士尼船的结合体”，这与卫星图像中多次拍到的60米船只特征不谋而合。</li>
+    <li><strong>Wonsan Kalma Resort（元山卡尔马旅游区）：</strong> 朝鲜近年来举全国之力打造的大型海滨旅游度假村，于2025年7月正式开业。尽管官方将其宣传为能接待近2万名游客的现代化度假胜地，但对于人均GDP仅有数百美元、且旅行受到严格行政限制的普通朝鲜人而言，这片度假区更像是面向特权阶层或特定外宾的奢华橱窗。</li>
+  </ul>
+
+  <h2 class="section-header" style="border-left-color: #e11d48;">🎯 全片锐评</h2>
+  <p style="line-height:1.75; color:#1e293b; font-weight:500; background:linear-gradient(135deg, #fff1f2 0%, #ffffff 100%); padding:14px 16px; border-radius:10px; font-size:14.5px; margin:0 0 12px 0; border:1px solid #ffe4e6; word-break:break-word;">
+    这篇通过冷酷而精准的卫星图像还原的报道，再次扯下了极权统治下光鲜亮丽的宣传外衣。当80米长、带有50米泳池和水滑梯的超级游艇在元山海岸的波光中若隐若现时，它映衬出的不仅是金氏家族无视国际制裁、穷奢极欲的特权生活，更是一幅令人窒息的人间惨剧：在联合国的报告中，由于长期的国家全面控制与强制劳动，多达40%的朝鲜普通民众连温饱都难以维持，甚至连合法的跨地区自由旅行都成了遥不可及的奢华梦想。正如前39号室官员李正浩所痛斥的那样，标榜自己为“人民领袖”的政权核心，却在私底下享受着几千万美元的超级游艇与海上派对。元山海面上激起的每一道水花，都在无情地嘲弄着岸上无数为一日三餐挣扎的饥饿灵魂，也将特权与苦难之间的巨大鸿沟永远刻在了历史的卫星地图上。
+  </p>
+
+</div>
+
+<script id="core-engine">
+let syncTimeout = null;
+const AI_PROMPT = "请分析以下英文段落，并严格按照以下 Markdown 格式输出（不要输出任何额外的废话）：\n\n### 📌 完整翻译\n\n[此处填写完整翻译]\n\n### 📌 Key Expressions\n\n- **[单词或短语]**\n = [中文释义]\n （[可选的补充说明，如倒装结构或语境等]）\n\n段落内容：\n";
+
+// --- 顶部阅读进度条逻辑 ---
+function initProgressBar() {
+  const progressBar = document.getElementById('reading-progress');
+  if (!progressBar) return;
+  window.addEventListener('scroll', () => {
+    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    if (scrollHeight <= 0) return;
+    const scrollPercent = (scrollTop / scrollHeight) * 100;
+    progressBar.style.width = scrollPercent + '%';
+  }, { passive: true });
+}
+
+async function fetchGroq(text, apiKey, modelName) {
+  const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+    method: 'POST',
+    headers: { 'Authorization': 'Bearer ' + apiKey, 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      model: modelName || 'llama-3.3-70b-versatile',
+      messages: [
+        { role: 'system', content: 'You are an English teacher. Output EXACTLY in the requested Markdown format.' },
+        { role: 'user', content: AI_PROMPT + '"' + text + '"' }
+      ],
+      temperature: 0.3
+    })
+  });
+  if (!res.ok) throw new Error('Groq Error: ' + res.status);
+  const json = await res.json();
+  return json.choices[0].message.content.trim();
+}
+
+async function fetchCustomAI(text, url, apiKey, modelName) {
+  let headers = { 'Content-Type': 'application/json' };
+  let bodyData = {};
+  if (url.includes('anthropic.com')) {
+    headers['x-api-key'] = apiKey;
+    headers['anthropic-version'] = '2023-06-01';
+    headers['anthropic-dangerous-direct-browser-access'] = 'true';
+    bodyData = {
+      model: modelName || 'claude-3-5-sonnet-20241022',
+      max_tokens: 2000,
+      messages: [{ role: 'user', content: AI_PROMPT + '"' + text + '"' }]
+    };
+  } else if (url.includes('generativelanguage.googleapis.com')) {
+    let targetUrl = url;
+    if (!targetUrl.includes('key=')) {
+      targetUrl += (targetUrl.includes('?') ? '&' : '?') + 'key=' + apiKey;
+    }
+    const res = await fetch(targetUrl, {
+      method: 'POST', headers: headers,
+      body: JSON.stringify({ contents: [{ parts: [{ text: AI_PROMPT + '"' + text + '"' }] }] })
+    });
+    if (!res.ok) throw new Error('Gemini Error: ' + res.status);
+    const json = await res.json();
+    return json.candidates[0].content.parts[0].text.trim();
+  } else {
+    headers['Authorization'] = 'Bearer ' + apiKey;
+    bodyData = {
+      model: modelName || 'gpt-4o-mini',
+      messages: [
+        { role: 'system', content: 'You are an English teacher. Output EXACTLY in the requested Markdown format.' },
+        { role: 'user', content: AI_PROMPT + '"' + text + '"' }
+      ],
+      temperature: 0.3
+    };
+  }
+  const res = await fetch(url, { method: 'POST', headers: headers, body: JSON.stringify(bodyData) });
+  if (!res.ok) throw new Error('AI Interface Error: ' + res.status);
+  const json = await res.json();
+  if (json.choices && json.choices.length > 0) return json.choices[0].message.content.trim();
+  throw new Error('AI 返回数据异常');
+}
+
+async function executeAIPipeline(text) {
+  const customUrl = localStorage.getItem('CUSTOM_API_URL') || '';
+  const customKey = localStorage.getItem('CUSTOM_API_KEY') || '';
+  const customModel = localStorage.getItem('CUSTOM_MODEL') || '';
+  const groqKey = localStorage.getItem('GROQ_API_KEY') || '';
+  const groqModel = localStorage.getItem('GROQ_MODEL') || '';
+
+  if (customUrl && customKey) {
+    try {
+      return await fetchCustomAI(text, customUrl, customKey, customModel);
+    } catch (err) {
+      if (groqKey) return await fetchGroq(text, groqKey, groqModel);
+      throw err;
+    }
+  } else if (groqKey) {
+    return await fetchGroq(text, groqKey, groqModel);
+  } else {
+    const userKey = prompt('⚠️ 当前页面未检测到 AI Key！\n为了安全，密匙只储存在您本地浏览器中。\n\n请输入您的 API Key (如 sk-xxx 或 gsk_xxx):');
+    if (userKey && userKey.trim()) {
+      const cleanKey = userKey.trim();
+      if (cleanKey.startsWith('gsk_')) {
+        localStorage.setItem('GROQ_API_KEY', cleanKey);
+      } else {
+        localStorage.setItem('CUSTOM_API_KEY', cleanKey);
+        localStorage.setItem('CUSTOM_API_URL', 'https://api.chatanywhere.tech/v1/chat/completions');
+      }
+    }
+    throw new Error('未设置 AI API Key');
+  }
+}
+
+function getPurifiedFallbackHTML() {
+  const clone = document.documentElement.cloneNode(true);
+  const foreignSelectors = [
+    'relingo-app', 'relin-highlight', 'relin-hc', '[class*="relingo"]', '[data-relin-paragraph]',
+    'grammarly-extension', '[data-grammarly-part]', '[class*="immersive-translate"]', '[data-immersive-translate]'
+  ].join(',');
+  clone.querySelectorAll(foreignSelectors).forEach(el => el.remove());
+  clone.querySelectorAll('relin-highlight, relin-hc').forEach(t => {
+    const frag = document.createDocumentFragment();
+    while(t.firstChild) frag.appendChild(t.firstChild);
+    t.parentNode.replaceChild(frag, t);
+  });
+  clone.querySelectorAll('script').forEach(s => {
+    if (!s.src.includes('marked.min.js') && s.id !== 'core-engine') s.remove();
+  });
+  clone.querySelectorAll('style').forEach(s => {
+    if (s.id !== 'core-style') s.remove();
+  });
+  const liveTAs = document.querySelectorAll('.anno-edit');
+  clone.querySelectorAll('.anno-edit').forEach((ta, i) => {
+    if(liveTAs[i]) ta.textContent = liveTAs[i].value.trim();
+    const box = ta.closest('.anno-box');
+    if (box) box.style.display = 'none';
+    const view = box ? box.querySelector('.anno-view') : null;
+    if (view) view.innerHTML = '';
+  });
+  return '<!DOCTYPE html>\n<html lang="zh-CN">\n' + clone.innerHTML + '\n</html>';
+}
+
+async function syncToCloud() {
+  const ghToken = localStorage.getItem('LITIT_GH_TOKEN') || localStorage.getItem('GH_TOKEN');
+  const ghOwner = 'moodHappy';
+  const ghRepo = 'dual-read-notes';
+  if (!ghToken) return;
+  const pathParts = window.location.pathname.split('/');
+  const fileName = pathParts.pop();
+  const month = pathParts.pop();
+  const year = pathParts.pop();
+  if(!fileName || !month || !year) return;
+  const fileRelPath = 'Summary/' + year + '/' + month + '/' + fileName;
+  try {
+    const getRes = await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath + '?t=' + Date.now(), {
+      headers: { 'Authorization': 'Bearer ' + ghToken },
+      cache: 'no-store'
+    });
+    let finalHTML = '';
+    let sha = '';
+    if (getRes.ok) {
+      const fileData = await getRes.json();
+      sha = fileData.sha;
+      const cleanRawHTML = decodeURIComponent(escape(atob(fileData.content.replace(/\n/g, ''))));
+      const parser = new DOMParser();
+      const cleanDoc = parser.parseFromString(cleanRawHTML, 'text/html');
+      const liveTAs = document.querySelectorAll('.anno-edit');
+      const cleanTAs = cleanDoc.querySelectorAll('.anno-edit');
+      liveTAs.forEach((liveTa, index) => {
+        if (cleanTAs[index]) {
+          const val = liveTa.value.trim();
+          cleanTAs[index].textContent = val;
+          const box = cleanTAs[index].closest('.anno-box');
+          if (box) box.style.display = 'none';
+          const view = box ? box.querySelector('.anno-view') : null;
+          if (view) view.innerHTML = '';
+        }
+      });
+      cleanDoc.querySelectorAll('.anno-toggle').forEach(t => {
+        t.classList.remove('has-anno');
+        const ta = t.closest('.content-wrap, .litit-highlight-block')?.querySelector('.anno-edit');
+        if (ta && ta.textContent.trim()) t.classList.add('has-anno');
+      });
+      finalHTML = '<!DOCTYPE html>\n<html lang="zh-CN">\n' + cleanDoc.documentElement.innerHTML + '\n</html>';
+    } else {
+      finalHTML = getPurifiedFallbackHTML();
+    }
+    await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath, {
+      method: 'PUT',
+      headers: { 'Authorization': 'Bearer ' + ghToken, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        message: 'Silent purified annotation update',
+        content: btoa(unescape(encodeURIComponent(finalHTML))),
+        sha: sha || undefined
+      })
+    });
+    console.log('✅ [My Litit] 纯净无污染批注已静默同步至 GitHub');
+  } catch(e) {
+    console.warn('❌ [My Litit] 同步跳过或失败:', e);
+  }
+}
+
+function scheduleSync() {
+  if (syncTimeout) clearTimeout(syncTimeout);
+  syncTimeout = setTimeout(() => { syncToCloud(); }, 3000);
+}
+
+function initAnnotations() {
+  document.querySelectorAll('.litit-highlight-block, .content-wrap').forEach(wrap => {
+    let content = wrap.querySelector('.content');
+    if (!content) {
+      const pText = wrap.querySelector('p');
+      if (pText) {
+        content = document.createElement('div');
+        content.className = 'content';
+        content.style.cssText = 'position:relative; margin:0 0 6px 0; color:#1a202c; font-family:Georgia, serif; line-height:1.7; font-size:15px; word-break:break-word;';
+        content.innerHTML = pText.innerHTML;
+        pText.parentNode.replaceChild(content, pText);
+      }
+    }
+    if (!content) return;
+    if (!content.querySelector('.anno-toggle')) {
+      const toggle = document.createElement('span');
+      toggle.className = 'anno-toggle'; toggle.title = '手写批注/笔记';
+      content.appendChild(toggle);
+    }
+    if (!content.querySelector('.ai-toggle')) {
+      const aiToggle = document.createElement('span');
+      aiToggle.className = 'ai-toggle'; aiToggle.title = 'AI智能二次解析';
+      content.appendChild(aiToggle);
+    }
+    let box = wrap.querySelector('.anno-box');
+    if (!box) {
+      box = document.createElement('div'); box.className = 'anno-box'; box.style.display = 'none';
+      box.innerHTML = '<div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 解析..."></textarea>';
+      wrap.appendChild(box);
+    }
+    const view = box.querySelector('.anno-view');
+    const edit = box.querySelector('.anno-edit');
+    const toggle = content.querySelector('.anno-toggle');
+    const aiToggle = content.querySelector('.ai-toggle');
+    if (edit && edit.value.trim()) {
+      toggle.classList.add('has-anno');
+      try { view.innerHTML = (typeof marked !== 'undefined') ? marked.parse(edit.value.trim()) : edit.value.trim(); } catch(e){}
+    }
+    if (aiToggle) {
+      aiToggle.onclick = async (e) => {
+        e.preventDefault(); e.stopPropagation();
+        if (aiToggle.classList.contains('loading')) return;
+        if (edit && edit.value.trim() !== '') {
+          const confirmOverwrite = confirm('⚠️ 已经存在批注内容。点击"确定"将使用 AI 解析覆盖现有内容。是否继续？');
+          if (!confirmOverwrite) return;
+        }
+        const pClone = content.cloneNode(true);
+        pClone.querySelectorAll('.anno-toggle, .ai-toggle').forEach(el => el.remove());
+        let pText = pClone.textContent.replace(/https?:\/\/\S+/g, '').trim();
+        if (!pText) return;
+        aiToggle.classList.add('loading');
+        try {
+          const aiContent = await executeAIPipeline(pText);
+          box.style.display = 'block'; view.style.display = 'none';
+          edit.style.display = 'block'; edit.value = aiContent;
+          edit.focus(); edit.blur();
+        } catch (err) { console.error(err); } finally { aiToggle.classList.remove('loading'); }
+      };
+    }
+    if (toggle) {
+      toggle.onclick = (e) => {
+        e.preventDefault(); e.stopPropagation();
+        if (box.style.display === 'block') {
+          box.style.display = 'none';
+        } else {
+          box.style.display = 'block';
+          if (!edit.value.trim()) {
+            view.style.display = 'none'; edit.style.display = 'block';
+            setTimeout(() => { edit.focus(); }, 150);
+          } else { view.style.display = 'block'; edit.style.display = 'none'; }
+        }
+      };
+    }
+    const triggerEdit = (e) => {
+      if(e) { e.preventDefault(); e.stopPropagation(); }
+      view.style.display = 'none'; edit.style.display = 'block'; edit.value = edit.value;
+      setTimeout(() => { edit.focus(); }, 150);
+    };
+    view.addEventListener('dblclick', triggerEdit);
+    let lastTap = 0;
+    view.addEventListener('touchstart', e => {
+      if (e.touches.length === 2) { triggerEdit(e); }
+      else if (e.touches.length === 1) {
+        const currentTime = new Date().getTime();
+        if (currentTime - lastTap < 500 && currentTime - lastTap > 0) {
+          e.preventDefault(); box.style.display = 'none';
+        }
+        lastTap = currentTime;
+      }
+    }, {passive: false});
+    if (edit && view) {
+      edit.onblur = () => {
+        setTimeout(() => {
+          const newVal = edit.value.trim();
+          try { view.innerHTML = newVal ? ((typeof marked !== 'undefined') ? marked.parse(newVal) : newVal) : ''; } catch(e){}
+          edit.style.display = 'none';
+          if (newVal) {
+            view.style.display = 'block'; toggle.classList.add('has-anno');
+          } else {
+            view.style.display = 'none'; box.style.display = 'none'; toggle.classList.remove('has-anno');
+          }
+          if (edit.getAttribute('data-old-val') !== newVal) {
+            edit.setAttribute('data-old-val', newVal);
+            scheduleSync();
+          }
+        }, 150);
+      };
+      edit.setAttribute('data-old-val', edit.value.trim());
+    }
+  });
+}
+window.addEventListener('DOMContentLoaded', () => { initProgressBar(); initAnnotations(); });
+window.addEventListener('load', initAnnotations);
+</script>
+</body>
+</html>
