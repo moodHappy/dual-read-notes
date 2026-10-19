@@ -129,7 +129,7 @@ details.litit-fold summary {
 details.litit-fold summary::-webkit-details-marker { display: none; }
 details.litit-fold summary::after { display: none; }
 details.litit-fold summary:hover { background: #f1f5f9; }
-details.litit-fold[open] summary { border-bottom: 1px solid #e2e8f0; background: #f8fafc; border-left: 3px solid #4f46e5; }
+details.litit-fold[open] summary { border-bottom: 1px solid #e2e8f0; background: #f1f5f9; border-left: 3px solid #4f46e5; }
 .litit-fold-content { padding: 10px 8px; background: #f8fafc; }
 
 /* 精读区列表卡片化 */
@@ -206,7 +206,8 @@ li.litit-target-sentence > ul > li > strong {
   <!-- 顶部杂志刊头装饰 -->
   <div style="display:flex; justify-content:space-between; align-items:center; border-bottom: 2px solid #0f172a; padding-bottom: 6px; margin-bottom: 14px; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: #64748b; text-transform: uppercase;">
     <span>The Global Dispatch · 深度双语精读</span>
-    <span>World & Military Tragedy</span>
+    <!-- 注意：此处分类标签严格限制在最多两个单词以内，以避免在移动端发生换行 -->
+    <span>Military Tragedy</span>
   </div>
 
   <!-- 支持批注的主标题区 -->
@@ -232,7 +233,7 @@ li.litit-target-sentence > ul > li > strong {
 
   <!-- 杂志导语（Lead Paragraph） -->
   <p style="color:#334155; font-size: 15px; line-height: 1.75; margin-bottom:16px; font-weight:400; background: #f8fafc; padding: 12px 14px; border-radius: 8px; border: 1px solid #f1f5f9;">
-    加拿大艾伯塔省的韦恩赖特加拿大军事基地（CFB Wainwright）周六下午突发严重火灾，在实弹高强度战斗训练期间，一场由罕见强风迅速吹向行政区的草场大火酿成了和平时期加军本土最惨痛的悲剧之一。事故已导致4名军人殉职（包括Sgt Morgan Wong、Pte Shaun Farrell、Pte Aidan Goulding和Pte Hayden Lykkemark），另有39人受伤入院，其中至少19人伤势危急。总理马克·卡尼（Mark Carney）在渥太华发表全国电视讲话沉痛哀悼，称这是加军本土在和平年代遭遇的“最严重悲剧”之一。当地医疗设施瞬间被海量伤员“彻底压垮”，埃德蒙顿的皇家亚历山大医院一度拉响象征高伤亡灾难的“橙色代码”（Code Orange），出动了30支专业急救机组与地面救护力量展开跨省大救援。
+    加拿大艾伯塔省的韦恩赖特加拿大军事基地（CFB Wainwright）周六下午突发严重火灾，在实弹高强度战斗训练期间，一场由罕见强风迅速吹向行政区的草场大火酿成了和平时期加军本土最惨痛的悲剧之一。事故已导致4名军人殉职（包括Sgt Morgan Wong、Pte Shaun Farrell、Pte Aidan Goulding和Pte Hayden Lykkemark），另有39人受伤入院，其中至少19人伤势危急。总理马克·卡尼（Mark Carney）在渥太华发表全国电视讲话沉痛哀悼，称这是加军本土在和平时期遭遇的“最严重悲剧”之一。当地医疗设施瞬间被海量伤员“彻底压垮”，埃德蒙顿的皇家亚历山大医院一度拉响象征高伤亡灾难的“橙色代码”（Code Orange），出动了30支专业急救机组与地面救护力量展开跨省大救援。
   </p>
 
   <div style="margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
@@ -303,7 +304,7 @@ li.litit-target-sentence > ul > li > strong {
   <h2 class="section-header" style="border-left-color: #3b82f6;">⏱️ 事件时间线</h2>
   <ul style="padding-left:18px; line-height:1.8; color:#334155; font-size: 14.5px; margin-bottom:24px; word-break:break-word;">
     <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">周六下午 16:00：</strong> 韦恩赖特基地（CFB Wainwright）在进行高强度实弹战斗训练时突发火灾，约1公里外的草场大火在强风下迅速逼近靶场行政区。</li>
-    <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">周六夜间：</strong> 军事与应急消防人员在“想象得到的恶劣条件下”彻夜奋战扑救，当地医疗机构瞬间被大量伤员压垮，埃德蒙顿皇家亚历山大医院启动“橙色代码”。</li>
+    <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">周六夜间：</strong> 军事与应急消防人员在“想象得到的恶劣条件下”彻夜奋战扑救，当地医疗机构瞬间被大量伤员压垮，埃德蒙顿的皇家亚历山大医院启动“橙色代码”。</li>
     <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">周日：</strong> 总理马克·卡尼在渥太华发表全国电视讲话，证实4名军人殉职并定性为和平时期最严重悲剧之一；艾伯塔省长及军方高层举行记者会通报伤亡及起火细节。</li>
     <li><strong style="color:#1d4ed8;">周日晚间：</strong> 30个专业急救机组与空中救护服务（STARS）全力转运危重伤员，火势虽然得到控制，但救援与调查工作仍在持续。</li>
   </ul>
@@ -447,8 +448,8 @@ li.litit-target-sentence > ul > li > strong {
             <span class="litit-zh-sentence">某领导人在某天于某地发表全国讲话，将其定性为某种历史之最。<br>（国家最高领导人在遭遇重大突发灾难时发表官方哀悼与定性的标准高规格句式）。</span>
           </li>
           <li style="margin-bottom: 12px;">
-            <strong class="litit-en-sentence" style="color: #4338ca;">[专家/医生] told [媒体] that the number of [伤亡/患者] had "completely overwhelmed" [医疗/公共] facilities in [地区].某专家向媒体透露，某类伤亡数量彻底压垮了某地的相关设施。</strong>
-            <span class="litit-zh-sentence">（在灾难突发、医疗资源严重挤兑的突发新闻中，引述一线急救专家发言的权威句型）。</span>
+            <strong class="litit-en-sentence" style="color: #4338ca;">[专家/医生] told [媒体] that the number of [伤亡/患者] had "completely overwhelmed" [医疗/公共] facilities in [地区].</strong>
+            <span class="litit-zh-sentence">某专家向媒体透露，某类伤亡数量彻底压垮了某地的相关设施。<br>（在灾难突发、医疗资源严重挤兑的突发新闻中，引述一线急救专家发言的权威句型）。</span>
           </li>
           <li style="margin-bottom: 12px;">
             <strong class="litit-en-sentence" style="color: #4338ca;">While [调查尚未完成/情况仍在进展], [官方机构] stated that at this time, there are no indications that it was the result of [外界怀疑的恶意原因].</strong>
