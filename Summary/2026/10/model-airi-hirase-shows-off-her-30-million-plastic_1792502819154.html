@@ -13,10 +13,10 @@
        2. 标签规则：文章开头的标签胶囊纯文字即可，禁止带 `#` 号。类别标签严格限制在最多两个单词以内，以避免在移动端发生换行。
        3. 胶囊高亮（.litit-badge）：仅用于第 1、2、3 板块（重点记忆、高价值表达、短语和固定搭配）的【短词组/单词】，表现为紫色渐变背景的内联胶囊。
        4. 长句排版（.litit-en-sentence）：用于第 4 板块（值得学习的句子结构）和第 5 板块（最值得优先掌握的句型）的【长句/长句型】。严禁将长句型放入 .litit-badge 中，否则会导致折行错乱。并且中文解释中的括号补充内容需使用 <br> 另起一行。
-       5. 课后考察出题规范：核心目标是“深度学习英语”，绝对禁止考察单纯的表层信息检索（如具体金额、地点或能在文中直接找到的原话）。三个选择题应根据文章实际内容灵活设计，重点考察以下三个进阶维度：
-          - 题1：句法逻辑与结构剖析（Syntactic & Logical Parsing）。考察长难句的主干提取、复杂修饰语的逻辑关系（因果/转折）、或代词/指代对象的精准还原。
-          - 题2：语境词义与地道表达（Contextual Vocabulary & Usage）。考察熟词生义、地道短语搭配，或特定单词在当前语境下的精确含义与感情色彩（如褒贬义、幽默、讽刺）。
-          - 题3：深层推断与作者意图（Inference & Author's Intent）。考察母语者的“言外之音”、特定修辞或句式的作用，或对某一段落核心态度/潜台词的推理。
+       5. 语法重点提炼规范：核心目标是“深度剖析语法结构”，绝对禁止单纯罗列生硬的语法术语。应结合文章具体语境灵活解析，重点提炼以下三个进阶维度：
+          - 维度1：长难句与从句嵌套（Complex Clause Structures）。考察和剖析主从复合句的主干提取、各类从句（定语/名词性/状语从句）的逻辑关系。
+          - 维度2：高级句式与特殊结构（Advanced Syntax）。剖析倒装句、强调句、虚拟语气、独立主格等高级语法现象在语境中的具体应用与修辞色彩。
+          - 维度3：非谓语动词与词法功能（Non-finite Verbs & Lexical Grammar）。解析分词、不定式、动名词在句中的具体功能（作定语、状语等）及其带来的语体效果。
        ====================================================================== */
     :root {
       --bg-page: #ffffff;
@@ -159,10 +159,6 @@
     li.litit-target-sentence > ul > li > strong {
       color: #0f172a; font-weight: 600; background: #e2e8f0; padding: 1px 5px; border-radius: 4px; font-size: 0.84rem; margin-right: 3px;
     }
-    /* 课后考察交互反馈样式 */
-    .quiz-feedback {
-      display: none; font-size: 14px; padding: 10px 14px; border-radius: 6px; margin-top: 10px; line-height: 1.6;
-    }
     /* 移动端极限铺开适配 */
     @media (max-width: 600px) {
       body { padding: 10px 10px 30px 10px; font-size: 15px; }
@@ -196,18 +192,10 @@
       <div class="anno-box" style="display:none; margin-top: 10px;">
         <div class="anno-view markdown-body"></div>
         <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
-
-模特平濑爱理大方展示价值 3000 万日元的整容蜕变成果。
-
+模特平濑爱理展示了她花费3000万日元进行的整容逆袭。
 ### 📌 Key Expressions
-
-- **model** = 模特
-- **show off sth.** = 炫耀、展示某物；这里指大方展示自己的整容成果
-- **¥30 million** = 3000 万日元
-- **plastic surgery** = 整形手术；整容
-- **glow-up** = 外貌或整体形象的显著改善；蜕变
-- **plastic surgery glow-up** = 通过整形手术实现的外貌蜕变
-- **show off one's ... glow-up** = 展示自己的……蜕变成果</textarea>
+- **glow-up** = 巨大蜕变 / 逆袭（尤指外貌上的变美）
+- **show off** = 展示 / 炫耀</textarea>
       </div>
     </div>
 
@@ -419,48 +407,41 @@
         </div>
       </details>
 
-      <!-- 第六板块：六、课后考察 (Quiz) -->
+      <!-- 第六板块：六、语法重点 -->
       <details class="litit-fold">
         <summary>
-          <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">六、课后考察 (Quiz)</h3>
+          <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">六、语法重点</h3>
         </summary>
         <div class="litit-fold-content">
-          <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; margin-bottom: 10px;">
-            
-            <!-- Question 1: 语法与长难句剖析 -->
-            <div class="quiz-item" data-correct="B" style="margin-bottom: 20px;">
-              <p style="font-weight: 700; color: #0f172a; margin-bottom: 8px;">Q1: In the sentence "Sharing the old photos right around the release feels like a smart way to remind people...", what is the grammatical subject of the verb "feels"?</p>
-              <div style="display: flex; flex-direction: column; gap: 6px; margin-bottom: 8px;">
-                <label style="cursor: pointer; font-size: 14.5px;"><input type="radio" name="q1" value="A"> A) the old photos</label>
-                <label style="cursor: pointer; font-size: 14.5px;"><input type="radio" name="q1" value="B"> B) Sharing the old photos right around the release</label>
-                <label style="cursor: pointer; font-size: 14.5px;"><input type="radio" name="q1" value="C"> C) the release</label>
-              </div>
-              <div class="quiz-feedback" style="display: none;"></div>
-            </div>
-
-            <!-- Question 2: 熟词生义与语境精准理解 -->
-            <div class="quiz-item" data-correct="C" style="margin-bottom: 20px;">
-              <p style="font-weight: 700; color: #0f172a; margin-bottom: 8px;">Q2: The title mentions her "plastic surgery glow-up". Based on modern internet slang and the context, what does "glow-up" imply?</p>
-              <div style="display: flex; flex-direction: column; gap: 6px; margin-bottom: 8px;">
-                <label style="cursor: pointer; font-size: 14.5px;"><input type="radio" name="q2" value="A"> A) A medical complication where the skin literally becomes red and glowing after surgery.</label>
-                <label style="cursor: pointer; font-size: 14.5px;"><input type="radio" name="q2" value="B"> B) The act of showing off one's wealth by spending millions of yen.</label>
-                <label style="cursor: pointer; font-size: 14.5px;"><input type="radio" name="q2" value="C"> C) A massive, highly positive personal transformation, especially related to physical attractiveness and confidence.</label>
-              </div>
-              <div class="quiz-feedback" style="display: none;"></div>
-            </div>
-
-            <!-- Question 3: 深层推断与作者意图 -->
-            <div class="quiz-item" data-correct="B" style="margin-bottom: 10px;">
-              <p style="font-weight: 700; color: #0f172a; margin-bottom: 8px;">Q3: The author specifically includes details about Hirase working multiple jobs from age 16 (including as a security guard) and living in a cheap ¥23,000 apartment. What is the primary narrative effect of including these details?</p>
-              <div style="display: flex; flex-direction: column; gap: 6px; margin-bottom: 8px;">
-                <label style="cursor: pointer; font-size: 14.5px;"><input type="radio" name="q3" value="A"> A) To mock her for having been poor before she became a famous model.</label>
-                <label style="cursor: pointer; font-size: 14.5px;"><input type="radio" name="q3" value="B"> B) To shift the narrative from mere vanity to a story of relentless grit, extreme financial discipline, and hard-earned success, thereby eliciting respect.</label>
-                <label style="cursor: pointer; font-size: 14.5px;"><input type="radio" name="q3" value="C"> C) To criticize the Japanese real estate market and the low wages in the security industry.</label>
-              </div>
-              <div class="quiz-feedback" style="display: none;"></div>
-            </div>
-
-          </div>
+          <ul style="list-style-type: square; margin: 0; padding-left: 18px; line-height: 1.6;">
+            <!-- 语法重点 1 -->
+            <li class="litit-target-sentence" style="margin-bottom: 12px;">
+              <strong class="litit-badge">并列复合句与省略结构 (Compound Sentence & Ellipsis)</strong><br>
+              <strong class="litit-en-sentence">Some people said the earlier images were hard to look at, while others gave her credit for pushing through the pain and the work.</strong>
+              <span class="litit-zh-sentence">一些人表示早期的照片让人难以直视，而另一些人则对她熬过痛苦与努力付出给予了肯定。</span>
+              <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+                <li style="margin-bottom: 3px;"><strong>深度解析</strong>：这里使用了连词 "while" 连接两个表示对比的并列分句。在第一个分句 "Some people said..." 中，"said" 后面省略了宾语从句的引导词 "that"，即 "said (that) the earlier images..."。这种省略在新闻和口语中极为常见，使句子节奏更加紧凑。同时，"gave her credit for doing sth." 也是一个非常地道的高级词法搭配。</li>
+              </ul>
+            </li>
+            <!-- 语法重点 2 -->
+            <li class="litit-target-sentence" style="margin-bottom: 12px;">
+              <strong class="litit-badge">动名词作主语与不定式作后置定语 (Gerund as Subject & Infinitive as Modifier)</strong><br>
+              <strong class="litit-en-sentence">Sharing the old photos right around the release feels like a smart way to remind people she exists and get some buzz going.</strong>
+              <span class="litit-zh-sentence">选择在新剧发布之际分享这些旧照，感觉像是一种聪明的手段，既能提醒人们她的存在，又能炒热话题。</span>
+              <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+                <li style="margin-bottom: 3px;"><strong>深度解析</strong>：句首的 "Sharing the old photos right around the release" 是一个完整的动名词短语，在句中充当主语，其谓语动词是单数的 "feels like"。其后的 "to remind... and get..." 则是动词不定式短语，并列作名词 "way" 的后置定语，精准且连贯地说明了这种 "smart way"（聪明手段）的具体目的，是典型的非谓语动词高级应用。</li>
+              </ul>
+            </li>
+            <!-- 语法重点 3 -->
+            <li class="litit-target-sentence" style="margin-bottom: 10px;">
+              <strong class="litit-badge">让步状语从句 (Concessive Adverbial Clause)</strong><br>
+              <strong class="litit-en-sentence">Whether you see it as an extreme makeover or just someone who decided to invest heavily in her appearance, the visual change is hard to ignore.</strong>
+              <span class="litit-zh-sentence">无论你将其视为一次极端的彻底改造，还是仅仅认为她决定在外貌上进行重金投资，这种视觉上的巨变都是难以忽视的。</span>
+              <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+                <li style="margin-bottom: 3px;"><strong>深度解析</strong>："Whether... or..." 引导让步状语从句，不仅确立了包容不同观点的中立客观语调（即不管读者持何种看法），还为后文主句 "the visual change is hard to ignore" 的核心结论做好了逻辑铺垫。此外，"someone who decided to..." 中使用了 who 引导的定语从句来修饰 someone，使句意表达更为丰满。这种句式非常适合用于总结存在争议的社会话题。</li>
+              </ul>
+            </li>
+          </ul>
         </div>
       </details>
 
@@ -850,55 +831,14 @@
       });
     }
 
-    // 课后考察板块交互逻辑
-    function initQuiz() {
-      document.querySelectorAll('.quiz-item').forEach(item => {
-        const correct = item.getAttribute('data-correct');
-        const radios = item.querySelectorAll('input[type="radio"]');
-        const feedback = item.querySelector('.quiz-feedback');
-
-        radios.forEach(radio => {
-          radio.addEventListener('change', () => {
-            const selected = radio.value;
-            radios.forEach(r => r.disabled = true); // 选择后锁定选项
-            feedback.style.display = 'block';
-            if (selected === correct) {
-              feedback.style.background = '#ecfdf5';
-              feedback.style.color = '#065f46';
-              feedback.style.border = '1px solid #a7f3d0';
-              feedback.innerHTML = `<strong>✅ 回答正确！</strong><br>` + getExplanation(item, correct);
-            } else {
-              feedback.style.background = '#fef2f2';
-              feedback.style.color = '#991b1b';
-              feedback.style.border = '1px solid #fecaca';
-              feedback.innerHTML = `<strong>❌ 回答错误。</strong> 正确答案是 <strong>${correct}</strong>。<br>` + getExplanation(item, correct);
-            }
-          });
-        });
-      });
-    }
-
-    function getExplanation(item, correct) {
-      const qIndex = item.querySelector('p').textContent;
-      if (qIndex.includes('Q1')) {
-        return '解析：这是一道句法逻辑题。整个动名词短语 "Sharing the old photos right around the release"（在发布之际分享旧照）整体充当句子主语，其后的 "feels like" 是谓语部分。';
-      } else if (qIndex.includes('Q2')) {
-        return '解析：这是一道语境词义题。"Glow-up" 是英语互联网上的热门俚语，特指一个人（通常是随着年龄增长或经过巨大努力后）在外貌、气质、风格乃至自信心上发生的“极其惊艳的正面蜕变”。在这里精准概括了她狂砸3000万日元后宛若新生的逆袭。';
-      } else {
-        return '解析：这是一道深层推断题。作者花笔墨描写她干保安、住廉价破旧单间的辛酸过往，是为了给单纯的“砸钱变美”注入强大的底层逆袭与励志色彩。这种叙事成功地将公众对“整容虚荣心”的批评，转移到了对她忍受痛苦和极端财务自律的尊重上。';
-      }
-    }
-
     window.addEventListener('DOMContentLoaded', () => {
       initProgressBar();
       initAnnotations();
-      initQuiz();
     });
 
     window.addEventListener('load', () => {
       initAnnotations();
     });
   </script>
-
 </body>
 </html>
