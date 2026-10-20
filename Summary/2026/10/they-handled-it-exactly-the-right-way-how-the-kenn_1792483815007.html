@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>'They handled it exactly the right way': How the Kennedys averted the 1962 Cuban missile crisis</title>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <style id="core-style">
+    /* ======================================================================
+       [AI TEMPLATE GUIDELINES - CSS 核心排版规范]
+       致其他 AI 助手：在生成此模板时，请严格遵守以下样式分配规则：
+       1. 序号规则：列表的 NO.01 序号由伪类 `::before` 自动生成且独占一行。千万不要在 HTML 中手动输入“NO.01”。
+       2. 标签规则：文章开头的标签胶囊纯文字即可，禁止带 `#` 号。类别标签严格限制在最多两个单词以内，以避免在移动端发生换行。
+       3. 胶囊高亮（.litit-badge）：仅用于第 1、2、3 板块（重点记忆、高价值表达、短语和固定搭配）的【短词组/单词】，表现为紫色渐变背景的内联胶囊。
+       4. 长句排版（.litit-en-sentence）：用于第 4 板块（值得学习的句子结构）和第 5 板块（最值得优先掌握的句型）的【长句/长句型】。严禁将长句型放入 .litit-badge 中，否则会导致折行错乱。并且中文解释中的括号补充内容需使用 <br> 另起一行。
+       5. 课后考察出题规范：核心目标是“深度学习英语”，绝对禁止考察单纯的表层信息检索（如具体金额、地点或能在文中直接找到的原话）。三个选择题应根据文章实际内容灵活设计，重点考察以下三个进阶维度：
+          - 题1：句法逻辑与结构剖析（Syntactic & Logical Parsing）。考察长难句的主干提取、复杂修饰语的逻辑关系（因果/转折）、或代词/指代对象的精准还原。
+          - 题2：语境词义与地道表达（Contextual Vocabulary & Usage）。考察熟词生义、地道短语搭配，或特定单词在当前语境下的精确含义与感情色彩（如褒贬义、幽默、讽刺）。
+          - 题3：深层推断与作者意图（Inference & Author's Intent）。考察母语者的“言外之音”、特定修辞或句式的作用，或对某一段落核心态度/潜台词的推理。
+       ====================================================================== */
+    :root {
+      --bg-page: #ffffff;
+      --bg-card: #ffffff;
+      --text-main: #0f172a;
+      --text-sub: #334155;
+      --text-muted: #64748b;
+      --accent-primary: #4f46e5;
+      --border-subtle: #e2e8f0;
+      --font-serif: "Georgia", "Charter", "Source Han Serif SC", "Noto Serif CJK SC", serif;
+      --font-sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", Roboto, sans-serif;
+    }
+    body {
+      font-family: var(--font-sans);
+      padding: 12px 12px 36px 12px;
+      margin: 0 auto;
+      max-width: 780px;
+      background: var(--bg-page);
+      color: var(--text-main);
+      line-height: 1.75;
+      font-size: 16px;
+      word-wrap: break-word;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    * { box-sizing: border-box; max-width: 100%; }
+    img { max-width: 100%; height: auto; border-radius: 8px; }
+    /* 顶部极简阅读进度条 */
+    #reading-progress {
+      position: fixed; top: 0; left: 0; width: 0%; height: 3px;
+      background: linear-gradient(90deg, #4f46e5, #9333ea);
+      z-index: 9999; transition: width 0.1s ease-out;
+    }
+    /* 主容器：零冗余边距，最大化阅读视野 */
+    .litit-report { background: var(--bg-card); padding: 0; }
+    /* AI 批注组件样式 */
+    .anno-toggle, .ai-toggle {
+      display: inline-block; padding: 2px 5px; margin-left: 5px; cursor: pointer;
+      opacity: 0.45; font-size: 0.85rem; vertical-align: middle; transition: all 0.2s;
+      user-select: none; -webkit-tap-highlight-color: transparent;
+    }
+    .anno-toggle:hover, .ai-toggle:hover { opacity: 1; transform: scale(1.15); }
+    .anno-toggle.has-anno { opacity: 1; }
+    .anno-toggle::after { content: "🔴"; }
+    .ai-toggle { opacity: 0.7; padding: 2px 4px; }
+    .ai-toggle::after { content: "🤖"; }
+    .ai-toggle.loading::after {
+      content: "⏳"; display: inline-block; animation: spin 1s linear infinite;
+    }
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+    .anno-box {
+      display: none; margin-top: 10px; background: #faf8ff;
+      border-left: 3px solid #7c3aed; padding: 12px 14px; border-radius: 0 8px 8px 0; text-align: left;
+    }
+    .anno-view { font-size: 0.95rem; line-height: 1.65; color: #334155; min-height: 24px; }
+    .anno-edit {
+      width: 100%; min-height: 120px; padding: 10px; font-family: monospace; font-size: 0.95rem;
+      border: 1px dashed #a78bfa; border-radius: 6px; resize: vertical; display: none;
+      background: #fff; color: #1e293b; outline: none;
+    }
+    .anno-edit:focus { border: 1px solid #7c3aed; box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.12); }
+    .markdown-body p { margin-top: 0; margin-bottom: 8px; }
+    .markdown-body p:last-child { margin-bottom: 0; }
+    .markdown-body h1, .markdown-body h2, .markdown-body h3 {
+      color: #5b21b6; font-size: 1.05rem; margin: 10px 0 6px 0; border-bottom: 1px dashed #ddd6fe; padding-bottom: 4px;
+    }
+    .markdown-body ul, .markdown-body ol { margin: 0 0 8px 0; padding-left: 18px; }
+    .markdown-body blockquote {
+      margin: 0 0 10px 0; padding: 8px 12px; background: rgba(124, 58, 237, 0.06);
+      border-left: 3px solid #7c3aed; color: #475569;
+    }
+    /* 杂志风区块标题 */
+    .section-header {
+      font-size: 16px; color: #0f172a; font-weight: 700; letter-spacing: 0.02em;
+      background: linear-gradient(90deg, #f8fafc 0%, #ffffff 100%); padding: 8px 12px;
+      border-left: 4px solid #4f46e5; margin: 26px 0 14px 0; border-radius: 0 6px 6px 0;
+      display: flex; align-items: center; box-shadow: inset 0 1px 0 #f1f5f9, inset 0 -1px 0 #f1f5f9;
+    }
+    /* 折叠面板升级：极简无十字图标、最大化宽度 */
+    details.litit-fold {
+      margin-bottom: 10px; border: 1px solid #e2e8f0; border-radius: 10px;
+      background: #ffffff; overflow: hidden; transition: border-color 0.2s ease;
+    }
+    details.litit-fold[open] { border-color: #cbd5e1; }
+    details.litit-fold summary {
+      cursor: pointer; padding: 12px 14px; outline: none; list-style: none; display: flex;
+      justify-content: space-between; align-items: center; background: #f8fafc;
+      transition: background 0.2s; user-select: none; -webkit-tap-highlight-color: transparent;
+    }
+    details.litit-fold summary::-webkit-details-marker { display: none; }
+    details.litit-fold summary::after { display: none; }
+    details.litit-fold summary:hover { background: #f1f5f9; }
+    details.litit-fold[open] summary { border-bottom: 1px solid #e2e8f0; background: #f8fafc; border-left: 3px solid #4f46e5; }
+    .litit-fold-content { padding: 10px 8px; background: #f8fafc; }
+    /* 精读区列表卡片化 */
+    .litit-fold-content > ol, .litit-fold-content > ul {
+      list-style: none !important; padding-left: 0 !important; margin: 0 !important; counter-reset: litit-counter;
+    }
+    .litit-fold-content > ol > li, .litit-fold-content > ul > li {
+      counter-increment: litit-counter; position: relative; background: #ffffff;
+      border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px 12px;
+      margin-bottom: 10px !important; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.015);
+    }
+    .litit-fold-content > ol > li:last-child, .litit-fold-content > ul > li:last-child { margin-bottom: 0 !important; }
+    /* [规则 1] 顶部流式微型序号徽章：完美独占一行，追求极致对齐与统一美感 */
+    .litit-fold-content > ol > li::before, .litit-fold-content > ul > li::before {
+      content: "NO." counter(litit-counter, decimal-leading-zero); display: block; width: max-content;
+      font-size: 10px; font-weight: 800; font-family: -apple-system, BlinkMacSystemFont, monospace;
+      color: #4f46e5; background: #eef2ff; padding: 1px 6px; border-radius: 4px;
+      margin-bottom: 8px; letter-spacing: 0.04em;
+    }
+    /* [规则 4] 纯英/中长句子专属排版（块级元素，自然折行对齐） */
+    .litit-en-sentence {
+      display: block; font-family: var(--font-serif); font-size: 1.04rem; font-weight: 600;
+      color: #0f172a; line-height: 1.5; margin-bottom: 6px;
+    }
+    .litit-zh-sentence {
+      display: block; font-family: var(--font-sans); font-size: 0.93rem; color: #475569;
+      line-height: 1.55; margin-bottom: 2px;
+    }
+    li.litit-target-sentence > br { display: none; }
+    /* [规则 3] 短词组高亮徽章（1、2、3 板块专用短标签） */
+    .litit-badge {
+      display: inline-block; background: linear-gradient(135deg, #eef2ff 0%, #f3e8ff 100%);
+      color: #4338ca; padding: 2px 8px; border-radius: 5px; font-size: 0.92rem; font-weight: 700;
+      margin-right: 4px; margin-bottom: 6px; border: 1px solid #e0e7ff; vertical-align: middle;
+    }
+    /* 第 4 板块子级知识点解析区左边框内嵌盒 */
+    li.litit-target-sentence > ul {
+      list-style: none !important; margin: 10px 0 0 0 !important; padding: 8px 10px !important;
+      background: #f8fafc; border-radius: 6px; border-left: 2.5px solid #94a3b8;
+    }
+    li.litit-target-sentence > ul > li {
+      position: relative; padding-left: 10px; margin-bottom: 5px !important; font-size: 0.88rem; color: #334155; line-height: 1.5;
+    }
+    li.litit-target-sentence > ul > li:last-child { margin-bottom: 0 !important; }
+    li.litit-target-sentence > ul > li::before {
+      content: "·"; position: absolute; left: 0; top: 0; color: #4f46e5; font-weight: 900;
+    }
+    li.litit-target-sentence > ul > li > strong {
+      color: #0f172a; font-weight: 600; background: #e2e8f0; padding: 1px 5px; border-radius: 4px; font-size: 0.84rem; margin-right: 3px;
+    }
+    /* 课后考察交互反馈样式 */
+    .quiz-feedback {
+      display: none; font-size: 14px; padding: 10px 14px; border-radius: 6px; margin-top: 10px; line-height: 1.6;
+    }
+    /* 移动端极限铺开适配 */
+    @media (max-width: 600px) {
+      body { padding: 10px 10px 30px 10px; font-size: 15px; }
+      h1.litit-target-title { font-size: 21px !important; }
+      .litit-fold-content { padding: 8px 6px; }
+      .litit-fold-content > ol > li, .litit-fold-content > ul > li { padding: 11px 10px; margin-bottom: 8px !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 进度条 DOM -->
+  <div id="reading-progress"></div>
+
+  <div class="litit-report" style="width:100%; max-width:100%; box-sizing:border-box; overflow-x:hidden;">
+
+    <!-- 顶部杂志刊头装饰 -->
+    <div style="display:flex; justify-content:space-between; align-items:center; border-bottom: 2px solid #0f172a; padding-bottom: 6px; margin-bottom: 14px; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: #64748b; text-transform: uppercase;">
+      <span>The Global Dispatch · 深度双语精读</span>
+      <!-- 分类标签：严格限制在最多两个单词以内，避免在移动端换行 -->
+      <span>History</span>
+    </div>
+
+    <!-- 支持批注的主标题区 -->
+    <div class="content-wrap" style="position:relative; margin-bottom: 16px;">
+      <h1 class="litit-target-title" style="color:#0f172a; font-size: 24px; line-height: 1.35; font-family: var(--font-serif); font-weight: 800; border-bottom: 1px solid #e2e8f0; padding-bottom: 14px; margin-top:0; margin-bottom:0; word-break:break-word;">
+        <span class="content litit-en-title" style="position:relative;">'They handled it exactly the right way': How the Kennedys averted the 1962 Cuban missile crisis</span>
+        <br>
+        <span class="litit-zh-title" style="font-family: var(--font-sans); font-size: 17px; font-weight: 600; color: #475569; margin-top: 8px; display: inline-block; line-height: 1.45;">“他们处理得恰到好处”：肯尼迪兄弟如何化解1962年古巴导弹危机</span>
+      </h1>
+      <div class="anno-box" style="display:none; margin-top: 10px;">
+        <div class="anno-view markdown-body"></div>
+        <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
+“他们处理得恰到好处”：肯尼迪兄弟如何化解1962年古巴导弹危机
+### 📌 Key Expressions
+- **avert** = 避免 / 化解（危险等）
+- **Cuban missile crisis** = 古巴导弹危机</textarea>
+      </div>
+    </div>
+
+    <!-- 杂志导语（Lead Paragraph） -->
+    <p style="color:#334155; font-size: 15px; line-height: 1.75; margin-bottom:16px; font-weight:400; background: #f8fafc; padding: 12px 14px; border-radius: 8px; border: 1px solid #f1f5f9;">
+      1962年10月，世界曾在核战争的边缘摇摇欲坠。为期14天的古巴导弹危机被认为是“人类历史上最危险的一周”。美国侦察机拍到了苏联在距离美国海岸仅90英里的古巴秘密部署核导弹的画面，引发了两个超级大国之间令人窒息的对峙。最终危机得以化解，苏联同意撤走武器。多年后知情人士向BBC透露，除了美国总统约翰·F·肯尼迪及其弟弟罗伯特展现出的克制与高超的外交手腕外，华盛顿一家酒吧里克格勃特工误听的一段偶然对话，竟也在促使赫鲁晓夫“眨眼退让”的过程中扮演了充满戏剧性与荒诞色彩的关键角色。
+    </p>
+
+    <div style="margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+      <div style="display:flex; flex-wrap:wrap; gap:6px;">
+        <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;">历史钩沉</span>
+        <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;">冷战风云</span>
+        <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;">领袖博弈</span>
+      </div>
+      <a href="https://www.bbc.com/culture/article/20261015-the-men-who-averted-the-1962-cuban-missile-crisis" target="_blank" style="font-size: 12.5px; color: #4f46e5; text-decoration: none; font-weight: 600; background: #eef2ff; padding: 5px 12px; border-radius: 16px; border: 1px solid #e0e7ff; display:inline-block;">🔗 阅读原文 ↗</a>
+    </div>
+
+    <!-- 最佳金句区 -->
+    <h2 class="section-header" style="border-left-color: #f59e0b;">💬 最佳金句</h2>
+    <div class="content-wrap" style="position:relative; margin-bottom:24px;">
+      <blockquote class="litit-target-quote" style="border-left: 3.5px solid #f59e0b; background: linear-gradient(135deg, #fffbeb 0%, #ffffff 100%); padding: 14px 14px; margin: 0; color: #1e293b; border-radius: 0 10px 10px 0; border-top: 1px solid #fef3c7; border-right: 1px solid #fef3c7; border-bottom: 1px solid #fef3c7;">
+        <div class="content litit-en-quote" style="position:relative; margin:0 0 8px 0; font-family: var(--font-serif); font-style: italic; font-weight:600; font-size: 16.5px; line-height: 1.55; color:#0f172a; word-break:break-word;">
+          "What passed between them was a dialogue of illusion and insinuation, a poker game in which the stakes were the lives of all of us."
+        </div>
+        <p class="litit-zh-quote" style="margin:0 0 8px 0; font-weight:400; font-size: 14.5px; line-height: 1.6; color:#475569; word-break:break-word;">
+          “他们之间的交锋是一场充满假象与暗示的对话，是一场赌注为我们所有人生命的扑克牌局。”
+        </p>
+        <footer style="text-align:right; font-size:12px; color:#64748b; font-style:normal; font-weight:600;">—— 记者 Allan Little 评价肯尼迪与苏联外长葛罗米柯在椭圆形办公室那场令人窒息的秘密会面</footer>
+      </blockquote>
+      <div class="anno-box" style="display:none;">
+        <div class="anno-view markdown-body"></div>
+        <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
+“他们之间的交锋是一场充满假象与暗示的对话，是一场赌注为我们所有人生命的扑克牌局。”
+### 📌 Key Expressions
+- **insinuation** = 暗示 / 旁敲侧击
+- **the stakes** = 赌注 / 风险</textarea>
+      </div>
+    </div>
+
+    <!-- Grid 布局关键数字区 -->
+    <h2 class="section-header" style="border-left-color: #10b981;">📊 关键数字</h2>
+    <div style="display:grid; grid-template-columns: repeat(2, 1fr); gap:10px; margin:14px 0 24px 0;">
+      <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+        <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+          14<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">天</span>
+        </div>
+        <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">从1962年10月14日到28日，这场震惊世界的危机所持续的时长</div>
+      </div>
+      <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+        <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+          90<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">英里</span>
+        </div>
+        <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">苏联秘密部署核导弹的古巴岛屿距离美国海岸线的致命距离</div>
+      </div>
+      <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+        <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+          40,000<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">人</span>
+        </div>
+        <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">伪装成游客和农业专家悄悄潜入哈瓦那的苏联士兵与技术人员数量</div>
+      </div>
+      <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+        <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+          5,000<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">份</span>
+        </div>
+        <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">美军早期收到的关于古巴导弹的情报报告数（当时被误判为假消息）</div>
+      </div>
+    </div>
+
+    <h2 class="section-header" style="border-left-color: #3b82f6;">⏱️ 事件时间线</h2>
+    <ul style="padding-left:18px; line-height:1.8; color:#334155; font-size: 14.5px; margin-bottom:24px; word-break:break-word;">
+      <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">1962年夏天：</strong> 超4万名苏联军人与技术人员伪装成游客潜入古巴，秘密部署核导弹。</li>
+      <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">10月14日：</strong> 美国 U-2 间谍飞机拍下导弹基地的确凿证据，危机正式爆发。</li>
+      <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">10月18日：</strong> 肯尼迪与苏联外长葛罗米柯在椭圆形办公室会面，但肯尼迪选择隐瞒证据，上演惊心动魄的政治“扑克牌局”。</li>
+      <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">10月22日：</strong> 肯尼迪向全国发表电视讲话，将危机公之于众，并宣布对古巴实施严密的海上军事封锁（Quarantine）。</li>
+      <li><strong style="color:#1d4ed8;">10月25日：</strong> 在华盛顿的一家酒吧，一名苏联间谍误听了两名记者的闲聊，向莫斯科发回“美国即将入侵”的紧急情报，这在一定程度上意外促成了赫鲁晓夫的退让。</li>
+    </ul>
+
+    <h2 class="section-header" style="border-left-color: #8b5cf6;">✨ 本篇亮点与精读</h2>
+    <div style="margin: 14px 0 10px 0;">
+
+      <!-- 第一板块：一、重点记忆 -->
+      <details class="litit-fold">
+        <summary>
+          <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">一、重点记忆</h3>
+        </summary>
+        <div class="litit-fold-content">
+          <ul style="list-style-type: square; margin: 0; padding-left: 18px; line-height: 1.6;">
+            <li class="litit-target-sentence" style="margin-bottom: 10px;">
+              <strong class="litit-badge">avert</strong>：避免 / 化解 / 转移（灾难等）<br>
+              <strong class="litit-en-sentence">The crisis was ultimately averted when the Soviets agreed to remove their weapons.</strong>
+              <span class="litit-zh-sentence">当苏联同意撤走其武器时，危机最终得以化解。</span>
+            </li>
+            <li class="litit-target-sentence" style="margin-bottom: 10px;">
+              <strong class="litit-badge">climb-down</strong>：让步 / 退让 / 认输<br>
+              <strong class="litit-en-sentence">The Soviets' climb-down, it turned out, was influenced by US President John F Kennedy.</strong>
+              <span class="litit-zh-sentence">事实证明，苏联的让步受到了美国总统约翰·肯尼迪的影响。</span>
+            </li>
+            <li class="litit-target-sentence" style="margin-bottom: 10px;">
+              <strong class="litit-badge">covertly</strong>：秘密地 / 隐蔽地<br>
+              <strong class="litit-en-sentence">Covertly installing nuclear missiles on the island.</strong>
+              <span class="litit-zh-sentence">在这个岛上秘密安装核导弹。</span>
+            </li>
+            <li class="litit-target-sentence" style="margin-bottom: 10px;">
+              <strong class="litit-badge">vis-à-vis</strong>：面对 / 与……相比 / 关于<br>
+              <strong class="litit-en-sentence">Reorganise the Soviet position vis-à-vis its allies, vis-à-vis Cuba.</strong>
+              <span class="litit-zh-sentence">重新调整苏联面对其盟友以及面对古巴的立场。</span>
+            </li>
+            <li class="litit-target-sentence" style="margin-bottom: 10px;">
+              <strong class="litit-badge">escalation</strong>：升级 / 恶化（尤指战争或冲突）<br>
+              <strong class="litit-en-sentence">Kennedy ruled out an immediate airstrike followed by invasion, fearing the dangers of escalation.</strong>
+              <span class="litit-zh-sentence">肯尼迪排除了立即进行空袭并随后入侵的方案，因为他担心冲突升级的危险。</span>
+            </li>
+          </ul>
+        </div>
+      </details>
+
+      <!-- 第二板块：二、高价值表达 -->
+      <details class="litit-fold">
+        <summary>
+          <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">二、高价值表达</h3>
+        </summary>
+        <div class="litit-fold-content">
+          <ol style="margin: 0; padding-left: 18px;">
+            <li style="margin-bottom: 12px;">
+              <strong class="litit-badge">save the day</strong>：转危为安 / 挽救局面。<br>
+              <span class="litit-zh-sentence" style="margin-top: 4px;">非常地道的口语和新闻表达，意指在极其危险或失败的边缘成功扭转了局势。</span>
+            </li>
+            <li style="margin-bottom: 12px;">
+              <strong class="litit-badge">reveal his hand</strong>：亮出底牌 / 摊牌。<br>
+              <span class="litit-zh-sentence" style="margin-top: 4px;">源自扑克牌游戏，引申为在谈判或对抗中暴露自己的真实意图、掌握的情报或筹码。</span>
+            </li>
+            <li style="margin-bottom: 12px;">
+              <strong class="litit-badge">play God</strong>：扮演上帝 / 操纵生死。<br>
+              <span class="litit-zh-sentence" style="margin-top: 4px;">形容某人自以为拥有无上的权力，可以肆意决定他人的命运或世界的存亡（文中肯尼迪指责赫鲁晓夫单方面挑起核危险）。</span>
+            </li>
+          </ol>
+        </div>
+      </details>
+
+      <!-- 第三板块：三、短语和固定搭配 -->
+      <details class="litit-fold">
+        <summary>
+          <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">三、短语和固定搭配</h3>
+        </summary>
+        <div class="litit-fold-content">
+          <ul style="list-style-type: square; margin: 0; padding-left: 18px; line-height: 1.6;">
+            <li class="litit-target-sentence" style="margin-bottom: 10px;">
+              <strong class="litit-badge">teeter on the brink of</strong>：在……的边缘摇摇欲坠<br>
+              <strong class="litit-en-sentence">The world teetered on the brink of nuclear war.</strong>
+              <span class="litit-zh-sentence">世界在核战争的边缘摇摇欲坠。</span>
+            </li>
+            <li class="litit-target-sentence" style="margin-bottom: 10px;">
+              <strong class="litit-badge">pose as</strong>：冒充 / 伪装成<br>
+              <strong class="litit-en-sentence">Posing as tourists and agricultural specialists.</strong>
+              <span class="litit-zh-sentence">伪装成游客和农业专家。</span>
+            </li>
+            <li class="litit-target-sentence" style="margin-bottom: 10px;">
+              <strong class="litit-badge">at arm's length</strong>：触手可及的地方（也可指“保持距离”）<br>
+              <strong class="litit-en-sentence">Kennedy had the aerial photographs at arm's length.</strong>
+              <span class="litit-zh-sentence">肯尼迪将航空照片放在触手可及的地方（就在抽屉里）。</span>
+            </li>
+            <li class="litit-target-sentence" style="margin-bottom: 10px;">
+              <strong class="litit-badge">play for time</strong>：拖延时间 / 争取时间<br>
+              <strong class="litit-en-sentence">Some believed Kennedy was playing for time all along.</strong>
+              <span class="litit-zh-sentence">一些人认为肯尼迪自始至终都在争取时间。</span>
+            </li>
+          </ul>
+        </div>
+      </details>
+
+      <!-- 第四板块：四、值得学习的句子结构 -->
+      <details class="litit-fold">
+        <summary>
+          <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">四、值得学习的句子结构</h3>
+        </summary>
+        <div class="litit-fold-content">
+          <ol style="margin: 0; padding-left: 18px;">
+            <li class="litit-target-sentence" style="margin-bottom: 12px;">
+              <strong class="litit-en-sentence">What passed between them was a dialogue of illusion and insinuation, a poker game in which the stakes were the lives of all of us.</strong>
+              <span class="litit-zh-sentence">他们之间的交锋是一场充满假象与暗示的对话，是一场赌注为我们所有人生命的扑克牌局。</span>
+              <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+                <li style="margin-bottom: 3px;"><strong>What passed between them...</strong>：What 引导主语从句，表达“在他们之间发生的交流”。</li>
+                <li style="margin-bottom: 3px;"><strong>a poker game in which...</strong>：同位语做进一步解释，in which 引导定语从句生动勾勒出这场博弈的致命风险。</li>
+              </ul>
+            </li>
+            <li class="litit-target-sentence" style="margin-bottom: 12px;">
+              <strong class="litit-en-sentence">The resolution of the crisis showed that the men who handled it, handled it exactly the right way.</strong>
+              <span class="litit-zh-sentence">危机的解决表明，处理这场危机的人，处理得恰到好处。</span>
+              <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+                <li style="margin-bottom: 3px;"><strong>the men who handled it, handled it...</strong>：主语是被定语从句修饰的 the men，其后的 handled 才是主句谓语。这种重复在修辞上形成了极强的肯定语气与节奏感。</li>
+              </ul>
+            </li>
+            <li class="litit-target-sentence" style="margin-bottom: 12px;">
+              <strong class="litit-en-sentence">We mustn't therefore be frightened out of a firm and honourable position by the terrors of a world war.</strong>
+              <span class="litit-zh-sentence">因此，我们绝不能被世界大战的恐怖所吓倒，从而放弃坚定而体面的立场。</span>
+              <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+                <li style="margin-bottom: 3px;"><strong>be frightened out of [somewhere/something] by...</strong>：被动语态搭配介词短语，画面感极强。字面意思是“被...吓得退出了（某种立场）”。</li>
+              </ul>
+            </li>
+          </ol>
+        </div>
+      </details>
+
+      <!-- 第五板块：五、最值得优先掌握的句型 -->
+      <details class="litit-fold">
+        <summary>
+          <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">五、最值得优先掌握的句型</h3>
+        </summary>
+        <div class="litit-fold-content">
+          <ol style="margin: 0; padding-left: 18px;">
+            <li style="margin-bottom: 12px;">
+              <strong class="litit-en-sentence" style="color: #4338ca;">What passed between [人物 A] and [人物 B] was a dialogue of [抽象名词1] and [抽象名词2], a [比喻名词] in which the stakes were [极致代价].</strong>
+              <span class="litit-zh-sentence">A 与 B 之间的交流是一场充满 [抽象概念] 的对话，是一场赌注为 [代价] 的 [比喻事物]。<br>（用于刻画高层政治、商业谈判或极端对抗中表面平静实则暗流汹涌的绝佳句式）。</span>
+            </li>
+            <li style="margin-bottom: 12px;">
+              <strong class="litit-en-sentence" style="color: #4338ca;">We mustn't be frightened out of a [正面形容词] position by the terrors of [巨大威胁].</strong>
+              <span class="litit-zh-sentence">我们绝不能被 [巨大威胁] 的恐怖所吓倒，从而放弃 [正面] 的立场。<br>（表达在极端压力和危机面前保持战略定力与原则的黄金句型）。</span>
+            </li>
+          </ol>
+        </div>
+      </details>
+
+      <!-- 第六板块：六、课后考察 (Quiz) -->
+      <details class="litit-fold">
+        <summary>
+          <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">六、课后考察 (Quiz)</h3>
+        </summary>
+        <div class="litit-fold-content">
+          <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; margin-bottom: 10px;">
+            
+            <!-- Question 1: 语法与长难句剖析 -->
+            <div class="quiz-item" data-correct="B" style="margin-bottom: 20px;">
+              <p style="font-weight: 700; color: #0f172a; margin-bottom: 8px;">Q1: In the sentence "What passed between them was a dialogue of illusion and insinuation", what is the grammatical function of the clause "What passed between them"?</p>
+              <div style="display: flex; flex-direction: column; gap: 6px; margin-bottom: 8px;">
+                <label style="cursor: pointer; font-size: 14.5px;"><input type="radio" name="q1" value="A"> A) It serves as an object clause modifying the verb "was".</label>
+                <label style="cursor: pointer; font-size: 14.5px;"><input type="radio" name="q1" value="B"> B) It serves as the subject clause of the entire sentence.</label>
+                <label style="cursor: pointer; font-size: 14.5px;"><input type="radio" name="q1" value="C"> C) It is a relative clause providing extra background info for "them".</label>
+              </div>
+              <div class="quiz-feedback" style="display: none;"></div>
+            </div>
+
+            <!-- Question 2: 熟词生义与语境精准理解 -->
+            <div class="quiz-item" data-correct="C" style="margin-bottom: 20px;">
+              <p style="font-weight: 700; color: #0f172a; margin-bottom: 8px;">Q2: The text says that during the meeting, "neither man revealed his hand." Derived from card games, what does this idiom imply in the context of this diplomatic showdown?</p>
+              <div style="display: flex; flex-direction: column; gap: 6px; margin-bottom: 8px;">
+                <label style="cursor: pointer; font-size: 14.5px;"><input type="radio" name="q2" value="A"> A) Neither man offered a handshake because they were hostile enemies.</label>
+                <label style="cursor: pointer; font-size: 14.5px;"><input type="radio" name="q2" value="B"> B) Neither man had written documents to prove their arguments.</label>
+                <label style="cursor: pointer; font-size: 14.5px;"><input type="radio" name="q2" value="C"> C) Neither man disclosed their true intentions, hidden intelligence, or the resources they possessed.</label>
+              </div>
+              <div class="quiz-feedback" style="display: none;"></div>
+            </div>
+
+            <!-- Question 3: 深层推断与作者意图 -->
+            <div class="quiz-item" data-correct="B" style="margin-bottom: 10px;">
+              <p style="font-weight: 700; color: #0f172a; margin-bottom: 8px;">Q3: According to the article, why did the undercover KGB agent send an urgent message to Moscow that an invasion was imminent, leading Khrushchev to ultimately "blink"?</p>
+              <div style="display: flex; flex-direction: column; gap: 6px; margin-bottom: 8px;">
+                <label style="cursor: pointer; font-size: 14.5px;"><input type="radio" name="q3" value="A"> A) Because President Kennedy officially announced the invasion plan in a television address on Oct 25.</label>
+                <label style="cursor: pointer; font-size: 14.5px;"><input type="radio" name="q3" value="B"> B) Because a bartender misheard and misreported a conversation between journalists discussing "contingency plans" as an actual, confirmed attack.</label>
+                <label style="cursor: pointer; font-size: 14.5px;"><input type="radio" name="q3" value="C"> C) Because Soviet aerial photographs showed American troops already landing on the beaches of Miami.</label>
+              </div>
+              <div class="quiz-feedback" style="display: none;"></div>
+            </div>
+
+          </div>
+        </div>
+      </details>
+
+    </div>
+
+    <!-- 幕后冷知识 -->
+    <h2 class="section-header" style="border-left-color: #0d9488;">💡 幕后冷知识 (Fun Facts)</h2>
+    <ul style="padding-left:18px; line-height:1.8; color:#334155; font-size:14.5px; margin-bottom:24px; word-break:break-word;">
+      <li style="margin-bottom: 8px;"><strong>Excomm (国家安全委员会执行委员会)：</strong> 危机期间，肯尼迪召集了一个绝密战时内阁应对局势。这个机构的辩论被肯尼迪偷偷用隐藏麦克风录了下来。有趣的是，录音显示许多在回忆录里自称“主和派”的高官，在当时其实是极具攻击性的“主战派”。</li>
+      <li style="margin-bottom: 8px;"><strong>"Eyeball to eyeball"（针锋相对/大眼瞪小眼）：</strong> 这句名言常常被误认为是肯尼迪或赫鲁晓夫说的，其实它出自当时的美国国务卿迪安·腊斯克（Dean Rusk）。在苏联船只于封锁线前转向时，他告诉内阁成员：“我们在跟对方大眼瞪小眼，而我想对方刚刚眨眼了（blinked）。”</li>
+      <li><strong>情报乌龙与历史偶然：</strong> 那位在国家新闻俱乐部酒吧向克格勃特工提供“美军即将入侵”情报的酒保，其实根本不是间谍，他只是听岔了两名记者的闲聊（记者只是在讨论“如果”开战，报社该怎么派人去前线报道的预案）。这段阴差阳错的“假情报”，反而让莫斯科感到了巨大的时间压力，加速了撤军妥协。</li>
+    </ul>
+
+    <!-- 全片锐评 -->
+    <h2 class="section-header" style="border-left-color: #e11d48;">🎯 全片锐评</h2>
+    <p style="line-height:1.75; color:#1e293b; font-weight:500; background:linear-gradient(135deg, #fff1f2 0%, #ffffff 100%); padding:14px 16px; border-radius:10px; font-size:14.5px; margin:0 0 12px 0; border:1px solid #ffe4e6; word-break:break-word;">
+      1962年的古巴导弹危机，向来被视作政治领袖在极限施压下如何避免世界末日的教科书级案例。文章最为绝妙之处，是它剥开了宏大叙事的坚硬外壳，向我们展示了历史进程中那令人毛骨悚然的“脆弱感”。在椭圆形办公室里，肯尼迪明明掌握着照片铁证，却将其藏在抽屉里，硬生生地与苏联外长玩起了一场以全人类生命为筹码的“扑克牌局”——这种在悬崖边缘保持冷静、懂得给对手留出“退让空间（time to reorganise his position）”的外交手腕，正是当时英国首相麦克米伦口中“政治家的核心素养”。然而，极具讽刺意味的是，促使赫鲁晓夫最终妥协的最后一根稻草，居然来源于华盛顿酒吧里一个酒保听错的八卦闲聊。最高级的战略定力与最荒诞的情报乌龙，在那个冷战巅峰的10月交织在一起，共同且侥幸地将人类从核毁灭的深渊中拉了回来。
+    </p>
+
+  </div>
+
+  <script id="core-engine">
+    let syncTimeout = null;
+    const AI_PROMPT = "请分析以下英文段落，并严格按照以下 Markdown 格式输出（不要输出任何额外的废话）：\n\n### 📌 完整翻译\n\n[此处填写完整翻译]\n\n### 📌 Key Expressions\n\n- **[单词或短语]**\n  = [中文释义]\n  （[可选的补充说明，如倒装结构或语境等]）\n\n段落内容：\n";
+
+    // --- 顶部阅读进度条逻辑 ---
+    function initProgressBar() {
+      const progressBar = document.getElementById('reading-progress');
+      if (!progressBar) return;
+      window.addEventListener('scroll', () => {
+        const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        if (scrollHeight <= 0) return;
+        const scrollPercent = (scrollTop / scrollHeight) * 100;
+        progressBar.style.width = scrollPercent + '%';
+      }, { passive: true });
+    }
+
+    async function fetchGroq(text, apiKey, modelName) {
+      const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Authorization': 'Bearer ' + apiKey,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          model: modelName || 'llama-3.3-70b-versatile',
+          messages: [
+            { role: 'system', content: 'You are an English teacher. Output EXACTLY in the requested Markdown format.' },
+            { role: 'user', content: AI_PROMPT + '"' + text + '"' }
+          ],
+          temperature: 0.3
+        })
+      });
+      if (!res.ok) throw new Error('Groq Error: ' + res.status);
+      const json = await res.json();
+      return json.choices[0].message.content.trim();
+    }
+
+    async function fetchCustomAI(text, url, apiKey, modelName) {
+      let headers = { 'Content-Type': 'application/json' };
+      let bodyData = {};
+      if (url.includes('anthropic.com')) {
+        headers['x-api-key'] = apiKey;
+        headers['anthropic-version'] = '2023-06-01';
+        headers['anthropic-dangerous-direct-browser-access'] = 'true';
+        bodyData = {
+          model: modelName || 'claude-3-5-sonnet-20241022',
+          max_tokens: 2000,
+          messages: [{ role: 'user', content: AI_PROMPT + '"' + text + '"' }]
+        };
+      } else if (url.includes('generativelanguage.googleapis.com')) {
+        let targetUrl = url;
+        if (!targetUrl.includes('key=')) {
+          targetUrl += (targetUrl.includes('?') ? '&' : '?') + 'key=' + apiKey;
+        }
+        const res = await fetch(targetUrl, {
+          method: 'POST',
+          headers: headers,
+          body: JSON.stringify({
+            contents: [{ parts: [{ text: AI_PROMPT + '"' + text + '"' }] }]
+          })
+        });
+        if (!res.ok) throw new Error('Gemini Error: ' + res.status);
+        const json = await res.json();
+        return json.candidates[0].content.parts[0].text.trim();
+      } else {
+        headers['Authorization'] = 'Bearer ' + apiKey;
+        bodyData = {
+          model: modelName || 'gpt-4o-mini',
+          messages: [
+            { role: 'system', content: 'You are an English teacher. Output EXACTLY in the requested Markdown format.' },
+            { role: 'user', content: AI_PROMPT + '"' + text + '"' }
+          ],
+          temperature: 0.3
+        };
+      }
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: headers,
+        body: JSON.stringify(bodyData)
+      });
+      if (!res.ok) throw new Error('AI Interface Error: ' + res.status);
+      const json = await res.json();
+      if (json.choices && json.choices.length > 0) return json.choices[0].message.content.trim();
+      throw new Error('AI 返回数据异常');
+    }
+
+    async function executeAIPipeline(text) {
+      const customUrl = localStorage.getItem('CUSTOM_API_URL') || '';
+      const customKey = localStorage.getItem('CUSTOM_API_KEY') || '';
+      const customModel = localStorage.getItem('CUSTOM_MODEL') || '';
+      const groqKey = localStorage.getItem('GROQ_API_KEY') || '';
+      const groqModel = localStorage.getItem('GROQ_MODEL') || '';
+
+      if (customUrl && customKey) {
+        try {
+          return await fetchCustomAI(text, customUrl, customKey, customModel);
+        } catch (err) {
+          if (groqKey) return await fetchGroq(text, groqKey, groqModel);
+          throw err;
+        }
+      } else if (groqKey) {
+        return await fetchGroq(text, groqKey, groqModel);
+      } else {
+        const userKey = prompt('⚠️ 当前页面未检测到 AI Key！\n为了安全，密匙只储存在您本地浏览器中。\n\n请输入您的 API Key (如 sk-xxx 或 gsk_xxx):');
+        if (userKey && userKey.trim()) {
+          const cleanKey = userKey.trim();
+          if (cleanKey.startsWith('gsk_')) {
+            localStorage.setItem('GROQ_API_KEY', cleanKey);
+          } else {
+            localStorage.setItem('CUSTOM_API_KEY', cleanKey);
+            localStorage.setItem('CUSTOM_API_URL', 'https://api.chatanywhere.tech/v1/chat/completions');
+          }
+        }
+        throw new Error('未设置 AI API Key');
+      }
+    }
+
+    function getPurifiedFallbackHTML() {
+      const clone = document.documentElement.cloneNode(true);
+      const foreignSelectors = [
+        'relingo-app', 'relin-highlight', 'relin-hc', '[class*="relingo"]',
+        '[data-relin-paragraph]', 'grammarly-extension', '[data-grammarly-part]',
+        '[class*="immersive-translate"]', '[data-immersive-translate]'
+      ].join(',');
+      clone.querySelectorAll(foreignSelectors).forEach(el => el.remove());
+      clone.querySelectorAll('relin-highlight, relin-hc').forEach(t => {
+        const frag = document.createDocumentFragment();
+        while(t.firstChild) frag.appendChild(t.firstChild);
+        t.parentNode.replaceChild(frag, t);
+      });
+      clone.querySelectorAll('script').forEach(s => {
+        if (!s.src.includes('marked.min.js') && s.id !== 'core-engine') s.remove();
+      });
+      clone.querySelectorAll('style').forEach(s => {
+        if (s.id !== 'core-style') s.remove();
+      });
+      const liveTAs = document.querySelectorAll('.anno-edit');
+      clone.querySelectorAll('.anno-edit').forEach((ta, i) => {
+        if(liveTAs[i]) ta.textContent = liveTAs[i].value.trim();
+        const box = ta.closest('.anno-box');
+        if (box) box.style.display = 'none';
+        const view = box ? box.querySelector('.anno-view') : null;
+        if (view) view.innerHTML = '';
+      });
+      return '<!DOCTYPE html>\n<html lang="zh-CN">\n' + clone.innerHTML + '\n</html>';
+    }
+
+    async function syncToCloud() {
+      const ghToken = localStorage.getItem('LITIT_GH_TOKEN') || localStorage.getItem('GH_TOKEN');
+      const ghOwner = 'moodHappy';
+      const ghRepo = 'dual-read-notes';
+      if (!ghToken) return;
+
+      const pathParts = window.location.pathname.split('/');
+      const fileName = pathParts.pop();
+      const month = pathParts.pop();
+      const year = pathParts.pop();
+      if(!fileName || !month || !year) return;
+
+      const fileRelPath = 'Summary/' + year + '/' + month + '/' + fileName;
+
+      try {
+        const getRes = await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath + '?t=' + Date.now(), {
+          headers: { 'Authorization': 'Bearer ' + ghToken },
+          cache: 'no-store'
+        });
+        let finalHTML = '';
+        let sha = '';
+        if (getRes.ok) {
+          const fileData = await getRes.json();
+          sha = fileData.sha;
+          const cleanRawHTML = decodeURIComponent(escape(atob(fileData.content.replace(/\n/g, ''))));
+          const parser = new DOMParser();
+          const cleanDoc = parser.parseFromString(cleanRawHTML, 'text/html');
+
+          const liveTAs = document.querySelectorAll('.anno-edit');
+          const cleanTAs = cleanDoc.querySelectorAll('.anno-edit');
+          liveTAs.forEach((liveTa, index) => {
+            if (cleanTAs[index]) {
+              const val = liveTa.value.trim();
+              cleanTAs[index].textContent = val;
+              const box = cleanTAs[index].closest('.anno-box');
+              if (box) box.style.display = 'none';
+              const view = box ? box.querySelector('.anno-view') : null;
+              if (view) view.innerHTML = '';
+            }
+          });
+          cleanDoc.querySelectorAll('.anno-toggle').forEach(t => {
+            t.classList.remove('has-anno');
+            const ta = t.closest('.content-wrap, .litit-highlight-block')?.querySelector('.anno-edit');
+            if (ta && ta.textContent.trim()) t.classList.add('has-anno');
+          });
+          finalHTML = '<!DOCTYPE html>\n<html lang="zh-CN">\n' + cleanDoc.documentElement.innerHTML + '\n</html>';
+        } else {
+          finalHTML = getPurifiedFallbackHTML();
+        }
+
+        await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath, {
+          method: 'PUT',
+          headers: {
+            'Authorization': 'Bearer ' + ghToken,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            message: 'Silent purified annotation update',
+            content: btoa(unescape(encodeURIComponent(finalHTML))),
+            sha: sha || undefined
+          })
+        });
+        console.log('✅ [My Litit] 纯净无污染批注已静默同步至 GitHub');
+      } catch(e) {
+        console.warn('❌ [My Litit] 同步跳过或失败:', e);
+      }
+    }
+
+    function scheduleSync() {
+      if (syncTimeout) clearTimeout(syncTimeout);
+      syncTimeout = setTimeout(() => { syncToCloud(); }, 3000);
+    }
+
+    function initAnnotations() {
+      document.querySelectorAll('.litit-highlight-block, .content-wrap').forEach(wrap => {
+        let content = wrap.querySelector('.content');
+        if (!content) {
+          const pText = wrap.querySelector('p');
+          if (pText) {
+            content = document.createElement('div');
+            content.className = 'content';
+            content.style.cssText = 'position:relative; margin:0 0 6px 0; color:#1a202c; font-family:Georgia, serif; line-height:1.7; font-size:15px; word-break:break-word;';
+            content.innerHTML = pText.innerHTML;
+            pText.parentNode.replaceChild(content, pText);
+          }
+        }
+        if (!content) return;
+
+        if (!content.querySelector('.anno-toggle')) {
+          const toggle = document.createElement('span');
+          toggle.className = 'anno-toggle';
+          toggle.title = '手写批注/笔记';
+          content.appendChild(toggle);
+        }
+        if (!content.querySelector('.ai-toggle')) {
+          const aiToggle = document.createElement('span');
+          aiToggle.className = 'ai-toggle';
+          aiToggle.title = 'AI智能二次解析';
+          content.appendChild(aiToggle);
+        }
+
+        let box = wrap.querySelector('.anno-box');
+        if (!box) {
+          box = document.createElement('div');
+          box.className = 'anno-box';
+          box.style.display = 'none';
+          box.innerHTML = '<div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 解析..."></textarea>';
+          wrap.appendChild(box);
+        }
+
+        const view = box.querySelector('.anno-view');
+        const edit = box.querySelector('.anno-edit');
+        const toggle = content.querySelector('.anno-toggle');
+        const aiToggle = content.querySelector('.ai-toggle');
+
+        if (edit && edit.value.trim()) {
+          toggle.classList.add('has-anno');
+          try {
+            view.innerHTML = (typeof marked !== 'undefined') ? marked.parse(edit.value.trim()) : edit.value.trim();
+          } catch(e){}
+        }
+
+        if (aiToggle) {
+          aiToggle.onclick = async (e) => {
+            e.preventDefault(); e.stopPropagation();
+            if (aiToggle.classList.contains('loading')) return;
+            if (edit && edit.value.trim() !== '') {
+              const confirmOverwrite = confirm('⚠️ 已经存在批注内容。点击"确定"将使用 AI 解析覆盖现有内容。是否继续？');
+              if (!confirmOverwrite) return;
+            }
+            const pClone = content.cloneNode(true);
+            pClone.querySelectorAll('.anno-toggle, .ai-toggle').forEach(el => el.remove());
+            let pText = pClone.textContent.replace(/https?:\/\/\S+/g, '').trim();
+            if (!pText) return;
+
+            aiToggle.classList.add('loading');
+            try {
+              const aiContent = await executeAIPipeline(pText);
+              box.style.display = 'block';
+              view.style.display = 'none';
+              edit.style.display = 'block';
+              edit.value = aiContent;
+              edit.focus(); edit.blur();
+            } catch (err) {
+              console.error(err);
+            } finally {
+              aiToggle.classList.remove('loading');
+            }
+          };
+        }
+
+        if (toggle) {
+          toggle.onclick = (e) => {
+            e.preventDefault(); e.stopPropagation();
+            if (box.style.display === 'block') {
+              box.style.display = 'none';
+            } else {
+              box.style.display = 'block';
+              if (!edit.value.trim()) {
+                view.style.display = 'none';
+                edit.style.display = 'block';
+                setTimeout(() => { edit.focus(); }, 150);
+              } else {
+                view.style.display = 'block';
+                edit.style.display = 'none';
+              }
+            }
+          };
+        }
+
+        const triggerEdit = (e) => {
+          if(e) { e.preventDefault(); e.stopPropagation(); }
+          view.style.display = 'none';
+          edit.style.display = 'block';
+          edit.value = edit.value;
+          setTimeout(() => { edit.focus(); }, 150);
+        };
+
+        view.addEventListener('dblclick', triggerEdit);
+        let lastTap = 0;
+        view.addEventListener('touchstart', e => {
+          if (e.touches.length === 2) {
+            triggerEdit(e);
+          } else if (e.touches.length === 1) {
+            const currentTime = new Date().getTime();
+            if (currentTime - lastTap < 500 && currentTime - lastTap > 0) {
+              e.preventDefault();
+              box.style.display = 'none';
+            }
+            lastTap = currentTime;
+          }
+        }, {passive: false});
+
+        if (edit && view) {
+          edit.onblur = () => {
+            setTimeout(() => {
+              const newVal = edit.value.trim();
+              try {
+                view.innerHTML = newVal ? ((typeof marked !== 'undefined') ? marked.parse(newVal) : newVal) : '';
+              } catch(e){}
+              edit.style.display = 'none';
+              if (newVal) {
+                view.style.display = 'block';
+                toggle.classList.add('has-anno');
+              } else {
+                view.style.display = 'none';
+                box.style.display = 'none';
+                toggle.classList.remove('has-anno');
+              }
+              if (edit.getAttribute('data-old-val') !== newVal) {
+                edit.setAttribute('data-old-val', newVal);
+                scheduleSync();
+              }
+            }, 150);
+          };
+          edit.setAttribute('data-old-val', edit.value.trim());
+        }
+      });
+    }
+
+    // 课后考察板块交互逻辑
+    function initQuiz() {
+      document.querySelectorAll('.quiz-item').forEach(item => {
+        const correct = item.getAttribute('data-correct');
+        const radios = item.querySelectorAll('input[type="radio"]');
+        const feedback = item.querySelector('.quiz-feedback');
+
+        radios.forEach(radio => {
+          radio.addEventListener('change', () => {
+            const selected = radio.value;
+            radios.forEach(r => r.disabled = true); // 选择后锁定选项
+            feedback.style.display = 'block';
+            if (selected === correct) {
+              feedback.style.background = '#ecfdf5';
+              feedback.style.color = '#065f46';
+              feedback.style.border = '1px solid #a7f3d0';
+              feedback.innerHTML = `<strong>✅ 回答正确！</strong><br>` + getExplanation(item, correct);
+            } else {
+              feedback.style.background = '#fef2f2';
+              feedback.style.color = '#991b1b';
+              feedback.style.border = '1px solid #fecaca';
+              feedback.innerHTML = `<strong>❌ 回答错误。</strong> 正确答案是 <strong>${correct}</strong>。<br>` + getExplanation(item, correct);
+            }
+          });
+        });
+      });
+    }
+
+    function getExplanation(item, correct) {
+      const qIndex = item.querySelector('p').textContent;
+      if (qIndex.includes('Q1')) {
+        return '解析：这是一道句法结构题。"What passed between them" 是一个由 "What" 引导的名词性从句，在整个句子中充当主语，意思是“在他们之间发生的交流/事情”。';
+      } else if (qIndex.includes('Q2')) {
+        return '解析：这是一道语境词义题。"Reveal one\'s hand" 源自扑克牌游戏中的“摊牌”。在外交和政治博弈的语境中，它被引申为“暴露自己的底牌”——即泄露自己的真实意图、掌握的情报（此处指美国已掌握导弹照片的秘密）或谈判筹码。';
+      } else {
+        return '解析：这是一道深层推断题。克格勃特工在酒吧听到了酒保的“爆料”，而酒保其实是误听了两名记者的闲聊（他们只是在探讨“如果”发生入侵，报社该如何部署记者的预案）。这个偶然的“假情报”让莫斯科误以为美军的入侵迫在眉睫，从而极大地增加了赫鲁晓夫的心理压力，促使其最终退让。';
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      initProgressBar();
+      initAnnotations();
+      initQuiz();
+    });
+
+    window.addEventListener('load', () => {
+      initAnnotations();
+    });
+  </script>
+</body>
+</html>
