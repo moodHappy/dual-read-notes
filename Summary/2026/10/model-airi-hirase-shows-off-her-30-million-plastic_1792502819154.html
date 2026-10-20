@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Model Airi Hirase Shows Off Her ¥30 Million Plastic Surgery Glow-Up</title>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <style id="core-style">
+    /* ======================================================================
+       [AI TEMPLATE GUIDELINES - CSS 核心排版规范]
+       致其他 AI 助手：在生成此模板时，请严格遵守以下样式分配规则：
+       1. 序号规则：列表的 NO.01 序号由伪类 `::before` 自动生成且独占一行。千万不要在 HTML 中手动输入“NO.01”。
+       2. 标签规则：文章开头的标签胶囊纯文字即可，禁止带 `#` 号。类别标签严格限制在最多两个单词以内，以避免在移动端发生换行。
+       3. 胶囊高亮（.litit-badge）：仅用于第 1、2、3 板块（重点记忆、高价值表达、短语和固定搭配）的【短词组/单词】，表现为紫色渐变背景的内联胶囊。
+       4. 长句排版（.litit-en-sentence）：用于第 4 板块（值得学习的句子结构）和第 5 板块（最值得优先掌握的句型）的【长句/长句型】。严禁将长句型放入 .litit-badge 中，否则会导致折行错乱。并且中文解释中的括号补充内容需使用 <br> 另起一行。
+       5. 课后考察出题规范：核心目标是“深度学习英语”，绝对禁止考察单纯的表层信息检索（如具体金额、地点或能在文中直接找到的原话）。三个选择题应根据文章实际内容灵活设计，重点考察以下三个进阶维度：
+          - 题1：句法逻辑与结构剖析（Syntactic & Logical Parsing）。考察长难句的主干提取、复杂修饰语的逻辑关系（因果/转折）、或代词/指代对象的精准还原。
+          - 题2：语境词义与地道表达（Contextual Vocabulary & Usage）。考察熟词生义、地道短语搭配，或特定单词在当前语境下的精确含义与感情色彩（如褒贬义、幽默、讽刺）。
+          - 题3：深层推断与作者意图（Inference & Author's Intent）。考察母语者的“言外之音”、特定修辞或句式的作用，或对某一段落核心态度/潜台词的推理。
+       ====================================================================== */
+    :root {
+      --bg-page: #ffffff;
+      --bg-card: #ffffff;
+      --text-main: #0f172a;
+      --text-sub: #334155;
+      --text-muted: #64748b;
+      --accent-primary: #4f46e5;
+      --border-subtle: #e2e8f0;
+      --font-serif: "Georgia", "Charter", "Source Han Serif SC", "Noto Serif CJK SC", serif;
+      --font-sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", Roboto, sans-serif;
+    }
+    body {
+      font-family: var(--font-sans);
+      padding: 12px 12px 36px 12px;
+      margin: 0 auto;
+      max-width: 780px;
+      background: var(--bg-page);
+      color: var(--text-main);
+      line-height: 1.75;
+      font-size: 16px;
+      word-wrap: break-word;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    * { box-sizing: border-box; max-width: 100%; }
+    img { max-width: 100%; height: auto; border-radius: 8px; }
+    /* 顶部极简阅读进度条 */
+    #reading-progress {
+      position: fixed; top: 0; left: 0; width: 0%; height: 3px;
+      background: linear-gradient(90deg, #4f46e5, #9333ea);
+      z-index: 9999; transition: width 0.1s ease-out;
+    }
+    /* 主容器：零冗余边距，最大化阅读视野 */
+    .litit-report { background: var(--bg-card); padding: 0; }
+    /* AI 批注组件样式 */
+    .anno-toggle, .ai-toggle {
+      display: inline-block; padding: 2px 5px; margin-left: 5px; cursor: pointer;
+      opacity: 0.45; font-size: 0.85rem; vertical-align: middle; transition: all 0.2s;
+      user-select: none; -webkit-tap-highlight-color: transparent;
+    }
+    .anno-toggle:hover, .ai-toggle:hover { opacity: 1; transform: scale(1.15); }
+    .anno-toggle.has-anno { opacity: 1; }
+    .anno-toggle::after { content: "🔴"; }
+    .ai-toggle { opacity: 0.7; padding: 2px 4px; }
+    .ai-toggle::after { content: "🤖"; }
+    .ai-toggle.loading::after {
+      content: "⏳"; display: inline-block; animation: spin 1s linear infinite;
+    }
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+    .anno-box {
+      display: none; margin-top: 10px; background: #faf8ff;
+      border-left: 3px solid #7c3aed; padding: 12px 14px; border-radius: 0 8px 8px 0; text-align: left;
+    }
+    .anno-view { font-size: 0.95rem; line-height: 1.65; color: #334155; min-height: 24px; }
+    .anno-edit {
+      width: 100%; min-height: 120px; padding: 10px; font-family: monospace; font-size: 0.95rem;
+      border: 1px dashed #a78bfa; border-radius: 6px; resize: vertical; display: none;
+      background: #fff; color: #1e293b; outline: none;
+    }
+    .anno-edit:focus { border: 1px solid #7c3aed; box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.12); }
+    .markdown-body p { margin-top: 0; margin-bottom: 8px; }
+    .markdown-body p:last-child { margin-bottom: 0; }
+    .markdown-body h1, .markdown-body h2, .markdown-body h3 {
+      color: #5b21b6; font-size: 1.05rem; margin: 10px 0 6px 0; border-bottom: 1px dashed #ddd6fe; padding-bottom: 4px;
+    }
+    .markdown-body ul, .markdown-body ol { margin: 0 0 8px 0; padding-left: 18px; }
+    .markdown-body blockquote {
+      margin: 0 0 10px 0; padding: 8px 12px; background: rgba(124, 58, 237, 0.06);
+      border-left: 3px solid #7c3aed; color: #475569;
+    }
+    /* 杂志风区块标题 */
+    .section-header {
+      font-size: 16px; color: #0f172a; font-weight: 700; letter-spacing: 0.02em;
+      background: linear-gradient(90deg, #f8fafc 0%, #ffffff 100%); padding: 8px 12px;
+      border-left: 4px solid #4f46e5; margin: 26px 0 14px 0; border-radius: 0 6px 6px 0;
+      display: flex; align-items: center; box-shadow: inset 0 1px 0 #f1f5f9, inset 0 -1px 0 #f1f5f9;
+    }
+    /* 折叠面板升级：极简无十字图标、最大化宽度 */
+    details.litit-fold {
+      margin-bottom: 10px; border: 1px solid #e2e8f0; border-radius: 10px;
+      background: #ffffff; overflow: hidden; transition: border-color 0.2s ease;
+    }
+    details.litit-fold[open] { border-color: #cbd5e1; }
+    details.litit-fold summary {
+      cursor: pointer; padding: 12px 14px; outline: none; list-style: none; display: flex;
+      justify-content: space-between; align-items: center; background: #f8fafc;
+      transition: background 0.2s; user-select: none; -webkit-tap-highlight-color: transparent;
+    }
+    details.litit-fold summary::-webkit-details-marker { display: none; }
+    details.litit-fold summary::after { display: none; }
+    details.litit-fold summary:hover { background: #f1f5f9; }
+    details.litit-fold[open] summary { border-bottom: 1px solid #e2e8f0; background: #f8fafc; border-left: 3px solid #4f46e5; }
+    .litit-fold-content { padding: 10px 8px; background: #f8fafc; }
+    /* 精读区列表卡片化 */
+    .litit-fold-content > ol, .litit-fold-content > ul {
+      list-style: none !important; padding-left: 0 !important; margin: 0 !important; counter-reset: litit-counter;
+    }
+    .litit-fold-content > ol > li, .litit-fold-content > ul > li {
+      counter-increment: litit-counter; position: relative; background: #ffffff;
+      border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px 12px;
+      margin-bottom: 10px !important; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.015);
+    }
+    .litit-fold-content > ol > li:last-child, .litit-fold-content > ul > li:last-child { margin-bottom: 0 !important; }
+    /* [规则 1] 顶部流式微型序号徽章：完美独占一行，追求极致对齐与统一美感 */
+    .litit-fold-content > ol > li::before, .litit-fold-content > ul > li::before {
+      content: "NO." counter(litit-counter, decimal-leading-zero); display: block; width: max-content;
+      font-size: 10px; font-weight: 800; font-family: -apple-system, BlinkMacSystemFont, monospace;
+      color: #4f46e5; background: #eef2ff; padding: 1px 6px; border-radius: 4px;
+      margin-bottom: 8px; letter-spacing: 0.04em;
+    }
+    /* [规则 4] 纯英/中长句子专属排版（块级元素，自然折行对齐） */
+    .litit-en-sentence {
+      display: block; font-family: var(--font-serif); font-size: 1.04rem; font-weight: 600;
+      color: #0f172a; line-height: 1.5; margin-bottom: 6px;
+    }
+    .litit-zh-sentence {
+      display: block; font-family: var(--font-sans); font-size: 0.93rem; color: #475569;
+      line-height: 1.55; margin-bottom: 2px;
+    }
+    li.litit-target-sentence > br { display: none; }
+    /* [规则 3] 短词组高亮徽章（1、2、3 板块专用短标签） */
+    .litit-badge {
+      display: inline-block; background: linear-gradient(135deg, #eef2ff 0%, #f3e8ff 100%);
+      color: #4338ca; padding: 2px 8px; border-radius: 5px; font-size: 0.92rem; font-weight: 700;
+      margin-right: 4px; margin-bottom: 6px; border: 1px solid #e0e7ff; vertical-align: middle;
+    }
+    /* 第 4 板块子级知识点解析区左边框内嵌盒 */
+    li.litit-target-sentence > ul {
+      list-style: none !important; margin: 10px 0 0 0 !important; padding: 8px 10px !important;
+      background: #f8fafc; border-radius: 6px; border-left: 2.5px solid #94a3b8;
+    }
+    li.litit-target-sentence > ul > li {
+      position: relative; padding-left: 10px; margin-bottom: 5px !important; font-size: 0.88rem; color: #334155; line-height: 1.5;
+    }
+    li.litit-target-sentence > ul > li:last-child { margin-bottom: 0 !important; }
+    li.litit-target-sentence > ul > li::before {
+      content: "·"; position: absolute; left: 0; top: 0; color: #4f46e5; font-weight: 900;
+    }
+    li.litit-target-sentence > ul > li > strong {
+      color: #0f172a; font-weight: 600; background: #e2e8f0; padding: 1px 5px; border-radius: 4px; font-size: 0.84rem; margin-right: 3px;
+    }
+    /* 课后考察交互反馈样式 */
+    .quiz-feedback {
+      display: none; font-size: 14px; padding: 10px 14px; border-radius: 6px; margin-top: 10px; line-height: 1.6;
+    }
+    /* 移动端极限铺开适配 */
+    @media (max-width: 600px) {
+      body { padding: 10px 10px 30px 10px; font-size: 15px; }
+      h1.litit-target-title { font-size: 21px !important; }
+      .litit-fold-content { padding: 8px 6px; }
+      .litit-fold-content > ol > li, .litit-fold-content > ul > li { padding: 11px 10px; margin-bottom: 8px !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 进度条 DOM -->
+  <div id="reading-progress"></div>
+
+  <div class="litit-report" style="width:100%; max-width:100%; box-sizing:border-box; overflow-x:hidden;">
+
+    <!-- 顶部杂志刊头装饰 -->
+    <div style="display:flex; justify-content:space-between; align-items:center; border-bottom: 2px solid #0f172a; padding-bottom: 6px; margin-bottom: 14px; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: #64748b; text-transform: uppercase;">
+      <span>The Global Dispatch · 深度双语精读</span>
+      <!-- 分类标签：严格限制在最多两个单词以内，避免在移动端换行 -->
+      <span>Pop Culture</span>
+    </div>
+
+    <!-- 支持批注的主标题区 -->
+    <div class="content-wrap" style="position:relative; margin-bottom: 16px;">
+      <h1 class="litit-target-title" style="color:#0f172a; font-size: 24px; line-height: 1.35; font-family: var(--font-serif); font-weight: 800; border-bottom: 1px solid #e2e8f0; padding-bottom: 14px; margin-top:0; margin-bottom:0; word-break:break-word;">
+        <span class="content litit-en-title" style="position:relative;">Model Airi Hirase Shows Off Her ¥30 Million Plastic Surgery Glow-Up</span>
+        <br>
+        <span class="litit-zh-title" style="font-family: var(--font-sans); font-size: 17px; font-weight: 600; color: #475569; margin-top: 8px; display: inline-block; line-height: 1.45;">模特平濑爱理晒3000万日元整容史：完美逆袭背后的血泪与心机</span>
+      </h1>
+      <div class="anno-box" style="display:none; margin-top: 10px;">
+        <div class="anno-view markdown-body"></div>
+        <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
+模特平濑爱理展示了她花费3000万日元进行的整容逆袭。
+### 📌 Key Expressions
+- **glow-up** = 巨大蜕变 / 逆袭（尤指外貌上的变美）
+- **show off** = 展示 / 炫耀</textarea>
+      </div>
+    </div>
+
+    <!-- 杂志导语（Lead Paragraph） -->
+    <p style="color:#334155; font-size: 15px; line-height: 1.75; margin-bottom:16px; font-weight:400; background: #f8fafc; padding: 12px 14px; border-radius: 8px; border: 1px solid #f1f5f9;">
+      日本知名模特兼网红平濑爱理（Airi Hirase，网名 Nyairin）近日在X平台（原Twitter）上放出了一组极具视觉冲击力的旧照，再次引发全网轰动。她此前就以狂砸近3000万日元（约合人民币140万元）进行全身大整容而闻名。这次她不仅放出了童年戴眼镜的青涩照，还公开了高中时期的“辣妹”旧照，与如今身穿礼服的精致模样判若两人。她毫不避讳地分享自己从16岁起连续8年身兼数职（甚至做过保安）、挤在月租仅2.3万日元的狭小单间里疯狂攒钱的心酸历程。这番坦诚不仅巧妙地为她客串的Netflix新剧《整形医生》造势，也让无数网民在惊叹整容资金之庞大的同时，对她忍受剧痛与非人般财务自律的毅力深感佩服。
+    </p>
+
+    <div style="margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+      <div style="display:flex; flex-wrap:wrap; gap:6px;">
+        <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;">美容整形</span>
+        <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;">网红经济</span>
+        <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;">女性励志</span>
+      </div>
+      <a href="https://r18japan.com/model-airi-hirase-shows-off-her-%c2%a530-million-plastic-surgery-glow-up/" target="_blank" style="font-size: 12.5px; color: #4f46e5; text-decoration: none; font-weight: 600; background: #eef2ff; padding: 5px 12px; border-radius: 16px; border: 1px solid #e0e7ff; display:inline-block;">🔗 阅读原文 ↗</a>
+    </div>
+
+    <!-- 最佳金句区 -->
+    <h2 class="section-header" style="border-left-color: #f59e0b;">💬 最佳金句</h2>
+    <div class="content-wrap" style="position:relative; margin-bottom:24px;">
+      <blockquote class="litit-target-quote" style="border-left: 3.5px solid #f59e0b; background: linear-gradient(135deg, #fffbeb 0%, #ffffff 100%); padding: 14px 14px; margin: 0; color: #1e293b; border-radius: 0 10px 10px 0; border-top: 1px solid #fef3c7; border-right: 1px solid #fef3c7; border-bottom: 1px solid #fef3c7;">
+        <div class="content litit-en-quote" style="position:relative; margin:0 0 8px 0; font-family: var(--font-serif); font-style: italic; font-weight:600; font-size: 16.5px; line-height: 1.55; color:#0f172a; word-break:break-word;">
+          "Whether you see it as an extreme makeover or just someone who decided to invest heavily in her appearance, the visual change is hard to ignore."
+        </div>
+        <p class="litit-zh-quote" style="margin:0 0 8px 0; font-weight:400; font-size: 14.5px; line-height: 1.6; color:#475569; word-break:break-word;">
+          “无论你将这视为一次极端的彻底改造，还是仅仅认为她决定在外貌上进行重金投资，这种视觉上的巨变都是难以忽视的。”
+        </p>
+        <footer style="text-align:right; font-size:12px; color:#64748b; font-style:normal; font-weight:600;">—— 作者对于平濑爱理整容事件做出的客观锐评</footer>
+      </blockquote>
+      <div class="anno-box" style="display:none;">
+        <div class="anno-view markdown-body"></div>
+        <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
+“无论你将这视为一次极端的彻底改造，还是仅仅认为她决定在外貌上进行重金投资，这种视觉上的巨变都是难以忽视的。”
+### 📌 Key Expressions
+- **extreme makeover** = 极端的彻底改造
+- **invest heavily in** = 在……上投入重金
+- **hard to ignore** = 难以忽视</textarea>
+      </div>
+    </div>
+
+    <!-- Grid 布局关键数字区 -->
+    <h2 class="section-header" style="border-left-color: #10b981;">📊 关键数字</h2>
+    <div style="display:grid; grid-template-columns: repeat(2, 1fr); gap:10px; margin:14px 0 24px 0;">
+      <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+        <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+          3,000<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">万日元</span>
+        </div>
+        <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">平濑爱理在全身整形手术上耗费的惊人总金额（约合人民币140万元）</div>
+      </div>
+      <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+        <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+          8<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">年</span>
+        </div>
+        <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">从16岁起，她为积攒高昂整容费而身兼数职打工所持续的时长</div>
+      </div>
+      <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+        <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+          23,000<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">日元</span>
+        </div>
+        <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">打工期间她为了极致省钱所租住的极度廉价单间公寓的月租金</div>
+      </div>
+      <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+        <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+          H<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">罩杯</span>
+        </div>
+        <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">巨资重塑后的傲人身材，为她赢得了《周刊Playboy》的拍摄机会</div>
+      </div>
+    </div>
+
+    <h2 class="section-header" style="border-left-color: #3b82f6;">⏱️ 事件时间线</h2>
+    <ul style="padding-left:18px; line-height:1.8; color:#334155; font-size: 14.5px; margin-bottom:24px; word-break:break-word;">
+      <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">从16岁起：</strong> 平濑爱理为了凑齐整容费，连续8年身兼数职，做过搬家工人和保安，住在月租仅2.3万日元的破旧公寓里极致节俭。</li>
+      <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">整形蜕变后：</strong> 凭借惊人的外貌逆袭，她成功签约成为时尚杂志《Ane Ageha》的模特，并转型为颇具影响力的网红。</li>
+      <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">2024年：</strong> 她受邀为知名杂志《周刊Playboy》拍摄，并推出了一本被誉为其整形“见证”的数字写真集。</li>
+      <li><strong style="color:#1d4ed8;">近日节点：</strong> 趁着自己客串的Netflix剧集《整形医生》即将上映，她极其聪明地在X平台上“突然”曝光童年黑历史照，成功引爆全网讨论。</li>
+    </ul>
+
+    <h2 class="section-header" style="border-left-color: #8b5cf6;">✨ 本篇亮点与精读</h2>
+    <div style="margin: 14px 0 10px 0;">
+
+      <!-- 第一板块：一、重点记忆 -->
+      <details class="litit-fold">
+        <summary>
+          <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">一、重点记忆</h3>
+        </summary>
+        <div class="litit-fold-content">
+          <ul style="list-style-type: square; margin: 0; padding-left: 18px; line-height: 1.6;">
+            <li class="litit-target-sentence" style="margin-bottom: 10px;">
+              <strong class="litit-badge">glow-up</strong>：(颜值或气质的) 巨大蜕变 / 逆袭<br>
+              <strong class="litit-en-sentence">Shows off her plastic surgery glow-up.</strong>
+              <span class="litit-zh-sentence">炫耀她整容后的完美逆袭。</span>
+            </li>
+            <li class="litit-target-sentence" style="margin-bottom: 10px;">
+              <strong class="litit-badge">buzz</strong>：热度 / 话题讨论 / 轰动<br>
+              <strong class="litit-en-sentence">A smart way to get some buzz going.</strong>
+              <span class="litit-zh-sentence">这是一种激起网络讨论热度的聪明做法。</span>
+            </li>
+            <li class="litit-target-sentence" style="margin-bottom: 10px;">
+              <strong class="litit-badge">testament</strong>：证明 / 真实写照 / 见证<br>
+              <strong class="litit-en-sentence">A digital photo book billed as a "testament" to her surgeries.</strong>
+              <span class="litit-zh-sentence">一本被宣传为见证她整容史的数字写真集。</span>
+            </li>
+            <li class="litit-target-sentence" style="margin-bottom: 10px;">
+              <strong class="litit-badge">makeover</strong>：大改造 / 彻底改变外貌<br>
+              <strong class="litit-en-sentence">Whether you see it as an extreme makeover.</strong>
+              <span class="litit-zh-sentence">无论你是否将其视为一次极端的彻底改造。</span>
+            </li>
+          </ul>
+        </div>
+      </details>
+
+      <!-- 第二板块：二、高价值表达 -->
+      <details class="litit-fold">
+        <summary>
+          <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">二、高价值表达</h3>
+        </summary>
+        <div class="litit-fold-content">
+          <ol style="margin: 0; padding-left: 18px;">
+            <li style="margin-bottom: 12px;">
+              <strong class="litit-badge">drop a bunch of photos</strong>：抛出/发布一大堆照片。<br>
+              <span class="litit-zh-sentence" style="margin-top: 4px;">在社交媒体语境中，“drop” 常用来指代突然发布令人震惊的内容、新歌或重磅消息，极具动态感。</span>
+            </li>
+            <li style="margin-bottom: 12px;">
+              <strong class="litit-badge">go all the way back</strong>：追溯到最早期 / 一路回顾到很久以前。<br>
+              <span class="litit-zh-sentence" style="margin-top: 4px;">形容她这次不仅放出了近期的对比照，更是彻底扒出了自己童年戴眼镜的最原始状态，毫无保留。</span>
+            </li>
+            <li style="margin-bottom: 12px;">
+              <strong class="litit-badge">push through the pain</strong>：熬过痛苦 / 咬牙挺过痛苦。<br>
+              <span class="litit-zh-sentence" style="margin-top: 4px;">非常生动的表达，指凭借强大的毅力和信念，强行穿过（push through）肉体上的折磨与剧痛。</span>
+            </li>
+          </ol>
+        </div>
+      </details>
+
+      <!-- 第三板块：三、短语和固定搭配 -->
+      <details class="litit-fold">
+        <summary>
+          <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">三、短语和固定搭配</h3>
+        </summary>
+        <div class="litit-fold-content">
+          <ul style="list-style-type: square; margin: 0; padding-left: 18px; line-height: 1.6;">
+            <li class="litit-target-sentence" style="margin-bottom: 10px;">
+              <strong class="litit-badge">before-and-after</strong>：前后对比（照）<br>
+              <strong class="litit-en-sentence">The before-and-after is wild.</strong>
+              <span class="litit-zh-sentence">这种整容前后的对比简直太疯狂了。</span>
+            </li>
+            <li class="litit-target-sentence" style="margin-bottom: 10px;">
+              <strong class="litit-badge">circulating now</strong>：目前在流传的 / 正在传播的<br>
+              <strong class="litit-en-sentence">Look pretty different from the version of her circulating now.</strong>
+              <span class="litit-zh-sentence">与她现在在网上流传的模样看起来截然不同。</span>
+            </li>
+            <li class="litit-target-sentence" style="margin-bottom: 10px;">
+              <strong class="litit-badge">do the math</strong>：算一笔账 / 计算一下<br>
+              <strong class="litit-en-sentence">People were doing the math on how many years of salary that adds up to.</strong>
+              <span class="litit-zh-sentence">人们正在算一笔账，看这笔钱加起来相当于普通上班族多少年的工资。</span>
+            </li>
+            <li class="litit-target-sentence" style="margin-bottom: 10px;">
+              <strong class="litit-badge">add up to</strong>：加起来总计 / 累积达到<br>
+              <strong class="litit-en-sentence">How many years of a regular office worker’s salary that adds up to.</strong>
+              <span class="litit-zh-sentence">这笔巨款加起来相当于普通上班族多少年的薪水。</span>
+            </li>
+          </ul>
+        </div>
+      </details>
+
+      <!-- 第四板块：四、值得学习的句子结构 -->
+      <details class="litit-fold">
+        <summary>
+          <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">四、值得学习的句子结构</h3>
+        </summary>
+        <div class="litit-fold-content">
+          <ol style="margin: 0; padding-left: 18px;">
+            <li class="litit-target-sentence" style="margin-bottom: 12px;">
+              <strong class="litit-en-sentence">Sharing the old photos right around the release feels like a smart way to remind people she exists and get some buzz going.</strong>
+              <span class="litit-zh-sentence">选择在新剧发布之际分享这些旧照，感觉像是一种聪明的手段，既能提醒人们她的存在，又能炒热话题。</span>
+              <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+                <li style="margin-bottom: 3px;"><strong>Sharing the old photos...</strong>：动名词短语作主语，直接引出公关动作的核心。</li>
+                <li style="margin-bottom: 3px;"><strong>to remind... and get...</strong>：两个动词不定式并列，精准点出了网红营销的两个终极目的：刷存在感和制造流量。</li>
+              </ul>
+            </li>
+            <li class="litit-target-sentence" style="margin-bottom: 12px;">
+              <strong class="litit-en-sentence">A lot of comments focused on the sheer amount of money involved—people were doing the math on how many years of a regular office worker’s salary that adds up to—and praising the effort it must have taken to save that much.</strong>
+              <span class="litit-zh-sentence">许多评论聚焦于其中涉及的巨额资金——人们纷纷计算这笔钱加起来相当于普通上班族多少年的工资——并赞扬她攒下这么多钱所付出的巨大努力。</span>
+              <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+                <li style="margin-bottom: 3px;"><strong>focused on... and praising...</strong>：结构上虽然略显口语化，但实质上连接了网友核心的两种反应（关注金钱并赞扬努力）。</li>
+                <li style="margin-bottom: 3px;"><strong>—people were doing the math on...—</strong>：双破折号充当插入语，补充说明了网友充满画面感的吃瓜行为，增加了新闻的生动性。</li>
+              </ul>
+            </li>
+          </ol>
+        </div>
+      </details>
+
+      <!-- 第五板块：五、最值得优先掌握的句型 -->
+      <details class="litit-fold">
+        <summary>
+          <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">五、最值得优先掌握的句型</h3>
+        </summary>
+        <div class="litit-fold-content">
+          <ol style="margin: 0; padding-left: 18px;">
+            <li style="margin-bottom: 12px;">
+              <strong class="litit-en-sentence" style="color: #4338ca;">[动名词动作] right around the [事件节点] feels like a smart way to [目的1] and [目的2].</strong>
+              <span class="litit-zh-sentence">选择在某事件节点进行某动作，似乎是一种聪明的手段，既能达到目的1，又能达成目的2。<br>（非常实用的商业分析与公关营销锐评句型）。</span>
+            </li>
+            <li style="margin-bottom: 12px;">
+              <strong class="litit-en-sentence" style="color: #4338ca;">Whether you see it as [观点A] or just [观点B], the [客观事实] is hard to ignore.</strong>
+              <span class="litit-zh-sentence">无论你将其视为观点A，还是仅仅当作观点B，某一客观事实都是难以忽视的。<br>（写作用万能让步结尾句，能瞬间拉高中立的评论视角与文章格局）。</span>
+            </li>
+          </ol>
+        </div>
+      </details>
+
+      <!-- 第六板块：六、课后考察 (Quiz) -->
+      <details class="litit-fold">
+        <summary>
+          <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">六、课后考察 (Quiz)</h3>
+        </summary>
+        <div class="litit-fold-content">
+          <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; margin-bottom: 10px;">
+            
+            <!-- Question 1: 语法与长难句剖析 -->
+            <div class="quiz-item" data-correct="B" style="margin-bottom: 20px;">
+              <p style="font-weight: 700; color: #0f172a; margin-bottom: 8px;">Q1: In the sentence "Sharing the old photos right around the release feels like a smart way to remind people...", what is the grammatical subject of the verb "feels"?</p>
+              <div style="display: flex; flex-direction: column; gap: 6px; margin-bottom: 8px;">
+                <label style="cursor: pointer; font-size: 14.5px;"><input type="radio" name="q1" value="A"> A) the old photos</label>
+                <label style="cursor: pointer; font-size: 14.5px;"><input type="radio" name="q1" value="B"> B) Sharing the old photos right around the release</label>
+                <label style="cursor: pointer; font-size: 14.5px;"><input type="radio" name="q1" value="C"> C) the release</label>
+              </div>
+              <div class="quiz-feedback" style="display: none;"></div>
+            </div>
+
+            <!-- Question 2: 熟词生义与语境精准理解 -->
+            <div class="quiz-item" data-correct="C" style="margin-bottom: 20px;">
+              <p style="font-weight: 700; color: #0f172a; margin-bottom: 8px;">Q2: The title mentions her "plastic surgery glow-up". Based on modern internet slang and the context, what does "glow-up" imply?</p>
+              <div style="display: flex; flex-direction: column; gap: 6px; margin-bottom: 8px;">
+                <label style="cursor: pointer; font-size: 14.5px;"><input type="radio" name="q2" value="A"> A) A medical complication where the skin literally becomes red and glowing after surgery.</label>
+                <label style="cursor: pointer; font-size: 14.5px;"><input type="radio" name="q2" value="B"> B) The act of showing off one's wealth by spending millions of yen.</label>
+                <label style="cursor: pointer; font-size: 14.5px;"><input type="radio" name="q2" value="C"> C) A massive, highly positive personal transformation, especially related to physical attractiveness and confidence.</label>
+              </div>
+              <div class="quiz-feedback" style="display: none;"></div>
+            </div>
+
+            <!-- Question 3: 深层推断与作者意图 -->
+            <div class="quiz-item" data-correct="B" style="margin-bottom: 10px;">
+              <p style="font-weight: 700; color: #0f172a; margin-bottom: 8px;">Q3: The author specifically includes details about Hirase working multiple jobs from age 16 (including as a security guard) and living in a cheap ¥23,000 apartment. What is the primary narrative effect of including these details?</p>
+              <div style="display: flex; flex-direction: column; gap: 6px; margin-bottom: 8px;">
+                <label style="cursor: pointer; font-size: 14.5px;"><input type="radio" name="q3" value="A"> A) To mock her for having been poor before she became a famous model.</label>
+                <label style="cursor: pointer; font-size: 14.5px;"><input type="radio" name="q3" value="B"> B) To shift the narrative from mere vanity to a story of relentless grit, extreme financial discipline, and hard-earned success, thereby eliciting respect.</label>
+                <label style="cursor: pointer; font-size: 14.5px;"><input type="radio" name="q3" value="C"> C) To criticize the Japanese real estate market and the low wages in the security industry.</label>
+              </div>
+              <div class="quiz-feedback" style="display: none;"></div>
+            </div>
+
+          </div>
+        </div>
+      </details>
+
+    </div>
+
+    <!-- 幕后冷知识 -->
+    <h2 class="section-header" style="border-left-color: #0d9488;">💡 幕后冷知识 (Fun Facts)</h2>
+    <ul style="padding-left:18px; line-height:1.8; color:#334155; font-size:14.5px; margin-bottom:24px; word-break:break-word;">
+      <li style="margin-bottom: 8px;"><strong>3000万日元的“造头手术”：</strong> 在日本整容界，3000万日元绝不是割个双眼皮或打点玻尿酸能达到的天文数字。这通常意味着极其痛苦的“轮廓动骨（如下颌角切除、颧骨内推、正颌手术）”以及全身抽脂和隆胸。这不仅是金钱的堆砌，更是对身体极限的极度挑战。</li>
+      <li style="margin-bottom: 8px;"><strong>日本的辣妹文化（Gyaru / ギャル）：</strong> 文中提到她高中时期的“gyaru”旧照。这是一种源自20世纪90年代末日本的时尚亚文化，特征是染金发、夸张的美黑妆容和高度装饰的指甲。平濑爱理如今担任模特的杂志《Ane Ageha》正是一本面向成熟辣妹和对医美极度热衷的女性受众的核心读物。</li>
+      <li><strong>整容耻辱的消解与“氪金变美”的商业化：</strong> 过去，日本社会对整容讳莫如深。但平濑爱理极其聪明地利用了“不装天然美女”的反差人设。她主动把整容当做自己“氪金逆袭”的励志勋章，不仅以此吸粉百万，更是接到了网飞相关题材剧集的通告，完成了将“黑历史”完美变现的商业闭环。</li>
+    </ul>
+
+    <!-- 全片锐评 -->
+    <h2 class="section-header" style="border-left-color: #e11d48;">🎯 全片锐评</h2>
+    <p style="line-height:1.75; color:#1e293b; font-weight:500; background:linear-gradient(135deg, #fff1f2 0%, #ffffff 100%); padding:14px 16px; border-radius:10px; font-size:14.5px; margin:0 0 12px 0; border:1px solid #ffe4e6; word-break:break-word;">
+      平濑爱理的整容故事，本质上是一部用手术刀和极致财务自律写就的现代暗黑童话。3000万日元绝不仅仅是一个夺人眼球的炫富数字，它背后浓缩的是一个16岁少女连续8年干搬家、做保安，蜷缩在极度廉价出租屋里的血汗与执念。在整容往往被斥为“虚荣”和“制造容貌焦虑”的今天，她反其道而行之：不装什么“妈生丽质”，而是赤裸裸地贩卖自己的痛苦、野心与执行力。她选在自己客串的Netflix新剧上线之际，主动掀开童年“丑照”的伤疤，这种极具杀伤力的自我营销手段令人拍案叫绝。无论你是否认同这种将身体作为顶级投资品的价值观，你都无法否认，她用肉体上的剧痛和非人般的隐忍，强行在残酷的颜值社会里，为自己硬生生地砍出了一条血路。
+    </p>
+
+  </div>
+
+  <script id="core-engine">
+    let syncTimeout = null;
+    const AI_PROMPT = "请分析以下英文段落，并严格按照以下 Markdown 格式输出（不要输出任何额外的废话）：\n\n### 📌 完整翻译\n\n[此处填写完整翻译]\n\n### 📌 Key Expressions\n\n- **[单词或短语]**\n  = [中文释义]\n  （[可选的补充说明，如倒装结构或语境等]）\n\n段落内容：\n";
+
+    // --- 顶部阅读进度条逻辑 ---
+    function initProgressBar() {
+      const progressBar = document.getElementById('reading-progress');
+      if (!progressBar) return;
+      window.addEventListener('scroll', () => {
+        const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        if (scrollHeight <= 0) return;
+        const scrollPercent = (scrollTop / scrollHeight) * 100;
+        progressBar.style.width = scrollPercent + '%';
+      }, { passive: true });
+    }
+
+    async function fetchGroq(text, apiKey, modelName) {
+      const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Authorization': 'Bearer ' + apiKey,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          model: modelName || 'llama-3.3-70b-versatile',
+          messages: [
+            { role: 'system', content: 'You are an English teacher. Output EXACTLY in the requested Markdown format.' },
+            { role: 'user', content: AI_PROMPT + '"' + text + '"' }
+          ],
+          temperature: 0.3
+        })
+      });
+      if (!res.ok) throw new Error('Groq Error: ' + res.status);
+      const json = await res.json();
+      return json.choices[0].message.content.trim();
+    }
+
+    async function fetchCustomAI(text, url, apiKey, modelName) {
+      let headers = { 'Content-Type': 'application/json' };
+      let bodyData = {};
+      if (url.includes('anthropic.com')) {
+        headers['x-api-key'] = apiKey;
+        headers['anthropic-version'] = '2023-06-01';
+        headers['anthropic-dangerous-direct-browser-access'] = 'true';
+        bodyData = {
+          model: modelName || 'claude-3-5-sonnet-20241022',
+          max_tokens: 2000,
+          messages: [{ role: 'user', content: AI_PROMPT + '"' + text + '"' }]
+        };
+      } else if (url.includes('generativelanguage.googleapis.com')) {
+        let targetUrl = url;
+        if (!targetUrl.includes('key=')) {
+          targetUrl += (targetUrl.includes('?') ? '&' : '?') + 'key=' + apiKey;
+        }
+        const res = await fetch(targetUrl, {
+          method: 'POST',
+          headers: headers,
+          body: JSON.stringify({
+            contents: [{ parts: [{ text: AI_PROMPT + '"' + text + '"' }] }]
+          })
+        });
+        if (!res.ok) throw new Error('Gemini Error: ' + res.status);
+        const json = await res.json();
+        return json.candidates[0].content.parts[0].text.trim();
+      } else {
+        headers['Authorization'] = 'Bearer ' + apiKey;
+        bodyData = {
+          model: modelName || 'gpt-4o-mini',
+          messages: [
+            { role: 'system', content: 'You are an English teacher. Output EXACTLY in the requested Markdown format.' },
+            { role: 'user', content: AI_PROMPT + '"' + text + '"' }
+          ],
+          temperature: 0.3
+        };
+      }
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: headers,
+        body: JSON.stringify(bodyData)
+      });
+      if (!res.ok) throw new Error('AI Interface Error: ' + res.status);
+      const json = await res.json();
+      if (json.choices && json.choices.length > 0) return json.choices[0].message.content.trim();
+      throw new Error('AI 返回数据异常');
+    }
+
+    async function executeAIPipeline(text) {
+      const customUrl = localStorage.getItem('CUSTOM_API_URL') || '';
+      const customKey = localStorage.getItem('CUSTOM_API_KEY') || '';
+      const customModel = localStorage.getItem('CUSTOM_MODEL') || '';
+      const groqKey = localStorage.getItem('GROQ_API_KEY') || '';
+      const groqModel = localStorage.getItem('GROQ_MODEL') || '';
+
+      if (customUrl && customKey) {
+        try {
+          return await fetchCustomAI(text, customUrl, customKey, customModel);
+        } catch (err) {
+          if (groqKey) return await fetchGroq(text, groqKey, groqModel);
+          throw err;
+        }
+      } else if (groqKey) {
+        return await fetchGroq(text, groqKey, groqModel);
+      } else {
+        const userKey = prompt('⚠️ 当前页面未检测到 AI Key！\n为了安全，密匙只储存在您本地浏览器中。\n\n请输入您的 API Key (如 sk-xxx 或 gsk_xxx):');
+        if (userKey && userKey.trim()) {
+          const cleanKey = userKey.trim();
+          if (cleanKey.startsWith('gsk_')) {
+            localStorage.setItem('GROQ_API_KEY', cleanKey);
+          } else {
+            localStorage.setItem('CUSTOM_API_KEY', cleanKey);
+            localStorage.setItem('CUSTOM_API_URL', 'https://api.chatanywhere.tech/v1/chat/completions');
+          }
+        }
+        throw new Error('未设置 AI API Key');
+      }
+    }
+
+    function getPurifiedFallbackHTML() {
+      const clone = document.documentElement.cloneNode(true);
+      const foreignSelectors = [
+        'relingo-app', 'relin-highlight', 'relin-hc', '[class*="relingo"]',
+        '[data-relin-paragraph]', 'grammarly-extension', '[data-grammarly-part]',
+        '[class*="immersive-translate"]', '[data-immersive-translate]'
+      ].join(',');
+      clone.querySelectorAll(foreignSelectors).forEach(el => el.remove());
+      clone.querySelectorAll('relin-highlight, relin-hc').forEach(t => {
+        const frag = document.createDocumentFragment();
+        while(t.firstChild) frag.appendChild(t.firstChild);
+        t.parentNode.replaceChild(frag, t);
+      });
+      clone.querySelectorAll('script').forEach(s => {
+        if (!s.src.includes('marked.min.js') && s.id !== 'core-engine') s.remove();
+      });
+      clone.querySelectorAll('style').forEach(s => {
+        if (s.id !== 'core-style') s.remove();
+      });
+      const liveTAs = document.querySelectorAll('.anno-edit');
+      clone.querySelectorAll('.anno-edit').forEach((ta, i) => {
+        if(liveTAs[i]) ta.textContent = liveTAs[i].value.trim();
+        const box = ta.closest('.anno-box');
+        if (box) box.style.display = 'none';
+        const view = box ? box.querySelector('.anno-view') : null;
+        if (view) view.innerHTML = '';
+      });
+      return '<!DOCTYPE html>\n<html lang="zh-CN">\n' + clone.innerHTML + '\n</html>';
+    }
+
+    async function syncToCloud() {
+      const ghToken = localStorage.getItem('LITIT_GH_TOKEN') || localStorage.getItem('GH_TOKEN');
+      const ghOwner = 'moodHappy';
+      const ghRepo = 'dual-read-notes';
+      if (!ghToken) return;
+
+      const pathParts = window.location.pathname.split('/');
+      const fileName = pathParts.pop();
+      const month = pathParts.pop();
+      const year = pathParts.pop();
+      if(!fileName || !month || !year) return;
+
+      const fileRelPath = 'Summary/' + year + '/' + month + '/' + fileName;
+
+      try {
+        const getRes = await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath + '?t=' + Date.now(), {
+          headers: { 'Authorization': 'Bearer ' + ghToken },
+          cache: 'no-store'
+        });
+        let finalHTML = '';
+        let sha = '';
+        if (getRes.ok) {
+          const fileData = await getRes.json();
+          sha = fileData.sha;
+          const cleanRawHTML = decodeURIComponent(escape(atob(fileData.content.replace(/\n/g, ''))));
+          const parser = new DOMParser();
+          const cleanDoc = parser.parseFromString(cleanRawHTML, 'text/html');
+
+          const liveTAs = document.querySelectorAll('.anno-edit');
+          const cleanTAs = cleanDoc.querySelectorAll('.anno-edit');
+          liveTAs.forEach((liveTa, index) => {
+            if (cleanTAs[index]) {
+              const val = liveTa.value.trim();
+              cleanTAs[index].textContent = val;
+              const box = cleanTAs[index].closest('.anno-box');
+              if (box) box.style.display = 'none';
+              const view = box ? box.querySelector('.anno-view') : null;
+              if (view) view.innerHTML = '';
+            }
+          });
+          cleanDoc.querySelectorAll('.anno-toggle').forEach(t => {
+            t.classList.remove('has-anno');
+            const ta = t.closest('.content-wrap, .litit-highlight-block')?.querySelector('.anno-edit');
+            if (ta && ta.textContent.trim()) t.classList.add('has-anno');
+          });
+          finalHTML = '<!DOCTYPE html>\n<html lang="zh-CN">\n' + cleanDoc.documentElement.innerHTML + '\n</html>';
+        } else {
+          finalHTML = getPurifiedFallbackHTML();
+        }
+
+        await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath, {
+          method: 'PUT',
+          headers: {
+            'Authorization': 'Bearer ' + ghToken,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            message: 'Silent purified annotation update',
+            content: btoa(unescape(encodeURIComponent(finalHTML))),
+            sha: sha || undefined
+          })
+        });
+        console.log('✅ [My Litit] 纯净无污染批注已静默同步至 GitHub');
+      } catch(e) {
+        console.warn('❌ [My Litit] 同步跳过或失败:', e);
+      }
+    }
+
+    function scheduleSync() {
+      if (syncTimeout) clearTimeout(syncTimeout);
+      syncTimeout = setTimeout(() => { syncToCloud(); }, 3000);
+    }
+
+    function initAnnotations() {
+      document.querySelectorAll('.litit-highlight-block, .content-wrap').forEach(wrap => {
+        let content = wrap.querySelector('.content');
+        if (!content) {
+          const pText = wrap.querySelector('p');
+          if (pText) {
+            content = document.createElement('div');
+            content.className = 'content';
+            content.style.cssText = 'position:relative; margin:0 0 6px 0; color:#1a202c; font-family:Georgia, serif; line-height:1.7; font-size:15px; word-break:break-word;';
+            content.innerHTML = pText.innerHTML;
+            pText.parentNode.replaceChild(content, pText);
+          }
+        }
+        if (!content) return;
+
+        if (!content.querySelector('.anno-toggle')) {
+          const toggle = document.createElement('span');
+          toggle.className = 'anno-toggle';
+          toggle.title = '手写批注/笔记';
+          content.appendChild(toggle);
+        }
+        if (!content.querySelector('.ai-toggle')) {
+          const aiToggle = document.createElement('span');
+          aiToggle.className = 'ai-toggle';
+          aiToggle.title = 'AI智能二次解析';
+          content.appendChild(aiToggle);
+        }
+
+        let box = wrap.querySelector('.anno-box');
+        if (!box) {
+          box = document.createElement('div');
+          box.className = 'anno-box';
+          box.style.display = 'none';
+          box.innerHTML = '<div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 解析..."></textarea>';
+          wrap.appendChild(box);
+        }
+
+        const view = box.querySelector('.anno-view');
+        const edit = box.querySelector('.anno-edit');
+        const toggle = content.querySelector('.anno-toggle');
+        const aiToggle = content.querySelector('.ai-toggle');
+
+        if (edit && edit.value.trim()) {
+          toggle.classList.add('has-anno');
+          try {
+            view.innerHTML = (typeof marked !== 'undefined') ? marked.parse(edit.value.trim()) : edit.value.trim();
+          } catch(e){}
+        }
+
+        if (aiToggle) {
+          aiToggle.onclick = async (e) => {
+            e.preventDefault(); e.stopPropagation();
+            if (aiToggle.classList.contains('loading')) return;
+            if (edit && edit.value.trim() !== '') {
+              const confirmOverwrite = confirm('⚠️ 已经存在批注内容。点击"确定"将使用 AI 解析覆盖现有内容。是否继续？');
+              if (!confirmOverwrite) return;
+            }
+            const pClone = content.cloneNode(true);
+            pClone.querySelectorAll('.anno-toggle, .ai-toggle').forEach(el => el.remove());
+            let pText = pClone.textContent.replace(/https?:\/\/\S+/g, '').trim();
+            if (!pText) return;
+
+            aiToggle.classList.add('loading');
+            try {
+              const aiContent = await executeAIPipeline(pText);
+              box.style.display = 'block';
+              view.style.display = 'none';
+              edit.style.display = 'block';
+              edit.value = aiContent;
+              edit.focus(); edit.blur();
+            } catch (err) {
+              console.error(err);
+            } finally {
+              aiToggle.classList.remove('loading');
+            }
+          };
+        }
+
+        if (toggle) {
+          toggle.onclick = (e) => {
+            e.preventDefault(); e.stopPropagation();
+            if (box.style.display === 'block') {
+              box.style.display = 'none';
+            } else {
+              box.style.display = 'block';
+              if (!edit.value.trim()) {
+                view.style.display = 'none';
+                edit.style.display = 'block';
+                setTimeout(() => { edit.focus(); }, 150);
+              } else {
+                view.style.display = 'block';
+                edit.style.display = 'none';
+              }
+            }
+          };
+        }
+
+        const triggerEdit = (e) => {
+          if(e) { e.preventDefault(); e.stopPropagation(); }
+          view.style.display = 'none';
+          edit.style.display = 'block';
+          edit.value = edit.value;
+          setTimeout(() => { edit.focus(); }, 150);
+        };
+
+        view.addEventListener('dblclick', triggerEdit);
+        let lastTap = 0;
+        view.addEventListener('touchstart', e => {
+          if (e.touches.length === 2) {
+            triggerEdit(e);
+          } else if (e.touches.length === 1) {
+            const currentTime = new Date().getTime();
+            if (currentTime - lastTap < 500 && currentTime - lastTap > 0) {
+              e.preventDefault();
+              box.style.display = 'none';
+            }
+            lastTap = currentTime;
+          }
+        }, {passive: false});
+
+        if (edit && view) {
+          edit.onblur = () => {
+            setTimeout(() => {
+              const newVal = edit.value.trim();
+              try {
+                view.innerHTML = newVal ? ((typeof marked !== 'undefined') ? marked.parse(newVal) : newVal) : '';
+              } catch(e){}
+              edit.style.display = 'none';
+              if (newVal) {
+                view.style.display = 'block';
+                toggle.classList.add('has-anno');
+              } else {
+                view.style.display = 'none';
+                box.style.display = 'none';
+                toggle.classList.remove('has-anno');
+              }
+              if (edit.getAttribute('data-old-val') !== newVal) {
+                edit.setAttribute('data-old-val', newVal);
+                scheduleSync();
+              }
+            }, 150);
+          };
+          edit.setAttribute('data-old-val', edit.value.trim());
+        }
+      });
+    }
+
+    // 课后考察板块交互逻辑
+    function initQuiz() {
+      document.querySelectorAll('.quiz-item').forEach(item => {
+        const correct = item.getAttribute('data-correct');
+        const radios = item.querySelectorAll('input[type="radio"]');
+        const feedback = item.querySelector('.quiz-feedback');
+
+        radios.forEach(radio => {
+          radio.addEventListener('change', () => {
+            const selected = radio.value;
+            radios.forEach(r => r.disabled = true); // 选择后锁定选项
+            feedback.style.display = 'block';
+            if (selected === correct) {
+              feedback.style.background = '#ecfdf5';
+              feedback.style.color = '#065f46';
+              feedback.style.border = '1px solid #a7f3d0';
+              feedback.innerHTML = `<strong>✅ 回答正确！</strong><br>` + getExplanation(item, correct);
+            } else {
+              feedback.style.background = '#fef2f2';
+              feedback.style.color = '#991b1b';
+              feedback.style.border = '1px solid #fecaca';
+              feedback.innerHTML = `<strong>❌ 回答错误。</strong> 正确答案是 <strong>${correct}</strong>。<br>` + getExplanation(item, correct);
+            }
+          });
+        });
+      });
+    }
+
+    function getExplanation(item, correct) {
+      const qIndex = item.querySelector('p').textContent;
+      if (qIndex.includes('Q1')) {
+        return '解析：这是一道句法逻辑题。整个动名词短语 "Sharing the old photos right around the release"（在发布之际分享旧照）整体充当句子主语，其后的 "feels like" 是谓语部分。';
+      } else if (qIndex.includes('Q2')) {
+        return '解析：这是一道语境词义题。"Glow-up" 是英语互联网上的热门俚语，特指一个人（通常是随着年龄增长或经过巨大努力后）在外貌、气质、风格乃至自信心上发生的“极其惊艳的正面蜕变”。在这里精准概括了她狂砸3000万日元后宛若新生的逆袭。';
+      } else {
+        return '解析：这是一道深层推断题。作者花笔墨描写她干保安、住廉价破旧单间的辛酸过往，是为了给单纯的“砸钱变美”注入强大的底层逆袭与励志色彩。这种叙事成功地将公众对“整容虚荣心”的批评，转移到了对她忍受痛苦和极端财务自律的尊重上。';
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      initProgressBar();
+      initAnnotations();
+      initQuiz();
+    });
+
+    window.addEventListener('load', () => {
+      initAnnotations();
+    });
+  </script>
+</body>
+</html>
