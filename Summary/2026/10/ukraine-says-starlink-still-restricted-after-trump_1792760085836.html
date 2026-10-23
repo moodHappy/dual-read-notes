@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Ukraine says Starlink still restricted after Trump says limits lifted</title>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <style id="core-style">
+    /* ======================================================================
+       [AI TEMPLATE GUIDELINES - CSS 核心排版规范]
+       致其他 AI 助手：在生成此模板时，请严格遵守以下样式分配规则：
+       1. 序号规则：列表的 NO.01 序号由伪类 `::before` 自动生成且独占一行。千万不要在 HTML 中手动输入“NO.01”。
+       2. 标签规则：文章开头的标签胶囊纯文字即可，禁止带 `#` 号。类别标签严格限制在最多两个单词以内，以避免在移动端发生换行。
+       3. 胶囊高亮（.litit-badge）：仅用于第 1、2、3 板块（重点记忆、高价值表达、短语和固定搭配）的【短词组/单词】，表现为紫色渐变背景的内联胶囊。
+       4. 长句排版（.litit-en-sentence）：用于第 4 板块（值得学习的句子结构）和第 5 板块（最值得优先掌握的句型）的【长句/长句型】。严禁将长句型放入 .litit-badge 中，否则会导致折行错乱。并且中文解释中的括号补充内容需使用 <br> 另起一行。
+       5. 语法重点提炼规范：核心目标是“深度剖析语法结构”，绝对禁止单纯罗列生硬的语法术语。应结合文章具体语境灵活解析，重点提炼以下三个进阶维度：
+          - 维度1：长难句与从句嵌套（Complex Clause Structures）。考察和剖析主从复合句的主干提取、各类从句（定语/名词性/状语从句）的逻辑关系。
+          - 维度2：高级句式与特殊结构（Advanced Syntax）。剖析倒装句、强调句、虚拟语气、独立主格等高级语法现象在语境中的具体应用与修辞色彩。
+          - 维度3：非谓语动词与词法功能（Non-finite Verbs & Lexical Grammar）。解析分词、不定式、动名词在句中的具体功能（作定语、状语等）及其带来的语体效果。
+       ====================================================================== */
+    :root {
+      --bg-page: #ffffff;
+      --bg-card: #ffffff;
+      --text-main: #0f172a;
+      --text-sub: #334155;
+      --text-muted: #64748b;
+      --accent-primary: #4f46e5;
+      --border-subtle: #e2e8f0;
+      --font-serif: "Georgia", "Charter", "Source Han Serif SC", "Noto Serif CJK SC", serif;
+      --font-sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", Roboto, sans-serif;
+    }
+    body {
+      font-family: var(--font-sans);
+      padding: 12px 12px 36px 12px;
+      margin: 0 auto;
+      max-width: 780px;
+      background: var(--bg-page);
+      color: var(--text-main);
+      line-height: 1.75;
+      font-size: 16px;
+      word-wrap: break-word;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    * { box-sizing: border-box; max-width: 100%; }
+    img { max-width: 100%; height: auto; border-radius: 8px; }
+    /* 顶部极简阅读进度条 */
+    #reading-progress {
+      position: fixed; top: 0; left: 0; width: 0%; height: 3px;
+      background: linear-gradient(90deg, #4f46e5, #9333ea);
+      z-index: 9999; transition: width 0.1s ease-out;
+    }
+    /* 主容器：零冗余边距，最大化阅读视野 */
+    .litit-report { background: var(--bg-card); padding: 0; }
+    /* AI 批注组件样式 */
+    .anno-toggle, .ai-toggle {
+      display: inline-block; padding: 2px 5px; margin-left: 5px; cursor: pointer;
+      opacity: 0.45; font-size: 0.85rem; vertical-align: middle; transition: all 0.2s;
+      user-select: none; -webkit-tap-highlight-color: transparent;
+    }
+    .anno-toggle:hover, .ai-toggle:hover { opacity: 1; transform: scale(1.15); }
+    .anno-toggle.has-anno { opacity: 1; }
+    .anno-toggle::after { content: "🔴"; }
+    .ai-toggle { opacity: 0.7; padding: 2px 4px; }
+    .ai-toggle::after { content: "🤖"; }
+    .ai-toggle.loading::after {
+      content: "⏳"; display: inline-block; animation: spin 1s linear infinite;
+    }
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+    .anno-box {
+      display: none; margin-top: 10px; background: #faf8ff;
+      border-left: 3px solid #7c3aed; padding: 12px 14px; border-radius: 0 8px 8px 0; text-align: left;
+    }
+    .anno-view { font-size: 0.95rem; line-height: 1.65; color: #334155; min-height: 24px; }
+    .anno-edit {
+      width: 100%; min-height: 120px; padding: 10px; font-family: monospace; font-size: 0.95rem;
+      border: 1px dashed #a78bfa; border-radius: 6px; resize: vertical; display: none;
+      background: #fff; color: #1e293b; outline: none;
+    }
+    .anno-edit:focus { border: 1px solid #7c3aed; box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.12); }
+    .markdown-body p { margin-top: 0; margin-bottom: 8px; }
+    .markdown-body p:last-child { margin-bottom: 0; }
+    .markdown-body h1, .markdown-body h2, .markdown-body h3 {
+      color: #5b21b6; font-size: 1.05rem; margin: 10px 0 6px 0; border-bottom: 1px dashed #ddd6fe; padding-bottom: 4px;
+    }
+    .markdown-body ul, .markdown-body ol { margin: 0 0 8px 0; padding-left: 18px; }
+    .markdown-body blockquote {
+      margin: 0 0 10px 0; padding: 8px 12px; background: rgba(124, 58, 237, 0.06);
+      border-left: 3px solid #7c3aed; color: #475569;
+    }
+    /* 杂志风区块标题 */
+    .section-header {
+      font-size: 16px; color: #0f172a; font-weight: 700; letter-spacing: 0.02em;
+      background: linear-gradient(90deg, #f8fafc 0%, #ffffff 100%); padding: 8px 12px;
+      border-left: 4px solid #4f46e5; margin: 26px 0 14px 0; border-radius: 0 6px 6px 0;
+      display: flex; align-items: center; box-shadow: inset 0 1px 0 #f1f5f9, inset 0 -1px 0 #f1f5f9;
+    }
+    /* 折叠面板升级：极简无十字图标、最大化宽度 */
+    details.litit-fold {
+      margin-bottom: 10px; border: 1px solid #e2e8f0; border-radius: 10px;
+      background: #ffffff; overflow: hidden; transition: border-color 0.2s ease;
+    }
+    details.litit-fold[open] { border-color: #cbd5e1; }
+    details.litit-fold summary {
+      cursor: pointer; padding: 12px 14px; outline: none; list-style: none; display: flex;
+      justify-content: space-between; align-items: center; background: #f8fafc;
+      transition: background 0.2s; user-select: none; -webkit-tap-highlight-color: transparent;
+    }
+    details.litit-fold summary::-webkit-details-marker { display: none; }
+    details.litit-fold summary::after { display: none; }
+    details.litit-fold summary:hover { background: #f1f5f9; }
+    details.litit-fold[open] summary { border-bottom: 1px solid #e2e8f0; background: #f8fafc; border-left: 3px solid #4f46e5; }
+    .litit-fold-content { padding: 10px 8px; background: #f8fafc; }
+    /* 精读区列表卡片化 */
+    .litit-fold-content > ol, .litit-fold-content > ul {
+      list-style: none !important; padding-left: 0 !important; margin: 0 !important; counter-reset: litit-counter;
+    }
+    .litit-fold-content > ol > li, .litit-fold-content > ul > li {
+      counter-increment: litit-counter; position: relative; background: #ffffff;
+      border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px 12px;
+      margin-bottom: 10px !important; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.015);
+    }
+    .litit-fold-content > ol > li:last-child, .litit-fold-content > ul > li:last-child { margin-bottom: 0 !important; }
+    /* [规则 1] 顶部流式微型序号徽章：完美独占一行，追求极致对齐与统一美感 */
+    .litit-fold-content > ol > li::before, .litit-fold-content > ul > li::before {
+      content: "NO." counter(litit-counter, decimal-leading-zero); display: block; width: max-content;
+      font-size: 10px; font-weight: 800; font-family: -apple-system, BlinkMacSystemFont, monospace;
+      color: #4f46e5; background: #eef2ff; padding: 1px 6px; border-radius: 4px;
+      margin-bottom: 8px; letter-spacing: 0.04em;
+    }
+    /* [规则 4] 纯英/中长句子专属排版（块级元素，自然折行对齐） */
+    .litit-en-sentence {
+      display: block; font-family: var(--font-serif); font-size: 1.04rem; font-weight: 600;
+      color: #0f172a; line-height: 1.5; margin-bottom: 6px;
+    }
+    .litit-zh-sentence {
+      display: block; font-family: var(--font-sans); font-size: 0.93rem; color: #475569;
+      line-height: 1.55; margin-bottom: 2px;
+    }
+    li.litit-target-sentence > br { display: none; }
+    /* [规则 3] 短词组高亮徽章（1、2、3 板块专用短标签） */
+    .litit-badge {
+      display: inline-block; background: linear-gradient(135deg, #eef2ff 0%, #f3e8ff 100%);
+      color: #4338ca; padding: 2px 8px; border-radius: 5px; font-size: 0.92rem; font-weight: 700;
+      margin-right: 4px; margin-bottom: 6px; border: 1px solid #e0e7ff; vertical-align: middle;
+    }
+    /* 第 4 板块子级知识点解析区左边框内嵌盒 */
+    li.litit-target-sentence > ul {
+      list-style: none !important; margin: 10px 0 0 0 !important; padding: 8px 10px !important;
+      background: #f8fafc; border-radius: 6px; border-left: 2.5px solid #94a3b8;
+    }
+    li.litit-target-sentence > ul > li {
+      position: relative; padding-left: 10px; margin-bottom: 5px !important; font-size: 0.88rem; color: #334155; line-height: 1.5;
+    }
+    li.litit-target-sentence > ul > li:last-child { margin-bottom: 0 !important; }
+    li.litit-target-sentence > ul > li::before {
+      content: "·"; position: absolute; left: 0; top: 0; color: #4f46e5; font-weight: 900;
+    }
+    li.litit-target-sentence > ul > li > strong {
+      color: #0f172a; font-weight: 600; background: #e2e8f0; padding: 1px 5px; border-radius: 4px; font-size: 0.84rem; margin-right: 3px;
+    }
+    /* 移动端极限铺开适配 */
+    @media (max-width: 600px) {
+      body { padding: 10px 10px 30px 10px; font-size: 15px; }
+      h1.litit-target-title { font-size: 21px !important; }
+      .litit-fold-content { padding: 8px 6px; }
+      .litit-fold-content > ol > li, .litit-fold-content > ul > li { padding: 11px 10px; margin-bottom: 8px !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 进度条 DOM -->
+  <div id="reading-progress"></div>
+
+  <div class="litit-report" style="width:100%; max-width:100%; box-sizing:border-box; overflow-x:hidden;">
+
+    <!-- 顶部杂志刊头装饰 -->
+    <div style="display:flex; justify-content:space-between; align-items:center; border-bottom: 2px solid #0f172a; padding-bottom: 6px; margin-bottom: 14px; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: #64748b; text-transform: uppercase;">
+      <span>The Global Dispatch · 深度双语精读</span>
+      <!-- 分类标签：严格限制在最多两个单词以内，避免在移动端换行 -->
+      <span>Global Diplomacy</span>
+    </div>
+
+    <!-- 支持批注的主标题区 -->
+    <div class="content-wrap" style="position:relative; margin-bottom: 16px;">
+      <h1 class="litit-target-title" style="color:#0f172a; font-size: 24px; line-height: 1.35; font-family: var(--font-serif); font-weight: 800; border-bottom: 1px solid #e2e8f0; padding-bottom: 14px; margin-top:0; margin-bottom:0; word-break:break-word;">
+        <span class="content litit-en-title" style="position:relative;">Ukraine says Starlink still restricted after Trump says limits lifted</span>
+        <br>
+        <span class="litit-zh-title" style="font-family: var(--font-sans); font-size: 17px; font-weight: 600; color: #475569; margin-top: 8px; display: inline-block; line-height: 1.45;">特朗普宣称限制已解除，乌克兰却称“星链”依然受限</span>
+      </h1>
+      <div class="anno-box" style="display:none; margin-top: 10px;">
+        <div class="anno-view markdown-body"></div>
+        <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
+特朗普宣称限制已解除，乌克兰却称“星链”依然受限
+### 📌 Key Expressions
+- **restricted** = 受限的
+- **lift** = 解除（限制、禁令等）</textarea>
+      </div>
+    </div>
+
+    <!-- 杂志导语（Lead Paragraph） -->
+    <p style="color:#334155; font-size: 15px; line-height: 1.75; margin-bottom:16px; font-weight:400; background: #f8fafc; padding: 12px 14px; border-radius: 8px; border: 1px solid #f1f5f9;">
+      乌克兰国防部消息人士指出，尽管美国总统唐纳德·特朗普宣称埃隆·马斯克已恢复了“星链”（Starlink）的全面连接，但乌军前线依然面临致命的网络限速问题。只要乌军无人机时速超过161公里（100英里），星盾（Starshield）军用网络便会精准断联，严重阻碍了其军事行动。这场技术故障的背后，是美乌之间因乌克兰袭击俄罗斯炼油厂而引发的激烈外交风暴。面对即将到来的中期选举，特朗普政府一方面对俄罗斯部分制裁予以豁免以进口低价柴油，另一方面则将全球油价上涨归咎于基辅的袭击，甚至被指以切断情报共享相要挟。尽管白宫及马斯克均否认蓄意限速，但乌克兰前线士兵警告称，如果失去这一至关重要的通信网络，乌军将面临“绝对的灾难”。这一事件深刻暴露了主权国家将国防命脉绑定在极个别科技寡头与政客博弈之中的巨大危险。
+    </p>
+
+    <div style="margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+      <div style="display:flex; flex-wrap:wrap; gap:6px;">
+        <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;">地缘政治</span>
+        <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;">星链危机</span>
+        <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;">俄乌冲突</span>
+      </div>
+      <a href="https://www.bbc.com/news/articles/cq74pjpmx0e8o" target="_blank" style="font-size: 12.5px; color: #4f46e5; text-decoration: none; font-weight: 600; background: #eef2ff; padding: 5px 12px; border-radius: 16px; border: 1px solid #e0e7ff; display:inline-block;">🔗 阅读原文 ↗</a>
+    </div>
+
+    <!-- 最佳金句区 -->
+    <h2 class="section-header" style="border-left-color: #f59e0b;">💬 最佳金句</h2>
+    <div class="content-wrap" style="position:relative; margin-bottom:24px;">
+      <blockquote class="litit-target-quote" style="border-left: 3.5px solid #f59e0b; background: linear-gradient(135deg, #fffbeb 0%, #ffffff 100%); padding: 14px 14px; margin: 0; color: #1e293b; border-radius: 0 10px 10px 0; border-top: 1px solid #fef3c7; border-right: 1px solid #fef3c7; border-bottom: 1px solid #fef3c7;">
+        <div class="content litit-en-quote" style="position:relative; margin:0 0 8px 0; font-family: var(--font-serif); font-style: italic; font-weight:600; font-size: 16.5px; line-height: 1.55; color:#0f172a; word-break:break-word;">
+          "I'll tell you this much: God forbid they shut it off completely - it would be an absolute catastrophe. We need a backup option for securing communications and internet."
+        </div>
+        <p class="litit-zh-quote" style="margin:0 0 8px 0; font-weight:400; font-size: 14.5px; line-height: 1.6; color:#475569; word-break:break-word;">
+          “我只能这么说：但愿他们不要彻底切断它——那将是一场绝对的灾难。我们需要一个备用方案来保障通信和互联网。”
+        </p>
+        <footer style="text-align:right; font-size:12px; color:#64748b; font-style:normal; font-weight:600;">—— 乌克兰前线士兵道出了将国防通信命脉完全依赖单一私营商业网络的极度脆弱性</footer>
+      </blockquote>
+      <div class="anno-box" style="display:none;">
+        <div class="anno-view markdown-body"></div>
+        <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
+“我只能这么说：但愿他们不要彻底切断它——那将是一场绝对的灾难。我们需要一个备用方案来保障通信和互联网。”
+### 📌 Key Expressions
+- **God forbid** = 但愿不要 / 千万别
+- **catastrophe** = 灾难 / 浩劫
+- **backup option** = 备用方案</textarea>
+      </div>
+    </div>
+
+    <!-- Grid 布局关键数字区 -->
+    <h2 class="section-header" style="border-left-color: #10b981;">📊 关键数字</h2>
+    <div style="display:grid; grid-template-columns: repeat(2, 1fr); gap:10px; margin:14px 0 24px 0;">
+      <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+        <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+          161<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">公里/时</span>
+        </div>
+        <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">乌军无人机达到此时速（100英里/时）便会遭遇星链强制断网的临界点</div>
+      </div>
+      <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+        <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+          10,000<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">颗</span>
+        </div>
+        <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">星链和星盾网络目前在低地球轨道上部署的庞大卫星总数</div>
+      </div>
+      <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+        <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+          48<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">小时</span>
+        </div>
+        <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">美国国务卿卢比奥曾承诺在此时间窗口内就网速受限问题向泽连斯基作出回复</div>
+      </div>
+      <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+        <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+          80<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">公里/时</span>
+        </div>
+        <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">乌军士兵乘坐汽车达到此时速时，其星盾通信网络便开始出现断联现象</div>
+      </div>
+    </div>
+
+    <h2 class="section-header" style="border-left-color: #3b82f6;">⏱️ 事件时间线</h2>
+    <ul style="padding-left:18px; line-height:1.8; color:#334155; font-size: 14.5px; margin-bottom:24px; word-break:break-word;">
+      <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">上周：</strong> 乌克兰指控其星链和军用星盾网络遭遇限速，导致高速飞行的攻击无人机大量断联失控。</li>
+      <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">随后不久：</strong> 马斯克暗示限速可能是由于五角大楼（美国军方）对星盾拥有控制权所致，但白宫对此予以否认。</li>
+      <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">近期：</strong> 美乌因乌军袭击俄罗斯炼油厂爆发激烈外交口水战，特朗普豁免部分对俄制裁并指责乌克兰推高全球油价。</li>
+      <li><strong style="color:#1d4ed8;">本周四：</strong> 特朗普对外宣称马斯克已经“恢复”了网络连接，但乌国防部消息人士证实限速依旧存在，前线行动持续受阻。</li>
+    </ul>
+
+    <h2 class="section-header" style="border-left-color: #8b5cf6;">✨ 本篇亮点与精读</h2>
+    <div style="margin: 14px 0 10px 0;">
+
+      <!-- 第一板块：一、重点记忆 -->
+      <details class="litit-fold">
+        <summary>
+          <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">一、重点记忆</h3>
+        </summary>
+        <div class="litit-fold-content">
+          <ul style="list-style-type: square; margin: 0; padding-left: 18px; line-height: 1.6;">
+            <li class="litit-target-sentence" style="margin-bottom: 10px;">
+              <strong class="litit-badge">hamper</strong>：阻碍 / 妨碍<br>
+              <strong class="litit-en-sentence">Instances of drones experiencing connection loss... were being recorded, hampering military operations.</strong>
+              <span class="litit-zh-sentence">无人机遭遇断联的情况被不断记录，这阻碍了军事行动。</span>
+            </li>
+            <li class="litit-target-sentence" style="margin-bottom: 10px;">
+              <strong class="litit-badge">waive</strong>：放弃 / 豁免（规则、制裁等）<br>
+              <strong class="litit-en-sentence">Trump has waived some sanctions on Russia.</strong>
+              <span class="litit-zh-sentence">特朗普豁免了对俄罗斯的部分制裁。</span>
+            </li>
+            <li class="litit-target-sentence" style="margin-bottom: 10px;">
+              <strong class="litit-badge">stem</strong>：阻止 / 遏制<br>
+              <strong class="litit-en-sentence">Which Kyiv says are crucial to stemming the main revenue source for Moscow's war effort.</strong>
+              <span class="litit-zh-sentence">基辅表示这对于遏制莫斯科战争机器的主要收入来源至关重要。</span>
+            </li>
+            <li class="litit-target-sentence" style="margin-bottom: 10px;">
+              <strong class="litit-badge">play up</strong>：发生故障 / 开始出问题<br>
+              <strong class="litit-en-sentence">They reverted to the "proven algorithms"... when it initially started playing up.</strong>
+              <span class="litit-zh-sentence">当它（星链）最初开始出问题时，他们退回到了使用前“久经考验的算法”。</span>
+            </li>
+            <li class="litit-target-sentence" style="margin-bottom: 10px;">
+              <strong class="litit-badge">revert to</strong>：恢复 / 回到（以前的状态或做法）<br>
+              <strong class="litit-en-sentence">Another soldier said they had reverted to the "proven algorithms".</strong>
+              <span class="litit-zh-sentence">另一名士兵说，他们已经恢复使用了“久经考验的算法”。</span>
+            </li>
+          </ul>
+        </div>
+      </details>
+
+      <!-- 第二板块：二、高价值表达 -->
+      <details class="litit-fold">
+        <summary>
+          <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">二、高价值表达</h3>
+        </summary>
+        <div class="litit-fold-content">
+          <ol style="margin: 0; padding-left: 18px;">
+            <li style="margin-bottom: 12px;">
+              <strong class="litit-badge">war of words</strong>：口水战 / 唇枪舌剑。<br>
+              <span class="litit-zh-sentence" style="margin-top: 4px;">常用于政治和外交新闻中，形容双方领导人或阵营之间激烈的公开言语冲突。</span>
+            </li>
+            <li style="margin-bottom: 12px;">
+              <strong class="litit-badge">bottom line</strong>：底线 / 最重要的一点。<br>
+              <span class="litit-zh-sentence" style="margin-top: 4px;">口语化极强的表达，在此处特朗普用来强行总结陈词（Bottom line, he put it back），略过复杂的中间过程。</span>
+            </li>
+            <li style="margin-bottom: 12px;">
+              <strong class="litit-badge">to that end</strong>：关于那一点 / 为此目的。<br>
+              <span class="litit-zh-sentence" style="margin-top: 4px;">高级的书面连接词组，指代上文提到的具体目标或报告（如 "reports to that end" 指代关于他要求马斯克解除限制的报道）。</span>
+            </li>
+          </ol>
+        </div>
+      </details>
+
+      <!-- 第三板块：三、短语和固定搭配 -->
+      <details class="litit-fold">
+        <summary>
+          <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">三、短语和固定搭配</h3>
+        </summary>
+        <div class="litit-fold-content">
+          <ul style="list-style-type: square; margin: 0; padding-left: 18px; line-height: 1.6;">
+            <li class="litit-target-sentence" style="margin-bottom: 10px;">
+              <strong class="litit-badge">be behind sth</strong>：是……的幕后主使 / 对……负责<br>
+              <strong class="litit-en-sentence">Musk previously said he was not behind the slowdown.</strong>
+              <span class="litit-zh-sentence">马斯克此前表示，他并不是网速变慢的幕后主使。</span>
+            </li>
+            <li class="litit-target-sentence" style="margin-bottom: 10px;">
+              <strong class="litit-badge">record issues with</strong>：记录到……存在问题 / 发现……故障<br>
+              <strong class="litit-en-sentence">Ukraine is still recording issues with the Starlink network.</strong>
+              <span class="litit-zh-sentence">乌克兰仍在记录/发现“星链”网络存在的问题。</span>
+            </li>
+            <li class="litit-target-sentence" style="margin-bottom: 10px;">
+              <strong class="litit-badge">on behalf of</strong>：代表……<br>
+              <strong class="litit-en-sentence">For somebody else to negotiate on behalf of Ukraine.</strong>
+              <span class="litit-zh-sentence">让其他人代表乌克兰进行谈判。</span>
+            </li>
+            <li class="litit-target-sentence" style="margin-bottom: 10px;">
+              <strong class="litit-badge">God forbid</strong>：但愿不要 / 千万别<br>
+              <strong class="litit-en-sentence">God forbid they shut it off completely.</strong>
+              <span class="litit-zh-sentence">但愿他们千万别彻底切断它。</span>
+            </li>
+          </ul>
+        </div>
+      </details>
+
+      <!-- 第四板块：四、值得学习的句子结构 -->
+      <details class="litit-fold">
+        <summary>
+          <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">四、值得学习的句子结构</h3>
+        </summary>
+        <div class="litit-fold-content">
+          <ol style="margin: 0; padding-left: 18px;">
+            <li class="litit-target-sentence" style="margin-bottom: 12px;">
+              <strong class="litit-en-sentence">The US president had denied instructing the tech billionaire to restrict connectivity to Starlink's military-grade counterpart, Starshield, before saying on Thursday that Musk had "put it back".</strong>
+              <span class="litit-zh-sentence">美国总统此前曾否认指示这位科技亿万富翁限制“星链”的军用版“星盾”的连接，随后却在周四表示马斯克已经“恢复”了网络。</span>
+              <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+                <li style="margin-bottom: 3px;"><strong>had denied instructing... before saying...</strong>：使用过去完成时搭配 `before + 现在分词`，极其干练地揭示了政客言辞的前后矛盾与态度转变。</li>
+                <li style="margin-bottom: 3px;"><strong>military-grade counterpart, Starshield</strong>：同位语精确解释了星盾的军事属性。</li>
+              </ul>
+            </li>
+            <li class="litit-target-sentence" style="margin-bottom: 12px;">
+              <strong class="litit-en-sentence">Faced with midterm elections next month, Trump has waived some sanctions on Russia and agreed a deal to import Russian diesel for the US market - a move criticised by Ukraine and its European allies.</strong>
+              <span class="litit-zh-sentence">面对下个月的中期选举压力，特朗普豁免了对俄罗斯的部分制裁，并达成了一项为美国市场进口俄罗斯柴油的协议——这一举动遭到了乌克兰及其欧洲盟友的批评。</span>
+              <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+                <li style="margin-bottom: 3px;"><strong>Faced with...</strong>：过去分词短语作状语置于句首，交代了迫使采取后续行动的政治压力背景。</li>
+                <li style="margin-bottom: 3px;"><strong>- a move criticised by...</strong>：破折号引出同位语并附带过去分词后置定语，对前半句的政治交易进行客观的新闻定性补充。</li>
+              </ul>
+            </li>
+          </ol>
+        </div>
+      </details>
+
+      <!-- 第五板块：五、最值得优先掌握的句型 -->
+      <details class="litit-fold">
+        <summary>
+          <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">五、最值得优先掌握的句型</h3>
+        </summary>
+        <div class="litit-fold-content">
+          <ol style="margin: 0; padding-left: 18px;">
+            <li class="litit-target-sentence" style="margin-bottom: 12px;">
+              <strong class="litit-en-sentence" style="color: #4338ca;">[某主体] had denied [做某事], before saying on [某天] that [他人] had [相反动作].</strong>
+              <span class="litit-zh-sentence">某主体曾否认做过某事，随后却在某一天表示他人已经做了相反的动作。<br>（非常适合用于揭露外交辞令中前后不一、甩锅或自相矛盾的犀利句式）。</span>
+            </li>
+            <li class="litit-target-sentence" style="margin-bottom: 12px;">
+              <strong class="litit-en-sentence" style="color: #4338ca;">Faced with [外部压力/事件], [某人] has [采取某种行动] - a move criticised by [反对者].</strong>
+              <span class="litit-zh-sentence">面对某种外部压力，某人采取了某行动——这一举动遭到了反对者的批评。<br>（国际时政中用于描述领导人在特定压力下做出引发争议的政治妥协的标准框架）。</span>
+            </li>
+          </ol>
+        </div>
+      </details>
+
+      <!-- 第六板块：六、语法重点 -->
+      <details class="litit-fold">
+        <summary>
+          <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">六、语法重点</h3>
+        </summary>
+        <div class="litit-fold-content">
+          <ul style="list-style-type: square; margin: 0; padding-left: 18px; line-height: 1.6;">
+            <!-- 语法重点 1 -->
+            <li class="litit-target-sentence" style="margin-bottom: 12px;">
+              <strong class="litit-badge">现在分词作结果状语 (Present Participle as Result Adverbial)</strong><br>
+              <strong class="litit-en-sentence">The sources told the BBC that instances of drones experiencing connection loss at speeds of 161km/h (100mph) were being recorded, hampering military operations.</strong>
+              <span class="litit-zh-sentence">消息人士告诉BBC，无人机在时速161公里（100英里）时遭遇断联的情况正被不断记录，这阻碍了军事行动。</span>
+              <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+                <li style="margin-bottom: 3px;"><strong>深度解析</strong>：句末的 `hampering military operations` 是一个现在分词短语，在句中充当结果状语。它自然而然地引出了前半句（无人机在高速下断网失控）所导致的直接且不可避免的破坏性后果。这种处理方式比使用并列句（...and it hampered...）更加连贯紧凑，突出了技术故障对战局的即时影响。</li>
+              </ul>
+            </li>
+            <!-- 语法重点 2 -->
+            <li class="litit-target-sentence" style="margin-bottom: 12px;">
+              <strong class="litit-badge">非限制性定语从句与插入语嵌套 (Non-restrictive Relative Clause & Embedded Parenthesis)</strong><br>
+              <strong class="litit-en-sentence">Trump said the strikes on Russian oil refineries, which Kyiv says are crucial to stemming the main revenue source for Moscow's war effort, have pushed global prices higher.</strong>
+              <span class="litit-zh-sentence">特朗普称，对俄罗斯炼油厂的袭击推高了全球油价，而基辅方面表示，这些袭击对于切断莫斯科战争机器的主要收入来源至关重要。</span>
+              <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+                <li style="margin-bottom: 3px;"><strong>深度解析</strong>：这句话的主干是 "Trump said the strikes... have pushed global prices higher"。在主语 "the strikes" 和谓语 "have pushed" 之间，作者巧妙地插入了由 `which` 引导的非限制性定语从句 `which Kyiv says are crucial to...`。这不仅补充了基辅发动袭击的战略动机，更在句法上形成了一种“特朗普的指责”与“基辅的辩护”同框对峙的修辞张力，体现了高级新闻英语的客观平衡。</li>
+              </ul>
+            </li>
+            <!-- 语法重点 3 -->
+            <li class="litit-target-sentence" style="margin-bottom: 10px;">
+              <strong class="litit-badge">过去分词短语作原因/背景状语 (Past Participle Phrase as Adverbial of Reason/Background)</strong><br>
+              <strong class="litit-en-sentence">Faced with midterm elections next month, Trump has waived some sanctions on Russia...</strong>
+              <span class="litit-zh-sentence">面对下个月的中期选举，特朗普豁免了对俄罗斯的部分制裁……</span>
+              <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+                <li style="margin-bottom: 3px;"><strong>深度解析</strong>：句首的 `Faced with midterm elections next month` 是一个过去分词短语，作全句的状语，其逻辑主语正是主句的主语 "Trump"。这种结构高度凝练地交代了促使特朗普放弃对俄制裁的深层政治压力（选票与国内油价）。比起使用 "Because he is faced with..."，分词前置显得更为果断、书面化，具有极强的政论评述色彩。</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </details>
+
+    </div>
+
+    <!-- 幕后冷知识 -->
+    <h2 class="section-header" style="border-left-color: #0d9488;">💡 幕后冷知识 (Fun Facts)</h2>
+    <ul style="padding-left:18px; line-height:1.8; color:#334155; font-size:14.5px; margin:0 0 24px 0; word-break:break-word;">
+      <li style="margin-bottom: 8px;"><strong>Starshield (星盾) 与 Starlink 的区别：</strong> 星链（Starlink）是 SpaceX 提供的民用卫星互联网服务，而“星盾”（Starshield）则是专为政府和军队打造的安全网络，具备极强的抗干扰和加密能力，甚至被美军用于军事目标定位。当普通星链被限制在俄罗斯境内使用时，乌军极其依赖“星盾”来引导远程自杀式无人机打击俄本土炼油厂。</li>
+      <li style="margin-bottom: 8px;"><strong>161km/h (100mph) 断联的致命性：</strong> 现代战场上，乌克兰大量使用 FPV（第一人称视角）穿越机改装成的自杀式无人机。在进行最终俯冲攻击时，这些无人机的时速往往远超161公里。如果卫星网络在此时强制断联，无人机将瞬间变成无头苍蝇，这在战术上等同于在冲锋的最关键时刻被强行缴械。</li>
+      <li><strong>选举政治与地缘战争的捆绑：</strong> 特朗普在文中将全球油价上涨归咎于乌克兰对俄罗斯油田的袭击，实则是为了美国国内即将到来的中期选举（midterm elections）。为了平息国内选民对高油价的愤怒，他不惜豁免部分制裁，允许俄罗斯廉价柴油进入美国市场。这一举动凸显了超级大国国内选票逻辑对前线战局的直接干预。</li>
+    </ul>
+
+    <!-- 全片锐评 -->
+    <h2 class="section-header" style="border-left-color: #e11d48;">🎯 全片锐评</h2>
+    <p style="line-height:1.75; color:#1e293b; font-weight:500; background:linear-gradient(135deg, #fff1f2 0%, #ffffff 100%); padding:14px 16px; border-radius:10px; font-size:14.5px; margin:0 0 12px 0; border:1px solid #ffe4e6; word-break:break-word;">
+      这篇报道撕开了现代战争中最令人不寒而栗的现实：一个主权国家的生死存亡，竟然被操纵在一个脾气难以捉摸的科技寡头和一名将国家安全视作选票交易筹码的政客手中。当特朗普为了中期选举的选票，不惜向俄罗斯妥协换取廉价柴油，并涉嫌联手马斯克通过“限速”星链来直接掐断乌克兰的无人机攻势时，这已经不是普通的政治施压，而是对前线浴血奋战的乌克兰士兵的直接背叛。星链在100英里时速下的精准断网，犹如套在乌克兰军队脖子上的电子绞索。这一事件向全球发出了极其危险的警示：当一国的国防通信命脉被不受任何民主程序制约的跨国私人资本垄断时，科技就不再是捍卫自由的利器，而是可以随时被当权者用来进行政治勒索的致命绞肉机。
+    </p>
+
+  </div>
+
+  <script id="core-engine">
+    let syncTimeout = null;
+    const AI_PROMPT = "请分析以下英文段落，并严格按照以下 Markdown 格式输出（不要输出任何额外的废话）：\n\n### 📌 完整翻译\n\n[此处填写完整翻译]\n\n### 📌 Key Expressions\n\n- **[单词或短语]**\n  = [中文释义]\n  （[可选的补充说明，如倒装结构或语境等]）\n\n段落内容：\n";
+
+    // --- 顶部阅读进度条逻辑 ---
+    function initProgressBar() {
+      const progressBar = document.getElementById('reading-progress');
+      if (!progressBar) return;
+      window.addEventListener('scroll', () => {
+        const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        if (scrollHeight <= 0) return;
+        const scrollPercent = (scrollTop / scrollHeight) * 100;
+        progressBar.style.width = scrollPercent + '%';
+      }, { passive: true });
+    }
+
+    async function fetchGroq(text, apiKey, modelName) {
+      const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Authorization': 'Bearer ' + apiKey,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          model: modelName || 'llama-3.3-70b-versatile',
+          messages: [
+            { role: 'system', content: 'You are an English teacher. Output EXACTLY in the requested Markdown format.' },
+            { role: 'user', content: AI_PROMPT + '"' + text + '"' }
+          ],
+          temperature: 0.3
+        })
+      });
+      if (!res.ok) throw new Error('Groq Error: ' + res.status);
+      const json = await res.json();
+      return json.choices[0].message.content.trim();
+    }
+
+    async function fetchCustomAI(text, url, apiKey, modelName) {
+      let headers = { 'Content-Type': 'application/json' };
+      let bodyData = {};
+      if (url.includes('anthropic.com')) {
+        headers['x-api-key'] = apiKey;
+        headers['anthropic-version'] = '2023-06-01';
+        headers['anthropic-dangerous-direct-browser-access'] = 'true';
+        bodyData = {
+          model: modelName || 'claude-3-5-sonnet-20241022',
+          max_tokens: 2000,
+          messages: [{ role: 'user', content: AI_PROMPT + '"' + text + '"' }]
+        };
+      } else if (url.includes('generativelanguage.googleapis.com')) {
+        let targetUrl = url;
+        if (!targetUrl.includes('key=')) {
+          targetUrl += (targetUrl.includes('?') ? '&' : '?') + 'key=' + apiKey;
+        }
+        const res = await fetch(targetUrl, {
+          method: 'POST',
+          headers: headers,
+          body: JSON.stringify({
+            contents: [{ parts: [{ text: AI_PROMPT + '"' + text + '"' }] }]
+          })
+        });
+        if (!res.ok) throw new Error('Gemini Error: ' + res.status);
+        const json = await res.json();
+        return json.candidates[0].content.parts[0].text.trim();
+      } else {
+        headers['Authorization'] = 'Bearer ' + apiKey;
+        bodyData = {
+          model: modelName || 'gpt-4o-mini',
+          messages: [
+            { role: 'system', content: 'You are an English teacher. Output EXACTLY in the requested Markdown format.' },
+            { role: 'user', content: AI_PROMPT + '"' + text + '"' }
+          ],
+          temperature: 0.3
+        };
+      }
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: headers,
+        body: JSON.stringify(bodyData)
+      });
+      if (!res.ok) throw new Error('AI Interface Error: ' + res.status);
+      const json = await res.json();
+      if (json.choices && json.choices.length > 0) return json.choices[0].message.content.trim();
+      throw new Error('AI 返回数据异常');
+    }
+
+    async function executeAIPipeline(text) {
+      const customUrl = localStorage.getItem('CUSTOM_API_URL') || '';
+      const customKey = localStorage.getItem('CUSTOM_API_KEY') || '';
+      const customModel = localStorage.getItem('CUSTOM_MODEL') || '';
+      const groqKey = localStorage.getItem('GROQ_API_KEY') || '';
+      const groqModel = localStorage.getItem('GROQ_MODEL') || '';
+
+      if (customUrl && customKey) {
+        try {
+          return await fetchCustomAI(text, customUrl, customKey, customModel);
+        } catch (err) {
+          if (groqKey) return await fetchGroq(text, groqKey, groqModel);
+          throw err;
+        }
+      } else if (groqKey) {
+        return await fetchGroq(text, groqKey, groqModel);
+      } else {
+        const userKey = prompt('⚠️ 当前页面未检测到 AI Key！\n为了安全，密匙只储存在您本地浏览器中。\n\n请输入您的 API Key (如 sk-xxx 或 gsk_xxx):');
+        if (userKey && userKey.trim()) {
+          const cleanKey = userKey.trim();
+          if (cleanKey.startsWith('gsk_')) {
+            localStorage.setItem('GROQ_API_KEY', cleanKey);
+          } else {
+            localStorage.setItem('CUSTOM_API_KEY', cleanKey);
+            localStorage.setItem('CUSTOM_API_URL', 'https://api.chatanywhere.tech/v1/chat/completions');
+          }
+        }
+        throw new Error('未设置 AI API Key');
+      }
+    }
+
+    function getPurifiedFallbackHTML() {
+      const clone = document.documentElement.cloneNode(true);
+      const foreignSelectors = [
+        'relingo-app', 'relin-highlight', 'relin-hc', '[class*="relingo"]',
+        '[data-relin-paragraph]', 'grammarly-extension', '[data-grammarly-part]',
+        '[class*="immersive-translate"]', '[data-immersive-translate]'
+      ].join(',');
+      clone.querySelectorAll(foreignSelectors).forEach(el => el.remove());
+      clone.querySelectorAll('relin-highlight, relin-hc').forEach(t => {
+        const frag = document.createDocumentFragment();
+        while(t.firstChild) frag.appendChild(t.firstChild);
+        t.parentNode.replaceChild(frag, t);
+      });
+      clone.querySelectorAll('script').forEach(s => {
+        if (!s.src.includes('marked.min.js') && s.id !== 'core-engine') s.remove();
+      });
+      clone.querySelectorAll('style').forEach(s => {
+        if (s.id !== 'core-style') s.remove();
+      });
+      const liveTAs = document.querySelectorAll('.anno-edit');
+      clone.querySelectorAll('.anno-edit').forEach((ta, i) => {
+        if(liveTAs[i]) ta.textContent = liveTAs[i].value.trim();
+        const box = ta.closest('.anno-box');
+        if (box) box.style.display = 'none';
+        const view = box ? box.querySelector('.anno-view') : null;
+        if (view) view.innerHTML = '';
+      });
+      return '<!DOCTYPE html>\n<html lang="zh-CN">\n' + clone.innerHTML + '\n</html>';
+    }
+
+    async function syncToCloud() {
+      const ghToken = localStorage.getItem('LITIT_GH_TOKEN') || localStorage.getItem('GH_TOKEN');
+      const ghOwner = 'moodHappy';
+      const ghRepo = 'dual-read-notes';
+      if (!ghToken) return;
+
+      const pathParts = window.location.pathname.split('/');
+      const fileName = pathParts.pop();
+      const month = pathParts.pop();
+      const year = pathParts.pop();
+      if(!fileName || !month || !year) return;
+
+      const fileRelPath = 'Summary/' + year + '/' + month + '/' + fileName;
+
+      try {
+        const getRes = await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath + '?t=' + Date.now(), {
+          headers: { 'Authorization': 'Bearer ' + ghToken },
+          cache: 'no-store'
+        });
+        let finalHTML = '';
+        let sha = '';
+        if (getRes.ok) {
+          const fileData = await getRes.json();
+          sha = fileData.sha;
+          const cleanRawHTML = decodeURIComponent(escape(atob(fileData.content.replace(/\n/g, ''))));
+          const parser = new DOMParser();
+          const cleanDoc = parser.parseFromString(cleanRawHTML, 'text/html');
+
+          const liveTAs = document.querySelectorAll('.anno-edit');
+          const cleanTAs = cleanDoc.querySelectorAll('.anno-edit');
+          liveTAs.forEach((liveTa, index) => {
+            if (cleanTAs[index]) {
+              const val = liveTa.value.trim();
+              cleanTAs[index].textContent = val;
+              const box = cleanTAs[index].closest('.anno-box');
+              if (box) box.style.display = 'none';
+              const view = box ? box.querySelector('.anno-view') : null;
+              if (view) view.innerHTML = '';
+            }
+          });
+          cleanDoc.querySelectorAll('.anno-toggle').forEach(t => {
+            t.classList.remove('has-anno');
+            const ta = t.closest('.content-wrap, .litit-highlight-block')?.querySelector('.anno-edit');
+            if (ta && ta.textContent.trim()) t.classList.add('has-anno');
+          });
+          finalHTML = '<!DOCTYPE html>\n<html lang="zh-CN">\n' + cleanDoc.documentElement.innerHTML + '\n</html>';
+        } else {
+          finalHTML = getPurifiedFallbackHTML();
+        }
+
+        await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath, {
+          method: 'PUT',
+          headers: {
+            'Authorization': 'Bearer ' + ghToken,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            message: 'Silent purified annotation update',
+            content: btoa(unescape(encodeURIComponent(finalHTML))),
+            sha: sha || undefined
+          })
+        });
+        console.log('✅ [My Litit] 纯净无污染批注已静默同步至 GitHub');
+      } catch(e) {
+        console.warn('❌ [My Litit] 同步跳过或失败:', e);
+      }
+    }
+
+    function scheduleSync() {
+      if (syncTimeout) clearTimeout(syncTimeout);
+      syncTimeout = setTimeout(() => { syncToCloud(); }, 3000);
+    }
+
+    function initAnnotations() {
+      document.querySelectorAll('.litit-highlight-block, .content-wrap').forEach(wrap => {
+        let content = wrap.querySelector('.content');
+        if (!content) {
+          const pText = wrap.querySelector('p');
+          if (pText) {
+            content = document.createElement('div');
+            content.className = 'content';
+            content.style.cssText = 'position:relative; margin:0 0 6px 0; color:#1a202c; font-family:Georgia, serif; line-height:1.7; font-size:15px; word-break:break-word;';
+            content.innerHTML = pText.innerHTML;
+            pText.parentNode.replaceChild(content, pText);
+          }
+        }
+        if (!content) return;
+
+        if (!content.querySelector('.anno-toggle')) {
+          const toggle = document.createElement('span');
+          toggle.className = 'anno-toggle';
+          toggle.title = '手写批注/笔记';
+          content.appendChild(toggle);
+        }
+        if (!content.querySelector('.ai-toggle')) {
+          const aiToggle = document.createElement('span');
+          aiToggle.className = 'ai-toggle';
+          aiToggle.title = 'AI智能二次解析';
+          content.appendChild(aiToggle);
+        }
+
+        let box = wrap.querySelector('.anno-box');
+        if (!box) {
+          box = document.createElement('div');
+          box.className = 'anno-box';
+          box.style.display = 'none';
+          box.innerHTML = '<div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 解析..."></textarea>';
+          wrap.appendChild(box);
+        }
+
+        const view = box.querySelector('.anno-view');
+        const edit = box.querySelector('.anno-edit');
+        const toggle = content.querySelector('.anno-toggle');
+        const aiToggle = content.querySelector('.ai-toggle');
+
+        if (edit && edit.value.trim()) {
+          toggle.classList.add('has-anno');
+          try {
+            view.innerHTML = (typeof marked !== 'undefined') ? marked.parse(edit.value.trim()) : edit.value.trim();
+          } catch(e){}
+        }
+
+        if (aiToggle) {
+          aiToggle.onclick = async (e) => {
+            e.preventDefault(); e.stopPropagation();
+            if (aiToggle.classList.contains('loading')) return;
+            if (edit && edit.value.trim() !== '') {
+              const confirmOverwrite = confirm('⚠️ 已经存在批注内容。点击"确定"将使用 AI 解析覆盖现有内容。是否继续？');
+              if (!confirmOverwrite) return;
+            }
+            const pClone = content.cloneNode(true);
+            pClone.querySelectorAll('.anno-toggle, .ai-toggle').forEach(el => el.remove());
+            let pText = pClone.textContent.replace(/https?:\/\/\S+/g, '').trim();
+            if (!pText) return;
+
+            aiToggle.classList.add('loading');
+            try {
+              const aiContent = await executeAIPipeline(pText);
+              box.style.display = 'block';
+              view.style.display = 'none';
+              edit.style.display = 'block';
+              edit.value = aiContent;
+              edit.focus(); edit.blur();
+            } catch (err) {
+              console.error(err);
+            } finally {
+              aiToggle.classList.remove('loading');
+            }
+          };
+        }
+
+        if (toggle) {
+          toggle.onclick = (e) => {
+            e.preventDefault(); e.stopPropagation();
+            if (box.style.display === 'block') {
+              box.style.display = 'none';
+            } else {
+              box.style.display = 'block';
+              if (!edit.value.trim()) {
+                view.style.display = 'none';
+                edit.style.display = 'block';
+                setTimeout(() => { edit.focus(); }, 150);
+              } else {
+                view.style.display = 'block';
+                edit.style.display = 'none';
+              }
+            }
+          };
+        }
+
+        const triggerEdit = (e) => {
+          if(e) { e.preventDefault(); e.stopPropagation(); }
+          view.style.display = 'none';
+          edit.style.display = 'block';
+          edit.value = edit.value;
+          setTimeout(() => { edit.focus(); }, 150);
+        };
+
+        view.addEventListener('dblclick', triggerEdit);
+        let lastTap = 0;
+        view.addEventListener('touchstart', e => {
+          if (e.touches.length === 2) {
+            triggerEdit(e);
+          } else if (e.touches.length === 1) {
+            const currentTime = new Date().getTime();
+            if (currentTime - lastTap < 500 && currentTime - lastTap > 0) {
+              e.preventDefault();
+              box.style.display = 'none';
+            }
+            lastTap = currentTime;
+          }
+        }, {passive: false});
+
+        if (edit && view) {
+          edit.onblur = () => {
+            setTimeout(() => {
+              const newVal = edit.value.trim();
+              try {
+                view.innerHTML = newVal ? ((typeof marked !== 'undefined') ? marked.parse(newVal) : newVal) : '';
+              } catch(e){}
+              edit.style.display = 'none';
+              if (newVal) {
+                view.style.display = 'block';
+                toggle.classList.add('has-anno');
+              } else {
+                view.style.display = 'none';
+                box.style.display = 'none';
+                toggle.classList.remove('has-anno');
+              }
+              if (edit.getAttribute('data-old-val') !== newVal) {
+                edit.setAttribute('data-old-val', newVal);
+                scheduleSync();
+              }
+            }, 150);
+          };
+          edit.setAttribute('data-old-val', edit.value.trim());
+        }
+      });
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      initProgressBar();
+      initAnnotations();
+    });
+
+    window.addEventListener('load', () => {
+      initAnnotations();
+    });
+  </script>
+</body>
+</html>
