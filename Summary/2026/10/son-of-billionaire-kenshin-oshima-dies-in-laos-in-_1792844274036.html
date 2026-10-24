@@ -191,7 +191,12 @@
       </h1>
       <div class="anno-box" style="display:none; margin-top: 10px;">
         <div class="anno-view markdown-body"></div>
-        <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea>
+        <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
+日本亿万富翁大岛健伸之子在老挝离奇身亡
+
+### 📌 Key Expressions
+- **billionaire** = 亿万富翁
+- **mysterious circumstances** = 离奇情况 / 神秘情况</textarea>
       </div>
     </div>
 
@@ -223,7 +228,14 @@
       </blockquote>
       <div class="anno-box" style="display:none;">
         <div class="anno-view markdown-body"></div>
-        <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea>
+        <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
+“这份随后被删除的声明并未透露大岛的死因。然而，网络消息称他的死是谋杀所致——鉴于当地媒体和执法部门尚未提供任何相关信息，这些说法显得扑朔迷离。”
+
+### 📌 Key Expressions
+- **disclose** = 透露 / 公开
+- **foul play** = 谋杀 / 严重犯罪
+- **shrouded in mystery** = 扑朔迷离 / 笼罩在谜团中
+- **given that** = 鉴于 / 考虑到（引导原因状语从句）</textarea>
       </div>
     </div>
 
@@ -460,7 +472,8 @@
 
   <script id="core-engine">
     let syncTimeout = null;
-    
+    const AI_PROMPT = "请分析以下英文段落，并严格按照以下 Markdown 格式输出（不要输出任何额外的废话）：\n\n### 📌 完整翻译\n\n[此处填写完整翻译]\n\n### 📌 Key Expressions\n\n- **[单词或短语]**\n = [中文释义]\n （[可选的补充说明，如倒装结构或语境等]）\n\n段落内容：\n";
+
     // --- 顶部阅读进度条逻辑 ---
     function initProgressBar() {
       const progressBar = document.getElementById('reading-progress');
@@ -472,6 +485,223 @@
         const scrollPercent = (scrollTop / scrollHeight) * 100;
         progressBar.style.width = scrollPercent + '%';
       }, { passive: true });
+    }
+
+    async function fetchGroq(text, apiKey, modelName) {
+      const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Authorization': 'Bearer ' + apiKey,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          model: modelName || 'llama-3.3-70b-versatile',
+          messages: [
+            { role: 'system', content: 'You are an English teacher. Output EXACTLY in the requested Markdown format.' },
+            { role: 'user', content: AI_PROMPT + '"' + text + '"' }
+          ],
+          temperature: 0.3
+        })
+      });
+      if (!res.ok) throw new Error('Groq Error: ' + res.status);
+      const json = await res.json();
+      return json.choices[0].message.content.trim();
+    }
+
+    async function fetchCustomAI(text, url, apiKey, modelName) {
+      let headers = { 'Content-Type': 'application/json' };
+      let bodyData = {};
+      
+      if (url.includes('anthropic.com')) {
+        headers['x-api-key'] = apiKey;
+        headers['anthropic-version'] = '2023-06-01';
+        headers['anthropic-dangerous-direct-browser-access'] = 'true';
+        bodyData = {
+          model: modelName || 'claude-3-5-sonnet-20241022',
+          max_tokens: 2000,
+          messages: [{ role: 'user', content: AI_PROMPT + '"' + text + '"' }]
+        };
+      } else if (url.includes('generativelanguage.googleapis.com')) {
+        let targetUrl = url;
+        if (!targetUrl.includes('key=')) {
+          targetUrl += (targetUrl.includes('?') ? '&' : '?') + 'key=' + apiKey;
+        }
+        const res = await fetch(targetUrl, {
+          method: 'POST',
+          headers: headers,
+          body: JSON.stringify({
+            contents: [{ parts: [{ text: AI_PROMPT + '"' + text + '"' }] }]
+          })
+        });
+        if (!res.ok) throw new Error('Gemini Error: ' + res.status);
+        const json = await res.json();
+        return json.candidates[0].content.parts[0].text.trim();
+      } else {
+        headers['Authorization'] = 'Bearer ' + apiKey;
+        bodyData = {
+          model: modelName || 'gpt-4o-mini',
+          messages: [
+            { role: 'system', content: 'You are an English teacher. Output EXACTLY in the requested Markdown format.' },
+            { role: 'user', content: AI_PROMPT + '"' + text + '"' }
+          ],
+          temperature: 0.3
+        };
+      }
+      
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: headers,
+        body: JSON.stringify(bodyData)
+      });
+      
+      if (!res.ok) throw new Error('AI Interface Error: ' + res.status);
+      const json = await res.json();
+      if (json.choices && json.choices.length > 0) return json.choices[0].message.content.trim();
+      throw new Error('AI 返回数据异常');
+    }
+
+    async function executeAIPipeline(text) {
+      const customUrl = localStorage.getItem('CUSTOM_API_URL') || '';
+      const customKey = localStorage.getItem('CUSTOM_API_KEY') || '';
+      const customModel = localStorage.getItem('CUSTOM_MODEL') || '';
+      const groqKey = localStorage.getItem('GROQ_API_KEY') || '';
+      const groqModel = localStorage.getItem('GROQ_MODEL') || '';
+
+      if (customUrl && customKey) {
+        try {
+          return await fetchCustomAI(text, customUrl, customKey, customModel);
+        } catch (err) {
+          if (groqKey) return await fetchGroq(text, groqKey, groqModel);
+          throw err;
+        }
+      } else if (groqKey) {
+        return await fetchGroq(text, groqKey, groqModel);
+      } else {
+        const userKey = prompt('⚠️ 当前页面未检测到 AI Key！\n为了安全，密匙只储存在您本地浏览器中。\n\n请输入您的 API Key (如 sk-xxx 或 gsk_xxx):');
+        if (userKey && userKey.trim()) {
+          const cleanKey = userKey.trim();
+          if (cleanKey.startsWith('gsk_')) {
+            localStorage.setItem('GROQ_API_KEY', cleanKey);
+          } else {
+            localStorage.setItem('CUSTOM_API_KEY', cleanKey);
+            localStorage.setItem('CUSTOM_API_URL', 'https://api.chatanywhere.tech/v1/chat/completions');
+          }
+        }
+        throw new Error('未设置 AI API Key');
+      }
+    }
+
+    function getPurifiedFallbackHTML() {
+      const clone = document.documentElement.cloneNode(true);
+      const foreignSelectors = [
+        'relingo-app', 'relin-highlight', 'relin-hc', '[class*="relingo"]',
+        '[data-relin-paragraph]', 'grammarly-extension', '[data-grammarly-part]',
+        '[class*="immersive-translate"]', '[data-immersive-translate]'
+      ].join(',');
+      
+      clone.querySelectorAll(foreignSelectors).forEach(el => el.remove());
+      clone.querySelectorAll('relin-highlight, relin-hc').forEach(t => {
+        const frag = document.createDocumentFragment();
+        while(t.firstChild) frag.appendChild(t.firstChild);
+        t.parentNode.replaceChild(frag, t);
+      });
+      
+      clone.querySelectorAll('script').forEach(s => {
+        if (!s.src.includes('marked.min.js') && s.id !== 'core-engine') s.remove();
+      });
+      clone.querySelectorAll('style').forEach(s => {
+        if (s.id !== 'core-style') s.remove();
+      });
+      
+      const liveTAs = document.querySelectorAll('.anno-edit');
+      clone.querySelectorAll('.anno-edit').forEach((ta, i) => {
+        if(liveTAs[i]) ta.textContent = liveTAs[i].value.trim();
+        const box = ta.closest('.anno-box');
+        if (box) box.style.display = 'none';
+        const view = box ? box.querySelector('.anno-view') : null;
+        if (view) view.innerHTML = '';
+      });
+      
+      return '<!DOCTYPE html>\n<html lang="zh-CN">\n' + clone.innerHTML + '\n</html>';
+    }
+
+    async function syncToCloud() {
+      const ghToken = localStorage.getItem('LITIT_GH_TOKEN') || localStorage.getItem('GH_TOKEN');
+      const ghOwner = 'moodHappy';
+      const ghRepo = 'dual-read-notes';
+      if (!ghToken) return;
+      
+      const pathParts = window.location.pathname.split('/');
+      const fileName = pathParts.pop();
+      const month = pathParts.pop();
+      const year = pathParts.pop();
+      if(!fileName || !month || !year) return;
+      
+      const fileRelPath = 'Summary/' + year + '/' + month + '/' + fileName;
+      
+      try {
+        const getRes = await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath + '?t=' + Date.now(), {
+          headers: { 'Authorization': 'Bearer ' + ghToken },
+          cache: 'no-store'
+        });
+        
+        let finalHTML = '';
+        let sha = '';
+        
+        if (getRes.ok) {
+          const fileData = await getRes.json();
+          sha = fileData.sha;
+          const cleanRawHTML = decodeURIComponent(escape(atob(fileData.content.replace(/\n/g, ''))));
+          const parser = new DOMParser();
+          const cleanDoc = parser.parseFromString(cleanRawHTML, 'text/html');
+          
+          const liveTAs = document.querySelectorAll('.anno-edit');
+          const cleanTAs = cleanDoc.querySelectorAll('.anno-edit');
+          liveTAs.forEach((liveTa, index) => {
+            if (cleanTAs[index]) {
+              const val = liveTa.value.trim();
+              cleanTAs[index].textContent = val;
+              const box = cleanTAs[index].closest('.anno-box');
+              if (box) box.style.display = 'none';
+              const view = box ? box.querySelector('.anno-view') : null;
+              if (view) view.innerHTML = '';
+            }
+          });
+          
+          cleanDoc.querySelectorAll('.anno-toggle').forEach(t => {
+            t.classList.remove('has-anno');
+            const ta = t.closest('.content-wrap, .litit-highlight-block')?.querySelector('.anno-edit');
+            if (ta && ta.textContent.trim()) t.classList.add('has-anno');
+          });
+          
+          finalHTML = '<!DOCTYPE html>\n<html lang="zh-CN">\n' + cleanDoc.documentElement.innerHTML + '\n</html>';
+        } else {
+          finalHTML = getPurifiedFallbackHTML();
+        }
+        
+        await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath, {
+          method: 'PUT',
+          headers: {
+            'Authorization': 'Bearer ' + ghToken,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            message: 'Silent purified annotation update',
+            content: btoa(unescape(encodeURIComponent(finalHTML))),
+            sha: sha || undefined
+          })
+        });
+        console.log('✅ [My Litit] 纯净无污染批注已静默同步至 GitHub');
+      } catch(e) {
+        console.warn('❌ [My Litit] 同步跳过或失败:', e);
+      }
+    }
+
+    function scheduleSync() {
+      if (syncTimeout) clearTimeout(syncTimeout);
+      syncTimeout = setTimeout(() => {
+        syncToCloud();
+      }, 3000);
     }
 
     function initAnnotations() {
@@ -496,24 +726,65 @@
           content.appendChild(toggle);
         }
 
+        if (!content.querySelector('.ai-toggle')) {
+          const aiToggle = document.createElement('span');
+          aiToggle.className = 'ai-toggle';
+          aiToggle.title = 'AI智能二次解析';
+          content.appendChild(aiToggle);
+        }
+
         let box = wrap.querySelector('.anno-box');
         if (!box) {
           box = document.createElement('div');
           box.className = 'anno-box';
           box.style.display = 'none';
-          box.innerHTML = '<div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记..."></textarea>';
+          box.innerHTML = '<div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 解析..."></textarea>';
           wrap.appendChild(box);
         }
 
         const view = box.querySelector('.anno-view');
         const edit = box.querySelector('.anno-edit');
         const toggle = content.querySelector('.anno-toggle');
+        const aiToggle = content.querySelector('.ai-toggle');
 
         if (edit && edit.value.trim()) {
           toggle.classList.add('has-anno');
           try {
             view.innerHTML = (typeof marked !== 'undefined') ? marked.parse(edit.value.trim()) : edit.value.trim();
           } catch(e){}
+        }
+
+        if (aiToggle) {
+          aiToggle.onclick = async (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            if (aiToggle.classList.contains('loading')) return;
+            
+            if (edit && edit.value.trim() !== '') {
+              const confirmOverwrite = confirm('⚠️ 已经存在批注内容。点击"确定"将使用 AI 解析覆盖现有内容。是否继续？');
+              if (!confirmOverwrite) return;
+            }
+            
+            const pClone = content.cloneNode(true);
+            pClone.querySelectorAll('.anno-toggle, .ai-toggle').forEach(el => el.remove());
+            let pText = pClone.textContent.replace(/https?:\/\/\S+/g, '').trim();
+            if (!pText) return;
+            
+            aiToggle.classList.add('loading');
+            try {
+              const aiContent = await executeAIPipeline(pText);
+              box.style.display = 'block';
+              view.style.display = 'none';
+              edit.style.display = 'block';
+              edit.value = aiContent;
+              edit.focus();
+              edit.blur(); 
+            } catch (err) {
+              console.error(err);
+            } finally {
+              aiToggle.classList.remove('loading');
+            }
+          };
         }
 
         if (toggle) {
@@ -574,8 +845,13 @@
                 box.style.display = 'none';
                 toggle.classList.remove('has-anno');
               }
+              if (edit.getAttribute('data-old-val') !== newVal) {
+                edit.setAttribute('data-old-val', newVal);
+                scheduleSync();
+              }
             }, 150);
           };
+          edit.setAttribute('data-old-val', edit.value.trim());
         }
       });
     }
