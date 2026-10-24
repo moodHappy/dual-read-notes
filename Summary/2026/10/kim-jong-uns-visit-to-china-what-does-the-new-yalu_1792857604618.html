@@ -14,9 +14,9 @@
            3. 胶囊高亮（.litit-badge）：仅用于第 1、2、3 板块（重点记忆、高价值表达、短语和固定搭配）的【短词组/单词】，表现为紫色渐变背景的内联胶囊。
            4. 长句排版（.litit-en-sentence）：用于第 4 板块（值得学习的句子结构）和第 5 板块（最值得优先掌握的句型）的【长句/长句型】。严禁将长句型放入 .litit-badge 中，否则会导致折行错乱。并且中文解释中的括号补充内容需使用 <br> 另起一行。
            5. 语法重点提炼规范：核心目标是“深度剖析语法结构”，绝对禁止单纯罗列生硬的语法术语。应结合文章具体语境灵活解析，重点提炼以下三个进阶维度：
-              - 维度1：长难句与从句嵌套（Complex Clause Structures）。考察和剖析主从复合句的主干提取、各类从句（定语/名词性/状语从句）的逻辑关系。
-              - 维度2：高级句式与特殊结构（Advanced Syntax）。剖析倒装句、强调句、虚拟语气、独立主格等高级语法现象在语境中的具体应用与修辞色彩。
-              - 维度3：非谓语动词与词法功能（Non-finite Verbs & Lexical Grammar）。解析分词、不定式、动名词在句中的具体功能（作定语、状语等）及其带来的语体效果。
+              - 维度1：长难句与从句嵌套（Complex Clause Structures）。
+              - 维度2：高级句式与特殊结构（Advanced Syntax）。
+              - 维度3：非谓语动词与词法功能（Non-finite Verbs & Lexical Grammar）。
            ====================================================================== */
         :root {
             --bg-page: #ffffff;
@@ -29,7 +29,6 @@
             --font-serif: "Georgia", "Charter", "Source Han Serif SC", "Noto Serif CJK SC", serif;
             --font-sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", Roboto, sans-serif;
         }
-
         body {
             font-family: var(--font-sans);
             padding: 12px 12px 36px 12px;
@@ -43,18 +42,15 @@
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
-
         * {
             box-sizing: border-box;
             max-width: 100%;
         }
-
         img {
             max-width: 100%;
             height: auto;
             border-radius: 8px;
         }
-
         /* 顶部极简阅读进度条 */
         #reading-progress {
             position: fixed;
@@ -66,13 +62,11 @@
             z-index: 9999;
             transition: width 0.1s ease-out;
         }
-
         /* 主容器：零冗余边距，最大化阅读视野 */
         .litit-report {
             background: var(--bg-card);
             padding: 0;
         }
-
         /* AI 批注组件样式 */
         .anno-toggle, .ai-toggle {
             display: inline-block;
@@ -86,39 +80,31 @@
             user-select: none;
             -webkit-tap-highlight-color: transparent;
         }
-
         .anno-toggle:hover, .ai-toggle:hover {
             opacity: 1;
             transform: scale(1.15);
         }
-
         .anno-toggle.has-anno {
             opacity: 1;
         }
-
         .anno-toggle::after {
             content: "🔴";
         }
-
         .ai-toggle {
             opacity: 0.7;
             padding: 2px 4px;
         }
-
         .ai-toggle::after {
             content: "🤖";
         }
-
         .ai-toggle.loading::after {
             content: "⏳";
             display: inline-block;
             animation: spin 1s linear infinite;
         }
-
         @keyframes spin {
             100% { transform: rotate(360deg); }
         }
-
         .anno-box {
             display: none;
             margin-top: 10px;
@@ -128,14 +114,12 @@
             border-radius: 0 8px 8px 0;
             text-align: left;
         }
-
         .anno-view {
             font-size: 0.95rem;
             line-height: 1.65;
             color: #334155;
             min-height: 24px;
         }
-
         .anno-edit {
             width: 100%;
             min-height: 240px;
@@ -150,21 +134,17 @@
             color: #1e293b;
             outline: none;
         }
-
         .anno-edit:focus {
             border: 1px solid #7c3aed;
             box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.12);
         }
-
         .markdown-body p {
             margin-top: 0;
             margin-bottom: 8px;
         }
-
         .markdown-body p:last-child {
             margin-bottom: 0;
         }
-
         .markdown-body h1, .markdown-body h2, .markdown-body h3 {
             color: #5b21b6;
             font-size: 1.05rem;
@@ -172,12 +152,10 @@
             border-bottom: 1px dashed #ddd6fe;
             padding-bottom: 4px;
         }
-
         .markdown-body ul, .markdown-body ol {
             margin: 0 0 8px 0;
             padding-left: 18px;
         }
-
         .markdown-body blockquote {
             margin: 0 0 10px 0;
             padding: 8px 12px;
@@ -185,7 +163,6 @@
             border-left: 3px solid #7c3aed;
             color: #475569;
         }
-
         /* 杂志风区块标题 */
         .section-header {
             font-size: 16px;
@@ -201,7 +178,6 @@
             align-items: center;
             box-shadow: inset 0 1px 0 #f1f5f9, inset 0 -1px 0 #f1f5f9;
         }
-
         /* 折叠面板升级：极简无十字图标、最大化宽度 */
         details.litit-fold {
             margin-bottom: 10px;
@@ -211,11 +187,9 @@
             overflow: hidden;
             transition: border-color 0.2s ease;
         }
-
         details.litit-fold[open] {
             border-color: #cbd5e1;
         }
-
         details.litit-fold summary {
             cursor: pointer;
             padding: 12px 14px;
@@ -229,30 +203,24 @@
             user-select: none;
             -webkit-tap-highlight-color: transparent;
         }
-
         details.litit-fold summary::-webkit-details-marker {
             display: none;
         }
-
         details.litit-fold summary::after {
             display: none;
         }
-
         details.litit-fold summary:hover {
             background: #f1f5f9;
         }
-
         details.litit-fold[open] summary {
             border-bottom: 1px solid #e2e8f0;
             background: #f8fafc;
             border-left: 3px solid #4f46e5;
         }
-
         .litit-fold-content {
             padding: 10px 8px;
             background: #f8fafc;
         }
-
         /* 精读区列表卡片化 */
         .litit-fold-content > ol, .litit-fold-content > ul {
             list-style: none !important;
@@ -260,7 +228,6 @@
             margin: 0 !important;
             counter-reset: litit-counter;
         }
-
         .litit-fold-content > ol > li, .litit-fold-content > ul > li {
             counter-increment: litit-counter;
             position: relative;
@@ -271,11 +238,9 @@
             margin-bottom: 10px !important;
             box-shadow: 0 1px 2px rgba(0, 0, 0, 0.015);
         }
-
         .litit-fold-content > ol > li:last-child, .litit-fold-content > ul > li:last-child {
             margin-bottom: 0 !important;
         }
-
         /* 顶部流式微型序号徽章：完美独占一行，追求极致对齐与统一美感 */
         .litit-fold-content > ol > li::before, .litit-fold-content > ul > li::before {
             content: "NO." counter(litit-counter, decimal-leading-zero);
@@ -291,7 +256,6 @@
             margin-bottom: 8px;
             letter-spacing: 0.04em;
         }
-
         /* 纯英/中长句子专属排版（块级元素，自然折行对齐） */
         .litit-en-sentence {
             display: block;
@@ -302,7 +266,6 @@
             line-height: 1.5;
             margin-bottom: 6px;
         }
-
         .litit-zh-sentence {
             display: block;
             font-family: var(--font-sans);
@@ -311,11 +274,9 @@
             line-height: 1.55;
             margin-bottom: 2px;
         }
-
         li.litit-target-sentence > br {
             display: none;
         }
-
         /* 短词组高亮徽章（1、2、3 板块专用短标签） */
         .litit-badge {
             display: inline-block;
@@ -330,7 +291,6 @@
             border: 1px solid #e0e7ff;
             vertical-align: middle;
         }
-
         /* 第 4 板块子级知识点解析区左边框内嵌盒 */
         li.litit-target-sentence > ul {
             list-style: none !important;
@@ -340,7 +300,6 @@
             border-radius: 6px;
             border-left: 2.5px solid #94a3b8;
         }
-
         li.litit-target-sentence > ul > li {
             position: relative;
             padding-left: 10px;
@@ -349,11 +308,9 @@
             color: #334155;
             line-height: 1.5;
         }
-
         li.litit-target-sentence > ul > li:last-child {
             margin-bottom: 0 !important;
         }
-
         li.litit-target-sentence > ul > li::before {
             content: "·";
             position: absolute;
@@ -362,7 +319,6 @@
             color: #4f46e5;
             font-weight: 900;
         }
-
         li.litit-target-sentence > ul > li > strong {
             color: #0f172a;
             font-weight: 600;
@@ -372,7 +328,6 @@
             font-size: 0.84rem;
             margin-right: 3px;
         }
-
         /* 移动端极限铺开适配 */
         @media (max-width: 600px) {
             body {
@@ -395,13 +350,13 @@
 <body>
     <!-- 进度条 DOM -->
     <div id="reading-progress"></div>
-    
+
     <div class="litit-report" style="width:100%; max-width:100%; box-sizing:border-box; overflow-x:hidden;">
         
         <!-- 顶部杂志刊头装饰 -->
         <div style="display:flex; justify-content:space-between; align-items:center; border-bottom: 2px solid #0f172a; padding-bottom: 6px; margin-bottom: 14px; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: #64748b; text-transform: uppercase;">
             <span>The Global Dispatch · 深度双语精读</span>
-            <!-- 分类标签：严格限制在最多两个单词以内 -->
+            <!-- 分类标签：严格限制在最多两个单词以内，避免在移动端换行 -->
             <span>Diplomacy</span>
         </div>
 
@@ -414,20 +369,28 @@
             </h1>
             <div class="anno-box" style="display:none; margin-top: 10px;">
                 <div class="anno-view markdown-body"></div>
-                <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea>
+                <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
+金正恩访华：新鸭绿江大桥背后，中朝关系释放什么信号？
+
+### 📌 核心词汇 (Key Expressions)
+- **reveal** = 揭示 / 显露
+- **ties** = 纽带 / 关系（常用于外交语境）
+
+### 🔍 句子解析方式 (Parsing Method)
+- **[结构拆解]**：冒号前为核心事件（Kim Jong Un’s Visit to China），冒号后通过特殊疑问句（What Does... Reveal About...）抛出分析视角，直接将“桥梁基建”与“双边关系”挂钩，是新闻标题常用的引人入胜的设问手法。</textarea>
             </div>
         </div>
 
         <!-- 杂志导语（Lead Paragraph） -->
         <p style="color:#334155; font-size: 15px; line-height: 1.75; margin-bottom:16px; font-weight:400; background: #f8fafc; padding: 12px 14px; border-radius: 8px; border: 1px solid #f1f5f9;">
-            2026年10月24日，朝鲜最高领导人金正恩经新近通车的新鸭绿江大桥访问中国辽宁省丹东市，中共中央政治局常委王沪宁陪同接待。此次访问恰逢大桥通车与抗美援朝纪念日前夕，释放出中朝高层交往持续、经贸合作有望深化以及借历史记忆巩固政治联系的三重信号。尽管大桥的开通为双边跨境交通与物流带来了实质性利好，但在美朝关系不确定性犹存、朝俄军事合作升温的复杂国际局势下，这趟充满象征意味的边境之行究竟能为东北亚地缘政治带来多大变数，仍有待后续的经贸数据与外交行动加以验证。
+            2026年10月24日，朝鲜最高领导人金正恩经新近通车的新鸭绿江大桥访问中国边境城市丹东。中共中央政治局常委王沪宁陪同参观并送行。此次行程恰逢志愿军入朝作战纪念日前夕，与2025年高调的北京之行形成鲜明对比。此次边境访问释放了中朝高层交往持续、基建助推潜在经贸合作，以及借由历史记忆巩固政治联系的三大信号，引发了国际社会对半岛地缘政治格局的持续关注。
         </p>
-
+        
         <div style="margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
             <div style="display:flex; flex-wrap:wrap; gap:6px;">
-                <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;">地缘政治</span>
-                <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;">中朝外交</span>
-                <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;">基础设施</span>
+                <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;">边境访问</span>
+                <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;">鸭绿江大桥</span>
+                <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;">高层外交</span>
             </div>
             <a href="https://moodhappy.github.io/ShortStories/Summary/2026/10/kim-jong-uns-visit-to-china-what-does-the-new-yalu_1792857411254.html" target="_blank" style="font-size: 12.5px; color: #4f46e5; text-decoration: none; font-weight: 600; background: #eef2ff; padding: 5px 12px; border-radius: 16px; border: 1px solid #e0e7ff; display:inline-block;">🔗 阅读原文 ↗</a>
         </div>
@@ -442,11 +405,22 @@
                 <p class="litit-zh-quote" style="margin:0 0 8px 0; font-weight:400; font-size: 14.5px; line-height: 1.6; color:#475569; word-break:break-word;">
                     “与其将此次行程视为双边战略发生重大转折的证据，不如将其理解为双方在既有双边关系框架内，进一步推动经贸合作与战略沟通的一项举措。”
                 </p>
-                <footer style="text-align:right; font-size:12px; color:#64748b; font-style:normal; font-weight:600;">—— 国际问题分析师对此次边境访问的务实定调</footer>
+                <footer style="text-align:right; font-size:12px; color:#64748b; font-style:normal; font-weight:600;">—— 敏锐指出了评估此次边境外交的务实视角</footer>
             </blockquote>
             <div class="anno-box" style="display:none;">
                 <div class="anno-view markdown-body"></div>
-                <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea>
+                <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
+“与其将此次行程视为双边战略发生重大转折的证据，不如将其理解为双方在既有双边关系框架内，进一步推动经贸合作与战略沟通的一项举措。”
+
+### 📌 核心词组 (Key Expressions)
+- **rather than** = 而不是 / 与其……不如
+- **interpret... as...** = 将……解读为……
+- **prudent** = 谨慎的 / 审慎的
+- **established bilateral relationship** = 既有的双边关系
+
+### 🔍 句子解析方式 (Parsing Method)
+- **[非谓语动词与平行结构]**：`Rather than interpreting...` 与 `to view...` 形成了语义上的对比与平行，通过“不该怎么看”到“应该怎么看”的转折，展现了新闻评论的批判性逻辑。
+- **[主语从句]**：`it is more prudent to view it as...` 中，`it` 为形式主语，真正的主语是后面的不定式短语，结构稳重严谨，非常适合用于下结论或提出政策建议。</textarea>
             </div>
         </div>
 
@@ -455,36 +429,37 @@
         <div style="display:grid; grid-template-columns: repeat(2, 1fr); gap:10px; margin:14px 0 24px 0;">
             <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
                 <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
-                    10<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">月</span>
-                </div>
-                <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">2026年，新鸭绿江大桥正式通车，并迎来金正恩经此桥访华</div>
-            </div>
-            <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
-                <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
                     3026<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">米</span>
                 </div>
-                <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">新鸭绿江大桥的全长，具备承载货运和集装箱运输的条件</div>
+                <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">新鸭绿江大桥的总长度，大桥连接了中国丹东与朝鲜新义州。</div>
             </div>
             <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
                 <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
-                    12<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">年</span>
+                    2014<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">年</span>
                 </div>
-                <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">该大桥自2014年建成至2026年正式通车期间闲置的漫长时间</div>
+                <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">大桥最初建成的时间。因朝方配套基建设施延误，大桥曾闲置多年。</div>
             </div>
             <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
                 <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
                     65<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">周年</span>
                 </div>
-                <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">2026年是《朝中友好合作互助条约》签订的关键纪念年份</div>
+                <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">2026年是《朝中友好合作互助条约》签订65周年。</div>
+            </div>
+            <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+                <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+                    10月24<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">日</span>
+                </div>
+                <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">金正恩访问丹东的日期，恰逢中国人民志愿军入朝作战纪念日（10.25）前夕。</div>
             </div>
         </div>
 
         <h2 class="section-header" style="border-left-color: #3b82f6;">⏱️ 事件时间线</h2>
         <ul style="padding-left:18px; line-height:1.8; color:#334155; font-size: 14.5px; margin-bottom:24px; word-break:break-word;">
-            <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">2014年：</strong> 新鸭绿江大桥建成，但因配套设施未完善一直闲置。</li>
-            <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">2025年9月：</strong> 金正恩高规格赴北京出席抗战胜利80周年纪念活动。</li>
-            <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">2026年10月：</strong> 新鸭绿江大桥终于正式开放通车。</li>
-            <li><strong style="color:#1d4ed8;">2026年10月24日：</strong> 金正恩经由大桥访问丹东，恰逢中国人民志愿军入朝作战纪念日（10月25日）前夕。</li>
+            <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">2014年：</strong> 鸭绿江新大桥主体竣工，但随后因各种原因长期未投入使用。</li>
+            <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">2025年9月：</strong> 金正恩高调访问北京，出席抗日战争胜利80周年纪念活动。</li>
+            <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">2026年10月：</strong> 新鸭绿江大桥正式通车，为跨境运输打下物理基础。</li>
+            <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">2026年10月24日：</strong> 金正恩经新大桥抵达丹东，在王沪宁陪同下参观抗美援朝纪念设施。</li>
+            <li><strong style="color:#1d4ed8;">2026年11月（预告）：</strong> 中国计划在深圳举办APEC会议，引发外界对潜在国际接触的猜测。</li>
         </ul>
 
         <h2 class="section-header" style="border-left-color: #8b5cf6;">✨ 本篇亮点与精读</h2>
@@ -498,29 +473,24 @@
                 <div class="litit-fold-content">
                     <ul style="list-style-type: square; margin: 0; padding-left: 18px; line-height: 1.6;">
                         <li class="litit-target-sentence" style="margin-bottom: 10px;">
-                            <strong class="litit-badge">high-profile</strong>：高规格的 / 高调的<br>
+                            <strong class="litit-badge">high-profile</strong>：高调的 / 引人注目的<br>
                             <strong class="litit-en-sentence">Unlike that high-profile visit to the Chinese capital, this trip focused on the border city of Dandong.</strong>
-                            <span class="litit-zh-sentence">与上次在中国首都进行的高规格访问不同，此次行程集中在边境城市丹东。</span>
+                            <span class="litit-zh-sentence">与上次在中国首都进行的高规格（高调）访问不同，此次行程集中在边境城市丹东。</span>
                         </li>
                         <li class="litit-target-sentence" style="margin-bottom: 10px;">
-                            <strong class="litit-badge">facilitate</strong>：促进 / 使便利<br>
-                            <strong class="litit-en-sentence">The bridge may eventually facilitate freight transportation.</strong>
-                            <span class="litit-zh-sentence">这座大桥未来有望改善（便利）货物运输条件。</span>
+                            <strong class="litit-badge">commemorate</strong>：纪念 / 庆祝<br>
+                            <strong class="litit-en-sentence">Accompanied Kim during visits to local sites, including facilities commemorating the Korean War.</strong>
+                            <span class="litit-zh-sentence">陪同金正恩参观当地有关设施，包括抗美援朝纪念设施。</span>
                         </li>
                         <li class="litit-target-sentence" style="margin-bottom: 10px;">
-                            <strong class="litit-badge">substantive</strong>：实质性的<br>
-                            <strong class="litit-en-sentence">Whether any renewed engagement could produce substantive progress, remain uncertain.</strong>
-                            <span class="litit-zh-sentence">新一轮接触能否取得实质进展，目前仍存在不确定性。</span>
+                            <strong class="litit-badge">mutual assistance</strong>：互助<br>
+                            <strong class="litit-en-sentence">Treaty of Friendship, Cooperation and Mutual Assistance between China and North Korea.</strong>
+                            <span class="litit-zh-sentence">《朝中友好合作互助条约》。</span>
                         </li>
                         <li class="litit-target-sentence" style="margin-bottom: 10px;">
                             <strong class="litit-badge">unilaterally</strong>：单方面地<br>
-                            <strong class="litit-en-sentence">But this does not mean China can unilaterally determine Pyongyang’s policies.</strong>
+                            <strong class="litit-en-sentence">This does not mean China can unilaterally determine Pyongyang’s policies.</strong>
                             <span class="litit-zh-sentence">但这并不意味着中国能够单方面决定平壤的政策。</span>
-                        </li>
-                        <li class="litit-target-sentence" style="margin-bottom: 10px;">
-                            <strong class="litit-badge">mutually exclusive</strong>：相互排斥的<br>
-                            <strong class="litit-en-sentence">Closer cooperation with Russia and the preservation of ties with China are not necessarily mutually exclusive.</strong>
-                            <span class="litit-zh-sentence">加强与俄罗斯的合作，并不必然意味着削弱（排斥）对华关系。</span>
                         </li>
                     </ul>
                 </div>
@@ -534,16 +504,16 @@
                 <div class="litit-fold-content">
                     <ol style="margin: 0; padding-left: 18px;">
                         <li style="margin-bottom: 12px;">
-                            <strong class="litit-badge">drawn international attention</strong>：引起国际社会关注。<br>
-                            <span class="litit-zh-sentence" style="margin-top: 4px;">国际新闻报道中常用的极佳表达，描述某一突发事件或外交动作立刻成为全球焦点。</span>
+                            <strong class="litit-badge">see sb. off</strong>：为某人送行。<br>
+                            <span class="litit-zh-sentence" style="margin-top: 4px;">非常实用的短语，无论是日常送别朋友还是外交场合（Wang also saw Kim off as he departed...）均极高频。</span>
                         </li>
                         <li style="margin-bottom: 12px;">
-                            <strong class="litit-badge">rich in symbolism</strong>：具有丰富的象征意义。<br>
-                            <span class="litit-zh-sentence" style="margin-top: 4px;">常用于评论领导人访问特定地点、纪念碑或在特定日子进行的具有深远政治意图的活动。</span>
+                            <strong class="litit-badge">draw international attention</strong>：引起国际社会关注。<br>
+                            <span class="litit-zh-sentence" style="margin-top: 4px;">新闻外电中描述重大事件影响力的标准表述，结构紧凑。</span>
                         </li>
                         <li style="margin-bottom: 12px;">
-                            <strong class="litit-badge">gain momentum</strong>：获得动力 / 提速。<br>
-                            <span class="litit-zh-sentence" style="margin-top: 4px;">经济或外交语境中的高级词汇，指代某种合作、谈判或发展态势开始加速推进。</span>
+                            <strong class="litit-badge">pay tribute at</strong>：向……致敬 / 献花。<br>
+                            <span class="litit-zh-sentence" style="margin-top: 4px;">在涉及烈士陵园、纪念碑等历史悼念和纪念活动的新闻报道中，是必用的庄重表达核心词组。</span>
                         </li>
                     </ol>
                 </div>
@@ -558,18 +528,18 @@
                     <ul style="list-style-type: square; margin: 0; padding-left: 18px; line-height: 1.6;">
                         <li class="litit-target-sentence" style="margin-bottom: 10px;">
                             <strong class="litit-badge">on the eve of</strong>：在……前夕<br>
-                            <strong class="litit-en-sentence">Its timing, shortly after the opening of the new bridge and on the eve of the anniversary...</strong>
-                            <span class="litit-zh-sentence">访问恰逢新鸭绿江大桥通车不久、又临近（在...前夕）纪念日……</span>
+                            <strong class="litit-en-sentence">On the eve of the anniversary of the Chinese People’s Volunteers entering the Korean War.</strong>
+                            <span class="litit-zh-sentence">临近（在……前夕）中国人民志愿军入朝作战纪念日。</span>
                         </li>
                         <li class="litit-target-sentence" style="margin-bottom: 10px;">
-                            <strong class="litit-badge">build on</strong>：在……基础上发展<br>
-                            <strong class="litit-en-sentence">Both sides want to build on their historical relationship.</strong>
-                            <span class="litit-zh-sentence">双方希望在既有历史关系的基础上，继续推进……</span>
+                            <strong class="litit-badge">serve a purpose</strong>：发挥作用 / 达到目的<br>
+                            <strong class="litit-en-sentence">The commemoration therefore serves more than a historical purpose.</strong>
+                            <span class="litit-zh-sentence">因此，这次纪念活动不仅具有（发挥）历史意义（作用）。</span>
                         </li>
                         <li class="litit-target-sentence" style="margin-bottom: 10px;">
                             <strong class="litit-badge">translate into</strong>：转化为……<br>
                             <strong class="litit-en-sentence">Greater transport capacity does not automatically translate into a substantial increase in trade.</strong>
-                            <span class="litit-zh-sentence">运输能力的提升并不意味着（不会自动转化为）贸易额必然大幅增长。</span>
+                            <span class="litit-zh-sentence">运输能力的提升并不意味着（自动转化为）贸易额必然大幅增长。</span>
                         </li>
                     </ul>
                 </div>
@@ -583,19 +553,19 @@
                 <div class="litit-fold-content">
                     <ol style="margin: 0; padding-left: 18px;">
                         <li class="litit-target-sentence" style="margin-bottom: 12px;">
-                            <strong class="litit-badge">现在分词短语作方式状语</strong><br>
-                            <strong class="litit-en-sentence">By emphasizing their shared wartime experience, the two governments reinforce a political narrative of friendship...</strong>
-                            <span class="litit-zh-sentence">通过强调共同的战争经历，两国政府也在强化有关友谊与合作的政治叙事……</span>
+                            <strong class="litit-badge">非限制性定语从句 (Non-restrictive Relative Clause)</strong><br>
+                            <strong class="litit-en-sentence">The bridge, which connects Dandong with the North Korean city of Sinuiju, is approximately three kilometers long.</strong>
+                            <span class="litit-zh-sentence">这座大桥连接中国丹东与朝鲜新义州，全长约3公里。</span>
                             <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
-                                <li style="margin-bottom: 3px;"><strong>深度语法解析 (Parsing Method)</strong>：句首的 `By emphasizing...` 是典型的“by + 动名词/现在分词”结构，充当整个句子的方式状语，非常干练地交代了主句动作（reinforce）所采用的手段和策略。在论述双边政治手腕时这种句式极具逻辑性。</li>
+                                <li style="margin-bottom: 3px;"><strong>深度语法解析 (Parsing Method)</strong>：句中 `which` 引导的非限制性定语从句巧妙嵌在主语（The bridge）与系动词（is）之间。在新闻文体中，这种结构能极其紧凑地在主线叙事外“顺带”补充必要的地理背景信息，避免了生硬的并列短句。</li>
                             </ul>
                         </li>
                         <li class="litit-target-sentence" style="margin-bottom: 12px;">
-                            <strong class="litit-badge">从句嵌套与介词宾语</strong><br>
-                            <strong class="litit-en-sentence">This creates a diplomatic landscape in which Pyongyang maintains relationships with both Beijing and Moscow.</strong>
-                            <span class="litit-zh-sentence">在这样的外交格局下（这创造了一种外交格局），平壤同时维持与北京和莫斯科的关系。</span>
+                            <strong class="litit-badge">形式主语与平行结构 (Dummy Subject & Parallelism)</strong><br>
+                            <strong class="litit-en-sentence">Rather than interpreting the trip as proof of a dramatic strategic shift, it is more prudent to view it as an effort to advance economic cooperation...</strong>
+                            <span class="litit-zh-sentence">与其将此次行程视为双边战略发生重大转折的证据，不如将其理解为双方……进一步推动经贸合作与战略沟通的一项举措。</span>
                             <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
-                                <li style="margin-bottom: 3px;"><strong>深度语法解析 (Parsing Method)</strong>：`in which` 引导了一个介词提前的定语从句，修饰前面的 `landscape`（格局）。相比于直接使用 `where`，`in which` 在严肃的政经新闻中更显正式与严谨，精确界定了朝鲜外交运作的政治空间。</li>
+                                <li style="margin-bottom: 3px;"><strong>深度语法解析 (Parsing Method)</strong>：`Rather than doing A`（动名词短语）充当比较对象，后接主句 `it is more prudent to do B`。主句中 `it` 为形式主语，真正的主语是后面的不定式短语 `to view it as...`。这种句型通过先破后立，展现了极强的客观审慎分析能力（Critical Thinking），是高阶外刊长难句的典型样板。</li>
                             </ul>
                         </li>
                     </ol>
@@ -610,31 +580,30 @@
                 <div class="litit-fold-content">
                     <ol style="margin: 0; padding-left: 18px;">
                         <li class="litit-target-sentence" style="margin-bottom: 12px;">
-                            <strong class="litit-en-sentence" style="color: #4338ca;">Rather than interpreting [X] as proof of [Y], it is more prudent to view it as [Z].</strong>
-                            <span class="litit-zh-sentence">与其将 [X] 视为 [Y] 的证据，不如将其更谨慎地理解为 [Z]。<br>（社论、分析文章的王牌句型！用于驳斥过度解读、提出更稳妥、务实的观点分析）。</span>
+                            <strong class="litit-en-sentence" style="color: #4338ca;">Rather than interpreting [某事件] as proof of [某种极端结论], it is more prudent to view it as an effort to [务实的目的].</strong>
+                            <span class="litit-zh-sentence">与其将某事视为……的证据，不如将其看作是……的努力。<br>（极其实用的评论性句型。非常适合用于新闻分析、雅思/托福大作文中，用来反驳极端观点，提出更为务实、客观的见解。）</span>
                         </li>
                         <li class="litit-target-sentence" style="margin-bottom: 12px;">
-                            <strong class="litit-en-sentence" style="color: #4338ca;">The visit sends at least three signals: [A]; [B]; and [C].</strong>
-                            <span class="litit-zh-sentence">此次访问至少释放出三个信号：[A]；[B]；以及[C]。<br>（经典的排比概括句式，极为适合在文章导语或总结段落中提纲挈领地梳理复杂事件的多重影响）。</span>
+                            <strong class="litit-en-sentence" style="color: #4338ca;">[某设施/举措] does not automatically translate into a substantial increase in [具体结果].</strong>
+                            <span class="litit-zh-sentence">某事物并不会自动转化为某方面的实质性增长。<br>（常用于经济、政策分析类写作中。用来打破“有动作就必然有好结果”的线性思维错觉，强调后续配套条件的重要性。）</span>
                         </li>
                     </ol>
                 </div>
             </details>
-
         </div>
 
         <!-- 幕后冷知识 -->
         <h2 class="section-header" style="border-left-color: #0d9488;">💡 幕后冷知识 (Fun Facts)</h2>
         <ul style="padding-left:18px; line-height:1.8; color:#334155; font-size:14.5px; margin:0 0 24px 0; word-break:break-word;">
-            <li style="margin-bottom: 8px;"><strong>漫长的等待：</strong> 新鸭绿江大桥早在2014年就已由中方全资建成，但由于朝鲜一侧（新义州）的引桥、连接公路及海关配套设施迟迟未能动工，这座雄伟的大桥在长达12年的时间里犹如一座“断头桥”闲置在江面上，直到2026年底才正式通车。</li>
-            <li style="margin-bottom: 8px;"><strong>丹东的地缘重压：</strong> 作为中国最大的边境城市，丹东承担了中朝两国之间高达70%以上的贸易量。这座城市的经济活力与中朝关系的温度高度绑定，大桥的通车对当地物流、外贸企业而言无疑是一剂强心针。</li>
-            <li><strong>并非简单的选边站：</strong> 虽然外界频频炒作朝俄军事关系升温，但从地理与经济结构来看，朝鲜无法摆脱对中国消费品、能源及跨境基建的依赖。维持中俄两国间的微妙平衡，是平壤实现利益最大化的生存之道。</li>
+            <li style="margin-bottom: 8px;"><strong>鸭绿江上的桥梁变迁：</strong> 丹东与朝鲜新义州之间，有著名的“鸭绿江断桥”（战争遗迹）和中朝友谊桥（目前承担大部分单线铁路和公路客货运）。而这座耗资巨大的“新鸭绿江大桥”自2014年建成后，由于朝鲜一侧引桥和海关配套设施迟迟未能完工，在江面上尴尬地“断头”闲置了10余年，直到2026年才真正通车，这也反映了中朝边境基建对接的复杂现实。</li>
+            <li style="margin-bottom: 8px;"><strong>丹东的地缘枢纽地位：</strong> 丹东不仅是中国最大的边境城市，更是中朝贸易的绝对核心枢纽。据统计，中朝两国贸易额的70%以上都是通过丹东口岸完成的。因此，金正恩不远赴北京，而是专门视察丹东口岸，实质上是一次极其明确的“聚焦经济与边贸恢复”的务实之行。</li>
+            <li><strong>APEC与边缘外交：</strong> 文中特别提及2026年11月即将在中国深圳举办的亚太经合组织（APEC）会议。尽管APEC主要是一个多边经济论坛，但在国际关系史上，它常常为敌对或缺乏正式外交渠道的国家元首提供“走廊外交”或非正式接触的绝佳掩护。如果特朗普与金正恩能在此类多边场合碰面，将再次成为地缘政治的超级大戏。</li>
         </ul>
 
         <!-- 全片锐评 -->
         <h2 class="section-header" style="border-left-color: #e11d48;">🎯 全片锐评</h2>
         <p style="line-height:1.75; color:#1e293b; font-weight:500; background:linear-gradient(135deg, #fff1f2 0%, #ffffff 100%); padding:14px 16px; border-radius:10px; font-size:14.5px; margin:0 0 12px 0; border:1px solid #ffe4e6; word-break:break-word;">
-            金正恩此次丹东之行，恰似新鸭绿江大桥本身——硬件已经贯通，但车流能否如期繁荣，全看双方海关的“通关放行”意愿。在美朝对话停滞、朝俄军事互动频繁的当下，这趟行程的高明之处在于其“退可守、进可攻”的模糊性：它既通过纪念抗美援朝历史向外界展示了中朝传统的政治纽带，又将焦点稳妥地降级在“边境基建与经贸”这一务实层面，避免了过早释放过于激进的战略转向信号。我们不必急于将此行神化为地缘政治的巨大拐点，因为在制裁的坚冰与错综复杂的半岛局势面前，桥通了只是第一步，货物与信任能否真正顺畅流转，才是考验中朝双方政治智慧的真正舞台。
+            金正恩此次丹东之行，看似是一次简单的边境基建视察，实则是在微妙的国际节点打出的一张“历史与经济牌”。大桥的通车打破了多年的闲置尴尬，为中朝贸易注入了物理层面的运力；但正如文中所言，硬件的连通不等于贸易数据的自动攀升，关键还在于制裁环境与双方政策的切实落地。在中俄朝关系引发外界持续猜测、美朝关系可能迎来变数的2026年秋天，平壤通过重温抗美援朝的战斗友谊，向北京传递了明确的交好信号。这座长达3公里的新桥，既是货车通行的钢筋水泥，更是平壤在大国博弈中平衡地缘杠杆的一级重要阶梯。
         </p>
 
     </div>
@@ -698,9 +667,7 @@
                 const res = await fetch(targetUrl, {
                     method: 'POST',
                     headers: headers,
-                    body: JSON.stringify({
-                        contents: [{ parts: [{ text: AI_PROMPT + '"' + text + '"' }] }]
-                    })
+                    body: JSON.stringify({ contents: [{ parts: [{ text: AI_PROMPT + '"' + text + '"' }] }] })
                 });
                 if (!res.ok) throw new Error('Gemini Error: ' + res.status);
                 const json = await res.json();
@@ -762,24 +729,24 @@
         function getPurifiedFallbackHTML() {
             const clone = document.documentElement.cloneNode(true);
             const foreignSelectors = [
-                'relingo-app', 'relin-highlight', 'relin-hc',
-                '[class*="relingo"]', '[data-relin-paragraph]',
-                'grammarly-extension', '[data-grammarly-part]',
-                '[class*="immersive-translate"]', '[data-immersive-translate]'
+                'relingo-app', 'relin-highlight', 'relin-hc', '[class*="relingo"]', '[data-relin-paragraph]',
+                'grammarly-extension', '[data-grammarly-part]', '[class*="immersive-translate"]', '[data-immersive-translate]'
             ].join(',');
             clone.querySelectorAll(foreignSelectors).forEach(el => el.remove());
+
             clone.querySelectorAll('relin-highlight, relin-hc').forEach(t => {
                 const frag = document.createDocumentFragment();
                 while(t.firstChild) frag.appendChild(t.firstChild);
                 t.parentNode.replaceChild(frag, t);
             });
+
             clone.querySelectorAll('script').forEach(s => {
                 if (!s.src.includes('marked.min.js') && s.id !== 'core-engine') s.remove();
             });
             clone.querySelectorAll('style').forEach(s => {
                 if (s.id !== 'core-style') s.remove();
             });
-            
+
             const liveTAs = document.querySelectorAll('.anno-edit');
             clone.querySelectorAll('.anno-edit').forEach((ta, i) => {
                 if(liveTAs[i]) ta.textContent = liveTAs[i].value.trim();
@@ -788,6 +755,7 @@
                 const view = box ? box.querySelector('.anno-view') : null;
                 if (view) view.innerHTML = '';
             });
+
             return '<!DOCTYPE html>\n<html lang="zh-CN">\n' + clone.innerHTML + '\n</html>';
         }
 
@@ -802,6 +770,7 @@
             const month = pathParts.pop();
             const year = pathParts.pop();
             if(!fileName || !month || !year) return;
+
             const fileRelPath = 'Summary/' + year + '/' + month + '/' + fileName;
 
             try {
@@ -809,33 +778,39 @@
                     headers: { 'Authorization': 'Bearer ' + ghToken },
                     cache: 'no-store'
                 });
+
                 let finalHTML = '';
                 let sha = '';
-                
+
                 if (getRes.ok) {
                     const fileData = await getRes.json();
                     sha = fileData.sha;
                     const cleanRawHTML = decodeURIComponent(escape(atob(fileData.content.replace(/\n/g, ''))));
+
                     const parser = new DOMParser();
                     const cleanDoc = parser.parseFromString(cleanRawHTML, 'text/html');
-                    
+
                     const liveTAs = document.querySelectorAll('.anno-edit');
                     const cleanTAs = cleanDoc.querySelectorAll('.anno-edit');
+
                     liveTAs.forEach((liveTa, index) => {
                         if (cleanTAs[index]) {
                             const val = liveTa.value.trim();
                             cleanTAs[index].textContent = val;
+                            
                             const box = cleanTAs[index].closest('.anno-box');
                             if (box) box.style.display = 'none';
                             const view = box ? box.querySelector('.anno-view') : null;
                             if (view) view.innerHTML = '';
                         }
                     });
+
                     cleanDoc.querySelectorAll('.anno-toggle').forEach(t => {
                         t.classList.remove('has-anno');
                         const ta = t.closest('.content-wrap, .litit-highlight-block')?.querySelector('.anno-edit');
                         if (ta && ta.textContent.trim()) t.classList.add('has-anno');
                     });
+
                     finalHTML = '<!DOCTYPE html>\n<html lang="zh-CN">\n' + cleanDoc.documentElement.innerHTML + '\n</html>';
                 } else {
                     finalHTML = getPurifiedFallbackHTML();
@@ -861,13 +836,14 @@
 
         function scheduleSync() {
             if (syncTimeout) clearTimeout(syncTimeout);
-            syncTimeout = setTimeout(() => { syncToCloud(); }, 3000);
+            syncTimeout = setTimeout(() => {
+                syncToCloud();
+            }, 3000);
         }
 
         function initAnnotations() {
             document.querySelectorAll('.litit-highlight-block, .content-wrap').forEach(wrap => {
                 let content = wrap.querySelector('.content');
-                
                 if (!content) {
                     const pText = wrap.querySelector('p');
                     if (pText) {
@@ -878,7 +854,6 @@
                         pText.parentNode.replaceChild(content, pText);
                     }
                 }
-                
                 if (!content) return;
 
                 if (!content.querySelector('.anno-toggle')) {
@@ -887,7 +862,6 @@
                     toggle.title = '手写批注/笔记';
                     content.appendChild(toggle);
                 }
-                
                 if (!content.querySelector('.ai-toggle')) {
                     const aiToggle = document.createElement('span');
                     aiToggle.className = 'ai-toggle';
@@ -930,7 +904,6 @@
                         const pClone = content.cloneNode(true);
                         pClone.querySelectorAll('.anno-toggle, .ai-toggle').forEach(el => el.remove());
                         let pText = pClone.textContent.replace(/https?:\/\/\S+/g, '').trim();
-                        
                         if (!pText) return;
 
                         aiToggle.classList.add('loading');
@@ -979,7 +952,7 @@
                 };
 
                 view.addEventListener('dblclick', triggerEdit);
-                
+
                 let lastTap = 0;
                 view.addEventListener('touchstart', e => {
                     if (e.touches.length === 2) {
@@ -1003,7 +976,6 @@
                             } catch(e){}
                             
                             edit.style.display = 'none';
-                            
                             if (newVal) {
                                 view.style.display = 'block';
                                 toggle.classList.add('has-anno');
@@ -1028,7 +1000,7 @@
             initProgressBar();
             initAnnotations();
         });
-
+        
         window.addEventListener('load', () => {
             initAnnotations();
         });
