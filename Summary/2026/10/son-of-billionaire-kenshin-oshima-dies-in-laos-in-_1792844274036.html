@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Son of billionaire Kenshin Oshima dies in Laos in mysterious circumstances</title>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <style id="core-style">
+    /* ======================================================================
+       [AI TEMPLATE GUIDELINES - CSS 核心排版规范]
+       致其他 AI 助手：在生成此模板时，请严格遵守以下样式分配规则：
+       1. 序号规则：列表的 NO.01 序号由伪类 `::before` 自动生成且独占一行。千万不要在 HTML 中手动输入“NO.01”。
+       2. 标签规则：文章开头的标签胶囊纯文字即可，禁止带 `#` 号。类别标签严格限制在最多两个单词以内，以避免在移动端发生换行。
+       3. 胶囊高亮（.litit-badge）：仅用于第 1、2、3 板块（重点记忆、高价值表达、短语和固定搭配）的【短词组/单词】，表现为紫色渐变背景的内联胶囊。
+       4. 长句排版（.litit-en-sentence）：用于第 4 板块（值得学习的句子结构）和第 5 板块（最值得优先掌握的句型）的【长句/长句型】。严禁将长句型放入 .litit-badge 中，否则会导致折行错乱。并且中文解释中的括号补充内容需使用 <br> 另起一行。
+       5. 语法重点提炼规范：核心目标是“深度剖析语法结构”，绝对禁止单纯罗列生硬的语法术语。应结合文章具体语境灵活解析，重点提炼以下三个进阶维度：
+          - 维度1：长难句与从句嵌套（Complex Clause Structures）。考察和剖析主从复合句的主干提取、各类从句（定语/名词性/状语从句）的逻辑关系。
+          - 维度2：高级句式与特殊结构（Advanced Syntax）。剖析倒装句、强调句、虚拟语气、独立主格等高级语法现象在语境中的具体应用与修辞色彩。
+          - 维度3：非谓语动词与词法功能（Non-finite Verbs & Lexical Grammar）。解析分词、不定式、动名词在句中的具体功能（作定语、状语等）及其带来的语体效果。
+       ====================================================================== */
+    :root {
+      --bg-page: #ffffff;
+      --bg-card: #ffffff;
+      --text-main: #0f172a;
+      --text-sub: #334155;
+      --text-muted: #64748b;
+      --accent-primary: #4f46e5;
+      --border-subtle: #e2e8f0;
+      --font-serif: "Georgia", "Charter", "Source Han Serif SC", "Noto Serif CJK SC", serif;
+      --font-sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", Roboto, sans-serif;
+    }
+    body {
+      font-family: var(--font-sans);
+      padding: 12px 12px 36px 12px;
+      margin: 0 auto;
+      max-width: 780px;
+      background: var(--bg-page);
+      color: var(--text-main);
+      line-height: 1.75;
+      font-size: 16px;
+      word-wrap: break-word;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    * { box-sizing: border-box; max-width: 100%; }
+    img { max-width: 100%; height: auto; border-radius: 8px; }
+    /* 顶部极简阅读进度条 */
+    #reading-progress {
+      position: fixed; top: 0; left: 0; width: 0%; height: 3px;
+      background: linear-gradient(90deg, #4f46e5, #9333ea);
+      z-index: 9999; transition: width 0.1s ease-out;
+    }
+    /* 主容器：零冗余边距，最大化阅读视野 */
+    .litit-report { background: var(--bg-card); padding: 0; }
+    /* AI 批注组件样式 */
+    .anno-toggle, .ai-toggle {
+      display: inline-block; padding: 2px 5px; margin-left: 5px; cursor: pointer;
+      opacity: 0.45; font-size: 0.85rem; vertical-align: middle; transition: all 0.2s;
+      user-select: none; -webkit-tap-highlight-color: transparent;
+    }
+    .anno-toggle:hover, .ai-toggle:hover { opacity: 1; transform: scale(1.15); }
+    .anno-toggle.has-anno { opacity: 1; }
+    .anno-toggle::after { content: "🔴"; }
+    .ai-toggle { opacity: 0.7; padding: 2px 4px; }
+    .ai-toggle::after { content: "🤖"; }
+    .ai-toggle.loading::after {
+      content: "⏳"; display: inline-block; animation: spin 1s linear infinite;
+    }
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+    .anno-box {
+      display: none; margin-top: 10px; background: #faf8ff;
+      border-left: 3px solid #7c3aed; padding: 12px 14px; border-radius: 0 8px 8px 0; text-align: left;
+    }
+    .anno-view { font-size: 0.95rem; line-height: 1.65; color: #334155; min-height: 24px; }
+    .anno-edit {
+      width: 100%; min-height: 120px; padding: 10px; font-family: monospace; font-size: 0.95rem;
+      border: 1px dashed #a78bfa; border-radius: 6px; resize: vertical; display: none;
+      background: #fff; color: #1e293b; outline: none;
+    }
+    .anno-edit:focus { border: 1px solid #7c3aed; box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.12); }
+    .markdown-body p { margin-top: 0; margin-bottom: 8px; }
+    .markdown-body p:last-child { margin-bottom: 0; }
+    .markdown-body h1, .markdown-body h2, .markdown-body h3 {
+      color: #5b21b6; font-size: 1.05rem; margin: 10px 0 6px 0; border-bottom: 1px dashed #ddd6fe; padding-bottom: 4px;
+    }
+    .markdown-body ul, .markdown-body ol { margin: 0 0 8px 0; padding-left: 18px; }
+    .markdown-body blockquote {
+      margin: 0 0 10px 0; padding: 8px 12px; background: rgba(124, 58, 237, 0.06);
+      border-left: 3px solid #7c3aed; color: #475569;
+    }
+    /* 杂志风区块标题 */
+    .section-header {
+      font-size: 16px; color: #0f172a; font-weight: 700; letter-spacing: 0.02em;
+      background: linear-gradient(90deg, #f8fafc 0%, #ffffff 100%); padding: 8px 12px;
+      border-left: 4px solid #4f46e5; margin: 26px 0 14px 0; border-radius: 0 6px 6px 0;
+      display: flex; align-items: center; box-shadow: inset 0 1px 0 #f1f5f9, inset 0 -1px 0 #f1f5f9;
+    }
+    /* 折叠面板升级：极简无十字图标、最大化宽度 */
+    details.litit-fold {
+      margin-bottom: 10px; border: 1px solid #e2e8f0; border-radius: 10px;
+      background: #ffffff; overflow: hidden; transition: border-color 0.2s ease;
+    }
+    details.litit-fold[open] { border-color: #cbd5e1; }
+    details.litit-fold summary {
+      cursor: pointer; padding: 12px 14px; outline: none; list-style: none; display: flex;
+      justify-content: space-between; align-items: center; background: #f8fafc;
+      transition: background 0.2s; user-select: none; -webkit-tap-highlight-color: transparent;
+    }
+    details.litit-fold summary::-webkit-details-marker { display: none; }
+    details.litit-fold summary::after { display: none; }
+    details.litit-fold summary:hover { background: #f1f5f9; }
+    details.litit-fold[open] summary { border-bottom: 1px solid #e2e8f0; background: #f8fafc; border-left: 3px solid #4f46e5; }
+    .litit-fold-content { padding: 10px 8px; background: #f8fafc; }
+    /* 精读区列表卡片化 */
+    .litit-fold-content > ol, .litit-fold-content > ul {
+      list-style: none !important; padding-left: 0 !important; margin: 0 !important; counter-reset: litit-counter;
+    }
+    .litit-fold-content > ol > li, .litit-fold-content > ul > li {
+      counter-increment: litit-counter; position: relative; background: #ffffff;
+      border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px 12px;
+      margin-bottom: 10px !important; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.015);
+    }
+    .litit-fold-content > ol > li:last-child, .litit-fold-content > ul > li:last-child { margin-bottom: 0 !important; }
+    /* 顶部流式微型序号徽章：完美独占一行，追求极致对齐与统一美感 */
+    .litit-fold-content > ol > li::before, .litit-fold-content > ul > li::before {
+      content: "NO." counter(litit-counter, decimal-leading-zero); display: block; width: max-content;
+      font-size: 10px; font-weight: 800; font-family: -apple-system, BlinkMacSystemFont, monospace;
+      color: #4f46e5; background: #eef2ff; padding: 1px 6px; border-radius: 4px;
+      margin-bottom: 8px; letter-spacing: 0.04em;
+    }
+    /* 纯英/中长句子专属排版（块级元素，自然折行对齐） */
+    .litit-en-sentence {
+      display: block; font-family: var(--font-serif); font-size: 1.04rem; font-weight: 600;
+      color: #0f172a; line-height: 1.5; margin-bottom: 6px;
+    }
+    .litit-zh-sentence {
+      display: block; font-family: var(--font-sans); font-size: 0.93rem; color: #475569;
+      line-height: 1.55; margin-bottom: 2px;
+    }
+    li.litit-target-sentence > br { display: none; }
+    /* 短词组高亮徽章（1、2、3 板块专用短标签） */
+    .litit-badge {
+      display: inline-block; background: linear-gradient(135deg, #eef2ff 0%, #f3e8ff 100%);
+      color: #4338ca; padding: 2px 8px; border-radius: 5px; font-size: 0.92rem; font-weight: 700;
+      margin-right: 4px; margin-bottom: 6px; border: 1px solid #e0e7ff; vertical-align: middle;
+    }
+    /* 第 4 板块子级知识点解析区左边框内嵌盒 */
+    li.litit-target-sentence > ul {
+      list-style: none !important; margin: 10px 0 0 0 !important; padding: 8px 10px !important;
+      background: #f8fafc; border-radius: 6px; border-left: 2.5px solid #94a3b8;
+    }
+    li.litit-target-sentence > ul > li {
+      position: relative; padding-left: 10px; margin-bottom: 5px !important; font-size: 0.88rem; color: #334155; line-height: 1.5;
+    }
+    li.litit-target-sentence > ul > li:last-child { margin-bottom: 0 !important; }
+    li.litit-target-sentence > ul > li::before {
+      content: "·"; position: absolute; left: 0; top: 0; color: #4f46e5; font-weight: 900;
+    }
+    li.litit-target-sentence > ul > li > strong {
+      color: #0f172a; font-weight: 600; background: #e2e8f0; padding: 1px 5px; border-radius: 4px; font-size: 0.84rem; margin-right: 3px;
+    }
+    /* 移动端极限铺开适配 */
+    @media (max-width: 600px) {
+      body { padding: 10px 10px 30px 10px; font-size: 15px; }
+      h1.litit-target-title { font-size: 21px !important; }
+      .litit-fold-content { padding: 8px 6px; }
+      .litit-fold-content > ol > li, .litit-fold-content > ul > li { padding: 11px 10px; margin-bottom: 8px !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 进度条 DOM -->
+  <div id="reading-progress"></div>
+
+  <div class="litit-report" style="width:100%; max-width:100%; box-sizing:border-box; overflow-x:hidden;">
+
+    <!-- 顶部杂志刊头装饰 -->
+    <div style="display:flex; justify-content:space-between; align-items:center; border-bottom: 2px solid #0f172a; padding-bottom: 6px; margin-bottom: 14px; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: #64748b; text-transform: uppercase;">
+      <span>The Global Dispatch · 深度双语精读</span>
+      <!-- 分类标签：严格限制在最多两个单词以内，避免在移动端换行 -->
+      <span>Crime News</span>
+    </div>
+
+    <!-- 支持批注的主标题区 -->
+    <div class="content-wrap" style="position:relative; margin-bottom: 16px;">
+      <h1 class="litit-target-title" style="color:#0f172a; font-size: 24px; line-height: 1.35; font-family: var(--font-serif); font-weight: 800; border-bottom: 1px solid #e2e8f0; padding-bottom: 14px; margin-top:0; margin-bottom:0; word-break:break-word;">
+        <span class="content litit-en-title" style="position:relative;">Son of billionaire Kenshin Oshima dies in Laos in mysterious circumstances</span>
+        <br>
+        <span class="litit-zh-title" style="font-family: var(--font-sans); font-size: 17px; font-weight: 600; color: #475569; margin-top: 8px; display: inline-block; line-height: 1.45;">日本亿万富翁大岛健伸之子在老挝离奇身亡</span>
+      </h1>
+      <div class="anno-box" style="display:none; margin-top: 10px;">
+        <div class="anno-view markdown-body"></div>
+        <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea>
+      </div>
+    </div>
+
+    <!-- 杂志导语（Lead Paragraph） -->
+    <p style="color:#334155; font-size: 15px; line-height: 1.75; margin-bottom:16px; font-weight:400; background: #f8fafc; padding: 12px 14px; border-radius: 8px; border: 1px solid #f1f5f9;">
+      近日，前日本 SFCG 集团创始人、亿万富翁大岛健伸之子大岛嘉仁在老挝首都万象离奇身亡。身为老挝东盟租赁公众公司（LALCO）的前任董事，大岛嘉仁的死因被该公司在社交媒体上的一纸讣告轻描淡写地带过，且该声明随后被诡异删除。然而，流亡法国的老挝活动人士曝光的监控录像显示，大岛嘉仁于10月14日晚在住宅区停车场遭不明身份的袭击者当街枪杀。在老挝警方持续保持沉默、案件扑朔迷离之际，大岛家族迅速完成了企业权力的重组。这场交织着跨国资本、家族财富与黑帮暗杀色彩的血腥事件，究竟是商业仇杀还是更深层的利益清洗，目前仍是一个巨大的谜团。
+    </p>
+
+    <div style="margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+      <div style="display:flex; flex-wrap:wrap; gap:6px;">
+        <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;">跨国命案</span>
+        <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;">富豪家族</span>
+        <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;">离奇暗杀</span>
+      </div>
+      <a href="https://www.tokyoreporter.com/international/son-of-billionaire-kenshin-oshima-dies-in-laos-in-mysterious-circumstances/" target="_blank" style="font-size: 12.5px; color: #4f46e5; text-decoration: none; font-weight: 600; background: #eef2ff; padding: 5px 12px; border-radius: 16px; border: 1px solid #e0e7ff; display:inline-block;">🔗 阅读原文 ↗</a>
+    </div>
+
+    <!-- 最佳金句区 -->
+    <h2 class="section-header" style="border-left-color: #f59e0b;">💬 最佳金句</h2>
+    <div class="content-wrap" style="position:relative; margin-bottom:24px;">
+      <blockquote class="litit-target-quote" style="border-left: 3.5px solid #f59e0b; background: linear-gradient(135deg, #fffbeb 0%, #ffffff 100%); padding: 14px 14px; margin: 0; color: #1e293b; border-radius: 0 10px 10px 0; border-top: 1px solid #fef3c7; border-right: 1px solid #fef3c7; border-bottom: 1px solid #fef3c7;">
+        <div class="content litit-en-quote" style="position:relative; margin:0 0 8px 0; font-family: var(--font-serif); font-style: italic; font-weight:600; font-size: 16.5px; line-height: 1.55; color:#0f172a; word-break:break-word;">
+          "The statement, which has since been deleted, did not disclose the cause of Oshima’s death. However, online sources are reporting that his death was the result of foul play — claims that are shrouded in mystery given that local media and law enforcement have yet to provide information on the matter."
+        </div>
+        <p class="litit-zh-quote" style="margin:0 0 8px 0; font-weight:400; font-size: 14.5px; line-height: 1.6; color:#475569; word-break:break-word;">
+          “这份随后被删除的声明并未透露大岛的死因。然而，网络消息称他的死是谋杀所致——鉴于当地媒体和执法部门尚未提供任何相关信息，这些说法显得扑朔迷离。”
+        </p>
+        <footer style="text-align:right; font-size:12px; color:#64748b; font-style:normal; font-weight:600;">—— 媒体点出该起命案因官方沉默与公司反常举动而显得疑云重重</footer>
+      </blockquote>
+      <div class="anno-box" style="display:none;">
+        <div class="anno-view markdown-body"></div>
+        <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea>
+      </div>
+    </div>
+
+    <!-- Grid 布局关键数字区 -->
+    <h2 class="section-header" style="border-left-color: #10b981;">📊 关键数字</h2>
+    <div style="display:grid; grid-template-columns: repeat(2, 1fr); gap:10px; margin:14px 0 24px 0;">
+      <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+        <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+          10月19日<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;"></span>
+        </div>
+        <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">LALCO公司在Facebook上发布大岛嘉仁死讯声明的日期，该声明随后被诡异删除</div>
+      </div>
+      <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+        <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+          14日<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">晚</span>
+        </div>
+        <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">致命枪击案在老挝首都万象一处住宅区停车场发生的日期</div>
+      </div>
+      <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+        <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+          9:10<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">p.m.</span>
+        </div>
+        <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">流亡活动人士曝光的监控录像显示大岛嘉仁遭不明袭击者当街枪杀的准确时间</div>
+      </div>
+      <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+        <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+          0<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">起声明</span>
+        </div>
+        <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">截至目前老挝警方及执法部门对该起谋杀案公开发布的官方通报数量</div>
+      </div>
+    </div>
+
+    <h2 class="section-header" style="border-left-color: #3b82f6;">⏱️ 事件时间线</h2>
+    <ul style="padding-left:18px; line-height:1.8; color:#334155; font-size: 14.5px; margin-bottom:24px; word-break:break-word;">
+      <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">10月14日晚9点10分：</strong> 大岛嘉仁在老挝万象一处住宅区停车场疑遭不明袭击者当街枪杀。</li>
+      <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">10月19日：</strong> LALCO公司在Facebook上发布声明确认大岛嘉仁死讯，并宣布其母大岛由里子接任董事。</li>
+      <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">声明发布后不久：</strong> 该官方讣告被诡异删除，老挝警方和当地媒体对此事持续保持集体沉默。</li>
+      <li><strong style="color:#1d4ed8;">本周：</strong> 流亡法国的老挝活动人士公布监控录像曝光暗杀瞬间，引发外界对这起跨国谋杀案的广泛猜测。</li>
+    </ul>
+
+    <h2 class="section-header" style="border-left-color: #8b5cf6;">✨ 本篇亮点与精读</h2>
+    <div style="margin: 14px 0 10px 0;">
+
+      <!-- 第一板块：一、重点记忆 -->
+      <details class="litit-fold">
+        <summary>
+          <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">一、重点记忆</h3>
+        </summary>
+        <div class="litit-fold-content">
+          <ul style="list-style-type: square; margin: 0; padding-left: 18px; line-height: 1.6;">
+            <li class="litit-target-sentence" style="margin-bottom: 10px;">
+              <strong class="litit-badge">mysterious circumstances</strong>：离奇情况 / 神秘情况<br>
+              <strong class="litit-en-sentence">Son of billionaire Kenshin Oshima dies in Laos in mysterious circumstances.</strong>
+              <span class="litit-zh-sentence">亿万富翁大岛健伸之子在老挝离奇身亡。</span>
+            </li>
+            <li class="litit-target-sentence" style="margin-bottom: 10px;">
+              <strong class="litit-badge">now-defunct</strong>：现已倒闭的 / 已不存在的<br>
+              <strong class="litit-en-sentence">The founder of the now-defunct Industrial Bank of Japan Fund.</strong>
+              <span class="litit-zh-sentence">现已倒闭的日本SFCG集团的创始人。</span>
+            </li>
+            <li class="litit-target-sentence" style="margin-bottom: 10px;">
+              <strong class="litit-badge">foul play</strong>：谋杀 / 严重犯罪<br>
+              <strong class="litit-en-sentence">Online sources are reporting that his death was the result of foul play.</strong>
+              <span class="litit-zh-sentence">网络消息称他的死是谋杀所致。</span>
+            </li>
+            <li class="litit-target-sentence" style="margin-bottom: 10px;">
+              <strong class="litit-badge">shrouded in mystery</strong>：扑朔迷离 / 笼罩在谜团中<br>
+              <strong class="litit-en-sentence">Claims that are shrouded in mystery given that local media...</strong>
+              <span class="litit-zh-sentence">鉴于当地媒体……这些说法显得扑朔迷离。</span>
+            </li>
+            <li class="litit-target-sentence" style="margin-bottom: 10px;">
+              <strong class="litit-badge">assailant</strong>：袭击者<br>
+              <strong class="litit-en-sentence">Allegedly gunned down by unknown assailants.</strong>
+              <span class="litit-zh-sentence">涉嫌被不明袭击者枪杀。</span>
+            </li>
+          </ul>
+        </div>
+      </details>
+
+      <!-- 第二板块：二、高价值表达 -->
+      <details class="litit-fold">
+        <summary>
+          <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">二、高价值表达</h3>
+        </summary>
+        <div class="litit-fold-content">
+          <ol style="margin: 0; padding-left: 18px;">
+            <li style="margin-bottom: 12px;">
+              <strong class="litit-badge">gunned down</strong>：被枪杀 / 被击毙。<br>
+              <span class="litit-zh-sentence" style="margin-top: 4px;">在犯罪新闻中极其常见，生动描绘了受害者在停车场等公共场所遭遇武装分子暴力暗杀的血腥场景。</span>
+            </li>
+            <li style="margin-bottom: 12px;">
+              <strong class="litit-badge">in exile</strong>：流亡海外。<br>
+              <span class="litit-zh-sentence" style="margin-top: 4px;">通常指由于政治、安全等原因被迫离开母国在国外生活，常用于政治异见人士和跨国事件的报道中。</span>
+            </li>
+            <li style="margin-bottom: 12px;">
+              <strong class="litit-badge">repose of his soul</strong>：灵魂安息。<br>
+              <span class="litit-zh-sentence" style="margin-top: 4px;">讣告和悼词中高度正式、带有宗教色彩的表达，用于向死者家属传递深切的哀悼和祈福之情。</span>
+            </li>
+          </ol>
+        </div>
+      </details>
+
+      <!-- 第三板块：三、短语和固定搭配 -->
+      <details class="litit-fold">
+        <summary>
+          <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">三、短语和固定搭配</h3>
+        </summary>
+        <div class="litit-fold-content">
+          <ul style="list-style-type: square; margin: 0; padding-left: 18px; line-height: 1.6;">
+            <li class="litit-target-sentence" style="margin-bottom: 10px;">
+              <strong class="litit-badge">pass away</strong>：去世<br>
+              <strong class="litit-en-sentence">Yoshihito Oshima... has passed away.</strong>
+              <span class="litit-zh-sentence">大岛嘉仁……已经去世。</span>
+            </li>
+            <li class="litit-target-sentence" style="margin-bottom: 10px;">
+              <strong class="litit-badge">the majority of which</strong>：其中绝大多数<br>
+              <strong class="litit-en-sentence">The majority of which are Japanese brands.</strong>
+              <span class="litit-zh-sentence">其中绝大多数是日本品牌。</span>
+            </li>
+            <li class="litit-target-sentence" style="margin-bottom: 10px;">
+              <strong class="litit-badge">on behalf of</strong>：代表……<br>
+              <strong class="litit-en-sentence">On behalf of the management and all employees...</strong>
+              <span class="litit-zh-sentence">代表管理层及全体员工……</span>
+            </li>
+            <li class="litit-target-sentence" style="margin-bottom: 10px;">
+              <strong class="litit-badge">as of this week</strong>：截至本周<br>
+              <strong class="litit-en-sentence">As of this week, police authorities have not issued an official statement.</strong>
+              <span class="litit-zh-sentence">截至本周，警方当局尚未发布官方声明。</span>
+            </li>
+          </ul>
+        </div>
+      </details>
+
+      <!-- 第四板块：四、值得学习的句子结构 -->
+      <details class="litit-fold">
+        <summary>
+          <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">四、值得学习的句子结构</h3>
+        </summary>
+        <div class="litit-fold-content">
+          <ol style="margin: 0; padding-left: 18px;">
+            <li class="litit-target-sentence" style="margin-bottom: 12px;">
+              <strong class="litit-en-sentence">However, online sources are reporting that his death was the result of foul play — claims that are shrouded in mystery given that local media and law enforcement have yet to provide information on the matter.</strong>
+              <span class="litit-zh-sentence">然而，网络消息称他的死是谋杀所致——鉴于当地媒体和执法部门尚未提供任何相关信息，这些说法显得扑朔迷离。</span>
+              <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+                <li style="margin-bottom: 3px;"><strong>claims that are shrouded in mystery</strong>：破折号后用名词 claims 同位指代前半句的“谋杀传闻”，并搭配定语从句，结构非常紧凑。</li>
+                <li style="margin-bottom: 3px;"><strong>given that...</strong>：连词词组引导原因状语从句，交代了传闻之所以“扑朔迷离”正是因为官方的集体沉默。</li>
+              </ul>
+            </li>
+            <li class="litit-target-sentence" style="margin-bottom: 12px;">
+              <strong class="litit-en-sentence">Akaravong, a Laotian activist in exile in France, posted surveillance camera footage showing the moment Oshima was allegedly gunned down by unknown assailants in a parking lot.</strong>
+              <span class="litit-zh-sentence">流亡法国的老挝活动人士阿卡拉冯发布了监控录像，画面显示了大岛涉嫌在停车场被不明袭击者枪杀的瞬间。</span>
+              <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+                <li style="margin-bottom: 3px;"><strong>showing the moment Oshima was allegedly gunned down...</strong>：现在分词 showing 作后置定语修饰 footage，其后更深一层嵌套了一个省略 that 的同位语/定语从句修饰 moment，将“发布证据、画面内容、案发瞬间”三要素完美融合。</li>
+              </ul>
+            </li>
+          </ol>
+        </div>
+      </details>
+
+      <!-- 第五板块：五、最值得优先掌握的句型 -->
+      <details class="litit-fold">
+        <summary>
+          <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">五、最值得优先掌握的句型</h3>
+        </summary>
+        <div class="litit-fold-content">
+          <ol style="margin: 0; padding-left: 18px;">
+            <li class="litit-target-sentence" style="margin-bottom: 12px;">
+              <strong class="litit-en-sentence" style="color: #4338ca;">[某人/机构] posted [媒介证据] showing the moment [某人] was allegedly [遭受暴力行为] by [施暴者] in a [地点].</strong>
+              <span class="litit-zh-sentence">某人发布了某证据，画面显示了某人涉嫌在某地被施暴者进行某暴力行为的瞬间。<br>（非常适合用于犯罪、冲突新闻中描述监控录像或突发视频曝光核心现场画面的句式）。</span>
+            </li>
+            <li class="litit-target-sentence" style="margin-bottom: 12px;">
+              <strong class="litit-en-sentence" style="color: #4338ca;">[某种声明/消息] are shrouded in mystery given that [官方/权威机构] have yet to provide information on the matter.</strong>
+              <span class="litit-zh-sentence">鉴于官方尚未提供有关该事件的信息，某种说法/传闻显得扑朔迷离。<br>（用于深度评论突发事件中因信息封锁或官方不作为而导致谣言四起、真相不明的经典分析句型）。</span>
+            </li>
+          </ol>
+        </div>
+      </details>
+
+      <!-- 第六板块：六、语法重点 -->
+      <details class="litit-fold">
+        <summary>
+          <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">六、语法重点</h3>
+        </summary>
+        <div class="litit-fold-content">
+          <ul style="list-style-type: square; margin: 0; padding-left: 18px; line-height: 1.6;">
+            <!-- 语法重点 1 -->
+            <li class="litit-target-sentence" style="margin-bottom: 12px;">
+              <strong class="litit-badge">非限制性定语从句 (Non-restrictive Relative Clause)</strong><br>
+              <strong class="litit-en-sentence">The statement, which has since been deleted, did not disclose the cause of Oshima’s death.</strong>
+              <span class="litit-zh-sentence">这份随后被删除的声明并未透露大岛的死因。</span>
+              <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+                <li style="margin-bottom: 3px;"><strong>深度解析</strong>：句中的 `which has since been deleted` 是由关系代词 `which` 引导的非限制性定语从句，用于对先行词 `The statement` 提供额外的补充信息。在新闻报道中，使用这种从句可以在不切断主句核心逻辑（声明未透露死因）的前提下，悄然植入一个极具阴谋论色彩的客观动作（已被诡异删除），大幅增强了文章的悬疑感。</li>
+              </ul>
+            </li>
+            <!-- 语法重点 2 -->
+            <li class="litit-target-sentence" style="margin-bottom: 12px;">
+              <strong class="litit-badge">现在分词作后置定语与定语从句嵌套 (Present Participle & Embedded Clause)</strong><br>
+              <strong class="litit-en-sentence">Akaravong... posted surveillance camera footage showing the moment Oshima was allegedly gunned down by unknown assailants in a parking lot.</strong>
+              <span class="litit-zh-sentence">阿卡拉冯……发布了监控录像，画面显示了大岛涉嫌在停车场被不明袭击者枪杀的瞬间。</span>
+              <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+                <li style="margin-bottom: 3px;"><strong>深度解析</strong>：这里的 `showing the moment...` 是现在分词短语，作后置定语修饰 `footage`（监控录像）。而在 `the moment` 之后，作者直接嵌套了一个省略了关系副词 `when` 或 `that` 的定语从句 `Oshima was allegedly gunned down...`。这种写法极其干练紧凑，在单句之内完美整合了“证据来源-画面内容-犯罪瞬间”的三重复杂叙事逻辑。</li>
+              </ul>
+            </li>
+            <!-- 语法重点 3 -->
+            <li class="litit-target-sentence" style="margin-bottom: 10px;">
+              <strong class="litit-badge">"Given that" 引导的原因状语从句 (Adverbial Clause of Reason)</strong><br>
+              <strong class="litit-en-sentence">...claims that are shrouded in mystery given that local media and law enforcement have yet to provide information on the matter.</strong>
+              <span class="litit-zh-sentence">……鉴于当地媒体和执法部门尚未提供有关该事件的任何信息，这些说法显得扑朔迷离。</span>
+              <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+                <li style="margin-bottom: 3px;"><strong>深度解析</strong>：`given that` 作为一个复合连词，引导原因状语从句，其含义相当于 `considering that` 或 `because`。在正式的新闻分析或法律语境中，它常被用来引出一个不容争辩的客观前提条件或既定事实（官方集体失声），从而为前文的结论或推断（暗杀传闻扑朔迷离）提供极具说服力的逻辑支撑底座。</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </details>
+
+    </div>
+
+    <!-- 幕后冷知识 -->
+    <h2 class="section-header" style="border-left-color: #0d9488;">💡 幕后冷知识 (Fun Facts)</h2>
+    <ul style="padding-left:18px; line-height:1.8; color:#334155; font-size:14.5px; margin:0 0 24px 0; word-break:break-word;">
+      <li style="margin-bottom: 8px;"><strong>SFCG 集团的争议与崩塌：</strong> 遇害人大岛嘉仁的父亲大岛健伸是日本金融界的极度争议人物。他创立的 SFCG（曾名“商工基金”）在日本曾以专门对中小企业进行高利贷性质的融资，以及使用极度强硬甚至近乎黑社会的恶劣手段进行暴力催收而臭名昭著。2009年，SFCG 在金融风暴中宣告破产，大岛本人也曾因涉嫌隐匿巨额资产被捕并判刑。</li>
+      <li style="margin-bottom: 8px;"><strong>LALCO 公司的跨国资本版图：</strong> 表面上看，LALCO（老挝东盟租赁公众公司）只是一家在老挝提供日系汽车和摩托车租赁的普通金融企业；但实际上，它是大岛家族在 SFCG 破产后，将残存资本秘密转移至东南亚（利用老挝相对薄弱的金融监管漏洞），企图在海外“东山再起”建立洗钱与高利贷帝国的重要核心阵地。</li>
+      <li><strong>老挝的“跨国暗杀盲区”：</strong> 老挝首都万象近年来频频发生涉及跨国灰黑产、外国争议富豪和异见人士的离奇街头暴力事件。由于当地法治体系的腐败以及警方系统性的刻意“不作为”，大量被监控明确拍下的谋杀案最终都不了了之，这也使得老挝部分地区逐渐成为跨国资本权斗与黑帮利益清洗的“法外之地”。</li>
+    </ul>
+
+    <!-- 全片锐评 -->
+    <h2 class="section-header" style="border-left-color: #e11d48;">🎯 全片锐评</h2>
+    <p style="line-height:1.75; color:#1e293b; font-weight:500; background:linear-gradient(135deg, #fff1f2 0%, #ffffff 100%); padding:14px 16px; border-radius:10px; font-size:14.5px; margin:0 0 12px 0; border:1px solid #ffe4e6; word-break:break-word;">
+      老挝万象住宅区深夜的一声枪响，不仅终结了日本争议富二代大岛嘉仁的生命，更冷酷地撕开了跨国灰产资本家族血腥博弈的冰山一角。从 SFCG 在日本因暴力催收和破产隐匿资产而声名狼藉，到大岛家族在法治薄弱的老挝重建庞大的金融租赁帝国，这条跨国资本转移之路上本就布满了贪婪的獠牙与仇恨的伏笔。令人极度不安的，并非这场如同黑帮电影般残酷的街头暗杀本身，而是案发后各方的吊诡反应：涉事公司迅速发布冰冷的讣告完成“大换血”后诡异删帖，老挝警方更是在铁证如山的监控录像面前装聋作哑。监控录像中那冷血利落的拔枪瞬间，与讣告中那句虚伪的“祈祷灵魂安息”形成了一种令人毛骨悚然的荒诞对立。在这个缺乏透明监管与司法正义的东南亚死角，人命似乎只是家族资产负债表上一串可以随时被暴力“核销”的坏账，而这场毫无底线的利益清洗风暴，或许才刚刚拉开帷幕。
+    </p>
+
+  </div>
+
+  <script id="core-engine">
+    let syncTimeout = null;
+    
+    // --- 顶部阅读进度条逻辑 ---
+    function initProgressBar() {
+      const progressBar = document.getElementById('reading-progress');
+      if (!progressBar) return;
+      window.addEventListener('scroll', () => {
+        const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        if (scrollHeight <= 0) return;
+        const scrollPercent = (scrollTop / scrollHeight) * 100;
+        progressBar.style.width = scrollPercent + '%';
+      }, { passive: true });
+    }
+
+    function initAnnotations() {
+      document.querySelectorAll('.litit-highlight-block, .content-wrap').forEach(wrap => {
+        let content = wrap.querySelector('.content');
+        if (!content) {
+          const pText = wrap.querySelector('p');
+          if (pText) {
+            content = document.createElement('div');
+            content.className = 'content';
+            content.style.cssText = 'position:relative; margin:0 0 6px 0; color:#1a202c; font-family:Georgia, serif; line-height:1.7; font-size:15px; word-break:break-word;';
+            content.innerHTML = pText.innerHTML;
+            pText.parentNode.replaceChild(content, pText);
+          }
+        }
+        if (!content) return;
+
+        if (!content.querySelector('.anno-toggle')) {
+          const toggle = document.createElement('span');
+          toggle.className = 'anno-toggle';
+          toggle.title = '手写批注/笔记';
+          content.appendChild(toggle);
+        }
+
+        let box = wrap.querySelector('.anno-box');
+        if (!box) {
+          box = document.createElement('div');
+          box.className = 'anno-box';
+          box.style.display = 'none';
+          box.innerHTML = '<div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记..."></textarea>';
+          wrap.appendChild(box);
+        }
+
+        const view = box.querySelector('.anno-view');
+        const edit = box.querySelector('.anno-edit');
+        const toggle = content.querySelector('.anno-toggle');
+
+        if (edit && edit.value.trim()) {
+          toggle.classList.add('has-anno');
+          try {
+            view.innerHTML = (typeof marked !== 'undefined') ? marked.parse(edit.value.trim()) : edit.value.trim();
+          } catch(e){}
+        }
+
+        if (toggle) {
+          toggle.onclick = (e) => {
+            e.preventDefault(); e.stopPropagation();
+            if (box.style.display === 'block') {
+              box.style.display = 'none';
+            } else {
+              box.style.display = 'block';
+              if (!edit.value.trim()) {
+                view.style.display = 'none';
+                edit.style.display = 'block';
+                setTimeout(() => { edit.focus(); }, 150);
+              } else {
+                view.style.display = 'block';
+                edit.style.display = 'none';
+              }
+            }
+          };
+        }
+
+        const triggerEdit = (e) => {
+          if(e) { e.preventDefault(); e.stopPropagation(); }
+          view.style.display = 'none';
+          edit.style.display = 'block';
+          edit.value = edit.value;
+          setTimeout(() => { edit.focus(); }, 150);
+        };
+
+        view.addEventListener('dblclick', triggerEdit);
+        let lastTap = 0;
+        view.addEventListener('touchstart', e => {
+          if (e.touches.length === 2) {
+            triggerEdit(e);
+          } else if (e.touches.length === 1) {
+            const currentTime = new Date().getTime();
+            if (currentTime - lastTap < 500 && currentTime - lastTap > 0) {
+              e.preventDefault();
+              box.style.display = 'none';
+            }
+            lastTap = currentTime;
+          }
+        }, {passive: false});
+
+        if (edit && view) {
+          edit.onblur = () => {
+            setTimeout(() => {
+              const newVal = edit.value.trim();
+              try {
+                view.innerHTML = newVal ? ((typeof marked !== 'undefined') ? marked.parse(newVal) : newVal) : '';
+              } catch(e){}
+              edit.style.display = 'none';
+              if (newVal) {
+                view.style.display = 'block';
+                toggle.classList.add('has-anno');
+              } else {
+                view.style.display = 'none';
+                box.style.display = 'none';
+                toggle.classList.remove('has-anno');
+              }
+            }, 150);
+          };
+        }
+      });
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      initProgressBar();
+      initAnnotations();
+    });
+
+    window.addEventListener('load', () => {
+      initAnnotations();
+    });
+  </script>
+</body>
+</html>
