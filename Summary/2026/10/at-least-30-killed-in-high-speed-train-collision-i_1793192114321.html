@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>At Least 30 Killed in High-Speed Train Collision in Central Spain</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style id="core-style">
+        /* ======================================================================
+           [AI TEMPLATE GUIDELINES - CSS 核心排版规范]
+           致其他 AI 助手：在生成此模板时，请严格遵守以下样式分配规则：
+           1. 序号规则：列表的 NO.01 序号由伪类 `::before` 自动生成且独占一行。千万不要在 HTML 中手动输入“NO.01”。
+           2. 标签规则：文章开头的标签胶囊纯文字即可，禁止带 `#` 号。类别标签严格限制在最多两个单词以内，以避免在移动端发生换行。
+           3. 胶囊高亮（.litit-badge）：仅用于第 1、2、3 板块（重点记忆、高价值表达、短语和固定搭配）的【短词组/单词】，表现为紫色渐变背景的内联胶囊。
+           4. 长句排版（.litit-en-sentence）：用于第 4 板块（值得学习的句子结构）和第 5 板块（最值得优先掌握的句型）的【长句/长句型】。严禁将长句型放入 .litit-badge 中，否则会导致折行错乱。并且中文解释中的括号补充内容需使用 <br> 另起一行。
+           5. 语法重点提炼规范：核心目标是“深度剖析语法结构”，绝对禁止单纯罗列生硬的语法术语。应结合文章具体语境灵活解析，重点提炼以下三个进阶维度：
+              - 维度1：长难句与从句嵌套（Complex Clause Structures）。
+              - 维度2：高级句式与特殊结构（Advanced Syntax）。
+              - 维度3：非谓语动词与词法功能（Non-finite Verbs & Lexical Grammar）。
+           ====================================================================== */
+        :root {
+            --bg-page: #ffffff;
+            --bg-card: #ffffff;
+            --text-main: #0f172a;
+            --text-sub: #334155;
+            --text-muted: #64748b;
+            --accent-primary: #4f46e5;
+            --border-subtle: #e2e8f0;
+            --font-serif: "Georgia", "Charter", "Source Han Serif SC", "Noto Serif CJK SC", serif;
+            --font-sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", Roboto, sans-serif;
+        }
+        body {
+            font-family: var(--font-sans);
+            padding: 12px 12px 36px 12px;
+            margin: 0 auto;
+            max-width: 780px;
+            background: var(--bg-page);
+            color: var(--text-main);
+            line-height: 1.75;
+            font-size: 16px;
+            word-wrap: break-word;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+        * {
+            box-sizing: border-box;
+            max-width: 100%;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        /* 顶部极简阅读进度条 */
+        #reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(90deg, #4f46e5, #9333ea);
+            z-index: 9999;
+            transition: width 0.1s ease-out;
+        }
+        /* 主容器：零冗余边距，最大化阅读视野 */
+        .litit-report {
+            background: var(--bg-card);
+            padding: 0;
+        }
+        /* AI 批注组件样式 */
+        .anno-toggle, .ai-toggle {
+            display: inline-block;
+            padding: 2px 5px;
+            margin-left: 5px;
+            cursor: pointer;
+            opacity: 0.45;
+            font-size: 0.85rem;
+            vertical-align: middle;
+            transition: all 0.2s;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .anno-toggle:hover, .ai-toggle:hover {
+            opacity: 1;
+            transform: scale(1.15);
+        }
+        .anno-toggle.has-anno {
+            opacity: 1;
+        }
+        .anno-toggle::after {
+            content: "🔴";
+        }
+        .ai-toggle {
+            opacity: 0.7;
+            padding: 2px 4px;
+        }
+        .ai-toggle::after {
+            content: "🤖";
+        }
+        .ai-toggle.loading::after {
+            content: "⏳";
+            display: inline-block;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+        .anno-box {
+            display: none;
+            margin-top: 10px;
+            background: #faf8ff;
+            border-left: 3px solid #7c3aed;
+            padding: 12px 14px;
+            border-radius: 0 8px 8px 0;
+            text-align: left;
+        }
+        .anno-view {
+            font-size: 0.95rem;
+            line-height: 1.65;
+            color: #334155;
+            min-height: 24px;
+        }
+        .anno-edit {
+            width: 100%;
+            min-height: 240px;
+            padding: 10px;
+            font-family: monospace;
+            font-size: 0.95rem;
+            border: 1px dashed #a78bfa;
+            border-radius: 6px;
+            resize: vertical;
+            display: none;
+            background: #fff;
+            color: #1e293b;
+            outline: none;
+        }
+        .anno-edit:focus {
+            border: 1px solid #7c3aed;
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.12);
+        }
+        .markdown-body p {
+            margin-top: 0;
+            margin-bottom: 8px;
+        }
+        .markdown-body p:last-child {
+            margin-bottom: 0;
+        }
+        .markdown-body h1, .markdown-body h2, .markdown-body h3 {
+            color: #5b21b6;
+            font-size: 1.05rem;
+            margin: 10px 0 6px 0;
+            border-bottom: 1px dashed #ddd6fe;
+            padding-bottom: 4px;
+        }
+        .markdown-body ul, .markdown-body ol {
+            margin: 0 0 8px 0;
+            padding-left: 18px;
+        }
+        .markdown-body blockquote {
+            margin: 0 0 10px 0;
+            padding: 8px 12px;
+            background: rgba(124, 58, 237, 0.06);
+            border-left: 3px solid #7c3aed;
+            color: #475569;
+        }
+        /* 杂志风区块标题 */
+        .section-header {
+            font-size: 16px;
+            color: #0f172a;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            background: linear-gradient(90deg, #f8fafc 0%, #ffffff 100%);
+            padding: 8px 12px;
+            border-left: 4px solid #4f46e5;
+            margin: 26px 0 14px 0;
+            border-radius: 0 6px 6px 0;
+            display: flex;
+            align-items: center;
+            box-shadow: inset 0 1px 0 #f1f5f9, inset 0 -1px 0 #f1f5f9;
+        }
+        /* 折叠面板升级：极简无十字图标、最大化宽度 */
+        details.litit-fold {
+            margin-bottom: 10px;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            background: #ffffff;
+            overflow: hidden;
+            transition: border-color 0.2s ease;
+        }
+        details.litit-fold[open] {
+            border-color: #cbd5e1;
+        }
+        details.litit-fold summary {
+            cursor: pointer;
+            padding: 12px 14px;
+            outline: none;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f8fafc;
+            transition: background 0.2s;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        details.litit-fold summary::-webkit-details-marker {
+            display: none;
+        }
+        details.litit-fold summary::after {
+            display: none;
+        }
+        details.litit-fold summary:hover {
+            background: #f1f5f9;
+        }
+        details.litit-fold[open] summary {
+            border-bottom: 1px solid #e2e8f0;
+            background: #f8fafc;
+            border-left: 3px solid #4f46e5;
+        }
+        .litit-fold-content {
+            padding: 10px 8px;
+            background: #f8fafc;
+        }
+        /* 精读区列表卡片化 */
+        .litit-fold-content > ol, .litit-fold-content > ul {
+            list-style: none !important;
+            padding-left: 0 !important;
+            margin: 0 !important;
+            counter-reset: litit-counter;
+        }
+        .litit-fold-content > ol > li, .litit-fold-content > ul > li {
+            counter-increment: litit-counter;
+            position: relative;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 12px 12px;
+            margin-bottom: 10px !important;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.015);
+        }
+        .litit-fold-content > ol > li:last-child, .litit-fold-content > ul > li:last-child {
+            margin-bottom: 0 !important;
+        }
+        /* 顶部流式微型序号徽章：完美独占一行，追求极致对齐与统一美感 */
+        .litit-fold-content > ol > li::before, .litit-fold-content > ul > li::before {
+            content: "NO." counter(litit-counter, decimal-leading-zero);
+            display: block;
+            width: max-content;
+            font-size: 10px;
+            font-weight: 800;
+            font-family: -apple-system, BlinkMacSystemFont, monospace;
+            color: #4f46e5;
+            background: #eef2ff;
+            padding: 1px 6px;
+            border-radius: 4px;
+            margin-bottom: 8px;
+            letter-spacing: 0.04em;
+        }
+        /* 纯英/中长句子专属排版（块级元素，自然折行对齐） */
+        .litit-en-sentence {
+            display: block;
+            font-family: var(--font-serif);
+            font-size: 1.04rem;
+            font-weight: 600;
+            color: #0f172a;
+            line-height: 1.5;
+            margin-bottom: 6px;
+        }
+        .litit-zh-sentence {
+            display: block;
+            font-family: var(--font-sans);
+            font-size: 0.93rem;
+            color: #475569;
+            line-height: 1.55;
+            margin-bottom: 2px;
+        }
+        li.litit-target-sentence > br {
+            display: none;
+        }
+        /* 短词组高亮徽章（1、2、3 板块专用短标签） */
+        .litit-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #eef2ff 0%, #f3e8ff 100%);
+            color: #4338ca;
+            padding: 2px 8px;
+            border-radius: 5px;
+            font-size: 0.92rem;
+            font-weight: 700;
+            margin-right: 4px;
+            margin-bottom: 6px;
+            border: 1px solid #e0e7ff;
+            vertical-align: middle;
+        }
+        /* 第 4 板块子级知识点解析区左边框内嵌盒 */
+        li.litit-target-sentence > ul {
+            list-style: none !important;
+            margin: 10px 0 0 0 !important;
+            padding: 8px 10px !important;
+            background: #f8fafc;
+            border-radius: 6px;
+            border-left: 2.5px solid #94a3b8;
+        }
+        li.litit-target-sentence > ul > li {
+            position: relative;
+            padding-left: 10px;
+            margin-bottom: 5px !important;
+            font-size: 0.88rem;
+            color: #334155;
+            line-height: 1.5;
+        }
+        li.litit-target-sentence > ul > li:last-child {
+            margin-bottom: 0 !important;
+        }
+        li.litit-target-sentence > ul > li::before {
+            content: "·";
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: #4f46e5;
+            font-weight: 900;
+        }
+        li.litit-target-sentence > ul > li > strong {
+            color: #0f172a;
+            font-weight: 600;
+            background: #e2e8f0;
+            padding: 1px 5px;
+            border-radius: 4px;
+            font-size: 0.84rem;
+            margin-right: 3px;
+        }
+        /* 移动端极限铺开适配 */
+        @media (max-width: 600px) {
+            body {
+                padding: 10px 10px 30px 10px;
+                font-size: 15px;
+            }
+            h1.litit-target-title {
+                font-size: 21px !important;
+            }
+            .litit-fold-content {
+                padding: 8px 6px;
+            }
+            .litit-fold-content > ol > li, .litit-fold-content > ul > li {
+                padding: 11px 10px;
+                margin-bottom: 8px !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 进度条 DOM -->
+    <div id="reading-progress"></div>
+
+    <div class="litit-report" style="width:100%; max-width:100%; box-sizing:border-box; overflow-x:hidden;">
+        
+        <!-- 顶部杂志刊头装饰 -->
+        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom: 2px solid #0f172a; padding-bottom: 6px; margin-bottom: 14px; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: #64748b; text-transform: uppercase;">
+            <span>The Global Dispatch · 深度双语精读</span>
+            <!-- 分类标签：严格限制在最多两个单词以内，避免在移动端换行 -->
+            <span>Disaster News</span>
+        </div>
+
+        <!-- 支持批注的主标题区 -->
+        <div class="content-wrap" style="position:relative; margin-bottom: 16px;">
+            <h1 class="litit-target-title" style="color:#0f172a; font-size: 24px; line-height: 1.35; font-family: var(--font-serif); font-weight: 800; border-bottom: 1px solid #e2e8f0; padding-bottom: 14px; margin-top:0; margin-bottom:0; word-break:break-word;">
+                <span class="content litit-en-title" style="position:relative;">At Least 30 Killed in High-Speed Train Collision in Central Spain</span>
+                <br>
+                <span class="litit-zh-title" style="font-family: var(--font-sans); font-size: 17px; font-weight: 600; color: #475569; margin-top: 8px; display: inline-block; line-height: 1.45;">西班牙中部高速列车相撞事故至少造成30人死亡</span>
+            </h1>
+            <div class="anno-box" style="display:none; margin-top: 10px;">
+                <div class="anno-view markdown-body"></div>
+                <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
+西班牙中部高速列车相撞事故至少造成30人死亡
+
+### 📌 核心词汇 (Key Expressions)
+- **train collision** = 火车相撞事故
+- **high-speed train** = 高速列车
+- **at least** = 至少
+
+### 🔍 句子解析方式 (Parsing Method)
+- **[主干提取]**：At Least 30 [are] Killed (主语+被动谓语省略系动词) + in High-Speed Train Collision (地点/事件状语) + in Central Spain (宏观地点状语).
+- **[新闻标题特色]**：标题省略了助动词 `are/were`，直接用过去分词 `Killed` 呈现突发死伤结果，开门见山传达突发灾难事件的核心要素与严重性。</textarea>
+            </div>
+        </div>
+
+        <!-- 杂志导语（Lead Paragraph） -->
+        <p style="color:#334155; font-size: 15px; line-height: 1.75; margin-bottom:16px; font-weight:400; background: #f8fafc; padding: 12px 14px; border-radius: 8px; border: 1px solid #f1f5f9;">
+            西班牙马德里以南的乌尔达附近发生严重列车相撞惨剧，分别由 Renfe 和 Iryo 运营的两列搭载逾500名乘客的列车在马德里至塞维利亚线上猛烈碰撞并脱轨，造成至少30人死亡、数十人重伤。事故触发了包含直升机和多地医院在内的大规模跨区域紧急救援，沿线铁路线路全面停运。西班牙首相桑切斯及王室已向遇难者致哀，官方正全力调查相撞的具体成因。
+        </p>
+        
+        <div style="margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+            <div style="display:flex; flex-wrap:wrap; gap:6px;">
+                <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;">高铁事故</span>
+                <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;">西班牙铁路</span>
+                <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;">应急救援</span>
+            </div>
+            <a href="https://moodhappy.github.io/ShortStories/Summary/2026/10/at-least-30-killed-in-high-speed-train-collision-i_1793191737000.html" target="_blank" style="font-size: 12.5px; color: #4f46e5; text-decoration: none; font-weight: 600; background: #eef2ff; padding: 5px 12px; border-radius: 16px; border: 1px solid #e0e7ff; display:inline-block;">🔗 阅读原文 ↗</a>
+        </div>
+
+        <!-- 最佳金句区 -->
+        <h2 class="section-header" style="border-left-color: #f59e0b;">💬 最佳金句</h2>
+        <div class="content-wrap" style="position:relative; margin-bottom:24px;">
+            <blockquote class="litit-target-quote" style="border-left: 3.5px solid #f59e0b; background: linear-gradient(135deg, #fffbeb 0%, #ffffff 100%); padding: 14px 14px; margin: 0; color: #1e293b; border-radius: 0 10px 10px 0; border-top: 1px solid #fef3c7; border-right: 1px solid #fef3c7; border-bottom: 1px solid #fef3c7;">
+                <div class="content litit-en-quote" style="position:relative; margin:0 0 8px 0; font-family: var(--font-serif); font-style: italic; font-weight:600; font-size: 16.5px; line-height: 1.55; color:#0f172a; word-break:break-word;">
+                    "At least 30 people have been killed and dozens seriously injured after two trains collided near Urda, south of Madrid, prompting a large-scale rescue operation and the suspension of rail services in the surrounding region."
+                </div>
+                <p class="litit-zh-sentence" style="margin:0 0 8px 0; font-weight:400; font-size: 14.5px; line-height: 1.6; color:#475569; word-break:break-word;">
+                    “在马德里以南的乌尔达附近，两列火车发生相撞事故，造成至少30人死亡、数十人重伤。事故引发大规模救援行动，周边地区的铁路服务也被迫暂停。”
+                </p>
+                <footer style="text-align:right; font-size:12px; color:#64748b; font-style:normal; font-weight:600;">—— 灾难现场报道的核心导语，全面定格重大突发伤亡与应急影响</footer>
+            </blockquote>
+            <div class="anno-box" style="display:none;">
+                <div class="anno-view markdown-body"></div>
+                <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
+“在马德里以南的乌尔达附近，两列火车发生相撞事故，造成至少30人死亡、数十人重伤。事故引发大规模救援行动，周边地区的铁路服务也被迫暂停。”
+
+### 📌 核心词汇 (Key Expressions)
+- **dozens seriously injured** = 数十人重伤
+- **prompt** = 促使 / 引发 / 导致
+- **suspension of rail services** = 铁路服务暂停 / 停运
+
+### 🔍 句子解析方式 (Parsing Method)
+- **[被动语态与时间状语]**：主句 `At least 30 people have been killed and dozens seriously injured` 采用现在完成时的并列被动结构，随后通过 `after two trains collided...` 引出时间状语从句交代事故发生条件。
+- **[现在分词作结果状语]**：句末以 `prompting a large-scale rescue operation and the suspension...` 作结果伴随状语，极其紧凑地将“事故爆发-伤亡程度-应急反应与停运后果”串联在单句之内。</textarea>
+            </div>
+        </div>
+
+        <!-- Grid 布局关键数字区 -->
+        <h2 class="section-header" style="border-left-color: #10b981;">📊 关键数字</h2>
+        <div style="display:grid; grid-template-columns: repeat(2, 1fr); gap:10px; margin:14px 0 24px 0;">
+            <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+                <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+                    30+<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">人遇难</span>
+                </div>
+                <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">地方当局初步确认的死亡人数，搜救深入受损车厢内部后人数恐进一步上升。</div>
+            </div>
+            <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+                <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+                    500+<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">名乘客</span>
+                </div>
+                <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">事故发生时分别搭乘两列涉事列车（Renfe 与 Iryo）的在册旅客预估总人数。</div>
+            </div>
+            <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+                <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+                    3座城市<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">医院</span>
+                </div>
+                <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">托莱多、雷阿尔城及圣胡安阿尔卡萨尔等地医院全面叫停常规手术腾空救治伤员。</div>
+            </div>
+            <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+                <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+                    2大运营商<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">相撞</span>
+                </div>
+                <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">涉及西班牙国铁 Renfe 与民营高铁运营商 Iryo 旗下行驶在同一线路的高速列车。</div>
+            </div>
+        </div>
+
+        <h2 class="section-header" style="border-left-color: #3b82f6;">⏱️ 事件时间线</h2>
+        <ul style="padding-left:18px; line-height:1.8; color:#334155; font-size: 14.5px; margin-bottom:24px; word-break:break-word;">
+            <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">事故突发：</strong> 在马德里以南乌尔达附近路段，两列分别属于 Renfe 和 Iryo 的客运列车发生猛烈撞击，导致多节车厢脱轨破损。</li>
+            <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">紧急救援启动：</strong> 消防、直升机与大批救护车火速驰援现场；托莱多等多地医院叫停择期手术，马德里血库紧急呼吁全城献血。</li>
+            <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">官方伤亡通报：</strong> 卡斯蒂利亚-拉曼恰自治区主席证实至少30人死亡，遇难者多来自高铁车厢，并警示伤亡人数仍可能攀升。</li>
+            <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">政坛与社会回应：</strong> 首相桑切斯与王室向受害者致哀并感谢前线人员；主要政党随即宣布暂停竞选活动以示哀悼。</li>
+            <li><strong style="color:#1d4ed8;">后续影响与调查：</strong> 马德里至安达卢西亚大动脉铁路全线停摆，恢复时间未定；Adif 与司法部门正针对列车停滞与信号原因展开联合调查。</li>
+        </ul>
+
+        <h2 class="section-header" style="border-left-color: #8b5cf6;">✨ 本篇亮点与精读</h2>
+        <div style="margin: 14px 0 10px 0;">
+            
+            <!-- 第一板块：一、重点记忆 -->
+            <details class="litit-fold">
+                <summary>
+                    <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">一、重点记忆</h3>
+                </summary>
+                <div class="litit-fold-content">
+                    <ul style="list-style-type: square; margin: 0; padding-left: 18px; line-height: 1.6;">
+                        <li class="litit-target-sentence" style="margin-bottom: 10px;">
+                            <strong class="litit-badge">collision</strong>：碰撞 / 相撞事故<br>
+                            <strong class="litit-en-sentence">The collision involved a train operated by Renfe and another operated by Iryo.</strong>
+                            <span class="litit-zh-sentence">这起相撞事故涉及西班牙国铁 Renfe 运营的一列火车以及 Iryo 运营的另一列火车。</span>
+                        </li>
+                        <li class="litit-target-sentence" style="margin-bottom: 10px;">
+                            <strong class="litit-badge">derail</strong>：脱轨 / 出轨<br>
+                            <strong class="litit-en-sentence">Several carriages derailed, and footage showed damaged coaches.</strong>
+                            <span class="litit-zh-sentence">多节车厢脱轨，现场画面显示了严重受损的车体。</span>
+                        </li>
+                        <li class="litit-target-sentence" style="margin-bottom: 10px;">
+                            <strong class="litit-badge">toll</strong>：伤亡人数 / 代价<br>
+                            <strong class="litit-en-sentence">Warned that the toll could rise as rescue teams worked.</strong>
+                            <span class="litit-zh-sentence">警告称随着救援工作的深入，伤亡人数可能进一步上升。</span>
+                        </li>
+                        <li class="litit-target-sentence" style="margin-bottom: 10px;">
+                            <strong class="litit-badge">evacuate</strong>：疏散 / 撤离<br>
+                            <strong class="litit-en-sentence">Chaotic conditions as passengers attempted to evacuate.</strong>
+                            <span class="litit-zh-sentence">乘客们试图撤离车厢，现场陷入混乱。</span>
+                        </li>
+                        <li class="litit-target-sentence" style="margin-bottom: 10px;">
+                            <strong class="litit-badge">casualties</strong>：伤亡人员 / 伤亡受害者<br>
+                            <strong class="litit-en-sentence">Hospitals suspended planned operations to treat casualties.</strong>
+                            <span class="litit-zh-sentence">医院暂停原定手术以全力救治伤亡人员。</span>
+                        </li>
+                    </ul>
+                </div>
+            </details>
+
+            <!-- 第二板块：二、高价值表达 -->
+            <details class="litit-fold">
+                <summary>
+                    <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">二、高价值表达</h3>
+                </summary>
+                <div class="litit-fold-content">
+                    <ol style="margin: 0; padding-left: 18px;">
+                        <li style="margin-bottom: 12px;">
+                            <strong class="litit-badge">violent impact</strong>：极其猛烈的撞击力。<br>
+                            <span class="litit-zh-sentence" style="margin-top: 4px;">灾难与交通事故报道中用于描绘致命物理冲击的常用高级短语。</span>
+                        </li>
+                        <li style="margin-bottom: 12px;">
+                            <strong class="litit-badge">appealed for urgent donations</strong>：紧急呼吁爱心捐赠（特指紧急献血）。<br>
+                            <span class="litit-zh-sentence" style="margin-top: 4px;">常用于公共卫生或大规模意外灾害中血库告急时的正式官方表述。</span>
+                        </li>
+                        <li style="margin-bottom: 12px;">
+                            <strong class="litit-badge">stopped on the tracks</strong>：停滞在铁轨之上。<br>
+                            <span class="litit-zh-sentence" style="margin-top: 4px;">铁路事故调查中描述故障列车丧失动力、滞留轨道并成为撞击隐患的专业新闻表述。</span>
+                        </li>
+                    </ol>
+                </div>
+            </details>
+
+            <!-- 第三板块：三、短语和固定搭配 -->
+            <details class="litit-fold">
+                <summary>
+                    <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">三、短语和固定搭配</h3>
+                </summary>
+                <div class="litit-fold-content">
+                    <ul style="list-style-type: square; margin: 0; padding-left: 18px; line-height: 1.6;">
+                        <li class="litit-target-sentence" style="margin-bottom: 10px;">
+                            <strong class="litit-badge">prompt a rescue operation</strong>：引发/促成大规模救援行动<br>
+                            <strong class="litit-en-sentence">Prompting a large-scale rescue operation.</strong>
+                            <span class="litit-zh-sentence">引发了大规模的应急救援行动。</span>
+                        </li>
+                        <li class="litit-target-sentence" style="margin-bottom: 10px;">
+                            <strong class="litit-badge">express sympathy for</strong>：向……表达慰问与同情<br>
+                            <strong class="litit-en-sentence">The royal family expressed sympathy for the victims and their relatives.</strong>
+                            <span class="litit-zh-sentence">王室向受害者及其亲属表达了深切慰问。</span>
+                        </li>
+                        <li class="litit-target-sentence" style="margin-bottom: 10px;">
+                            <strong class="litit-badge">remain suspended</strong>：依然处于暂停/停运状态<br>
+                            <strong class="litit-en-sentence">Train services remained suspended as rescue operations continued.</strong>
+                            <span class="litit-zh-sentence">随着救援行动的持续，列车服务依然处于暂停运营状态。</span>
+                        </li>
+                    </ul>
+                </div>
+            </details>
+
+            <!-- 第四板块：四、值得学习的句子结构 -->
+            <details class="litit-fold">
+                <summary>
+                    <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">四、值得学习的句子结构</h3>
+                </summary>
+                <div class="litit-fold-content">
+                    <ol style="margin: 0; padding-left: 18px;">
+                        <li class="litit-target-sentence" style="margin-bottom: 12px;">
+                            <strong class="litit-badge">时间状语从句与动名词后置嵌套 (Temporal Clause & Participle Structure)</strong><br>
+                            <strong class="litit-en-sentence">Emiliano García-Page, president of Castilla-La Mancha, confirmed that at least 30 people had died and warned that the toll could rise as rescue teams worked to reach deeper sections of the damaged carriages.</strong>
+                            <span class="litit-zh-sentence">卡斯蒂利亚-拉曼恰自治区主席加西亚-帕热证实至少30人死亡，并警告称，随着救援队伍全力深入受损车厢深处，伤亡数字可能还会上升。</span>
+                            <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+                                <li style="margin-bottom: 3px;"><strong>深度语法解析 (Parsing Method)</strong>：主语之后连缀了两个由 `that` 引导的并列宾语从句（`confirmed that... and warned that...`），分别使用过去完成时表达已成既定事实的死亡统计，以及情态动词 `could rise` 预估未来的不确定性；从句末尾嵌入 `as` 引导的时间状语从句，把现场救援的艰难动态融于一体。</li>
+                            </ul>
+                        </li>
+                        <li class="litit-target-sentence" style="margin-bottom: 12px;">
+                            <strong class="litit-badge">双重并列从句与感官细节描写 (Dual That-Clauses & Sensory Depiction)</strong><br>
+                            <strong class="litit-en-sentence">Passengers described a violent impact that threw people from their seats and caused luggage to fly through the carriages.</strong>
+                            <span class="litit-zh-sentence">乘客们描述了一场猛烈的撞击，冲击力将人们直接甩离了座位，并导致行李在车厢内四处乱飞。</span>
+                            <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+                                <li style="margin-bottom: 3px;"><strong>深度语法解析 (Parsing Method)</strong>：先行词 `a violent impact` 后面由关系代词 `that` 引导定语从句，并在从句内部使用两个并列的及物动词（`threw... and caused... to fly...`），使用动作性极强的动词精准还原失控撞击瞬间的震撼场面。</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+            </details>
+
+            <!-- 第五板块：五、最值得优先掌握的句型 -->
+            <details class="litit-fold">
+                <summary>
+                    <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">五、最值得优先掌握的句型</h3>
+                </summary>
+                <div class="litit-fold-content">
+                    <ol style="margin: 0; padding-left: 18px;">
+                        <li class="litit-target-sentence" style="margin-bottom: 12px;">
+                            <strong class="litit-en-sentence" style="color: #4338ca;">At least [数字] people have been killed and [伤者数量] after [灾难事件], prompting [大规模应急行动] and the suspension of [公共服务].</strong>
+                            <span class="litit-zh-sentence">在某事故发生后，造成至少……人死亡、……人受伤，引发了大规模……并导致……服务暂停。<br>（重大突发交通、地质或安全事故通报的标准开头框架句型，要素齐全且信息密度极高。）</span>
+                        </li>
+                        <li class="litit-target-sentence" style="margin-bottom: 12px;">
+                            <strong class="litit-en-sentence" style="color: #4338ca;">The cause of [事故] has not been officially confirmed, though media reports suggested that [某种猜测原因], but authorities have not issued a final account.</strong>
+                            <span class="litit-zh-sentence">事故原因尚未得到官方证实，尽管媒体报道称……，但有关部门尚未给出最终定论。<br>（面对原因未明的突发事故时，平衡媒体传闻与官方审慎口径的标准客观新闻句型。）</span>
+                        </li>
+                    </ol>
+                </div>
+            </details>
+        </div>
+
+        <!-- 幕后冷知识 -->
+        <h2 class="section-header" style="border-left-color: #0d9488;">💡 幕后冷知识 (Fun Facts)</h2>
+        <ul style="padding-left:18px; line-height:1.8; color:#334155; font-size:14.5px; margin:0 0 24px 0; word-break:break-word;">
+            <li style="margin-bottom: 8px;"><strong>西班牙高铁的开放与多运营商共轨：</strong> 西班牙是全球高铁网络最发达的国家之一。近年来西班牙完成了铁路客运的市场化自由改革，打破了国铁 Renfe 过去的完全垄断，引入了意大利航运背景的民营高铁运营商 Iryo 以及法国国铁背景的 Ouigo。本次事故正是发生在国铁 Renfe 与民营运营商 Iryo 之间，是欧洲铁路竞争开放后极为罕见的跨运营商特大安全恶性事故。</li>
+            <li style="margin-bottom: 8px;"><strong>马德里-塞维利亚大动脉的历史地位：</strong> 事故所处的马德里至塞维利亚铁路线（Madrid-Seville line）具有举足轻重的历史意义——它不仅是西班牙首条于1992年为塞维利亚世博会开通的高速铁路线（AVE），更是连接西班牙首都马德里与安达卢西亚南部核心旅游与经济区命脉的大动脉。</li>
+            <li><strong>严苛的高铁闭塞与安全信号防线：</strong> 现代欧洲高铁普遍配置了极其严密的自动列车控制系统（如 ERTMS/ETCS 或西班牙的 ASFA），理论上能够防止同方向列车追尾或迎面相撞。因此西班牙媒体提及“一列列车撞上停在轨道上的另一列车”引发了技术专家的巨大疑惑，事故焦点正在于信号系统是否失灵或人为调度出现了严重安全脱节。</li>
+        </ul>
+
+        <!-- 全片锐评 -->
+        <h2 class="section-header" style="border-left-color: #e11d48;">🎯 全片锐评</h2>
+        <p style="line-height:1.75; color:#1e293b; font-weight:500; background:linear-gradient(135deg, #fff1f2 0%, #ffffff 100%); padding:14px 16px; border-radius:10px; font-size:14.5px; margin:0 0 12px 0; border:1px solid #ffe4e6; word-break:break-word;">
+            乌尔达铁轨旁散落的残骸与三十余条逝去的鲜活生命，残忍地击碎了西班牙作为欧洲高铁现代化典范的骄傲防线。在自动化信号联锁与尖端防撞系统层层设防的21世纪，两列满载五百多名旅客的高速列车竟然在国家大动脉线路上发生如此惨烈的追尾与撞击，无论最终官方结论指向致命的技术误判还是人为调度的系统性失灵，这都不仅是一起简单的机械交通事故，更是对整个欧洲铁路多主体运营开放后安全管理机制的巨大拷问。随着政客们纷纷暂停竞选、血库告急的呼吁响彻马德里，这场灾难给西班牙社会的创痛绝非短期内可以抚平，唯有彻底厘清停滞列车与调度信号之间的致命盲区，才能告慰无辜逝去的亡灵。
+        </p>
+
+    </div>
+
+    <script id="core-engine">
+        let syncTimeout = null;
+        const AI_PROMPT = "请分析以下英文段落，并严格按照以下 Markdown 格式输出（不要输出任何额外的废话）：\n\n### 📌 完整翻译\n\n[此处填写完整翻译]\n\n### 📌 Key Expressions\n\n- **[单词或短语]**\n = [中文释义]\n （[可选的补充说明，如倒装结构或语境等]）\n\n段落内容：\n";
+
+        // --- 顶部阅读进度条逻辑 ---
+        function initProgressBar() {
+            const progressBar = document.getElementById('reading-progress');
+            if (!progressBar) return;
+            window.addEventListener('scroll', () => {
+                const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+                const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                if (scrollHeight <= 0) return;
+                const scrollPercent = (scrollTop / scrollHeight) * 100;
+                progressBar.style.width = scrollPercent + '%';
+            }, { passive: true });
+        }
+
+        async function fetchGroq(text, apiKey, modelName) {
+            const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + apiKey,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    model: modelName || 'llama-3.3-70b-versatile',
+                    messages: [
+                        { role: 'system', content: 'You are an English teacher. Output EXACTLY in the requested Markdown format.' },
+                        { role: 'user', content: AI_PROMPT + '"' + text + '"' }
+                    ],
+                    temperature: 0.3
+                })
+            });
+            if (!res.ok) throw new Error('Groq Error: ' + res.status);
+            const json = await res.json();
+            return json.choices[0].message.content.trim();
+        }
+
+        async function fetchCustomAI(text, url, apiKey, modelName) {
+            let headers = { 'Content-Type': 'application/json' };
+            let bodyData = {};
+
+            if (url.includes('anthropic.com')) {
+                headers['x-api-key'] = apiKey;
+                headers['anthropic-version'] = '2023-06-01';
+                headers['anthropic-dangerous-direct-browser-access'] = 'true';
+                bodyData = {
+                    model: modelName || 'claude-3-5-sonnet-20241022',
+                    max_tokens: 2000,
+                    messages: [{ role: 'user', content: AI_PROMPT + '"' + text + '"' }]
+                };
+            } else if (url.includes('generativelanguage.googleapis.com')) {
+                let targetUrl = url;
+                if (!targetUrl.includes('key=')) {
+                    targetUrl += (targetUrl.includes('?') ? '&' : '?') + 'key=' + apiKey;
+                }
+                const res = await fetch(targetUrl, {
+                    method: 'POST',
+                    headers: headers,
+                    body: JSON.stringify({ contents: [{ parts: [{ text: AI_PROMPT + '"' + text + '"' }] }] })
+                });
+                if (!res.ok) throw new Error('Gemini Error: ' + res.status);
+                const json = await res.json();
+                return json.candidates[0].content.parts[0].text.trim();
+            } else {
+                headers['Authorization'] = 'Bearer ' + apiKey;
+                bodyData = {
+                    model: modelName || 'gpt-4o-mini',
+                    messages: [
+                        { role: 'system', content: 'You are an English teacher. Output EXACTLY in the requested Markdown format.' },
+                        { role: 'user', content: AI_PROMPT + '"' + text + '"' }
+                    ],
+                    temperature: 0.3
+                };
+            }
+
+            const res = await fetch(url, {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify(bodyData)
+            });
+            if (!res.ok) throw new Error('AI Interface Error: ' + res.status);
+            const json = await res.json();
+            if (json.choices && json.choices.length > 0) return json.choices[0].message.content.trim();
+            throw new Error('AI 返回数据异常');
+        }
+
+        async function executeAIPipeline(text) {
+            const customUrl = localStorage.getItem('CUSTOM_API_URL') || '';
+            const customKey = localStorage.getItem('CUSTOM_API_KEY') || '';
+            const customModel = localStorage.getItem('CUSTOM_MODEL') || '';
+            const groqKey = localStorage.getItem('GROQ_API_KEY') || '';
+            const groqModel = localStorage.getItem('GROQ_MODEL') || '';
+
+            if (customUrl && customKey) {
+                try {
+                    return await fetchCustomAI(text, customUrl, customKey, customModel);
+                } catch (err) {
+                    if (groqKey) return await fetchGroq(text, groqKey, groqModel);
+                    throw err;
+                }
+            } else if (groqKey) {
+                return await fetchGroq(text, groqKey, groqModel);
+            } else {
+                const userKey = prompt('⚠️ 当前页面未检测到 AI Key！\n为了安全，密匙只储存在您本地浏览器中。\n\n请输入您的 API Key (如 sk-xxx 或 gsk_xxx):');
+                if (userKey && userKey.trim()) {
+                    const cleanKey = userKey.trim();
+                    if (cleanKey.startsWith('gsk_')) {
+                        localStorage.setItem('GROQ_API_KEY', cleanKey);
+                    } else {
+                        localStorage.setItem('CUSTOM_API_KEY', cleanKey);
+                        localStorage.setItem('CUSTOM_API_URL', 'https://api.chatanywhere.tech/v1/chat/completions');
+                    }
+                }
+                throw new Error('未设置 AI API Key');
+            }
+        }
+
+        function getPurifiedFallbackHTML() {
+            const clone = document.documentElement.cloneNode(true);
+            const foreignSelectors = [
+                'relingo-app', 'relin-highlight', 'relin-hc', '[class*="relingo"]', '[data-relin-paragraph]',
+                'grammarly-extension', '[data-grammarly-part]', '[class*="immersive-translate"]', '[data-immersive-translate]'
+            ].join(',');
+            clone.querySelectorAll(foreignSelectors).forEach(el => el.remove());
+
+            clone.querySelectorAll('relin-highlight, relin-hc').forEach(t => {
+                const frag = document.createDocumentFragment();
+                while(t.firstChild) frag.appendChild(t.firstChild);
+                t.parentNode.replaceChild(frag, t);
+            });
+
+            clone.querySelectorAll('script').forEach(s => {
+                if (!s.src.includes('marked.min.js') && s.id !== 'core-engine') s.remove();
+            });
+            clone.querySelectorAll('style').forEach(s => {
+                if (s.id !== 'core-style') s.remove();
+            });
+
+            const liveTAs = document.querySelectorAll('.anno-edit');
+            clone.querySelectorAll('.anno-edit').forEach((ta, i) => {
+                if(liveTAs[i]) ta.textContent = liveTAs[i].value.trim();
+                const box = ta.closest('.anno-box');
+                if (box) box.style.display = 'none';
+                const view = box ? box.querySelector('.anno-view') : null;
+                if (view) view.innerHTML = '';
+            });
+
+            return '<!DOCTYPE html>\n<html lang="zh-CN">\n' + clone.innerHTML + '\n</html>';
+        }
+
+        async function syncToCloud() {
+            const ghToken = localStorage.getItem('LITIT_GH_TOKEN') || localStorage.getItem('GH_TOKEN');
+            const ghOwner = 'moodHappy';
+            const ghRepo = 'dual-read-notes';
+            if (!ghToken) return;
+
+            const pathParts = window.location.pathname.split('/');
+            const fileName = pathParts.pop();
+            const month = pathParts.pop();
+            const year = pathParts.pop();
+            if(!fileName || !month || !year) return;
+
+            const fileRelPath = 'Summary/' + year + '/' + month + '/' + fileName;
+
+            try {
+                const getRes = await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath + '?t=' + Date.now(), {
+                    headers: { 'Authorization': 'Bearer ' + ghToken },
+                    cache: 'no-store'
+                });
+
+                let finalHTML = '';
+                let sha = '';
+
+                if (getRes.ok) {
+                    const fileData = await getRes.json();
+                    sha = fileData.sha;
+                    const cleanRawHTML = decodeURIComponent(escape(atob(fileData.content.replace(/\n/g, ''))));
+
+                    const parser = new DOMParser();
+                    const cleanDoc = parser.parseFromString(cleanRawHTML, 'text/html');
+
+                    const liveTAs = document.querySelectorAll('.anno-edit');
+                    const cleanTAs = cleanDoc.querySelectorAll('.anno-edit');
+
+                    liveTAs.forEach((liveTa, index) => {
+                        if (cleanTAs[index]) {
+                            const val = liveTa.value.trim();
+                            cleanTAs[index].textContent = val;
+                            
+                            const box = cleanTAs[index].closest('.anno-box');
+                            if (box) box.style.display = 'none';
+                            const view = box ? box.querySelector('.anno-view') : null;
+                            if (view) view.innerHTML = '';
+                        }
+                    });
+
+                    cleanDoc.querySelectorAll('.anno-toggle').forEach(t => {
+                        t.classList.remove('has-anno');
+                        const ta = t.closest('.content-wrap, .litit-highlight-block')?.querySelector('.anno-edit');
+                        if (ta && ta.textContent.trim()) t.classList.add('has-anno');
+                    });
+
+                    finalHTML = '<!DOCTYPE html>\n<html lang="zh-CN">\n' + cleanDoc.documentElement.innerHTML + '\n</html>';
+                } else {
+                    finalHTML = getPurifiedFallbackHTML();
+                }
+
+                await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': 'Bearer ' + ghToken,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message: 'Silent purified annotation update',
+                        content: btoa(unescape(encodeURIComponent(finalHTML))),
+                        sha: sha || undefined
+                    })
+                });
+                console.log('✅ [My Litit] 纯净无污染批注已静默同步至 GitHub');
+            } catch(e) {
+                console.warn('❌ [My Litit] 同步跳过或失败:', e);
+            }
+        }
+
+        function scheduleSync() {
+            if (syncTimeout) clearTimeout(syncTimeout);
+            syncTimeout = setTimeout(() => {
+                syncToCloud();
+            }, 3000);
+        }
+
+        function initAnnotations() {
+            document.querySelectorAll('.litit-highlight-block, .content-wrap').forEach(wrap => {
+                let content = wrap.querySelector('.content');
+                if (!content) {
+                    const pText = wrap.querySelector('p');
+                    if (pText) {
+                        content = document.createElement('div');
+                        content.className = 'content';
+                        content.style.cssText = 'position:relative; margin:0 0 6px 0; color:#1a202c; font-family:Georgia, serif; line-height:1.7; font-size:15px; word-break:break-word;';
+                        content.innerHTML = pText.innerHTML;
+                        pText.parentNode.replaceChild(content, pText);
+                    }
+                }
+                if (!content) return;
+
+                if (!content.querySelector('.anno-toggle')) {
+                    const toggle = document.createElement('span');
+                    toggle.className = 'anno-toggle';
+                    toggle.title = '手写批注/笔记';
+                    content.appendChild(toggle);
+                }
+                if (!content.querySelector('.ai-toggle')) {
+                    const aiToggle = document.createElement('span');
+                    aiToggle.className = 'ai-toggle';
+                    aiToggle.title = 'AI智能二次解析';
+                    content.appendChild(aiToggle);
+                }
+
+                let box = wrap.querySelector('.anno-box');
+                if (!box) {
+                    box = document.createElement('div');
+                    box.className = 'anno-box';
+                    box.style.display = 'none';
+                    box.innerHTML = '<div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 解析..."></textarea>';
+                    wrap.appendChild(box);
+                }
+
+                const view = box.querySelector('.anno-view');
+                const edit = box.querySelector('.anno-edit');
+                const toggle = content.querySelector('.anno-toggle');
+                const aiToggle = content.querySelector('.ai-toggle');
+
+                if (edit && edit.value.trim()) {
+                    toggle.classList.add('has-anno');
+                    try {
+                        view.innerHTML = (typeof marked !== 'undefined') ? marked.parse(edit.value.trim()) : edit.value.trim();
+                    } catch(e){}
+                }
+
+                if (aiToggle) {
+                    aiToggle.onclick = async (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        if (aiToggle.classList.contains('loading')) return;
+
+                        if (edit && edit.value.trim() !== '') {
+                            const confirmOverwrite = confirm('⚠️ 已经存在批注内容。点击"确定"将使用 AI 解析覆盖现有内容。是否继续？');
+                            if (!confirmOverwrite) return;
+                        }
+
+                        const pClone = content.cloneNode(true);
+                        pClone.querySelectorAll('.anno-toggle, .ai-toggle').forEach(el => el.remove());
+                        let pText = pClone.textContent.replace(/https?:\/\/\S+/g, '').trim();
+                        if (!pText) return;
+
+                        aiToggle.classList.add('loading');
+                        try {
+                            const aiContent = await executeAIPipeline(pText);
+                            box.style.display = 'block';
+                            view.style.display = 'none';
+                            edit.style.display = 'block';
+                            edit.value = aiContent;
+                            edit.focus();
+                            edit.blur();
+                        } catch (err) {
+                            console.error(err);
+                        } finally {
+                            aiToggle.classList.remove('loading');
+                        }
+                    };
+                }
+
+                if (toggle) {
+                    toggle.onclick = (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        if (box.style.display === 'block') {
+                            box.style.display = 'none';
+                        } else {
+                            box.style.display = 'block';
+                            if (!edit.value.trim()) {
+                                view.style.display = 'none';
+                                edit.style.display = 'block';
+                                setTimeout(() => { edit.focus(); }, 150);
+                            } else {
+                                view.style.display = 'block';
+                                edit.style.display = 'none';
+                            }
+                        }
+                    };
+                }
+
+                const triggerEdit = (e) => {
+                    if(e) { e.preventDefault(); e.stopPropagation(); }
+                    view.style.display = 'none';
+                    edit.style.display = 'block';
+                    edit.value = edit.value; 
+                    setTimeout(() => { edit.focus(); }, 150);
+                };
+
+                view.addEventListener('dblclick', triggerEdit);
+
+                let lastTap = 0;
+                view.addEventListener('touchstart', e => {
+                    if (e.touches.length === 2) {
+                        triggerEdit(e);
+                    } else if (e.touches.length === 1) {
+                        const currentTime = new Date().getTime();
+                        if (currentTime - lastTap < 500 && currentTime - lastTap > 0) {
+                            e.preventDefault();
+                            box.style.display = 'none';
+                        }
+                        lastTap = currentTime;
+                    }
+                }, {passive: false});
+
+                if (edit && view) {
+                    edit.onblur = () => {
+                        setTimeout(() => {
+                            const newVal = edit.value.trim();
+                            try {
+                                view.innerHTML = newVal ? ((typeof marked !== 'undefined') ? marked.parse(newVal) : newVal) : '';
+                            } catch(e){}
+                            
+                            edit.style.display = 'none';
+                            if (newVal) {
+                                view.style.display = 'block';
+                                toggle.classList.add('has-anno');
+                            } else {
+                                view.style.display = 'none';
+                                box.style.display = 'none';
+                                toggle.classList.remove('has-anno');
+                            }
+
+                            if (edit.getAttribute('data-old-val') !== newVal) {
+                                edit.setAttribute('data-old-val', newVal);
+                                scheduleSync();
+                            }
+                        }, 150);
+                    };
+                    edit.setAttribute('data-old-val', edit.value.trim());
+                }
+            });
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            initProgressBar();
+            initAnnotations();
+        });
+        
+        window.addEventListener('load', () => {
+            initAnnotations();
+        });
+    </script>
+</body>
+</html>
