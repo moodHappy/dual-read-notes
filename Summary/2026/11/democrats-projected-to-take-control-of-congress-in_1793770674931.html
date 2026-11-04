@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Democrats Projected to Take Control of Congress in US Midterm Elections</title>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<style id="core-style">
+:root {
+  --bg-page: #ffffff;
+  --bg-card: #ffffff;
+  --text-main: #0f172a;
+  --text-sub: #334155;
+  --text-muted: #64748b;
+  --accent-primary: #4f46e5;
+  --border-subtle: #e2e8f0;
+  --font-serif: "Georgia", "Charter", "Source Han Serif SC", "Noto Serif CJK SC", serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", Roboto, sans-serif;
+}
+body {
+  font-family: var(--font-sans);
+  padding: 12px 12px 36px 12px;
+  margin: 0 auto;
+  max-width: 780px;
+  background: var(--bg-page);
+  color: var(--text-main);
+  line-height: 1.75;
+  font-size: 16px;
+  word-wrap: break-word;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+* {
+  box-sizing: border-box;
+  max-width: 100%;
+}
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+#reading-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 3px;
+  background: linear-gradient(90deg, #4f46e5, #9333ea);
+  z-index: 9999;
+  transition: width 0.1s ease-out;
+}
+.litit-report {
+  background: var(--bg-card);
+  padding: 0;
+}
+.anno-toggle, .ai-toggle {
+  display: inline-block;
+  padding: 2px 5px;
+  margin-left: 5px;
+  cursor: pointer;
+  opacity: 0.45;
+  font-size: 0.85rem;
+  vertical-align: middle;
+  transition: all 0.2s;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.anno-toggle:hover, .ai-toggle:hover {
+  opacity: 1;
+  transform: scale(1.15);
+}
+.anno-toggle.has-anno {
+  opacity: 1;
+}
+.anno-toggle::after {
+  content: "🔴";
+}
+.ai-toggle {
+  opacity: 0.7;
+  padding: 2px 4px;
+}
+.ai-toggle::after {
+  content: "🤖";
+}
+.ai-toggle.loading::after {
+  content: "⏳";
+  display: inline-block;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
+.anno-box {
+  display: none;
+  margin-top: 10px;
+  background: #faf8ff;
+  border-left: 3px solid #7c3aed;
+  padding: 12px 14px;
+  border-radius: 0 8px 8px 0;
+  text-align: left;
+}
+.anno-view {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: #334155;
+  min-height: 24px;
+}
+.anno-edit {
+  width: 100%;
+  min-height: 240px;
+  padding: 10px;
+  font-family: monospace;
+  font-size: 0.95rem;
+  border: 1px dashed #a78bfa;
+  border-radius: 6px;
+  resize: vertical;
+  display: none;
+  background: #fff;
+  color: #1e293b;
+  outline: none;
+}
+.anno-edit:focus {
+  border: 1px solid #7c3aed;
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.12);
+}
+.markdown-body p {
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+.markdown-body p:last-child {
+  margin-bottom: 0;
+}
+.markdown-body h1, .markdown-body h2, .markdown-body h3 {
+  color: #5b21b6;
+  font-size: 1.05rem;
+  margin: 10px 0 6px 0;
+  border-bottom: 1px dashed #ddd6fe;
+  padding-bottom: 4px;
+}
+.markdown-body ul, .markdown-body ol {
+  margin: 0 0 8px 0;
+  padding-left: 18px;
+}
+.markdown-body blockquote {
+  margin: 0 0 10px 0;
+  padding: 8px 12px;
+  background: rgba(124, 58, 237, 0.06);
+  border-left: 3px solid #7c3aed;
+  color: #475569;
+}
+.section-header {
+  font-size: 16px;
+  color: #0f172a;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  background: linear-gradient(90deg, #f8fafc 0%, #ffffff 100%);
+  padding: 8px 12px;
+  border-left: 4px solid #4f46e5;
+  margin: 26px 0 14px 0;
+  border-radius: 0 6px 6px 0;
+  display: flex;
+  align-items: center;
+  box-shadow: inset 0 1px 0 #f1f5f9, inset 0 -1px 0 #f1f5f9;
+}
+details.litit-fold {
+  margin-bottom: 10px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  background: #ffffff;
+  overflow: hidden;
+  transition: border-color 0.2s ease;
+}
+details.litit-fold[open] {
+  border-color: #cbd5e1;
+}
+details.litit-fold summary {
+  cursor: pointer;
+  padding: 12px 14px;
+  outline: none;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f8fafc;
+  transition: background 0.2s;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+details.litit-fold summary::-webkit-details-marker {
+  display: none;
+}
+details.litit-fold summary::after {
+  display: none;
+}
+details.litit-fold summary:hover {
+  background: #f1f5f9;
+}
+details.litit-fold[open] summary {
+  border-bottom: 1px solid #e2e8f0;
+  background: #f8fafc;
+  border-left: 3px solid #4f46e5;
+}
+.litit-fold-content {
+  padding: 10px 8px;
+  background: #f8fafc;
+}
+.litit-fold-content > ol, .litit-fold-content > ul {
+  list-style: none !important;
+  padding-left: 0 !important;
+  margin: 0 !important;
+  counter-reset: litit-counter;
+}
+.litit-fold-content > ol > li, .litit-fold-content > ul > li {
+  counter-increment: litit-counter;
+  position: relative;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 12px 12px;
+  margin-bottom: 10px !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.015);
+}
+.litit-fold-content > ol > li:last-child, .litit-fold-content > ul > li:last-child {
+  margin-bottom: 0 !important;
+}
+.litit-fold-content > ol > li::before, .litit-fold-content > ul > li::before {
+  content: "NO." counter(litit-counter, decimal-leading-zero);
+  display: block;
+  width: max-content;
+  font-size: 10px;
+  font-weight: 800;
+  font-family: -apple-system, BlinkMacSystemFont, monospace;
+  color: #4f46e5;
+  background: #eef2ff;
+  padding: 1px 6px;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  letter-spacing: 0.04em;
+}
+.litit-en-sentence {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 1.04rem;
+  font-weight: 600;
+  color: #0f172a;
+  line-height: 1.5;
+  margin-bottom: 6px;
+}
+.litit-zh-sentence {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 0.93rem;
+  color: #475569;
+  line-height: 1.55;
+  margin-bottom: 2px;
+}
+li.litit-target-sentence > br {
+  display: none;
+}
+.litit-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #eef2ff 0%, #f3e8ff 100%);
+  color: #4338ca;
+  padding: 2px 8px;
+  border-radius: 5px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  margin-right: 4px;
+  margin-bottom: 6px;
+  border: 1px solid #e0e7ff;
+  vertical-align: middle;
+}
+li.litit-target-sentence > ul {
+  list-style: none !important;
+  margin: 10px 0 0 0 !important;
+  padding: 8px 10px !important;
+  background: #f8fafc;
+  border-radius: 6px;
+  border-left: 2.5px solid #94a3b8;
+}
+li.litit-target-sentence > ul > li {
+  position: relative;
+  padding-left: 10px;
+  margin-bottom: 5px !important;
+  font-size: 0.88rem;
+  color: #334155;
+  line-height: 1.5;
+}
+li.litit-target-sentence > ul > li:last-child {
+  margin-bottom: 0 !important;
+}
+li.litit-target-sentence > ul > li::before {
+  content: "·";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #4f46e5;
+  font-weight: 900;
+}
+li.litit-target-sentence > ul > li > strong {
+  color: #0f172a;
+  font-weight: 600;
+  background: #e2e8f0;
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-size: 0.84rem;
+  margin-right: 3px;
+}
+@media (max-width: 600px) {
+  body {
+    padding: 10px 10px 30px 10px;
+    font-size: 15px;
+  }
+  h1.litit-target-title {
+    font-size: 21px !important;
+  }
+  .litit-fold-content {
+    padding: 8px 6px;
+  }
+  .litit-fold-content > ol > li, .litit-fold-content > ul > li {
+    padding: 11px 10px;
+    margin-bottom: 8px !important;
+  }
+}
+</style>
+</head>
+<body>
+<div id="reading-progress"></div>
+<div class="litit-report" style="width:100%; max-width:100%; box-sizing:border-box; overflow-x:hidden;">
+  
+  <div style="display:flex; justify-content:space-between; align-items:center; border-bottom: 2px solid #0f172a; padding-bottom: 6px; margin-bottom: 14px; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: #64748b; text-transform: uppercase;">
+    <span>The Global Dispatch · 深度双语精读</span>
+    <span>US Politics</span>
+  </div>
+
+  <div class="content-wrap" style="position:relative; margin-bottom: 16px;">
+    <h1 class="litit-target-title" style="color:#0f172a; font-size: 24px; line-height: 1.35; font-family: var(--font-serif); font-weight: 800; border-bottom: 1px solid #e2e8f0; padding-bottom: 14px; margin-top:0; margin-bottom:0; word-break:break-word;">
+      <span class="content litit-en-title" style="position:relative;">Democrats Projected to Take Control of Congress in US Midterm Elections</span>
+      <br>
+      <span class="litit-zh-title" style="font-family: var(--font-sans); font-size: 17px; font-weight: 600; color: #475569; margin-top: 8px; display: inline-block; line-height: 1.45;">民主党预计将在美国中期选举中赢得国会两院控制权</span>
+    </h1>
+    <div class="anno-box" style="display:none; margin-top: 10px;">
+      <div class="anno-view markdown-body"></div>
+      <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
+民主党预计将在美国中期选举中赢得国会控制权
+
+### 📌 核心词汇 (Key Expressions)
+- **projected to** = 预计将 / 被预测将
+- **take control of** = 取得……的控制权 / 掌控
+- **Congress** = 国会（包含参众两院）
+
+### 🔍 句子解析方式 (Parsing Method)
+- **[主干结构]**：标准的新闻标题语态。使用 `projected to`（预测）不仅客观反映了在最终官方结果出炉前的媒体判断，也精准传递了选情风向标已发生根本性转变的重大政治信号。</textarea>
+    </div>
+  </div>
+
+  <p style="color:#334155; font-size: 15px; line-height: 1.75; margin-bottom:16px; font-weight:400; background: #f8fafc; padding: 12px 14px; border-radius: 8px; border: 1px solid #f1f5f9;">
+    在2026年美国中期选举的激烈角逐中，政治版图迎来了震荡。据 BBC 的实时选情预测，民主党在多个传统“红州”（如得克萨斯、堪萨斯、艾奥瓦等）取得了突破性胜利，预计将一举拿下参众两院的多数席位，从而在特朗普总统剩余的任期内掌控国会。尽管最终结果仍需等待各州官方确认，但这一重大转变不仅改写了华盛顿的权力格局，更折射出选民对现任政府政策的深层不满。面对这一可能重塑美国未来两年政策走向的选举结果，特朗普罕见表态愿意接受并与反对党合作。
+  </p>
+
+  <div style="margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+    <div style="display:flex; flex-wrap:wrap; gap:6px;">
+      <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;">Elections</span>
+      <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;">Congress</span>
+    </div>
+    <a href="https://moodhappy.github.io/ShortStories/Summary/2026/11/democrats-projected-to-take-control-of-congress-in_1793767887000.html" target="_blank" style="font-size: 12.5px; color: #4f46e5; text-decoration: none; font-weight: 600; background: #eef2ff; padding: 5px 12px; border-radius: 16px; border: 1px solid #e0e7ff; display:inline-block;">🔗 阅读原文 ↗</a>
+  </div>
+
+  <h2 class="section-header" style="border-left-color: #f59e0b;">💬 最佳金句</h2>
+  <div class="content-wrap" style="position:relative; margin-bottom:24px;">
+    <blockquote class="litit-target-quote" style="border-left: 3.5px solid #f59e0b; background: linear-gradient(135deg, #fffbeb 0%, #ffffff 100%); padding: 14px 14px; margin: 0; color: #1e293b; border-radius: 0 10px 10px 0; border-top: 1px solid #fef3c7; border-right: 1px solid #fef3c7; border-bottom: 1px solid #fef3c7;">
+      <div class="content litit-en-quote" style="position:relative; margin:0 0 8px 0; font-family: var(--font-serif); font-style: italic; font-weight:600; font-size: 16.5px; line-height: 1.55; color:#0f172a; word-break:break-word;">
+        "The BBC described the party’s performance as particularly significant because several projected victories came in states that had elected Republicans for many years."
+      </div>
+      <p class="litit-zh-quote" style="margin:0 0 8px 0; font-weight:400; font-size: 14.5px; line-height: 1.6; color:#475569; word-break:break-word;">
+        “BBC 指出，民主党的这一表现尤其值得关注，因为该党预计赢得的多个州，多年来一直由共和党候选人当选。”
+      </p>
+      <footer style="text-align:right; font-size:12px; color:#64748b; font-style:normal; font-weight:600;">—— 揭示了这场选战中最具震撼力的现象：传统政治版图的松动与跨界反杀</footer>
+    </blockquote>
+    <div class="anno-box" style="display:none;">
+      <div class="anno-view markdown-body"></div>
+      <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
+“BBC 指出，民主党的这一表现尤其值得关注，因为该党预计赢得的多个州，多年来一直由共和党候选人当选。”
+
+### 📌 核心词汇 (Key Expressions)
+- **particularly significant** = 尤其值得关注 / 极具意义
+- **projected victories** = 预计取得的胜利
+
+### 🔍 句子解析方式 (Parsing Method)
+- **[原因状语从句]**：`because` 引导原因状语从句，解释了为何民主党此次表现被定性为 `particularly significant`。从句中又嵌套了 `that` 引导的定语从句修饰 `states`，且定语从句使用了过去完成时 `had elected`，精准表达了在此次大选前长久以来的既定政治历史事实。</textarea>
+    </div>
+  </div>
+
+  <h2 class="section-header" style="border-left-color: #10b981;">📊 关键数字</h2>
+  <div style="display:grid; grid-template-columns: repeat(2, 1fr); gap:10px; margin:14px 0 24px 0;">
+    <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+      <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+        51<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">席</span>
+      </div>
+      <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">媒体预测民主党在参议院（总共100席）赢得的关键多数席位数</div>
+    </div>
+    <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+      <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+        2<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">大阵地</span>
+      </div>
+      <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">民主党预计在此次中期选举中同时拿下的参议院与众议院控制权</div>
+    </div>
+    <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+      <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+        5<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">大红州</span>
+      </div>
+      <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">BBC点名民主党取得突破的传统保守州（德州、堪萨斯、南卡、艾奥瓦、俄亥俄）</div>
+    </div>
+    <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+      <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+        2026<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">年</span>
+      </div>
+      <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">这场可能重塑华盛顿权力平衡与特朗普剩余任期的关键中期选举年份</div>
+    </div>
+  </div>
+
+  <h2 class="section-header" style="border-left-color: #3b82f6;">⏱️ 文章核心脉络</h2>
+  <ul style="padding-left:18px; line-height:1.8; color:#334155; font-size: 14.5px; margin-bottom:24px; word-break:break-word;">
+    <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">选情定局预测：</strong> 媒体根据实时计票结果，预测民主党将一举夺下国会参众两院的控制权。</li>
+    <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">红州逆袭突破：</strong> 文章列举了艾奥瓦、俄亥俄等传统共和党票仓倒戈的具体战况，凸显了此次胜利的战略纵深。</li>
+    <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">权力格局重塑：</strong> 若结果落锤，将直接改变特朗普总统剩余任期内面临的立法与监督环境。</li>
+    <li><strong style="color:#1d4ed8;">各方表态与反思：</strong> 特朗普出人意料地表态愿与反对党合作，而共和党内部则直指败因在于选民对现行政策的强烈不满。</li>
+  </ul>
+
+  <h2 class="section-header" style="border-left-color: #8b5cf6;">✨ 本篇亮点与精读</h2>
+  <div style="margin: 14px 0 10px 0;">
+    
+    <details class="litit-fold">
+      <summary>
+        <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">一、重点记忆</h3>
+      </summary>
+      <div class="litit-fold-content">
+        <ul style="list-style-type: square; margin: 0; padding-left: 18px; line-height: 1.6;">
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">chambers</strong>：院（指美国国会的参众两院）<br>
+            <strong class="litit-en-sentence">The Democratic Party is projected to win control of both chambers.</strong>
+            <span class="litit-zh-sentence">民主党预计将赢得两院的控制权。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">strongholds</strong>：堡垒 / 票仓 / 根据地<br>
+            <strong class="litit-en-sentence">Competitive races in several states traditionally regarded as Republican strongholds.</strong>
+            <span class="litit-zh-sentence">在几个传统上被视为共和党票仓的州进行的激烈竞争。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">underway</strong>：正在进行中<br>
+            <strong class="litit-en-sentence">The live results tracker showed that vote counting was still underway.</strong>
+            <span class="litit-zh-sentence">实时结果追踪页面显示，计票工作仍在进行中。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">provisional</strong>：暂定的 / 临时的<br>
+            <strong class="litit-en-sentence">All projections are provisional until election authorities complete their counts.</strong>
+            <span class="litit-zh-sentence">在选举机构完成计票前，所有预测都只是暂定的。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">certify</strong>：正式证明 / 认证<br>
+            <strong class="litit-en-sentence">Formally certify the results.</strong>
+            <span class="litit-zh-sentence">正式认证选举结果。</span>
+          </li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="litit-fold">
+      <summary>
+        <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">二、高价值表达</h3>
+      </summary>
+      <div class="litit-fold-content">
+        <ol style="margin: 0; padding-left: 18px;">
+          <li style="margin-bottom: 12px;">
+            <strong class="litit-badge">secure a majority</strong>：获得多数席位 / 确保多数优势。<br>
+            <span class="litit-zh-sentence" style="margin-top: 4px;">政治选举报道中的核心短语，比简单的 win 更强调在议会架构中“稳固确立”统治地位的过程。</span>
+          </li>
+          <li style="margin-bottom: 12px;">
+            <strong class="litit-badge">outstanding</strong>：未解决的 / 尚未决出的（指比赛或选举）。<br>
+            <span class="litit-zh-sentence" style="margin-top: 4px;">在这里并非指“优秀的”，而是新闻英语中常用的特定含义，指“未决的、悬而未决的”（如 outstanding issues）。</span>
+          </li>
+          <li style="margin-bottom: 12px;">
+            <strong class="litit-badge">opposing party</strong>：反对党。<br>
+            <span class="litit-zh-sentence" style="margin-top: 4px;">更为中性与正式的政治术语，用于指代在多党制国家中与执政党处于对立面的主要政党。</span>
+          </li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="litit-fold">
+      <summary>
+        <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">三、短语和固定搭配</h3>
+      </summary>
+      <div class="litit-fold-content">
+        <ul style="list-style-type: square; margin: 0; padding-left: 18px; line-height: 1.6;">
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">rated in favor of</strong>：被评估/认为有利于……<br>
+            <strong class="litit-en-sentence">The Kansas race was also rated in favor of the Democratic candidate.</strong>
+            <span class="litit-zh-sentence">堪萨斯州的选情也被评估为有利于民主党候选人。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">blame... on...</strong>：把……归咎于……<br>
+            <strong class="litit-en-sentence">Republican strategists blamed the party’s losses on voter dissatisfaction.</strong>
+            <span class="litit-zh-sentence">共和党策略人士将该党的失利归咎于选民的不满。</span>
+          </li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="litit-fold">
+      <summary>
+        <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">四、值得学习的句子结构</h3>
+      </summary>
+      <div class="litit-fold-content">
+        <ol style="margin: 0; padding-left: 18px;">
+          <li class="litit-target-sentence" style="margin-bottom: 12px;">
+            <strong class="litit-badge">现在分词作伴随状语</strong><br>
+            <strong class="litit-en-sentence">In Iowa, Democrat Josh Turek was projected to defeat Republican Ashley Hinson, giving Democrats what the page described as a 51-member Senate majority.</strong>
+            <span class="litit-zh-sentence">在艾奥瓦州，民主党人乔什·图雷克预计将击败共和党人阿什利·欣森，使民主党获得该页面所称的51席参议院多数席位。</span>
+            <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+              <li style="margin-bottom: 3px;"><strong>短语功能解析</strong>：逗号后的 `giving Democrats...` 是现在分词短语作伴随/结果状语，其中 `what the page described as...` 是一个名词性从句作 `giving` 的直接宾语。</li>
+              <li style="margin-bottom: 3px;"><strong>深度语法解析 (Parsing Method)</strong>：将局部战役的胜利（击败对手）与其带来的全局性后果（夺取多数席位）在同一个句子里行云流水地结合，逻辑紧凑，是典型的高质量外刊长句结构。</li>
+            </ul>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 12px;">
+            <strong class="litit-badge">条件状语从句与虚拟语态（If 插入语）</strong><br>
+            <strong class="litit-en-sentence">The outcome, if confirmed by official state results, would give Democrats control of Congress for the remainder of President Donald Trump’s term.</strong>
+            <span class="litit-zh-sentence">如果这一结果得到各州官方选举结果的确认，民主党将在唐纳德·特朗普总统任期剩余时间内掌控国会。</span>
+            <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+              <li style="margin-bottom: 3px;"><strong>插入语与时态</strong>：`if confirmed by...` 作为条件状语插入主句中（省略了 it is）。主句使用了 `would give`，表明这是一种基于预测之上的“未来的可能性”。</li>
+              <li style="margin-bottom: 3px;"><strong>深度语法解析 (Parsing Method)</strong>：这种将条件从句嵌入主语之后的写法，既强调了主语 `The outcome`，又体现了新闻报道在面对未“官宣”结果时的严谨客观态度。</li>
+            </ul>
+          </li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="litit-fold">
+      <summary>
+        <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">五、最值得优先掌握的句型</h3>
+      </summary>
+      <div class="litit-fold-content">
+        <ol style="margin: 0; padding-left: 18px;">
+          <li class="litit-target-sentence" style="margin-bottom: 12px;">
+            <strong class="litit-en-sentence" style="color: #4338ca;">[主体/政党] is projected to secure a majority in [机构/领域] after winning competitive races in [地点/传统阵地].</strong>
+            <span class="litit-zh-sentence">[某方]预计在[某地/传统优势区]赢得激烈竞争后，将在[某机构]中获得多数席位。<br>（非常适合用于分析政治选举、商业竞标等“攻城拔寨并确立统治地位”的新闻事件句型）。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 12px;">
+            <strong class="litit-en-sentence" style="color: #4338ca;">All [预测/结论] are provisional until [权威机构] complete their [工作/核查] and formally certify the results.</strong>
+            <span class="litit-zh-sentence">在[权威机构]完成其[工作]并正式认证结果之前，所有[预测/结论]都只是暂定的。<br>（极具学术与新闻严谨性的“免责声名”式句型，用于描述需要等待官方最终核实的重要事件或数据发布）。</span>
+          </li>
+        </ol>
+      </div>
+    </details>
+  </div>
+
+  <h2 class="section-header" style="border-left-color: #0d9488;">💡 幕后冷知识 (Fun Facts)</h2>
+  <ul style="padding-left:18px; line-height:1.8; color:#334155; font-size:14.5px; margin:0 0 24px 0; word-break:break-word;">
+    <li style="margin-bottom: 8px;"><strong>美国政坛的“钟摆效应”：</strong> 历史数据表明，美国中期选举往往是对现任总统所在政党的一次“惩罚性投票”。执政党在入主白宫两年后，由于政策落地引发争议或经济波动，几乎不可避免地会在中期选举中流失国会席位。此次民主党的全面反扑，正是这一经典政治学规律的再一次应验。</li>
+    <li style="margin-bottom: 8px;"><strong>“瘸腿鸭”（Lame Duck）与“分立政府”：</strong> 如果民主党最终确认拿下两院，特朗普在剩余两年任期内将面临一个被反对党完全控制的国会（即分立政府 Divided Government）。这意味着白宫的大型立法议程、预算案甚至关键内阁提名，都将遭到极大的阻击和讨价还价，总统在国内事务上的权力将被严重削弱。</li>
+    <li><strong>得州与红色阵地的“倒戈”：</strong> 文章提到民主党在得克萨斯（Texas）和南卡罗来纳（South Carolina）等传统共和党票仓（Republican strongholds）取得胜利。这在近年来美国政治极化的版图中是具有地震级意义的。这往往归因于人口结构的变迁（如大量科技从业者迁入得州）、郊区温和派选民的倒戈，以及选民对现行经济或社会政策的极度焦虑。</li>
+  </ul>
+
+  <h2 class="section-header" style="border-left-color: #e11d48;">🎯 全片锐评</h2>
+  <p style="line-height:1.75; color:#1e293b; font-weight:500; background:linear-gradient(135deg, #fff1f2 0%, #ffffff 100%); padding:14px 16px; border-radius:10px; font-size:14.5px; margin:0 0 12px 0; border:1px solid #ffe4e6; word-break:break-word;">
+    当得克萨斯与南卡罗来纳的计票大屏亮起蓝色，华盛顿的权力天平已经在2026年的初冬彻底倾斜。这场被媒体预测为民主党“全面接管两院”的中期选举，绝不仅仅是一次简单的席位轮替，更是美国选民用选票对现任执政理念投下的一记沉重的不信任票。最令人玩味的，是那句简短却意味深长的“特朗普表态愿意接受并合作”——这不仅是一种政治现实下的无奈妥协，也折射出在“瘸腿”倒计时中，白宫必须学会在反对派的包围网中求生存。而对于从共和党策略人士口中吐出的那句“败因在于选民不满”，则像是一面无情的镜子，照出了无论多么稳固的“票仓”，在切肤的经济刺痛与政策反噬面前，都不过是沙滩上的堡垒。
+  </p>
+
+</div>
+
+<script id="core-engine">
+let syncTimeout = null;
+const AI_PROMPT = "请分析以下英文段落，并严格按照以下 Markdown 格式输出（不要输出任何额外的废话）：\n\n### 📌 完整翻译\n\n[此处填写完整翻译]\n\n### 📌 Key Expressions\n\n- **[单词或短语]**\n = [中文释义]\n （[可选的补充说明，如倒装结构或语境等]）\n\n段落内容：\n";
+
+function initProgressBar() {
+  const progressBar = document.getElementById('reading-progress');
+  if (!progressBar) return;
+  window.addEventListener('scroll', () => {
+    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    if (scrollHeight <= 0) return;
+    const scrollPercent = (scrollTop / scrollHeight) * 100;
+    progressBar.style.width = scrollPercent + '%';
+  }, { passive: true });
+}
+
+async function fetchGroq(text, apiKey, modelName) {
+  const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Authorization': 'Bearer ' + apiKey,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      model: modelName || 'llama-3.3-70b-versatile',
+      messages: [
+        { role: 'system', content: 'You are an English teacher. Output EXACTLY in the requested Markdown format.' },
+        { role: 'user', content: AI_PROMPT + '"' + text + '"' }
+      ],
+      temperature: 0.3
+    })
+  });
+  if (!res.ok) throw new Error('Groq Error: ' + res.status);
+  const json = await res.json();
+  return json.choices[0].message.content.trim();
+}
+
+async function fetchCustomAI(text, url, apiKey, modelName) {
+  let headers = { 'Content-Type': 'application/json' };
+  let bodyData = {};
+  if (url.includes('anthropic.com')) {
+    headers['x-api-key'] = apiKey;
+    headers['anthropic-version'] = '2023-06-01';
+    headers['anthropic-dangerous-direct-browser-access'] = 'true';
+    bodyData = {
+      model: modelName || 'claude-3-5-sonnet-20241022',
+      max_tokens: 2000,
+      messages: [{ role: 'user', content: AI_PROMPT + '"' + text + '"' }]
+    };
+  } else if (url.includes('generativelanguage.googleapis.com')) {
+    let targetUrl = url;
+    if (!targetUrl.includes('key=')) {
+      targetUrl += (targetUrl.includes('?') ? '&' : '?') + 'key=' + apiKey;
+    }
+    const res = await fetch(targetUrl, {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: AI_PROMPT + '"' + text + '"' }] }]
+      })
+    });
+    if (!res.ok) throw new Error('Gemini Error: ' + res.status);
+    const json = await res.json();
+    return json.candidates[0].content.parts[0].text.trim();
+  } else {
+    headers['Authorization'] = 'Bearer ' + apiKey;
+    bodyData = {
+      model: modelName || 'gpt-4o-mini',
+      messages: [
+        { role: 'system', content: 'You are an English teacher. Output EXACTLY in the requested Markdown format.' },
+        { role: 'user', content: AI_PROMPT + '"' + text + '"' }
+      ],
+      temperature: 0.3
+    };
+  }
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: headers,
+    body: JSON.stringify(bodyData)
+  });
+  if (!res.ok) throw new Error('AI Interface Error: ' + res.status);
+  const json = await res.json();
+  if (json.choices && json.choices.length > 0) return json.choices[0].message.content.trim();
+  throw new Error('AI 返回数据异常');
+}
+
+async function executeAIPipeline(text) {
+  const customUrl = localStorage.getItem('CUSTOM_API_URL') || '';
+  const customKey = localStorage.getItem('CUSTOM_API_KEY') || '';
+  const customModel = localStorage.getItem('CUSTOM_MODEL') || '';
+  const groqKey = localStorage.getItem('GROQ_API_KEY') || '';
+  const groqModel = localStorage.getItem('GROQ_MODEL') || '';
+
+  if (customUrl && customKey) {
+    try {
+      return await fetchCustomAI(text, customUrl, customKey, customModel);
+    } catch (err) {
+      if (groqKey) return await fetchGroq(text, groqKey, groqModel);
+      throw err;
+    }
+  } else if (groqKey) {
+    return await fetchGroq(text, groqKey, groqModel);
+  } else {
+    const userKey = prompt('⚠️ 当前页面未检测到 AI Key！\n为了安全，密匙只储存在您本地浏览器中。\n\n请输入您的 API Key (如 sk-xxx 或 gsk_xxx):');
+    if (userKey && userKey.trim()) {
+      const cleanKey = userKey.trim();
+      if (cleanKey.startsWith('gsk_')) {
+        localStorage.setItem('GROQ_API_KEY', cleanKey);
+      } else {
+        localStorage.setItem('CUSTOM_API_KEY', cleanKey);
+        localStorage.setItem('CUSTOM_API_URL', 'https://api.chatanywhere.tech/v1/chat/completions');
+      }
+    }
+    throw new Error('未设置 AI API Key');
+  }
+}
+
+function getPurifiedFallbackHTML() {
+  const clone = document.documentElement.cloneNode(true);
+  const foreignSelectors = [
+    'relingo-app', 'relin-highlight', 'relin-hc', '[class*="relingo"]',
+    '[data-relin-paragraph]', 'grammarly-extension', '[data-grammarly-part]',
+    '[class*="immersive-translate"]', '[data-immersive-translate]'
+  ].join(',');
+  clone.querySelectorAll(foreignSelectors).forEach(el => el.remove());
+  clone.querySelectorAll('relin-highlight, relin-hc').forEach(t => {
+    const frag = document.createDocumentFragment();
+    while(t.firstChild) frag.appendChild(t.firstChild);
+    t.parentNode.replaceChild(frag, t);
+  });
+  clone.querySelectorAll('script').forEach(s => {
+    if (!s.src.includes('marked.min.js') && s.id !== 'core-engine') s.remove();
+  });
+  clone.querySelectorAll('style').forEach(s => {
+    if (s.id !== 'core-style') s.remove();
+  });
+  const liveTAs = document.querySelectorAll('.anno-edit');
+  clone.querySelectorAll('.anno-edit').forEach((ta, i) => {
+    if(liveTAs[i]) ta.textContent = liveTAs[i].value.trim();
+    const box = ta.closest('.anno-box');
+    if (box) box.style.display = 'none';
+    const view = box ? box.querySelector('.anno-view') : null;
+    if (view) view.innerHTML = '';
+  });
+  return '<!DOCTYPE html>\n<html lang="zh-CN">\n' + clone.innerHTML + '\n</html>';
+}
+
+async function syncToCloud() {
+  const ghToken = localStorage.getItem('LITIT_GH_TOKEN') || localStorage.getItem('GH_TOKEN');
+  const ghOwner = 'moodHappy';
+  const ghRepo = 'dual-read-notes';
+  if (!ghToken) return;
+
+  const pathParts = window.location.pathname.split('/');
+  const fileName = pathParts.pop();
+  const month = pathParts.pop();
+  const year = pathParts.pop();
+  if(!fileName || !month || !year) return;
+
+  const fileRelPath = 'Summary/' + year + '/' + month + '/' + fileName;
+  try {
+    const getRes = await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath + '?t=' + Date.now(), {
+      headers: { 'Authorization': 'Bearer ' + ghToken },
+      cache: 'no-store'
+    });
+
+    let finalHTML = '';
+    let sha = '';
+    if (getRes.ok) {
+      const fileData = await getRes.json();
+      sha = fileData.sha;
+      const cleanRawHTML = decodeURIComponent(escape(atob(fileData.content.replace(/\n/g, ''))));
+      const parser = new DOMParser();
+      const cleanDoc = parser.parseFromString(cleanRawHTML, 'text/html');
+
+      const liveTAs = document.querySelectorAll('.anno-edit');
+      const cleanTAs = cleanDoc.querySelectorAll('.anno-edit');
+      liveTAs.forEach((liveTa, index) => {
+        if (cleanTAs[index]) {
+          const val = liveTa.value.trim();
+          cleanTAs[index].textContent = val;
+          const box = cleanTAs[index].closest('.anno-box');
+          if (box) box.style.display = 'none';
+          const view = box ? box.querySelector('.anno-view') : null;
+          if (view) view.innerHTML = '';
+        }
+      });
+
+      cleanDoc.querySelectorAll('.anno-toggle').forEach(t => {
+        t.classList.remove('has-anno');
+        const ta = t.closest('.content-wrap, .litit-highlight-block')?.querySelector('.anno-edit');
+        if (ta && ta.textContent.trim()) t.classList.add('has-anno');
+      });
+      finalHTML = '<!DOCTYPE html>\n<html lang="zh-CN">\n' + cleanDoc.documentElement.innerHTML + '\n</html>';
+    } else {
+      finalHTML = getPurifiedFallbackHTML();
+    }
+
+    await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath, {
+      method: 'PUT',
+      headers: {
+        'Authorization': 'Bearer ' + ghToken,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        message: 'Silent purified annotation update',
+        content: btoa(unescape(encodeURIComponent(finalHTML))),
+        sha: sha || undefined
+      })
+    });
+    console.log('✅ [My Litit] 纯净无污染批注已静默同步至 GitHub');
+  } catch(e) {
+    console.warn('❌ [My Litit] 同步跳过或失败:', e);
+  }
+}
+
+function scheduleSync() {
+  if (syncTimeout) clearTimeout(syncTimeout);
+  syncTimeout = setTimeout(() => {
+    syncToCloud();
+  }, 3000);
+}
+
+function initAnnotations() {
+  document.querySelectorAll('.litit-highlight-block, .content-wrap').forEach(wrap => {
+    let content = wrap.querySelector('.content');
+    if (!content) {
+      const pText = wrap.querySelector('p');
+      if (pText) {
+        content = document.createElement('div');
+        content.className = 'content';
+        content.style.cssText = 'position:relative; margin:0 0 6px 0; color:#1a202c; font-family:Georgia, serif; line-height:1.7; font-size:15px; word-break:break-word;';
+        content.innerHTML = pText.innerHTML;
+        pText.parentNode.replaceChild(content, pText);
+      }
+    }
+    if (!content) return;
+
+    if (!content.querySelector('.anno-toggle')) {
+      const toggle = document.createElement('span');
+      toggle.className = 'anno-toggle';
+      toggle.title = '手写批注/笔记';
+      content.appendChild(toggle);
+    }
+    if (!content.querySelector('.ai-toggle')) {
+      const aiToggle = document.createElement('span');
+      aiToggle.className = 'ai-toggle';
+      aiToggle.title = 'AI智能二次解析';
+      content.appendChild(aiToggle);
+    }
+
+    let box = wrap.querySelector('.anno-box');
+    if (!box) {
+      box = document.createElement('div');
+      box.className = 'anno-box';
+      box.style.display = 'none';
+      box.innerHTML = '<div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 解析..."></textarea>';
+      wrap.appendChild(box);
+    }
+
+    const view = box.querySelector('.anno-view');
+    const edit = box.querySelector('.anno-edit');
+    const toggle = content.querySelector('.anno-toggle');
+    const aiToggle = content.querySelector('.ai-toggle');
+
+    if (edit && edit.value.trim()) {
+      toggle.classList.add('has-anno');
+      try {
+        view.innerHTML = (typeof marked !== 'undefined') ? marked.parse(edit.value.trim()) : edit.value.trim();
+      } catch(e){}
+    }
+
+    if (aiToggle) {
+      aiToggle.onclick = async (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (aiToggle.classList.contains('loading')) return;
+
+        if (edit && edit.value.trim() !== '') {
+          const confirmOverwrite = confirm('⚠️ 已经存在批注内容。点击"确定"将使用 AI 解析覆盖现有内容。是否继续？');
+          if (!confirmOverwrite) return;
+        }
+
+        const pClone = content.cloneNode(true);
+        pClone.querySelectorAll('.anno-toggle, .ai-toggle').forEach(el => el.remove());
+        let pText = pClone.textContent.replace(/https?:\/\/\S+/g, '').trim();
+        if (!pText) return;
+
+        aiToggle.classList.add('loading');
+        try {
+          const aiContent = await executeAIPipeline(pText);
+          box.style.display = 'block';
+          view.style.display = 'none';
+          edit.style.display = 'block';
+          edit.value = aiContent;
+          edit.focus();
+          edit.blur();
+        } catch (err) {
+          console.error(err);
+        } finally {
+          aiToggle.classList.remove('loading');
+        }
+      };
+    }
+
+    if (toggle) {
+      toggle.onclick = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (box.style.display === 'block') {
+          box.style.display = 'none';
+        } else {
+          box.style.display = 'block';
+          if (!edit.value.trim()) {
+            view.style.display = 'none';
+            edit.style.display = 'block';
+            setTimeout(() => { edit.focus(); }, 150);
+          } else {
+            view.style.display = 'block';
+            edit.style.display = 'none';
+          }
+        }
+      };
+    }
+
+    const triggerEdit = (e) => {
+      if(e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      view.style.display = 'none';
+      edit.style.display = 'block';
+      edit.value = edit.value;
+      setTimeout(() => { edit.focus(); }, 150);
+    };
+
+    view.addEventListener('dblclick', triggerEdit);
+
+    let lastTap = 0;
+    view.addEventListener('touchstart', e => {
+      if (e.touches.length === 2) {
+        triggerEdit(e);
+      } else if (e.touches.length === 1) {
+        const currentTime = new Date().getTime();
+        if (currentTime - lastTap < 500 && currentTime - lastTap > 0) {
+          e.preventDefault();
+          box.style.display = 'none';
+        }
+        lastTap = currentTime;
+      }
+    }, {passive: false});
+
+    if (edit && view) {
+      edit.onblur = () => {
+        setTimeout(() => {
+          const newVal = edit.value.trim();
+          try {
+            view.innerHTML = newVal ? ((typeof marked !== 'undefined') ? marked.parse(newVal) : newVal) : '';
+          } catch(e){}
+          
+          edit.style.display = 'none';
+          if (newVal) {
+            view.style.display = 'block';
+            toggle.classList.add('has-anno');
+          } else {
+            view.style.display = 'none';
+            box.style.display = 'none';
+            toggle.classList.remove('has-anno');
+          }
+
+          if (edit.getAttribute('data-old-val') !== newVal) {
+            edit.setAttribute('data-old-val', newVal);
+            scheduleSync();
+          }
+        }, 150);
+      };
+      edit.setAttribute('data-old-val', edit.value.trim());
+    }
+  });
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  initProgressBar();
+  initAnnotations();
+});
+window.addEventListener('load', () => {
+  initAnnotations();
+});
+</script>
+</body>
+</html>
