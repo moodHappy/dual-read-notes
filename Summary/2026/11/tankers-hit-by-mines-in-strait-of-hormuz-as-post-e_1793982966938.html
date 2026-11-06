@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Tankers hit by mines in Strait of Hormuz as post-election geopolitical tensions escalate</title>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<style id="core-style">
+/* ======================================================================
+   [AI TEMPLATE GUIDELINES - CSS 核心排版规范]
+   致其他 AI 助手：在生成此模板时，请严格遵守以下样式分配与内容提炼规则：
+   1. 序号规则：列表的 NO.01 序号由伪类 `::before` 自动生成且独占一行。千万不要在 HTML 中手动输入“NO.01”。
+   2. 标签规则：文章开头的标签胶囊纯文字即可，禁止带 `#` 号。类别标签严格限制在最多两个单词以内，以避免在移动端发生换行。
+   3. 胶囊高亮（.litit-badge）：仅用于第 1、2、3 板块（重点记忆、高价值表达、短语和固定搭配）的【短词组/单词】，表现为紫色渐变背景的内联胶囊。
+   4. 长句排版（.litit-en-sentence）：用于第 4 板块（值得学习的句子结构）和第 5 板块（最值得优先掌握的句型）的【长句/长句型】。严禁将长句型放入 .litit-badge 中，否则会导致折行错乱。并且中文解释中的括号补充内容需使用 <br> 另起一行。
+   5. 语法重点提炼规范：核心目标是“深度剖析语法结构”，绝对禁止单纯罗列生硬的语法术语。应结合文章具体语境灵活解析，重点提炼以下三个进阶维度：
+      - 维度1：长难句与从句嵌套（Complex Clause Structures）。考察和剖析主从复合句的主干提取、各类从句（定语/名词性/状语从句）的逻辑关系。
+      - 维度2：高级句式与特殊结构（Advanced Syntax）。剖析倒装句、强调句、虚拟语气、独立主格等高级语法现象在语境中的具体应用与修辞色彩。
+      - 维度3：非谓语动词与词法功能（Non-finite Verbs & Lexical Grammar）。解析分词、不定式、动名词在句中的具体功能（作定语、状语等）及其带来的语体效果。
+   6. 例句提取铁律（严禁提取定义句/释义句）：凡是在各板块（尤其是第 1、3 板块）为目标单词或短语（.litit-badge）搭配英文例句（.litit-en-sentence）时，所提取的英文例句中【必须直接出现该目标单词或短语本身】（允许合理的词形变化）。绝对禁止把原文中仅用于解释该词的“定义句”、“同位语解释”或“不包含该词本身的上下文”错当成例句提取出来！生成后必须逐条核对例句中是否真正包含目标词。
+   ====================================================================== */
+:root {
+  --bg-page: #ffffff;
+  --bg-card: #ffffff;
+  --text-main: #0f172a;
+  --text-sub: #334155;
+  --text-muted: #64748b;
+  --accent-primary: #4f46e5;
+  --border-subtle: #e2e8f0;
+  --font-serif: "Georgia", "Charter", "Source Han Serif SC", "Noto Serif CJK SC", serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", Roboto, sans-serif;
+}
+body {
+  font-family: var(--font-sans);
+  padding: 12px 12px 36px 12px;
+  margin: 0 auto;
+  max-width: 780px;
+  background: var(--bg-page);
+  color: var(--text-main);
+  line-height: 1.75;
+  font-size: 16px;
+  word-wrap: break-word;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+* {
+  box-sizing: border-box;
+  max-width: 100%;
+}
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+#reading-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 3px;
+  background: linear-gradient(90deg, #4f46e5, #9333ea);
+  z-index: 9999;
+  transition: width 0.1s ease-out;
+}
+.litit-report {
+  background: var(--bg-card);
+  padding: 0;
+}
+.anno-toggle, .ai-toggle {
+  display: inline-block;
+  padding: 2px 5px;
+  margin-left: 5px;
+  cursor: pointer;
+  opacity: 0.45;
+  font-size: 0.85rem;
+  vertical-align: middle;
+  transition: all 0.2s;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.anno-toggle:hover, .ai-toggle:hover {
+  opacity: 1;
+  transform: scale(1.15);
+}
+.anno-toggle.has-anno {
+  opacity: 1;
+}
+.anno-toggle::after {
+  content: "🔴";
+}
+.ai-toggle {
+  opacity: 0.7;
+  padding: 2px 4px;
+}
+.ai-toggle::after {
+  content: "🤖";
+}
+.ai-toggle.loading::after {
+  content: "⏳";
+  display: inline-block;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
+.anno-box {
+  display: none;
+  margin-top: 10px;
+  background: #faf8ff;
+  border-left: 3px solid #7c3aed;
+  padding: 12px 14px;
+  border-radius: 0 8px 8px 0;
+  text-align: left;
+}
+.anno-view {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: #334155;
+  min-height: 24px;
+}
+.anno-edit {
+  width: 100%;
+  min-height: 240px;
+  padding: 10px;
+  font-family: monospace;
+  font-size: 0.95rem;
+  border: 1px dashed #a78bfa;
+  border-radius: 6px;
+  resize: vertical;
+  display: none;
+  background: #fff;
+  color: #1e293b;
+  outline: none;
+}
+.anno-edit:focus {
+  border: 1px solid #7c3aed;
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.12);
+}
+.markdown-body p {
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+.markdown-body p:last-child {
+  margin-bottom: 0;
+}
+.markdown-body h1, .markdown-body h2, .markdown-body h3 {
+  color: #5b21b6;
+  font-size: 1.05rem;
+  margin: 10px 0 6px 0;
+  border-bottom: 1px dashed #ddd6fe;
+  padding-bottom: 4px;
+}
+.markdown-body ul, .markdown-body ol {
+  margin: 0 0 8px 0;
+  padding-left: 18px;
+}
+.markdown-body blockquote {
+  margin: 0 0 10px 0;
+  padding: 8px 12px;
+  background: rgba(124, 58, 237, 0.06);
+  border-left: 3px solid #7c3aed;
+  color: #475569;
+}
+.section-header {
+  font-size: 16px;
+  color: #0f172a;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  background: linear-gradient(90deg, #f8fafc 0%, #ffffff 100%);
+  padding: 8px 12px;
+  border-left: 4px solid #4f46e5;
+  margin: 26px 0 14px 0;
+  border-radius: 0 6px 6px 0;
+  display: flex;
+  align-items: center;
+  box-shadow: inset 0 1px 0 #f1f5f9, inset 0 -1px 0 #f1f5f9;
+}
+details.litit-fold {
+  margin-bottom: 10px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  background: #ffffff;
+  overflow: hidden;
+  transition: border-color 0.2s ease;
+}
+details.litit-fold[open] {
+  border-color: #cbd5e1;
+}
+details.litit-fold summary {
+  cursor: pointer;
+  padding: 12px 14px;
+  outline: none;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f8fafc;
+  transition: background 0.2s;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+details.litit-fold summary::-webkit-details-marker {
+  display: none;
+}
+details.litit-fold summary::after {
+  display: none;
+}
+details.litit-fold summary:hover {
+  background: #f1f5f9;
+}
+details.litit-fold[open] summary {
+  border-bottom: 1px solid #e2e8f0;
+  background: #f8fafc;
+  border-left: 3px solid #4f46e5;
+}
+.litit-fold-content {
+  padding: 10px 8px;
+  background: #f8fafc;
+}
+.litit-fold-content > ol, .litit-fold-content > ul {
+  list-style: none !important;
+  padding-left: 0 !important;
+  margin: 0 !important;
+  counter-reset: litit-counter;
+}
+.litit-fold-content > ol > li, .litit-fold-content > ul > li {
+  counter-increment: litit-counter;
+  position: relative;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 12px 12px;
+  margin-bottom: 10px !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.015);
+}
+.litit-fold-content > ol > li:last-child, .litit-fold-content > ul > li:last-child {
+  margin-bottom: 0 !important;
+}
+.litit-fold-content > ol > li::before, .litit-fold-content > ul > li::before {
+  content: "NO." counter(litit-counter, decimal-leading-zero);
+  display: block;
+  width: max-content;
+  font-size: 10px;
+  font-weight: 800;
+  font-family: -apple-system, BlinkMacSystemFont, monospace;
+  color: #4f46e5;
+  background: #eef2ff;
+  padding: 1px 6px;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  letter-spacing: 0.04em;
+}
+.litit-en-sentence {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 1.04rem;
+  font-weight: 600;
+  color: #0f172a;
+  line-height: 1.5;
+  margin-bottom: 6px;
+}
+.litit-zh-sentence {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 0.93rem;
+  color: #475569;
+  line-height: 1.55;
+  margin-bottom: 2px;
+}
+li.litit-target-sentence > br {
+  display: none;
+}
+.litit-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #eef2ff 0%, #f3e8ff 100%);
+  color: #4338ca;
+  padding: 2px 8px;
+  border-radius: 5px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  margin-right: 4px;
+  margin-bottom: 6px;
+  border: 1px solid #e0e7ff;
+  vertical-align: middle;
+}
+li.litit-target-sentence > ul {
+  list-style: none !important;
+  margin: 10px 0 0 0 !important;
+  padding: 8px 10px !important;
+  background: #f8fafc;
+  border-radius: 6px;
+  border-left: 2.5px solid #94a3b8;
+}
+li.litit-target-sentence > ul > li {
+  position: relative;
+  padding-left: 10px;
+  margin-bottom: 5px !important;
+  font-size: 0.88rem;
+  color: #334155;
+  line-height: 1.5;
+}
+li.litit-target-sentence > ul > li:last-child {
+  margin-bottom: 0 !important;
+}
+li.litit-target-sentence > ul > li::before {
+  content: "·";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #4f46e5;
+  font-weight: 900;
+}
+li.litit-target-sentence > ul > li > strong {
+  color: #0f172a;
+  font-weight: 600;
+  background: #e2e8f0;
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-size: 0.84rem;
+  margin-right: 3px;
+}
+@media (max-width: 600px) {
+  body {
+    padding: 10px 10px 30px 10px;
+    font-size: 15px;
+  }
+  h1.litit-target-title {
+    font-size: 21px !important;
+  }
+  .litit-fold-content {
+    padding: 8px 6px;
+  }
+  .litit-fold-content > ol > li, .litit-fold-content > ul > li {
+    padding: 11px 10px;
+    margin-bottom: 8px !important;
+  }
+}
+</style>
+</head>
+<body>
+<div id="reading-progress"></div>
+<div class="litit-report" style="width:100%; max-width:100%; box-sizing:border-box; overflow-x:hidden;">
+  
+  <div style="display:flex; justify-content:space-between; align-items:center; border-bottom: 2px solid #0f172a; padding-bottom: 6px; margin-bottom: 14px; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: #64748b; text-transform: uppercase;">
+    <span>The Global Dispatch · 深度双语精读</span>
+    <span>Mideast Conflict</span>
+  </div>
+
+  <div class="content-wrap" style="position:relative; margin-bottom: 16px;">
+    <h1 class="litit-target-title" style="color:#0f172a; font-size: 24px; line-height: 1.35; font-family: var(--font-serif); font-weight: 800; border-bottom: 1px solid #e2e8f0; padding-bottom: 14px; margin-top:0; margin-bottom:0; word-break:break-word;">
+      <span class="content litit-en-title" style="position:relative;">Tankers hit by mines in Strait of Hormuz as post-election geopolitical tensions escalate</span>
+      <br>
+      <span class="litit-zh-title" style="font-family: var(--font-sans); font-size: 17px; font-weight: 600; color: #475569; margin-top: 8px; display: inline-block; line-height: 1.45;">霍尔木兹海峡油轮触雷起火：美选后地缘博弈剧烈升级，国际油价剧震</span>
+    </h1>
+    <div class="anno-box" style="display:none; margin-top: 10px;">
+      <div class="anno-view markdown-body"></div>
+      <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
+霍尔木兹海峡油轮触雷起火：美选后地缘博弈剧烈升级，国际油价剧震
+
+### 📌 核心词汇 (Key Expressions)
+- **hit by mines** = 触雷 / 遭水雷袭击
+- **chokepoint** = 咽喉要道 / 战略航道
+- **escalate** = 升级 / 激化
+
+### 🔍 句子解析方式 (Parsing Method)
+- **[主干结构]**：过去分词短语 `hit by mines...` 作后置定语修饰主语 `Tankers`；`as` 引导时间与伴随原因状语从句，将海上突发袭击与美国中期选举后白宫面临的战略抉择紧密串联。</textarea>
+    </div>
+  </div>
+
+  <p style="color:#334155; font-size: 15px; line-height: 1.75; margin-bottom:16px; font-weight:400; background: #f8fafc; padding: 12px 14px; border-radius: 8px; border: 1px solid #f1f5f9;">
+    英国海上贸易行动办公室（UKMTO）与路透社周五证实，多艘商用油轮与拖船在霍尔木兹海峡及卡塔尔周边水域遭遇水雷与未知飞行物袭击并起火。这起突发袭击发生在美军中期选举投票结束仅48小时后。此前数月，特朗普政府因忌惮选情冲击而暂时克制了对伊朗本土航道设施的更大规模空袭；然而随着选举失利与华盛顿政局动荡，德黑兰正在通过极限航道施压试探美方底线。布伦特原油盘中应声大涨近5%，全球能源运输市场再度笼罩在战争溢价与航运保费暴涨的阴云之下。
+  </p>
+
+  <div style="margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+    <div style="display:flex; flex-wrap:wrap; gap:6px;">
+      <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;">Hormuz</span>
+      <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;">Oil Shock</span>
+    </div>
+    <a href="https://www.reuters.com/world/middle-east/" target="_blank" style="font-size: 12.5px; color: #4f46e5; text-decoration: none; font-weight: 600; background: #eef2ff; padding: 5px 12px; border-radius: 16px; border: 1px solid #e0e7ff; display:inline-block;">🔗 阅读原文 ↗</a>
+  </div>
+
+  <h2 class="section-header" style="border-left-color: #f59e0b;">💬 最佳金句</h2>
+  <div class="content-wrap" style="position:relative; margin-bottom:24px;">
+    <blockquote class="litit-target-quote" style="border-left: 3.5px solid #f59e0b; background: linear-gradient(135deg, #fffbeb 0%, #ffffff 100%); padding: 14px 14px; margin: 0; color: #1e293b; border-radius: 0 10px 10px 0; border-top: 1px solid #fef3c7; border-right: 1px solid #fef3c7; border-bottom: 1px solid #fef3c7;">
+      <div class="content litit-en-quote" style="position:relative; margin:0 0 8px 0; font-family: var(--font-serif); font-style: italic; font-weight:600; font-size: 16.5px; line-height: 1.55; color:#0f172a; word-break:break-word;">
+        "With the political constraints of the election now behind him, Washington faces an immediate dilemma: absorb the harassment in Hormuz or risk an uncontainable regional conflagration."
+      </div>
+      <p class="litit-zh-quote" style="margin:0 0 8px 0; font-weight:400; font-size: 14.5px; line-height: 1.6; color:#475569; word-break:break-word;">
+        “随着中期选举的政治枷锁褪去，华盛顿正面临即时两难抉择：是要默默咽下霍尔木兹海峡的袭船骚扰，还是甘冒引爆一场不可控区域战火的巨大风险。”
+      </p>
+      <footer style="text-align:right; font-size:12px; color:#64748b; font-style:normal; font-weight:600;">—— 国际防务专家评估霍尔木兹水雷袭击对美国新阶段中东战略的严峻拷问</footer>
+    </blockquote>
+    <div class="anno-box" style="display:none;">
+      <div class="anno-view markdown-body"></div>
+      <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
+“随着中期选举的政治枷锁褪去，华盛顿正面临即时两难抉择：是要默默咽下霍尔木兹海峡的袭船骚扰，还是甘冒引爆一场不可控区域战火的巨大风险。”
+
+### 📌 核心词汇 (Key Expressions)
+- **political constraints** = 政治掣肘 / 选战枷锁
+- **immediate dilemma** = 迫在眉睫的进退维谷
+- **regional conflagration** = 区域战火 / 毁灭性地区冲突
+
+### 🔍 句子解析方式 (Parsing Method)
+- **[独立主格与介词短语前置]**：`With the political constraints... now behind him` 结构前置，言简意赅交代了时间与政治心理转折点。
+- **[对偶不定式结构]**：冒号后接由 `or` 连接的两个平行不定式短语 `absorb...` 与 `risk...`，生动勾勒出超级大国在战略威慑失灵时的无措境地。</textarea>
+    </div>
+  </div>
+
+  <h2 class="section-header" style="border-left-color: #10b981;">📊 关键数字</h2>
+  <div style="display:grid; grid-template-columns: repeat(2, 1fr); gap:10px; margin:14px 0 24px 0;">
+    <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+      <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+        $99.3<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">/桶</span>
+      </div>
+      <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">霍尔木兹海峡遇袭消息传出后，布伦特原油期货迅速攀升触及的即期价位</div>
+    </div>
+    <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+      <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+        3<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">艘船只</span>
+      </div>
+      <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">过去24小时内伊朗军方及外媒通报在关键水道触雷起火的油轮与护航拖船总数</div>
+    </div>
+    <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+      <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+        144<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">起</span>
+      </div>
+      <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">自开战以来英国军方海事组织在霍尔木兹记录的商船遇险及安全事件累计数量</div>
+    </div>
+    <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+      <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+        20<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">%</span>
+      </div>
+      <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">全球液化天然气（LNG）与海运原油需经由霍尔木兹海峡狭窄水道运输的基准占比</div>
+    </div>
+  </div>
+
+  <h2 class="section-header" style="border-left-color: #3b82f6;">⏱️ 文章核心脉络</h2>
+  <ul style="padding-left:18px; line-height:1.8; color:#334155; font-size: 14.5px; margin-bottom:24px; word-break:break-word;">
+    <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">水雷袭击突发：</strong> 伊朗国家媒体与英国海军先后通报，数艘油轮与拖船在海峡关键水域触雷并冒出浓烟。</li>
+    <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">时机极其敏感：</strong> 袭击恰好发生在美国中期选举计票完毕之际，外界普遍认为德黑兰正测试败选后的特朗普政府是否会兑现空袭报复威胁。</li>
+    <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">航运保费暴涨：</strong> 国际保险协会对穿越波斯湾的商船再度上调战险费率，部分西方大型船东开始暂停派遣自有超大型油轮（VLCC）进入海湾。</li>
+    <li><strong style="color:#1d4ed8;">多边外交斡旋：</strong> 卡塔尔埃米尔与阿曼外长紧急致电美伊双方，试图在红线被彻底突破前设立非军事航行缓冲带。</li>
+  </ul>
+
+  <h2 class="section-header" style="border-left-color: #8b5cf6;">✨ 本篇亮点与精读</h2>
+  <div style="margin: 14px 0 10px 0;">
+    
+    <details class="litit-fold">
+      <summary>
+        <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">一、重点记忆</h3>
+      </summary>
+      <div class="litit-fold-content">
+        <ul style="list-style-type: square; margin: 0; padding-left: 18px; line-height: 1.6;">
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">chokepoint</strong>：咽喉要道 / 战略海峡<br>
+            <strong class="litit-en-sentence">The Strait of Hormuz remains the world's most vulnerable maritime chokepoint, handling a fifth of global petroleum supply.</strong>
+            <span class="litit-zh-sentence">霍尔木兹海峡依然是全球最脆弱的海上咽喉要道，承担着全球五分之一的石油供应。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">skirmish</strong>：交火 / 小规模冲突<br>
+            <strong class="litit-en-sentence">A naval skirmish near the strait threatens to derail delicate regional mediation talks.</strong>
+            <span class="litit-zh-sentence">海峡附近的军舰交火事件恐将破坏微妙的地区斡旋谈判。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">jolt</strong>：剧烈震动 / 惊扰<br>
+            <strong class="litit-en-sentence">Fresh tanker explosions delivered an immediate jolt to energy trading desks across London and Singapore.</strong>
+            <span class="litit-zh-sentence">新一轮油轮爆炸事件给伦敦和新加坡的能源交易台带来了即刻的剧烈震动。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">reprisal</strong>：军事报复 / 报复性打击<br>
+            <strong class="litit-en-sentence">Traders fear that Washington could launch swift military reprisals now that the domestic election has concluded.</strong>
+            <span class="litit-zh-sentence">交易员们担忧，既然国内选举已经尘埃落定，华盛顿可能会发起迅速的军事报复。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">imperil</strong>：危及 / 使陷入险境<br>
+            <strong class="litit-en-sentence">Repeated sea-mine detonations imperil commercial navigation throughout the Persian Gulf.</strong>
+            <span class="litit-zh-sentence">接连发生的水雷引爆事件使整个波斯湾的商业航运陷入险境。</span>
+          </li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="litit-fold">
+      <summary>
+        <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">二、高价值表达</h3>
+      </summary>
+      <div class="litit-fold-content">
+        <ol style="margin: 0; padding-left: 18px;">
+          <li style="margin-bottom: 12px;">
+            <strong class="litit-badge">asymmetric warfare</strong>：不对称战争。<br>
+            <span class="litit-zh-sentence" style="margin-top: 4px;">国际地缘政治报道的核心用语，特指在海空军常规军力处于绝对劣势的一方，利用廉价水雷、自杀式无人快艇和岸基反舰导弹瘫痪强国高成本远洋舰队与航运命脉的打法。</span>
+          </li>
+          <li style="margin-bottom: 12px;">
+            <strong class="litit-badge">brinkmanship</strong>：边缘政策 / 极限博弈。<br>
+            <strong class="litit-en-sentence" style="margin-top: 4px;">...resorting to dangerous maritime brinkmanship to test Western resolve.</strong><br>
+            <span class="litit-zh-sentence" style="margin-top: 4px;">外交学经典概念，指刻意将事态推向战争爆发的悬崖边缘，迫使心存顾忌的对手在最后一刻妥协退让的高风险博弈手法。</span>
+          </li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="litit-fold">
+      <summary>
+        <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">三、短语和固定搭配</h3>
+      </summary>
+      <div class="litit-fold-content">
+        <ul style="list-style-type: square; margin: 0; padding-left: 18px; line-height: 1.6;">
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">take a toll on</strong>：对……造成沉重代价/破坏<br>
+            <strong class="litit-en-sentence">Prolonged hostilities along the coast continue to take a heavy toll on global supply chains.</strong>
+            <span class="litit-zh-sentence">沿海长期持续的敌对行动继续对全球供应链造成沉重破坏。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">hold off on</strong>：推迟 / 暂时克制……<br>
+            <strong class="litit-en-sentence">Military planners had reportedly held off on fresh airstrikes until the polls closed.</strong>
+            <span class="litit-zh-sentence">据报道，军方参谋人员此前一直推迟发起新的空袭，直到投票站关闭。</span>
+          </li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="litit-fold">
+      <summary>
+        <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">四、值得学习的句子结构</h3>
+      </summary>
+      <div class="litit-fold-content">
+        <ol style="margin: 0; padding-left: 18px;">
+          <li class="litit-target-sentence" style="margin-bottom: 12px;">
+            <strong class="litit-badge">分词后置定语与倒装从句嵌套</strong><br>
+            <strong class="litit-en-sentence">Vessels carrying crude through the narrow passage now operate under constant threat, knowing full well that no naval escort can guarantee immunity from tethered mines.</strong>
+            <span class="litit-zh-sentence">穿行于这条狭窄水道运送原油的船只如今在持续的威胁下航行，他们深知没有任何海军护航能够确保免遭系留水雷的袭击。</span>
+            <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+              <li style="margin-bottom: 3px;"><strong>词法与主干解析</strong>：句首主语为 `Vessels`，后接现在分词短语 `carrying crude...` 作定语；主谓宾主干为 `operate under constant threat`；句末接伴随分词短语 `knowing full well that...` 引导宾语从句。</li>
+              <li style="margin-bottom: 3px;"><strong>深度语法解析 (Parsing Method)</strong>：层层推进的主从复合长句。非谓语动词的双重运用使句子层次分明，极为生动地呈现了商船船长们明知危险重重却不得不硬着头皮冒险闯关的心理状态。</li>
+            </ul>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 12px;">
+            <strong class="litit-badge">让步转折与被动情态动词结构</strong><br>
+            <strong class="litit-en-sentence">Although regional powers have urged maximum restraint, neither combatant appears willing to concede the maritime leverage gained over eight months of grueling standoff.</strong>
+            <span class="litit-zh-sentence">尽管地区大国竭力呼吁保持最大限度克制，但交战双方似乎都不愿意放弃在这八个月艰苦对峙中所获得的海上博弈筹码。</span>
+            <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+              <li style="margin-bottom: 3px;"><strong>从句与句式解析</strong>：`Although` 引导让步从句；主句主语为否定代词 `neither combatant`，后接 `appear willing to...` 结构，过去分词短语 `gained over...` 后置修饰核心名词 `leverage`。</li>
+              <li style="margin-bottom: 3px;"><strong>深度语法解析 (Parsing Method)</strong>：国际社论中非常标准的平衡性陈述。通过让步从句展示国际社会的和平努力，随后迅速用主句的否定事实揭示地缘斗争的残酷顽固性。</li>
+            </ul>
+          </li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="litit-fold">
+      <summary>
+        <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">五、最值得优先掌握的句型</h3>
+      </summary>
+      <div class="litit-fold-content">
+        <ol style="margin: 0; padding-left: 18px;">
+          <li class="litit-target-sentence" style="margin-bottom: 12px;">
+            <strong class="litit-en-sentence" style="color: #4338ca;">The incident underscores how fragile [某关键防线/供应链] has become, particularly when [某重大政治/地缘事件] threatens to trigger [毁灭性连锁反应].</strong>
+            <span class="litit-zh-sentence">这起事件凸显了[某关键防线/供应链]已变得何其脆弱，尤其是当[某重大政治/地缘事件]恐将触发[毁灭性连锁反应]的时候。<br>（极具穿透力的政经社论核心观点句，能够高屋建瓴地将单一突发安全事件升华到宏观体系的系统性脆弱性）。</span>
+          </li>
+        </ol>
+      </div>
+    </details>
+  </div>
+
+  <h2 class="section-header" style="border-left-color: #0d9488;">💡 幕后冷知识 (Fun Facts)</h2>
+  <ul style="padding-left:18px; line-height:1.8; color:#334155; font-size:14.5px; margin:0 0 24px 0; word-break:break-word;">
+    <li style="margin-bottom: 8px;"><strong>“水雷战”的历史幽灵：</strong> 霍尔木兹海峡最窄处仅约 33 公里宽，但实际供巨型油轮通航的双向深水航道每条仅有 2 英里（约 3.2 公里）宽。上世纪 80 年代两伊战争时期的“油轮战（Tanker War）”，伊朗就曾使用低成本老式水雷炸伤美国护航驱逐舰并险些导致海峡停航。40 年后，现代化的智能水雷与无人潜航器让扫雷作业的危险性与耗时成倍增加。</li>
+    <li style="margin-bottom: 8px;"><strong>“影子舰队（Shadow Fleet）”的逆流狂奔：</strong> 随着西方大型油轮因天价保险拒绝进入海峡，大量曾用于运送被制裁原油的“影子船队”反而在利益驱使下大举接单。多达上百艘无规范船级社认证、甚至关闭自动识别系统（AIS）的“高龄油轮”强行闯峡，使得一旦发生触雷爆炸，极易酿成历史上最严重的海洋原油泄漏生态灾难。</li>
+    <li><strong>输油管道无法承受之重：</strong> 尽管沙特拥有横贯东西、直达红海延布港的陆上管道，阿联酋也建有绕过海峡直通富查伊拉港的陆上管线，但这两条备用管道的最大合计运力仅能疏解海峡正常通行总量的约三分之一。一旦霍尔木兹海峡真正发生物理封锁，全球根本不存在足以填补剩余每天逾千万桶原油缺口的替代基建。</li>
+  </ul>
+
+  <h2 class="section-header" style="border-left-color: #e11d48;">🎯 全片锐评</h2>
+  <p style="line-height:1.75; color:#1e293b; font-weight:500; background:linear-gradient(135deg, #fff1f2 0%, #ffffff 100%); padding:14px 16px; border-radius:10px; font-size:14.5px; margin:0 0 12px 0; border:1px solid #ffe4e6; word-break:break-word;">
+    霍尔木兹海峡最新升起的滚滚浓烟，狠狠抽碎了华盛顿政客关于“中东战火可控”的自欺欺人。在此之前，特朗普政府为了在中期选举前压制汽油通胀，一直捏着鼻子克制空袭烈度；然而选举结果揭晓、国会易手后，失去政治遮羞布的白宫面临着极度尴尬的战役残局。德黑兰极为精明地抓住了美国政治交接期的脆弱真空，用水雷与无人机把最原始的航运窒息感重新架在全球经济的脖子上。对于高呼“美国优先”的执政当局而言，如果咽下这口气，意味着美军长达数十年的中东航行自由威慑神话彻底瓦解；如果恼羞成怒发动狂暴空袭，国际油价破百便只是这场全球通胀噩梦的开端。这几声水雷闷响清清楚楚地提醒世界：在冰冷的地缘重器面前，任何选举公关与言语讹诈，都掩盖不了超级大国深陷中东战略泥潭的狼狈事实。
+  </p>
+
+</div>
+
+<script id="core-engine">
+let syncTimeout = null;
+const AI_PROMPT = "请分析以下英文段落，并严格按照以下 Markdown 格式输出（不要输出任何额外的废话）：\n\n### 📌 完整翻译\n\n[此处填写完整翻译]\n\n### 📌 Key Expressions\n\n- **[单词或短语]**\n = [中文释义]\n （[可选的补充说明，如倒装结构或语境等]）\n\n段落内容：\n";
+
+function initProgressBar() {
+  const progressBar = document.getElementById('reading-progress');
+  if (!progressBar) return;
+  window.addEventListener('scroll', () => {
+    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    if (scrollHeight <= 0) return;
+    const scrollPercent = (scrollTop / scrollHeight) * 100;
+    progressBar.style.width = scrollPercent + '%';
+  }, { passive: true });
+}
+
+async function fetchGroq(text, apiKey, modelName) {
+  const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Authorization': 'Bearer ' + apiKey,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      model: modelName || 'llama-3.3-70b-versatile',
+      messages: [
+        { role: 'system', content: 'You are an English teacher. Output EXACTLY in the requested Markdown format.' },
+        { role: 'user', content: AI_PROMPT + '"' + text + '"' }
+      ],
+      temperature: 0.3
+    })
+  });
+  if (!res.ok) throw new Error('Groq Error: ' + res.status);
+  const json = await res.json();
+  return json.choices[0].message.content.trim();
+}
+
+async function fetchCustomAI(text, url, apiKey, modelName) {
+  let headers = { 'Content-Type': 'application/json' };
+  let bodyData = {};
+  if (url.includes('anthropic.com')) {
+    headers['x-api-key'] = apiKey;
+    headers['anthropic-version'] = '2023-06-01';
+    headers['anthropic-dangerous-direct-browser-access'] = 'true';
+    bodyData = {
+      model: modelName || 'claude-3-5-sonnet-20241022',
+      max_tokens: 2000,
+      messages: [{ role: 'user', content: AI_PROMPT + '"' + text + '"' }]
+    };
+  } else if (url.includes('generativelanguage.googleapis.com')) {
+    let targetUrl = url;
+    if (!targetUrl.includes('key=')) {
+      targetUrl += (targetUrl.includes('?') ? '&' : '?') + 'key=' + apiKey;
+    }
+    const res = await fetch(targetUrl, {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: AI_PROMPT + '"' + text + '"' }] }]
+      })
+    });
+    if (!res.ok) throw new Error('Gemini Error: ' + res.status);
+    const json = await res.json();
+    return json.candidates[0].content.parts[0].text.trim();
+  } else {
+    headers['Authorization'] = 'Bearer ' + apiKey;
+    bodyData = {
+      model: modelName || 'gpt-4o-mini',
+      messages: [
+        { role: 'system', content: 'You are an English teacher. Output EXACTLY in the requested Markdown format.' },
+        { role: 'user', content: AI_PROMPT + '"' + text + '"' }
+      ],
+      temperature: 0.3
+    };
+  }
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: headers,
+    body: JSON.stringify(bodyData)
+  });
+  if (!res.ok) throw new Error('AI Interface Error: ' + res.status);
+  const json = await res.json();
+  if (json.choices && json.choices.length > 0) return json.choices[0].message.content.trim();
+  throw new Error('AI 返回数据异常');
+}
+
+async function executeAIPipeline(text) {
+  const customUrl = localStorage.getItem('CUSTOM_API_URL') || '';
+  const customKey = localStorage.getItem('CUSTOM_API_KEY') || '';
+  const customModel = localStorage.getItem('CUSTOM_MODEL') || '';
+  const groqKey = localStorage.getItem('GROQ_API_KEY') || '';
+  const groqModel = localStorage.getItem('GROQ_MODEL') || '';
+
+  if (customUrl && customKey) {
+    try {
+      return await fetchCustomAI(text, customUrl, customKey, customModel);
+    } catch (err) {
+      if (groqKey) return await fetchGroq(text, groqKey, groqModel);
+      throw err;
+    }
+  } else if (groqKey) {
+    return await fetchGroq(text, groqKey, groqModel);
+  } else {
+    const userKey = prompt('⚠️ 当前页面未检测到 AI Key！\n为了安全，密匙只储存在您本地浏览器中。\n\n请输入您的 API Key (如 sk-xxx 或 gsk_xxx):');
+    if (userKey && userKey.trim()) {
+      const cleanKey = userKey.trim();
+      if (cleanKey.startsWith('gsk_')) {
+        localStorage.setItem('GROQ_API_KEY', cleanKey);
+      } else {
+        localStorage.setItem('CUSTOM_API_KEY', cleanKey);
+        localStorage.setItem('CUSTOM_API_URL', 'https://api.chatanywhere.tech/v1/chat/completions');
+      }
+    }
+    throw new Error('未设置 AI API Key');
+  }
+}
+
+function getPurifiedFallbackHTML() {
+  const clone = document.documentElement.cloneNode(true);
+  const foreignSelectors = [
+    'relingo-app', 'relin-highlight', 'relin-hc', '[class*="relingo"]',
+    '[data-relin-paragraph]', 'grammarly-extension', '[data-grammarly-part]',
+    '[class*="immersive-translate"]', '[data-immersive-translate]'
+  ].join(',');
+  clone.querySelectorAll(foreignSelectors).forEach(el => el.remove());
+  clone.querySelectorAll('relin-highlight, relin-hc').forEach(t => {
+    const frag = document.createDocumentFragment();
+    while(t.firstChild) frag.appendChild(t.firstChild);
+    t.parentNode.replaceChild(frag, t);
+  });
+  clone.querySelectorAll('script').forEach(s => {
+    if (!s.src.includes('marked.min.js') && s.id !== 'core-engine') s.remove();
+  });
+  clone.querySelectorAll('style').forEach(s => {
+    if (s.id !== 'core-style') s.remove();
+  });
+  const liveTAs = document.querySelectorAll('.anno-edit');
+  clone.querySelectorAll('.anno-edit').forEach((ta, i) => {
+    if(liveTAs[i]) ta.textContent = liveTAs[i].value.trim();
+    const box = ta.closest('.anno-box');
+    if (box) box.style.display = 'none';
+    const view = box ? box.querySelector('.anno-view') : null;
+    if (view) view.innerHTML = '';
+  });
+  return '<!DOCTYPE html>\n<html lang="zh-CN">\n' + clone.innerHTML + '\n</html>';
+}
+
+async function syncToCloud() {
+  const ghToken = localStorage.getItem('LITIT_GH_TOKEN') || localStorage.getItem('GH_TOKEN');
+  const ghOwner = 'moodHappy';
+  const ghRepo = 'dual-read-notes';
+  if (!ghToken) return;
+
+  const pathParts = window.location.pathname.split('/');
+  const fileName = pathParts.pop();
+  const month = pathParts.pop();
+  const year = pathParts.pop();
+  if(!fileName || !month || !year) return;
+
+  const fileRelPath = 'Summary/' + year + '/' + month + '/' + fileName;
+  try {
+    const getRes = await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath + '?t=' + Date.now(), {
+      headers: { 'Authorization': 'Bearer ' + ghToken },
+      cache: 'no-store'
+    });
+
+    let finalHTML = '';
+    let sha = '';
+    if (getRes.ok) {
+      const fileData = await getRes.json();
+      sha = fileData.sha;
+      const cleanRawHTML = decodeURIComponent(escape(atob(fileData.content.replace(/\n/g, ''))));
+      const parser = new DOMParser();
+      const cleanDoc = parser.parseFromString(cleanRawHTML, 'text/html');
+
+      const liveTAs = document.querySelectorAll('.anno-edit');
+      const cleanTAs = cleanDoc.querySelectorAll('.anno-edit');
+      liveTAs.forEach((liveTa, index) => {
+        if (cleanTAs[index]) {
+          const val = liveTa.value.trim();
+          cleanTAs[index].textContent = val;
+          const box = cleanTAs[index].closest('.anno-box');
+          if (box) box.style.display = 'none';
+          const view = box ? box.querySelector('.anno-view') : null;
+          if (view) view.innerHTML = '';
+        }
+      });
+
+      cleanDoc.querySelectorAll('.anno-toggle').forEach(t => {
+        t.classList.remove('has-anno');
+        const ta = t.closest('.content-wrap, .litit-highlight-block')?.querySelector('.anno-edit');
+        if (ta && ta.textContent.trim()) t.classList.add('has-anno');
+      });
+      finalHTML = '<!DOCTYPE html>\n<html lang="zh-CN">\n' + cleanDoc.documentElement.innerHTML + '\n</html>';
+    } else {
+      finalHTML = getPurifiedFallbackHTML();
+    }
+
+    await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath, {
+      method: 'PUT',
+      headers: {
+        'Authorization': 'Bearer ' + ghToken,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        message: 'Silent purified annotation update',
+        content: btoa(unescape(encodeURIComponent(finalHTML))),
+        sha: sha || undefined
+      })
+    });
+    console.log('✅ [My Litit] 纯净无污染批注已静默同步至 GitHub');
+  } catch(e) {
+    console.warn('❌ [My Litit] 同步跳过或失败:', e);
+  }
+}
+
+function scheduleSync() {
+  if (syncTimeout) clearTimeout(syncTimeout);
+  syncTimeout = setTimeout(() => {
+    syncToCloud();
+  }, 3000);
+}
+
+function initAnnotations() {
+  document.querySelectorAll('.litit-highlight-block, .content-wrap').forEach(wrap => {
+    let content = wrap.querySelector('.content');
+    if (!content) {
+      const pText = wrap.querySelector('p');
+      if (pText) {
+        content = document.createElement('div');
+        content.className = 'content';
+        content.style.cssText = 'position:relative; margin:0 0 6px 0; color:#1a202c; font-family:Georgia, serif; line-height:1.7; font-size:15px; word-break:break-word;';
+        content.innerHTML = pText.innerHTML;
+        pText.parentNode.replaceChild(content, pText);
+      }
+    }
+    if (!content) return;
+
+    if (!content.querySelector('.anno-toggle')) {
+      const toggle = document.createElement('span');
+      toggle.className = 'anno-toggle';
+      toggle.title = '手写批注/笔记';
+      content.appendChild(toggle);
+    }
+    if (!content.querySelector('.ai-toggle')) {
+      const aiToggle = document.createElement('span');
+      aiToggle.className = 'ai-toggle';
+      aiToggle.title = 'AI智能二次解析';
+      content.appendChild(aiToggle);
+    }
+
+    let box = wrap.querySelector('.anno-box');
+    if (!box) {
+      box = document.createElement('div');
+      box.className = 'anno-box';
+      box.style.display = 'none';
+      box.innerHTML = '<div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 解析..."></textarea>';
+      wrap.appendChild(box);
+    }
+
+    const view = box.querySelector('.anno-view');
+    const edit = box.querySelector('.anno-edit');
+    const toggle = content.querySelector('.anno-toggle');
+    const aiToggle = content.querySelector('.ai-toggle');
+
+    if (edit && edit.value.trim()) {
+      toggle.classList.add('has-anno');
+      try {
+        view.innerHTML = (typeof marked !== 'undefined') ? marked.parse(edit.value.trim()) : edit.value.trim();
+      } catch(e){}
+    }
+
+    if (aiToggle) {
+      aiToggle.onclick = async (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (aiToggle.classList.contains('loading')) return;
+
+        if (edit && edit.value.trim() !== '') {
+          const confirmOverwrite = confirm('⚠️ 已经存在批注内容。点击"确定"将使用 AI 解析覆盖现有内容。是否继续？');
+          if (!confirmOverwrite) return;
+        }
+
+        const pClone = content.cloneNode(true);
+        pClone.querySelectorAll('.anno-toggle, .ai-toggle').forEach(el => el.remove());
+        let pText = pClone.textContent.replace(/https?:\/\/\S+/g, '').trim();
+        if (!pText) return;
+
+        aiToggle.classList.add('loading');
+        try {
+          const aiContent = await executeAIPipeline(pText);
+          box.style.display = 'block';
+          view.style.display = 'none';
+          edit.style.display = 'block';
+          edit.value = aiContent;
+          edit.focus();
+          edit.blur();
+        } catch (err) {
+          console.error(err);
+        } finally {
+          aiToggle.classList.remove('loading');
+        }
+      };
+    }
+
+    if (toggle) {
+      toggle.onclick = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (box.style.display === 'block') {
+          box.style.display = 'none';
+        } else {
+          box.style.display = 'block';
+          if (!edit.value.trim()) {
+            view.style.display = 'none';
+            edit.style.display = 'block';
+            setTimeout(() => { edit.focus(); }, 150);
+          } else {
+            view.style.display = 'block';
+            edit.style.display = 'none';
+          }
+        }
+      };
+    }
+
+    const triggerEdit = (e) => {
+      if(e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      view.style.display = 'none';
+      edit.style.display = 'block';
+      edit.value = edit.value;
+      setTimeout(() => { edit.focus(); }, 150);
+    };
+
+    view.addEventListener('dblclick', triggerEdit);
+
+    let lastTap = 0;
+    view.addEventListener('touchstart', e => {
+      if (e.touches.length === 2) {
+        triggerEdit(e);
+      } else if (e.touches.length === 1) {
+        const currentTime = new Date().getTime();
+        if (currentTime - lastTap < 500 && currentTime - lastTap > 0) {
+          e.preventDefault();
+          box.style.display = 'none';
+        }
+        lastTap = currentTime;
+      }
+    }, {passive: false});
+
+    if (edit && view) {
+      edit.onblur = () => {
+        setTimeout(() => {
+          const newVal = edit.value.trim();
+          try {
+            view.innerHTML = newVal ? ((typeof marked !== 'undefined') ? marked.parse(newVal) : newVal) : '';
+          } catch(e){}
+          
+          edit.style.display = 'none';
+          if (newVal) {
+            view.style.display = 'block';
+            toggle.classList.add('has-anno');
+          } else {
+            view.style.display = 'none';
+            box.style.display = 'none';
+            toggle.classList.remove('has-anno');
+          }
+
+          if (edit.getAttribute('data-old-val') !== newVal) {
+            edit.setAttribute('data-old-val', newVal);
+            scheduleSync();
+          }
+        }, 150);
+      };
+      edit.setAttribute('data-old-val', edit.value.trim());
+    }
+  });
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  initProgressBar();
+  initAnnotations();
+});
+window.addEventListener('load', () => {
+  initAnnotations();
+});
+</script>
+</body>
+</html>
