@@ -431,10 +431,10 @@ li.litit-target-sentence > ul > li > strong {
   <h2 class="section-header" style="border-left-color: #8b5cf6;">✨ 本篇亮点与精读</h2>
   <div style="margin: 14px 0 10px 0;">
     
-    **Summary:**
-
+    <details class="litit-fold">
+      <summary>
         <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">一、重点记忆</h3>
-      
+      </summary>
       <div class="litit-fold-content">
         <ul style="list-style-type: square; margin: 0; padding-left: 18px; line-height: 1.6;">
           <li class="litit-target-sentence" style="margin-bottom: 10px;">
@@ -464,11 +464,12 @@ li.litit-target-sentence > ul > li > strong {
           </li>
         </ul>
       </div>
+    </details>
 
-    **Summary:**
-
+    <details class="litit-fold">
+      <summary>
         <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">二、高价值表达</h3>
-      
+      </summary>
       <div class="litit-fold-content">
         <ol style="margin: 0; padding-left: 18px;">
           <li style="margin-bottom: 12px;">
@@ -486,11 +487,12 @@ li.litit-target-sentence > ul > li > strong {
           </li>
         </ol>
       </div>
+    </details>
 
-    **Summary:**
-
+    <details class="litit-fold">
+      <summary>
         <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">三、短语和固定搭配</h3>
-      
+      </summary>
       <div class="litit-fold-content">
         <ul style="list-style-type: square; margin: 0; padding-left: 18px; line-height: 1.6;">
           <li class="litit-target-sentence" style="margin-bottom: 10px;">
@@ -510,11 +512,12 @@ li.litit-target-sentence > ul > li > strong {
           </li>
         </ul>
       </div>
+    </details>
 
-    **Summary:**
-
+    <details class="litit-fold">
+      <summary>
         <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">四、值得学习的句子结构</h3>
-      
+      </summary>
       <div class="litit-fold-content">
         <ol style="margin: 0; padding-left: 18px;">
           <li class="litit-target-sentence" style="margin-bottom: 12px;">
@@ -536,11 +539,12 @@ li.litit-target-sentence > ul > li > strong {
           </li>
         </ol>
       </div>
+    </details>
 
-    **Summary:**
-
+    <details class="litit-fold">
+      <summary>
         <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">五、最值得优先掌握的句型</h3>
-      
+      </summary>
       <div class="litit-fold-content">
         <ol style="margin: 0; padding-left: 18px;">
           <li class="litit-target-sentence" style="margin-bottom: 12px;">
@@ -553,6 +557,7 @@ li.litit-target-sentence > ul > li > strong {
           </li>
         </ol>
       </div>
+    </details>
   </div>
 
   <h2 class="section-header" style="border-left-color: #0d9488;">💡 幕后冷知识 (Fun Facts)</h2>
@@ -825,6 +830,7 @@ function initAnnotations() {
     if (!box) {
       box = document.createElement('div');
       box.className = 'anno-box';
+      box.style.display = 'none';
       box.innerHTML = '<div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 解析..."></textarea>';
       wrap.appendChild(box);
     }
