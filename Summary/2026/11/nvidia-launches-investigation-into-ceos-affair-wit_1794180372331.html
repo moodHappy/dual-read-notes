@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Nvidia launches investigation into CEO's affair with suspected Chinese spy</title>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<style id="core-style">
+/* ======================================================================
+   [AI TEMPLATE GUIDELINES - CSS 核心排版规范]
+====================================================================== */
+:root {
+  --bg-page: #ffffff;
+  --bg-card: #ffffff;
+  --text-main: #0f172a;
+  --text-sub: #334155;
+  --text-muted: #64748b;
+  --accent-primary: #4f46e5;
+  --border-subtle: #e2e8f0;
+  --font-serif: "Georgia", "Charter", "Source Han Serif SC", "Noto Serif CJK SC", serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", Roboto, sans-serif;
+}
+body {
+  font-family: var(--font-sans);
+  padding: 12px 12px 36px 12px;
+  margin: 0 auto;
+  max-width: 780px;
+  background: var(--bg-page);
+  color: var(--text-main);
+  line-height: 1.75;
+  font-size: 16px;
+  word-wrap: break-word;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+* {
+  box-sizing: border-box;
+  max-width: 100%;
+}
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+#reading-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 3px;
+  background: linear-gradient(90deg, #4f46e5, #9333ea);
+  z-index: 9999;
+  transition: width 0.1s ease-out;
+}
+.litit-report {
+  background: var(--bg-card);
+  padding: 0;
+}
+.anno-toggle, .ai-toggle {
+  display: inline-block;
+  padding: 2px 5px;
+  margin-left: 5px;
+  cursor: pointer;
+  opacity: 0.45;
+  font-size: 0.85rem;
+  vertical-align: middle;
+  transition: all 0.2s;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.anno-toggle:hover, .ai-toggle:hover {
+  opacity: 1;
+  transform: scale(1.15);
+}
+.anno-toggle.has-anno {
+  opacity: 1;
+}
+.anno-toggle::after {
+  content: "🔴";
+}
+.ai-toggle {
+  opacity: 0.7;
+  padding: 2px 4px;
+}
+.ai-toggle::after {
+  content: "🤖";
+}
+.ai-toggle.loading::after {
+  content: "⏳";
+  display: inline-block;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
+.anno-box {
+  display: none;
+  margin-top: 10px;
+  background: #faf8ff;
+  border-left: 3px solid #7c3aed;
+  padding: 12px 14px;
+  border-radius: 0 8px 8px 0;
+  text-align: left;
+}
+.anno-view {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: #334155;
+  min-height: 24px;
+}
+.anno-edit {
+  width: 100%;
+  min-height: 240px;
+  padding: 10px;
+  font-family: monospace;
+  font-size: 0.95rem;
+  border: 1px dashed #a78bfa;
+  border-radius: 6px;
+  resize: vertical;
+  display: none;
+  background: #fff;
+  color: #1e293b;
+  outline: none;
+}
+.anno-edit:focus {
+  border: 1px solid #7c3aed;
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.12);
+}
+.markdown-body p {
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+.markdown-body p:last-child {
+  margin-bottom: 0;
+}
+.markdown-body h1, .markdown-body h2, .markdown-body h3 {
+  color: #5b21b6;
+  font-size: 1.05rem;
+  margin: 10px 0 6px 0;
+  border-bottom: 1px dashed #ddd6fe;
+  padding-bottom: 4px;
+}
+.markdown-body ul, .markdown-body ol {
+  margin: 0 0 8px 0;
+  padding-left: 18px;
+}
+.markdown-body blockquote {
+  margin: 0 0 10px 0;
+  padding: 8px 12px;
+  background: rgba(124, 58, 237, 0.06);
+  border-left: 3px solid #7c3aed;
+  color: #475569;
+}
+.section-header {
+  font-size: 16px;
+  color: #0f172a;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  background: linear-gradient(90deg, #f8fafc 0%, #ffffff 100%);
+  padding: 8px 12px;
+  border-left: 4px solid #4f46e5;
+  margin: 26px 0 14px 0;
+  border-radius: 0 6px 6px 0;
+  display: flex;
+  align-items: center;
+  box-shadow: inset 0 1px 0 #f1f5f9, inset 0 -1px 0 #f1f5f9;
+}
+details.litit-fold {
+  margin-bottom: 10px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  background: #ffffff;
+  overflow: hidden;
+  transition: border-color 0.2s ease;
+}
+details.litit-fold[open] {
+  border-color: #cbd5e1;
+}
+details.litit-fold summary {
+  cursor: pointer;
+  padding: 12px 14px;
+  outline: none;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f8fafc;
+  transition: background 0.2s;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+details.litit-fold summary::-webkit-details-marker {
+  display: none;
+}
+details.litit-fold summary::after {
+  display: none;
+}
+details.litit-fold summary:hover {
+  background: #f1f5f9;
+}
+details.litit-fold[open] summary {
+  border-bottom: 1px solid #e2e8f0;
+  background: #f8fafc;
+  border-left: 3px solid #4f46e5;
+}
+.litit-fold-content {
+  padding: 10px 8px;
+  background: #f8fafc;
+}
+.litit-fold-content > ol, .litit-fold-content > ul {
+  list-style: none !important;
+  padding-left: 0 !important;
+  margin: 0 !important;
+  counter-reset: litit-counter;
+}
+.litit-fold-content > ol > li, .litit-fold-content > ul > li {
+  counter-increment: litit-counter;
+  position: relative;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 12px 12px;
+  margin-bottom: 10px !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.015);
+}
+.litit-fold-content > ol > li:last-child, .litit-fold-content > ul > li:last-child {
+  margin-bottom: 0 !important;
+}
+.litit-fold-content > ol > li::before, .litit-fold-content > ul > li::before {
+  content: "NO." counter(litit-counter, decimal-leading-zero);
+  display: block;
+  width: max-content;
+  font-size: 10px;
+  font-weight: 800;
+  font-family: -apple-system, BlinkMacSystemFont, monospace;
+  color: #4f46e5;
+  background: #eef2ff;
+  padding: 1px 6px;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  letter-spacing: 0.04em;
+}
+.litit-en-sentence {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 1.04rem;
+  font-weight: 600;
+  color: #0f172a;
+  line-height: 1.5;
+  margin-bottom: 6px;
+}
+.litit-zh-sentence {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 0.93rem;
+  color: #475569;
+  line-height: 1.55;
+  margin-bottom: 2px;
+}
+li.litit-target-sentence > br {
+  display: none;
+}
+.litit-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #eef2ff 0%, #f3e8ff 100%);
+  color: #4338ca;
+  padding: 2px 8px;
+  border-radius: 5px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  margin-right: 4px;
+  margin-bottom: 6px;
+  border: 1px solid #e0e7ff;
+  vertical-align: middle;
+}
+li.litit-target-sentence > ul {
+  list-style: none !important;
+  margin: 10px 0 0 0 !important;
+  padding: 8px 10px !important;
+  background: #f8fafc;
+  border-radius: 6px;
+  border-left: 2.5px solid #94a3b8;
+}
+li.litit-target-sentence > ul > li {
+  position: relative;
+  padding-left: 10px;
+  margin-bottom: 5px !important;
+  font-size: 0.88rem;
+  color: #334155;
+  line-height: 1.5;
+}
+li.litit-target-sentence > ul > li:last-child {
+  margin-bottom: 0 !important;
+}
+li.litit-target-sentence > ul > li::before {
+  content: "·";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #4f46e5;
+  font-weight: 900;
+}
+li.litit-target-sentence > ul > li > strong {
+  color: #0f172a;
+  font-weight: 600;
+  background: #e2e8f0;
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-size: 0.84rem;
+  margin-right: 3px;
+}
+@media (max-width: 600px) {
+  body {
+    padding: 10px 10px 30px 10px;
+    font-size: 15px;
+  }
+  h1.litit-target-title {
+    font-size: 21px !important;
+  }
+  .litit-fold-content {
+    padding: 8px 6px;
+  }
+  .litit-fold-content > ol > li, .litit-fold-content > ul > li {
+    padding: 11px 10px;
+    margin-bottom: 8px !important;
+  }
+}
+</style>
+</head>
+<body>
+<div id="reading-progress"></div>
+<div class="litit-report" style="width:100%; max-width:100%; box-sizing:border-box; overflow-x:hidden;">
+  
+  <div style="display:flex; justify-content:space-between; align-items:center; border-bottom: 2px solid #0f172a; padding-bottom: 6px; margin-bottom: 14px; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: #64748b; text-transform: uppercase;">
+    <span>The Global Dispatch · 深度双语精读</span>
+    <span>Business Scandal</span>
+  </div>
+
+  <div class="content-wrap" style="position:relative; margin-bottom: 16px;">
+    <h1 class="litit-target-title" style="color:#0f172a; font-size: 24px; line-height: 1.35; font-family: var(--font-serif); font-weight: 800; border-bottom: 1px solid #e2e8f0; padding-bottom: 14px; margin-top:0; margin-bottom:0; word-break:break-word;">
+      <span class="content litit-en-title" style="position:relative;">Nvidia launches investigation into CEO's affair with suspected Chinese spy</span>
+      <br>
+      <span class="litit-zh-title" style="font-family: var(--font-sans); font-size: 17px; font-weight: 600; color: #475569; margin-top: 8px; display: inline-block; line-height: 1.45;">英伟达就CEO与疑似中国间谍发生婚外情一事展开调查</span>
+    </h1>
+    <div class="anno-box" style="display:none; margin-top: 10px;">
+      <div class="anno-view markdown-body"></div>
+      <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
+英伟达就CEO与疑似中国间谍发生婚外情一事展开调查
+
+### 📌 核心词汇 (Key Expressions)
+- **launch investigation** = 展开调查 / 启动调查
+- **affair** = 婚外情 / 风流韵事
+- **suspected** = 疑似的 / 有嫌疑的
+
+### 🔍 句子解析方式 (Parsing Method)
+- **[标题结构]**：标准的新闻标题语态。`launch investigation into` 直切主题，后续以 `with suspected Chinese spy` 将普通的商业绯闻直接拔高到国家安全与地缘政治层面，制造了极强的悬念与冲击力。</textarea>
+    </div>
+  </div>
+
+  <p style="color:#334155; font-size: 15px; line-height: 1.75; margin-bottom:16px; font-weight:400; background: #f8fafc; padding: 12px 14px; border-radius: 8px; border: 1px solid #f1f5f9;">
+    市值高达 4.5 万亿美元的科技巨头英伟达（Nvidia）正遭遇一场史无前例的信任危机。其功勋卓著的创始人兼 CEO 黄仁勋（Jensen Huang）不仅公开承认了对妻子不忠，更棘手的是，与他发生婚外情的女商人 Alice Huang 被美国情报部门认定为疑似中国间谍。尽管英伟达董事会迅速介入并声明目前没有证据表明公司机密或国家安全遭到泄露，但这一桃色丑闻已惊动美国国会。在美中 AI 芯片争夺战的敏感时期，这位带领英伟达站上算力巅峰的“完美主义狂人”，如今必须在听证会上为自己的私生活如何关乎国家安全给出一个交代。
+  </p>
+
+  <div style="margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+    <div style="display:flex; flex-wrap:wrap; gap:6px;">
+      <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;">地缘政治</span>
+      <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;">商业丑闻</span>
+      <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;">国家安全</span>
+    </div>
+    <a href="https://www.bbc.com/news/articles/c3dxw10rjn9no" target="_blank" style="font-size: 12.5px; color: #4f46e5; text-decoration: none; font-weight: 600; background: #eef2ff; padding: 5px 12px; border-radius: 16px; border: 1px solid #e0e7ff; display:inline-block;">🔗 阅读原文 ↗</a>
+  </div>
+
+  <h2 class="section-header" style="border-left-color: #f59e0b;">💬 最佳金句</h2>
+  <div class="content-wrap" style="position:relative; margin-bottom:24px;">
+    <blockquote class="litit-target-quote" style="border-left: 3.5px solid #f59e0b; background: linear-gradient(135deg, #fffbeb 0%, #ffffff 100%); padding: 14px 14px; margin: 0; color: #1e293b; border-radius: 0 10px 10px 0; border-top: 1px solid #fef3c7; border-right: 1px solid #fef3c7; border-bottom: 1px solid #fef3c7;">
+      <div class="content litit-en-quote" style="position:relative; margin:0 0 8px 0; font-family: var(--font-serif); font-style: italic; font-weight:600; font-size: 16.5px; line-height: 1.55; color:#0f172a; word-break:break-word;">
+        "While the Board has no reason to believe that either national security or Nvidia secrets were compromised, the Board's inquiry will examine all available information."
+      </div>
+      <p class="litit-zh-quote" style="margin:0 0 8px 0; font-weight:400; font-size: 14.5px; line-height: 1.6; color:#475569; word-break:break-word;">
+        “虽然董事会没有理由相信国家安全或英伟达的机密受到了损害，但董事会的调查将审查所有可用信息。”
+      </p>
+      <footer style="text-align:right; font-size:12px; color:#64748b; font-style:normal; font-weight:600;">—— 英伟达董事会声明（在维护企业利益与平息国家安全担忧之间的标准危机公关表态）</footer>
+    </blockquote>
+    <div class="anno-box" style="display:none;">
+      <div class="anno-view markdown-body"></div>
+      <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
+“虽然董事会没有理由相信国家安全或英伟达的机密受到了损害，但董事会的调查将审查所有可用信息。”
+
+### 📌 核心词汇 (Key Expressions)
+- **have no reason to believe** = 没有理由相信
+- **compromise** = 损害 / 泄露 / 妥协
+- **inquiry** = 调查 / 质询
+
+### 🔍 句子解析方式 (Parsing Method)
+- **[转折句型]**：使用 `While` 引导让步状语从句，是极其经典的官方声明结构。前半句确立底线（没有证据表明泄密）以安抚市场情绪，后半句表明严谨态度（仍将彻查），可谓滴水不漏的危机公关模版。</textarea>
+    </div>
+  </div>
+
+  <h2 class="section-header" style="border-left-color: #10b981;">📊 关键数字</h2>
+  <div style="display:grid; grid-template-columns: repeat(2, 1fr); gap:10px; margin:14px 0 24px 0;">
+    <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+      <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+        4.5万亿<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">美元</span>
+      </div>
+      <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">英伟达目前的预估市值，使其成为有史以来最有价值的公司之一</div>
+    </div>
+    <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+      <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+        30<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">多年</span>
+      </div>
+      <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">黄仁勋执掌英伟达并将其从濒临破产带至AI算力霸主地位的时间</div>
+    </div>
+    <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+      <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+        H200<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;"></span>
+      </div>
+      <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">英伟达极具战略意义的第二先进芯片，此前因中美博弈遭美国政府限制出口</div>
+    </div>
+    <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+      <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+        3<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">名</span>
+      </div>
+      <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">要求黄仁勋就“防范外国对手间谍活动的安全协议”出席听证会的众议院共和党委员会领导人数量</div>
+    </div>
+  </div>
+
+  <h2 class="section-header" style="border-left-color: #3b82f6;">⏱️ 文章核心脉络</h2>
+  <ul style="padding-left:18px; line-height:1.8; color:#334155; font-size: 14.5px; margin-bottom:24px; word-break:break-word;">
+    <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">桃色绯闻与间谍指控：</strong> 英伟达CEO黄仁勋承认婚外情，而与之关系密切的华裔女商人 Alice Huang 被美国情报部门高度怀疑是中国间谍。</li>
+    <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">内部调查与危机公关：</strong> 英伟达董事会迅速启动独立调查；黄仁勋发表道歉声明，承担全部责任，并高调强调其对美国国家安全的绝对忠诚。</li>
+    <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">跌落神坛的代价：</strong> 作为一手缔造 4.5万亿美元 AI 帝国的完美主义狂人，黄仁勋的私人生活如今成为公司巨大的不确定性风险。</li>
+    <li><strong style="color:#1d4ed8;">地缘政治与技术博弈：</strong> 美国国会介入施压要求举行听证会，进一步凸显在美中 AI 芯片竞争的宏大叙事下，技术窃密与最高安全问题的极度敏感性。</li>
+  </ul>
+
+  <h2 class="section-header" style="border-left-color: #8b5cf6;">✨ 本篇亮点与精读</h2>
+  <div style="margin: 14px 0 10px 0;">
+    
+    <details class="litit-fold">
+      <summary>
+        <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">一、重点记忆</h3>
+      </summary>
+      <div class="litit-fold-content">
+        <ul style="list-style-type: square; margin: 0; padding-left: 18px; line-height: 1.6;">
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">compromise</strong>：损害 / 泄露 / 妥协<br>
+            <strong class="litit-en-sentence">The company said its board had no reason to believe the company's secrets or national security were compromised.</strong>
+            <span class="litit-zh-sentence">该公司表示，其董事会没有理由相信公司的机密或国家安全受到了损害。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">unfaithful</strong>：不忠的<br>
+            <strong class="litit-en-sentence">Jensen Huang admitted to having been unfaithful to his wife and apologised for hurting her and their children.</strong>
+            <span class="litit-zh-sentence">黄仁勋承认对妻子不忠，并为伤害了她和孩子们而道歉。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">take a punt on</strong>：在……上押注 / 冒险尝试<br>
+            <strong class="litit-en-sentence">Jensen Huang rescued Nvidia from almost going broke on more than one occasion, and he took a punt on AI a long time before the rest of the world did.</strong>
+            <span class="litit-zh-sentence">黄仁勋不止一次将英伟达从濒临破产中拯救出来，而且他在世界其他地方行动之前很久就在人工智能上押了注。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">in spades</strong>：非常 / 极大地 / 丰厚地<br>
+            <strong class="litit-en-sentence">His decision to make Nvidia chips become the best in the business for AI development has now paid off in spades and the company is worth trillions.</strong>
+            <span class="litit-zh-sentence">他让英伟达芯片成为AI开发领域行业最佳的决定，如今获得了丰厚的回报，公司市值高达数万亿。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">espionage</strong>：间谍活动<br>
+            <strong class="litit-en-sentence">Three House Republican committee leaders asked the CEO to appear later in the month, to talk about Nvidia's security protocols against foreign adversary espionage.</strong>
+            <span class="litit-zh-sentence">三名众议院共和党委员会领导人要求该CEO在本月晚些时候出席，谈论英伟达防范外国对手间谍活动的安全协议。</span>
+          </li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="litit-fold">
+      <summary>
+        <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">二、高价值表达</h3>
+      </summary>
+      <div class="litit-fold-content">
+        <ol style="margin: 0; padding-left: 18px;">
+          <li style="margin-bottom: 12px;">
+            <strong class="litit-badge">fall short of one's responsibilities</strong>：未尽到责任 / 辜负了职责。<br>
+            <span class="litit-zh-sentence" style="margin-top: 4px;">常用于高管或公众人物在发表道歉声明时，承认自己未能达到外界预期或违背了职业道德。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 12px;">
+            <strong class="litit-badge">unmasking</strong>：（情报术语）身份解密 / 揭露身份。<br>
+            <span class="litit-zh-sentence" style="margin-top: 4px;">情报机构在监控外国目标时，通常会掩盖（mask）通讯中美国公民的身份，只有在涉及重大国家安全时才会通过特定程序揭开（unmask）其真实姓名。</span>
+          </li>
+          <li style="margin-bottom: 12px;">
+            <strong class="litit-badge">groundless speculation</strong>：毫无根据的猜测。<br>
+            <span class="litit-zh-sentence" style="margin-top: 4px;">外交与政治语境中高频使用的反驳用语，用于严厉否认对方的指控或传言。</span>
+          </li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="litit-fold">
+      <summary>
+        <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">三、短语和固定搭配</h3>
+      </summary>
+      <div class="litit-fold-content">
+        <ul style="list-style-type: square; margin: 0; padding-left: 18px; line-height: 1.6;">
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">in light of</strong>：鉴于 / 考虑到<br>
+            <strong class="litit-en-sentence">A separate statement issued by Nvidia's board of directors said it would begin an investigation in light of recent reporting that founder and CEO Jensen Huang has been the target of a foreign intelligence effort.</strong>
+            <span class="litit-zh-sentence">英伟达董事会发表的另一份声明称，鉴于最近有关创始人兼CEO黄仁勋成为外国情报活动目标的报道，董事会将展开调查。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">act on behalf of</strong>：代表……行事<br>
+            <strong class="litit-en-sentence">US intelligence agencies had been monitoring Alice Huang and concluded that she was acting on behalf of the Chinese government.</strong>
+            <span class="litit-zh-sentence">美国情报机构一直对 Alice Huang 进行监控，并得出结论认为她是代表中国政府行事。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 10px;">
+            <strong class="litit-badge">have an edge over</strong>：相较于……拥有优势<br>
+            <strong class="litit-en-sentence">The H200 had previously been restricted by Washington over concerns that it would give China's technology industry an edge over the US.</strong>
+            <span class="litit-zh-sentence">H200 此前曾因华盛顿担心其会赋予中国科技行业相对于美国的优势而受到限制。</span>
+          </li>
+        </ul>
+      </div>
+    </details>
+
+    <details class="litit-fold">
+      <summary>
+        <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">四、值得学习的句子结构</h3>
+      </summary>
+      <div class="litit-fold-content">
+        <ol style="margin: 0; padding-left: 18px;">
+          <li class="litit-target-sentence" style="margin-bottom: 12px;">
+            <strong class="litit-badge">现在分词作伴随状语与同位语前置</strong><br>
+            <strong class="litit-en-sentence">The company, one of the most valuable in the world, said its board had no reason to believe the company's secrets or national security were compromised, adding that the CEO was committed to continuing to lead the company.</strong>
+            <span class="litit-zh-sentence">这家全球最具价值之一的公司表示，其董事会没有理由相信公司的机密或国家安全遭到了损害，并补充说首席执行官致力于继续领导公司。</span>
+            <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+              <li style="margin-bottom: 3px;"><strong>词法功能解析</strong>：`one of the most valuable in the world` 作为同位语，巧妙插入主谓之间，强化了事件的震撼力度；句末使用 `adding that...` 现在分词作伴随状语，顺滑地带出了力挺CEO的核心公关诉求。</li>
+              <li style="margin-bottom: 3px;"><strong>深度语法解析 (Parsing Method)</strong>：将企业地位、核心定论与高层人事表态浓缩于一个结构严密的复合句中，是新闻报道中典型的高信息密度长句写作手法。</li>
+            </ul>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 12px;">
+            <strong class="litit-badge">非限制性定语从句与被动语态的嵌套</strong><br>
+            <strong class="litit-en-sentence">Surveillance reportedly revealed communications between Alice Huang and an American citizen, who was subsequently identified as Jensen Huang through a process known as "unmasking".</strong>
+            <span class="litit-zh-sentence">据报道，监控揭示了 Alice Huang 与一名美国公民之间的通讯，该公民随后通过一种名为“身份解密”的程序被确认为黄仁勋。</span>
+            <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+              <li style="margin-bottom: 3px;"><strong>从句嵌套解析</strong>：`who` 引导非限制性定语从句补充说明前文的 `an American citizen`；从句中 `was identified as`（被确认为）与 `known as`（被称为）构成了连贯的被动语态链。</li>
+              <li style="margin-bottom: 3px;"><strong>深度语法解析 (Parsing Method)</strong>：通过剥洋葱式的语法递进，完美重现了情报机构“先发现通讯、再锁定公民、最后解密身份”的严密侦查逻辑过程。</li>
+            </ul>
+          </li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="litit-fold">
+      <summary>
+        <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">五、最值得优先掌握的句型</h3>
+      </summary>
+      <div class="litit-fold-content">
+        <ol style="margin: 0; padding-left: 18px;">
+          <li class="litit-target-sentence" style="margin-bottom: 12px;">
+            <strong class="litit-en-sentence" style="color: #4338ca;">[Entity] has opened an independent investigation following reports [that / of]...</strong>
+            <span class="litit-zh-sentence">[某机构] 在有报道称 [...] 之后，已启动了一项独立调查。<br>（企业公关或新闻报道中，用于宣布针对丑闻或突发事件采取官方调查行动的标准起始句型）。</span>
+          </li>
+          <li class="litit-target-sentence" style="margin-bottom: 12px;">
+            <strong class="litit-en-sentence" style="color: #4338ca;">While [某方] has no reason to believe that [负面后果], the inquiry will examine all available information.</strong>
+            <span class="litit-zh-sentence">尽管 [某方] 没有理由相信 [某种最坏的负面后果已经发生]，但调查仍将审查所有可用信息。<br>（危机公关中“先安抚核心利益攸关方，后展现严谨绝不姑息态度”的绝佳让步句型模板）。</span>
+          </li>
+        </ol>
+      </div>
+    </details>
+
+  </div>
+
+  <h2 class="section-header" style="border-left-color: #0d9488;">💡 幕后冷知识 (Fun Facts)</h2>
+  <ul style="padding-left:18px; line-height:1.8; color:#334155; font-size:14.5px; margin:0 0 24px 0; word-break:break-word;">
+    <li style="margin-bottom: 8px;"><strong>情报界术语 Unmasking（身份解密）：</strong> 美国情报机构在监听外国目标（如嫌疑人 Alice Huang）时，常会截获其与美国公民的通讯。出于《涉外情报监视法案》(FISA) 对隐私的保护，监听报告中美国人的名字通常会被掩饰（Masked，比如写成 "US Person 1"）。只有当高层官员判定揭开名字对理解情报、维护国家安全至关重要时，才会启动极为严格的“解密（Unmask）”程序。</li>
+    <li style="margin-bottom: 8px;"><strong>敏感的 Megaspeed 数据中心：</strong> 报道中 Alice Huang 关联的新加坡数据中心企业 Megaspeed 并非一家简单的IT外包公司。在当前错综复杂的跨国 AI 算力布局中，海外数据中心常常成为算力租赁、甚至规避美国高端芯片出口管制的“灰色中转站”，这也是为何美国情报部门对其尤为敏感的原因。</li>
+    <li><strong>H200 芯片的战略咽喉地位：</strong> 文中提到的 H200 是英伟达当前极具战略意义的旗舰 AI 芯片。美国政府对其出口实施严苛的“动态许可”管制，其核心逻辑正是防止竞争对手在以大模型为代表的生成式 AI 军备竞赛中获得算力底座优势。黄仁勋作为这一命脉的执掌者，其个人安全评级形同国家重器。</li>
+  </ul>
+
+  <h2 class="section-header" style="border-left-color: #e11d48;">🎯 全片锐评</h2>
+  <p style="line-height:1.75; color:#1e293b; font-weight:500; background:linear-gradient(135deg, #fff1f2 0%, #ffffff 100%); padding:14px 16px; border-radius:10px; font-size:14.5px; margin:0 0 12px 0; border:1px solid #ffe4e6; word-break:break-word;">
+    从一手将濒危企业拉扯至 4.5万亿美元霸主的完美科技领袖，到在聚光灯下低头认错的绯闻主角，黄仁勋的这场风波远非一桩普通的硅谷八卦。在这场危机中，“出轨”不过是引发雪崩的最后一片雪花，真正的致命暗礁在于“国家安全”与“AI 芯片争夺战”。当英伟达的算力已经成为驱动未来世界运转的底层石油时，其掌舵人的每一个私人社交链条，早就被置于地缘政治的显微镜下反复炙烤。美国国会听证会的火速介入，释放了一个极其冰冷的信号：华盛顿对最核心技术的泄密可能抱有零容忍态度。无论调查的最终定论如何，这起事件都为所有手握战略科技的跨国巨头们敲响了振聋发聩的警钟——在大国博弈的修罗场里，科技大佬的私生活不仅是道德瑕疵，更是随时可能触发引信的最高级别国家安全命题。
+  </p>
+
+</div>
+
+<script id="core-engine">
+  let syncTimeout = null;
+  const AI_PROMPT = "请分析以下英文段落，并严格按照以下 Markdown 格式输出（不要输出任何额外的废话）：\n\n### 📌 完整翻译\n\n[此处填写完整翻译]\n\n### 📌 Key Expressions\n\n- **[单词或短语]**\n  = [中文释义]\n  （[可选的补充说明，如倒装结构或语境等]）\n\n段落内容：\n";
+
+  function initProgressBar() {
+    const progressBar = document.getElementById('reading-progress');
+    if (!progressBar) return;
+    window.addEventListener('scroll', () => {
+      const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      if (scrollHeight <= 0) return;
+      const scrollPercent = (scrollTop / scrollHeight) * 100;
+      progressBar.style.width = scrollPercent + '%';
+    }, { passive: true });
+  }
+
+  async function fetchGroq(text, apiKey, modelName) {
+    const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Authorization': 'Bearer ' + apiKey,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        model: modelName || 'llama-3.3-70b-versatile',
+        messages: [
+          { role: 'system', content: 'You are an English teacher. Output EXACTLY in the requested Markdown format.' },
+          { role: 'user', content: AI_PROMPT + '"' + text + '"' }
+        ],
+        temperature: 0.3
+      })
+    });
+    if (!res.ok) throw new Error('Groq Error: ' + res.status);
+    const json = await res.json();
+    return json.choices[0].message.content.trim();
+  }
+
+  async function fetchCustomAI(text, url, apiKey, modelName) {
+    let headers = { 'Content-Type': 'application/json' };
+    let bodyData = {};
+    if (url.includes('anthropic.com')) {
+      headers['x-api-key'] = apiKey;
+      headers['anthropic-version'] = '2023-06-01';
+      headers['anthropic-dangerous-direct-browser-access'] = 'true';
+      bodyData = {
+        model: modelName || 'claude-3-5-sonnet-20241022',
+        max_tokens: 2000,
+        messages: [{ role: 'user', content: AI_PROMPT + '"' + text + '"' }]
+      };
+    } else if (url.includes('generativelanguage.googleapis.com')) {
+      let targetUrl = url;
+      if (!targetUrl.includes('key=')) {
+        targetUrl += (targetUrl.includes('?') ? '&' : '?') + 'key=' + apiKey;
+      }
+      const res = await fetch(targetUrl, {
+        method: 'POST',
+        headers: headers,
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: AI_PROMPT + '"' + text + '"' }] }]
+        })
+      });
+      if (!res.ok) throw new Error('Gemini Error: ' + res.status);
+      const json = await res.json();
+      return json.candidates[0].content.parts[0].text.trim();
+    } else {
+      headers['Authorization'] = 'Bearer ' + apiKey;
+      bodyData = {
+        model: modelName || 'gpt-4o-mini',
+        messages: [
+          { role: 'system', content: 'You are an English teacher. Output EXACTLY in the requested Markdown format.' },
+          { role: 'user', content: AI_PROMPT + '"' + text + '"' }
+        ],
+        temperature: 0.3
+      };
+    }
+    const res = await fetch(url, { method: 'POST', headers: headers, body: JSON.stringify(bodyData) });
+    if (!res.ok) throw new Error('AI Interface Error: ' + res.status);
+    const json = await res.json();
+    if (json.choices && json.choices.length > 0) return json.choices[0].message.content.trim();
+    throw new Error('AI 返回数据异常');
+  }
+
+  async function executeAIPipeline(text) {
+    const customUrl = localStorage.getItem('CUSTOM_API_URL') || '';
+    const customKey = localStorage.getItem('CUSTOM_API_KEY') || '';
+    const customModel = localStorage.getItem('CUSTOM_MODEL') || '';
+    const groqKey = localStorage.getItem('GROQ_API_KEY') || '';
+    const groqModel = localStorage.getItem('GROQ_MODEL') || '';
+    if (customUrl && customKey) {
+      try {
+        return await fetchCustomAI(text, customUrl, customKey, customModel);
+      } catch (err) {
+        if (groqKey) return await fetchGroq(text, groqKey, groqModel);
+        throw err;
+      }
+    } else if (groqKey) {
+      return await fetchGroq(text, groqKey, groqModel);
+    } else {
+      const userKey = prompt('⚠️ 当前页面未检测到 AI Key！\n为了安全，密匙只储存在您本地浏览器中。\n\n请输入您的 API Key (如 sk-xxx 或 gsk_xxx):');
+      if (userKey && userKey.trim()) {
+        const cleanKey = userKey.trim();
+        if (cleanKey.startsWith('gsk_')) {
+          localStorage.setItem('GROQ_API_KEY', cleanKey);
+        } else {
+          localStorage.setItem('CUSTOM_API_KEY', cleanKey);
+          localStorage.setItem('CUSTOM_API_URL', 'https://api.chatanywhere.tech/v1/chat/completions');
+        }
+      }
+      throw new Error('未设置 AI API Key');
+    }
+  }
+
+  function getPurifiedFallbackHTML() {
+    const clone = document.documentElement.cloneNode(true);
+    const foreignSelectors = [
+      'relingo-app', 'relin-highlight', 'relin-hc', '[class*="relingo"]',
+      '[data-relin-paragraph]', 'grammarly-extension', '[data-grammarly-part]',
+      '[class*="immersive-translate"]', '[data-immersive-translate]'
+    ].join(',');
+    clone.querySelectorAll(foreignSelectors).forEach(el => el.remove());
+    clone.querySelectorAll('relin-highlight, relin-hc').forEach(t => {
+      const frag = document.createDocumentFragment();
+      while(t.firstChild) frag.appendChild(t.firstChild);
+      t.parentNode.replaceChild(frag, t);
+    });
+    clone.querySelectorAll('script').forEach(s => {
+      if (!s.src.includes('marked.min.js') && s.id !== 'core-engine') s.remove();
+    });
+    clone.querySelectorAll('style').forEach(s => {
+      if (s.id !== 'core-style') s.remove();
+    });
+    const liveTAs = document.querySelectorAll('.anno-edit');
+    clone.querySelectorAll('.anno-edit').forEach((ta, i) => {
+      if(liveTAs[i]) ta.textContent = liveTAs[i].value.trim();
+      const box = ta.closest('.anno-box');
+      if (box) box.style.display = 'none';
+      const view = box ? box.querySelector('.anno-view') : null;
+      if (view) view.innerHTML = '';
+    });
+    return '<!DOCTYPE html>\n<html lang="zh-CN">\n' + clone.innerHTML + '\n</html>';
+  }
+
+  async function syncToCloud() {
+    const ghToken = localStorage.getItem('LITIT_GH_TOKEN') || localStorage.getItem('GH_TOKEN');
+    const ghOwner = 'moodHappy';
+    const ghRepo = 'dual-read-notes';
+    if (!ghToken) return;
+    const pathParts = window.location.pathname.split('/');
+    const fileName = pathParts.pop();
+    const month = pathParts.pop();
+    const year = pathParts.pop();
+    if(!fileName || !month || !year) return;
+    const fileRelPath = 'Summary/' + year + '/' + month + '/' + fileName;
+    try {
+      const getRes = await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath + '?t=' + Date.now(), {
+        headers: { 'Authorization': 'Bearer ' + ghToken },
+        cache: 'no-store'
+      });
+      let finalHTML = '';
+      let sha = '';
+      if (getRes.ok) {
+        const fileData = await getRes.json();
+        sha = fileData.sha;
+        const cleanRawHTML = decodeURIComponent(escape(atob(fileData.content.replace(/\n/g, ''))));
+        const parser = new DOMParser();
+        const cleanDoc = parser.parseFromString(cleanRawHTML, 'text/html');
+        const liveTAs = document.querySelectorAll('.anno-edit');
+        const cleanTAs = cleanDoc.querySelectorAll('.anno-edit');
+        liveTAs.forEach((liveTa, index) => {
+          if (cleanTAs[index]) {
+            const val = liveTa.value.trim();
+            cleanTAs[index].textContent = val;
+            const box = cleanTAs[index].closest('.anno-box');
+            if (box) box.style.display = 'none';
+            const view = box ? box.querySelector('.anno-view') : null;
+            if (view) view.innerHTML = '';
+          }
+        });
+        cleanDoc.querySelectorAll('.anno-toggle').forEach(t => {
+          t.classList.remove('has-anno');
+          const ta = t.closest('.content-wrap, .litit-highlight-block')?.querySelector('.anno-edit');
+          if (ta && ta.textContent.trim()) t.classList.add('has-anno');
+        });
+        finalHTML = '<!DOCTYPE html>\n<html lang="zh-CN">\n' + cleanDoc.documentElement.innerHTML + '\n</html>';
+      } else {
+        finalHTML = getPurifiedFallbackHTML();
+      }
+      await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath, {
+        method: 'PUT',
+        headers: {
+          'Authorization': 'Bearer ' + ghToken,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          message: 'Silent purified annotation update',
+          content: btoa(unescape(encodeURIComponent(finalHTML))),
+          sha: sha || undefined
+        })
+      });
+      console.log('✅ [My Litit] 纯净无污染批注已静默同步至 GitHub');
+    } catch(e) {
+      console.warn('❌ [My Litit] 同步跳过或失败:', e);
+    }
+  }
+
+  function scheduleSync() {
+    if (syncTimeout) clearTimeout(syncTimeout);
+    syncTimeout = setTimeout(() => {
+      syncToCloud();
+    }, 3000);
+  }
+
+  function initAnnotations() {
+    document.querySelectorAll('.litit-highlight-block, .content-wrap').forEach(wrap => {
+      let content = wrap.querySelector('.content');
+      if (!content) {
+        const pText = wrap.querySelector('p');
+        if (pText) {
+          content = document.createElement('div');
+          content.className = 'content';
+          content.style.cssText = 'position:relative; margin:0 0 6px 0; color:#1a202c; font-family:Georgia, serif; line-height:1.7; font-size:15px; word-break:break-word;';
+          content.innerHTML = pText.innerHTML;
+          pText.parentNode.replaceChild(content, pText);
+        }
+      }
+      if (!content) return;
+      if (!content.querySelector('.anno-toggle')) {
+        const toggle = document.createElement('span');
+        toggle.className = 'anno-toggle';
+        toggle.title = '手写批注/笔记';
+        content.appendChild(toggle);
+      }
+      if (!content.querySelector('.ai-toggle')) {
+        const aiToggle = document.createElement('span');
+        aiToggle.className = 'ai-toggle';
+        aiToggle.title = 'AI智能二次解析';
+        content.appendChild(aiToggle);
+      }
+      let box = wrap.querySelector('.anno-box');
+      if (!box) {
+        box = document.createElement('div');
+        box.className = 'anno-box';
+        box.style.display = 'none';
+        box.innerHTML = '<div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 解析..."></textarea>';
+        wrap.appendChild(box);
+      }
+      const view = box.querySelector('.anno-view');
+      const edit = box.querySelector('.anno-edit');
+      const toggle = content.querySelector('.anno-toggle');
+      const aiToggle = content.querySelector('.ai-toggle');
+      if (edit && edit.value.trim()) {
+        toggle.classList.add('has-anno');
+        try {
+          view.innerHTML = (typeof marked !== 'undefined') ? marked.parse(edit.value.trim()) : edit.value.trim();
+        } catch(e){}
+      }
+      if (aiToggle) {
+        aiToggle.onclick = async (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          if (aiToggle.classList.contains('loading')) return;
+          if (edit && edit.value.trim() !== '') {
+            const confirmOverwrite = confirm('⚠️ 已经存在批注内容。点击"确定"将使用 AI 解析覆盖现有内容。是否继续？');
+            if (!confirmOverwrite) return;
+          }
+          const pClone = content.cloneNode(true);
+          pClone.querySelectorAll('.anno-toggle, .ai-toggle').forEach(el => el.remove());
+          let pText = pClone.textContent.replace(/https?:\/\/\S+/g, '').trim();
+          if (!pText) return;
+          aiToggle.classList.add('loading');
+          try {
+            const aiContent = await executeAIPipeline(pText);
+            box.style.display = 'block';
+            view.style.display = 'none';
+            edit.style.display = 'block';
+            edit.value = aiContent;
+            edit.focus();
+            edit.blur();
+          } catch (err) {
+            console.error(err);
+          } finally {
+            aiToggle.classList.remove('loading');
+          }
+        };
+      }
+      if (toggle) {
+        toggle.onclick = (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          if (box.style.display === 'block') {
+            box.style.display = 'none';
+          } else {
+            box.style.display = 'block';
+            if (!edit.value.trim()) {
+              view.style.display = 'none';
+              edit.style.display = 'block';
+              setTimeout(() => { edit.focus(); }, 150);
+            } else {
+              view.style.display = 'block';
+              edit.style.display = 'none';
+            }
+          }
+        };
+      }
+      const triggerEdit = (e) => {
+        if(e) { e.preventDefault(); e.stopPropagation(); }
+        view.style.display = 'none';
+        edit.style.display = 'block';
+        edit.value = edit.value;
+        setTimeout(() => { edit.focus(); }, 150);
+      };
+      view.addEventListener('dblclick', triggerEdit);
+      let lastTap = 0;
+      view.addEventListener('touchstart', e => {
+        if (e.touches.length === 2) {
+          triggerEdit(e);
+        } else if (e.touches.length === 1) {
+          const currentTime = new Date().getTime();
+          if (currentTime - lastTap < 500 && currentTime - lastTap > 0) {
+            e.preventDefault();
+            box.style.display = 'none';
+          }
+          lastTap = currentTime;
+        }
+      }, {passive: false});
+      if (edit && view) {
+        edit.onblur = () => {
+          setTimeout(() => {
+            const newVal = edit.value.trim();
+            try {
+              view.innerHTML = newVal ? ((typeof marked !== 'undefined') ? marked.parse(newVal) : newVal) : '';
+            } catch(e){}
+            edit.style.display = 'none';
+            if (newVal) {
+              view.style.display = 'block';
+              toggle.classList.add('has-anno');
+            } else {
+              view.style.display = 'none';
+              box.style.display = 'none';
+              toggle.classList.remove('has-anno');
+            }
+            if (edit.getAttribute('data-old-val') !== newVal) {
+              edit.setAttribute('data-old-val', newVal);
+              scheduleSync();
+            }
+          }, 150);
+        };
+        edit.setAttribute('data-old-val', edit.value.trim());
+      }
+    });
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    initProgressBar();
+    initAnnotations();
+  });
+  window.addEventListener('load', () => {
+    initAnnotations();
+  });
+</script>
+</body>
+</html>
