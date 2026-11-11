@@ -790,17 +790,20 @@
                 }
                 if (!content) return;
                 
+                // 核心修复点：优先寻找英文元素的节点，供后续按钮注入使用，确保和英文文本并排
+                let appendTarget = content.querySelector('.litit-en-sentence') || content.querySelector('.litit-en-quote') || content.querySelector('.litit-en-title') || content;
+
                 if (!content.querySelector('.anno-toggle')) {
                     const toggle = document.createElement('span');
                     toggle.className = 'anno-toggle';
                     toggle.title = '手写批注/笔记';
-                    content.appendChild(toggle);
+                    appendTarget.appendChild(toggle);
                 }
                 if (!content.querySelector('.ai-toggle')) {
                     const aiToggle = document.createElement('span');
                     aiToggle.className = 'ai-toggle';
                     aiToggle.title = 'AI智能二次解析';
-                    content.appendChild(aiToggle);
+                    appendTarget.appendChild(aiToggle);
                 }
 
                 let box = wrap.querySelector('.anno-box');
