@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>How a sex scandal at Nvidia is putting pressure on the White House</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style id="core-style">
+        :root {
+            --bg-page: #ffffff;
+            --bg-card: #ffffff;
+            --text-main: #0f172a;
+            --text-sub: #334155;
+            --text-muted: #64748b;
+            --accent-primary: #4f46e5;
+            --border-subtle: #e2e8f0;
+            --font-serif: "Georgia", "Charter", "Source Han Serif SC", "Noto Serif CJK SC", serif;
+            --font-sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", Roboto, sans-serif;
+        }
+        body {
+            font-family: var(--font-sans);
+            padding: 12px 12px 36px 12px;
+            margin: 0 auto;
+            max-width: 780px;
+            background: var(--bg-page);
+            color: var(--text-main);
+            line-height: 1.75;
+            font-size: 16px;
+            word-wrap: break-word;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+        * {
+            box-sizing: border-box;
+            max-width: 100%;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        #reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(90deg, #4f46e5, #9333ea);
+            z-index: 9999;
+            transition: width 0.1s ease-out;
+        }
+        .litit-report {
+            background: var(--bg-card);
+            padding: 0;
+        }
+        .anno-toggle, .ai-toggle {
+            display: inline-block;
+            padding: 2px 5px;
+            margin-left: 5px;
+            cursor: pointer;
+            opacity: 0.45;
+            font-size: 0.85rem;
+            vertical-align: middle;
+            transition: all 0.2s;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .anno-toggle:hover, .ai-toggle:hover {
+            opacity: 1;
+            transform: scale(1.15);
+        }
+        .anno-toggle.has-anno {
+            opacity: 1;
+        }
+        .anno-toggle::after {
+            content: "🔴";
+        }
+        .ai-toggle {
+            opacity: 0.7;
+            padding: 2px 4px;
+        }
+        .ai-toggle::after {
+            content: "🤖";
+        }
+        .ai-toggle.loading::after {
+            content: "⏳";
+            display: inline-block;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+        .anno-box {
+            display: none;
+            margin-top: 10px;
+            background: #faf8ff;
+            border-left: 3px solid #7c3aed;
+            padding: 12px 14px;
+            border-radius: 0 8px 8px 0;
+            text-align: left;
+        }
+        .anno-view {
+            font-size: 0.95rem;
+            line-height: 1.65;
+            color: #334155;
+            min-height: 24px;
+        }
+        .anno-edit {
+            width: 100%;
+            min-height: 240px;
+            padding: 10px;
+            font-family: monospace;
+            font-size: 0.95rem;
+            border: 1px dashed #a78bfa;
+            border-radius: 6px;
+            resize: vertical;
+            display: none;
+            background: #fff;
+            color: #1e293b;
+            outline: none;
+        }
+        .anno-edit:focus {
+            border: 1px solid #7c3aed;
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.12);
+        }
+        .markdown-body p {
+            margin-top: 0;
+            margin-bottom: 8px;
+        }
+        .markdown-body p:last-child {
+            margin-bottom: 0;
+        }
+        .markdown-body h1, .markdown-body h2, .markdown-body h3 {
+            color: #5b21b6;
+            font-size: 1.05rem;
+            margin: 10px 0 6px 0;
+            border-bottom: 1px dashed #ddd6fe;
+            padding-bottom: 4px;
+        }
+        .markdown-body ul, .markdown-body ol {
+            margin: 0 0 8px 0;
+            padding-left: 18px;
+        }
+        .markdown-body blockquote {
+            margin: 0 0 10px 0;
+            padding: 8px 12px;
+            background: rgba(124, 58, 237, 0.06);
+            border-left: 3px solid #7c3aed;
+            color: #475569;
+        }
+        .section-header {
+            font-size: 16px;
+            color: #0f172a;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            background: linear-gradient(90deg, #f8fafc 0%, #ffffff 100%);
+            padding: 8px 12px;
+            border-left: 4px solid #4f46e5;
+            margin: 26px 0 14px 0;
+            border-radius: 0 6px 6px 0;
+            display: flex;
+            align-items: center;
+            box-shadow: inset 0 1px 0 #f1f5f9, inset 0 -1px 0 #f1f5f9;
+        }
+        details.litit-fold {
+            margin-bottom: 10px;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            background: #ffffff;
+            overflow: hidden;
+            transition: border-color 0.2s ease;
+        }
+        details.litit-fold[open] {
+            border-color: #cbd5e1;
+        }
+        details.litit-fold summary {
+            cursor: pointer;
+            padding: 12px 14px;
+            outline: none;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f8fafc;
+            transition: background 0.2s;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        details.litit-fold summary::-webkit-details-marker {
+            display: none;
+        }
+        details.litit-fold summary::after {
+            display: none;
+        }
+        details.litit-fold summary:hover {
+            background: #f1f5f9;
+        }
+        details.litit-fold[open] summary {
+            border-bottom: 1px solid #e2e8f0;
+            background: #f8fafc;
+            border-left: 3px solid #4f46e5;
+        }
+        .litit-fold-content {
+            padding: 10px 8px;
+            background: #f8fafc;
+        }
+        .litit-fold-content > ol, .litit-fold-content > ul {
+            list-style: none !important;
+            padding-left: 0 !important;
+            margin: 0 !important;
+            counter-reset: litit-counter;
+        }
+        .litit-fold-content > ol > li, .litit-fold-content > ul > li {
+            counter-increment: litit-counter;
+            position: relative;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 12px 12px;
+            margin-bottom: 10px !important;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.015);
+        }
+        .litit-fold-content > ol > li:last-child, .litit-fold-content > ul > li:last-child {
+            margin-bottom: 0 !important;
+        }
+        .litit-fold-content > ol > li::before, .litit-fold-content > ul > li::before {
+            content: "NO." counter(litit-counter, decimal-leading-zero);
+            display: block;
+            width: max-content;
+            font-size: 10px;
+            font-weight: 800;
+            font-family: -apple-system, BlinkMacSystemFont, monospace;
+            color: #4f46e5;
+            background: #eef2ff;
+            padding: 1px 6px;
+            border-radius: 4px;
+            margin-bottom: 8px;
+            letter-spacing: 0.04em;
+        }
+        .litit-en-sentence {
+            display: block;
+            font-family: var(--font-serif);
+            font-size: 1.04rem;
+            font-weight: 600;
+            color: #0f172a;
+            line-height: 1.5;
+            margin-bottom: 6px;
+        }
+        .litit-zh-sentence {
+            display: block;
+            font-family: var(--font-sans);
+            font-size: 0.93rem;
+            color: #475569;
+            line-height: 1.55;
+            margin-bottom: 2px;
+        }
+        li.litit-target-sentence > br {
+            display: none;
+        }
+        .litit-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #eef2ff 0%, #f3e8ff 100%);
+            color: #4338ca;
+            padding: 2px 8px;
+            border-radius: 5px;
+            font-size: 0.92rem;
+            font-weight: 700;
+            margin-right: 4px;
+            margin-bottom: 6px;
+            border: 1px solid #e0e7ff;
+            vertical-align: middle;
+        }
+        li.litit-target-sentence > ul {
+            list-style: none !important;
+            margin: 10px 0 0 0 !important;
+            padding: 8px 10px !important;
+            background: #f8fafc;
+            border-radius: 6px;
+            border-left: 2.5px solid #94a3b8;
+        }
+        li.litit-target-sentence > ul > li {
+            position: relative;
+            padding-left: 10px;
+            margin-bottom: 5px !important;
+            font-size: 0.88rem;
+            color: #334155;
+            line-height: 1.5;
+        }
+        li.litit-target-sentence > ul > li:last-child {
+            margin-bottom: 0 !important;
+        }
+        li.litit-target-sentence > ul > li::before {
+            content: "·";
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: #4f46e5;
+            font-weight: 900;
+        }
+        li.litit-target-sentence > ul > li > strong {
+            color: #0f172a;
+            font-weight: 600;
+            background: #e2e8f0;
+            padding: 1px 5px;
+            border-radius: 4px;
+            font-size: 0.84rem;
+            margin-right: 3px;
+        }
+        @media (max-width: 600px) {
+            body { padding: 10px 10px 30px 10px; font-size: 15px; }
+            h1.litit-target-title { font-size: 21px !important; }
+            .litit-fold-content { padding: 8px 6px; }
+            .litit-fold-content > ol > li, .litit-fold-content > ul > li { padding: 11px 10px; margin-bottom: 8px !important; }
+        }
+    </style>
+</head>
+<body>
+    <div id="reading-progress"></div>
+    <div class="litit-report" style="width:100%; max-width:100%; box-sizing:border-box; overflow-x:hidden;">
+        
+        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom: 2px solid #0f172a; padding-bottom: 6px; margin-bottom: 14px; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: #64748b; text-transform: uppercase;">
+            <span>The Global Dispatch · 深度双语精读</span>
+            <span>U.S. Politics</span>
+        </div>
+
+        <div class="content-wrap" style="position:relative; margin-bottom: 16px;">
+            <h1 class="litit-target-title" style="color:#0f172a; font-size: 24px; line-height: 1.35; font-family: var(--font-serif); font-weight: 800; border-bottom: 1px solid #e2e8f0; padding-bottom: 14px; margin-top:0; margin-bottom:0; word-break:break-word;">
+                <span class="content litit-en-title" style="position:relative;">How a sex scandal at Nvidia is putting pressure on the White House</span>
+                <br>
+                <span class="litit-zh-title" style="font-family: var(--font-sans); font-size: 17px; font-weight: 600; color: #475569; margin-top: 8px; display: inline-block; line-height: 1.45;">英伟达性丑闻为何让白宫倍感压力</span>
+            </h1>
+            <div class="anno-box" style="display:none; margin-top: 10px;">
+                <div class="anno-view markdown-body"></div>
+                <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea>
+            </div>
+        </div>
+
+        <p style="color:#334155; font-size: 15px; line-height: 1.75; margin-bottom:16px; font-weight:400; background: #f8fafc; padding: 12px 14px; border-radius: 8px; border: 1px solid #f1f5f9;">
+            黄仁勋的因性丑闻引咎辞职，早已不再是一桩局限于硅谷的八卦，而是演变成了一场震动华盛顿权力中枢的政治危机。BBC的这篇深度分析揭示了隐藏在“间谍情妇”背后的致命政商关联：黄仁勋曾是极少数能直接游说特朗普总统、甚至获准在对华芯片禁令上“开绿灯”的科技寡头。如今，随着涉嫌走私芯片的新加坡公司Megaspeed浮出水面，美国商务部长卢特尼克因涉嫌被英伟达干预而阻挠调查，正面临两党国会议员的严厉问责。这场危机不仅拷问着特朗普政府在国家安全上的底线，更将白宫直接推上了“权钱交易”的风口浪尖。
+        </p>
+
+        <div style="margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+            <div style="display:flex; flex-wrap:wrap; gap:6px;">
+                <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;">政商丑闻</span>
+                <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;">白宫问责</span>
+                <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;">芯片禁令</span>
+            </div>
+            <a href="https://www.bbc.com/news/articles/c67429m3vem3o" target="_blank" style="font-size: 12.5px; color: #4f46e5; text-decoration: none; font-weight: 600; background: #eef2ff; padding: 5px 12px; border-radius: 16px; border: 1px solid #e0e7ff; display:inline-block;">🔗 来源: BBC News ↗</a>
+        </div>
+
+        <h2 class="section-header" style="border-left-color: #f59e0b;">💬 最佳金句</h2>
+        <div class="content-wrap" style="position:relative; margin-bottom:24px;">
+            <blockquote class="litit-target-quote" style="border-left: 3.5px solid #f59e0b; background: linear-gradient(135deg, #fffbeb 0%, #ffffff 100%); padding: 14px 14px; margin: 0; color: #1e293b; border-radius: 0 10px 10px 0; border-top: 1px solid #fef3c7; border-right: 1px solid #fef3c7; border-bottom: 1px solid #fef3c7;">
+                <div class="content litit-en-quote" style="position:relative; margin:0 0 8px 0; font-family: var(--font-serif); font-style: italic; font-weight:600; font-size: 16.5px; line-height: 1.55; color:#0f172a; word-break:break-word;">
+                    "This is becoming difficult to dismiss as the misjudgement of one businessman or one government department."
+                </div>
+                <p class="litit-zh-quote" style="margin:0 0 8px 0; font-weight:400; font-size: 14.5px; line-height: 1.6; color:#475569; word-break:break-word;">
+                    “这已经很难仅仅被视作一位商人或一个政府部门的判断失误而草草打发了。”
+                </p>
+                <footer style="text-align:right; font-size:12px; color:#64748b; font-style:normal; font-weight:600;">—— BBC一针见血地指出，随着更多高层涉入，这场风波已彻底升级为系统性的政治信任危机。</footer>
+            </blockquote>
+            <div class="anno-box" style="display:none;">
+                <div class="anno-view markdown-body"></div>
+                <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea>
+            </div>
+        </div>
+
+        <h2 class="section-header" style="border-left-color: #10b981;">📊 关键数字</h2>
+        <div style="display:grid; grid-template-columns: repeat(2, 1fr); gap:10px; margin:14px 0 24px 0;">
+            <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+                <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+                    2022<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">年</span>
+                </div>
+                <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">华盛顿开始限制最先进的人工智能处理器出口至中国的年份</div>
+            </div>
+            <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+                <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+                    1<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">份备忘录</span>
+                </div>
+                <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">一份详述黄乐与走私芯片公司Megaspeed高度机密信息的备忘录，曾被递交给商务部长却未获处理</div>
+            </div>
+            <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+                <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+                    2<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">党共识</span>
+                </div>
+                <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">美国国会民主、共和两党罕见达成共识，一致要求彻查商务部在芯片出口审批上的漏洞</div>
+            </div>
+            <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+                <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+                    0<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">回应</span>
+                </div>
+                <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">在面对越来越大的舆论压力时，白宫官方拒绝就总统的知情程度作出置评</div>
+            </div>
+        </div>
+
+        <h2 class="section-header" style="border-left-color: #3b82f6;">⏱️ 文章核心脉络</h2>
+        <ul style="padding-left:18px; line-height:1.8; color:#334155; font-size: 14.5px; margin:bottom:24px; word-break:break-word;">
+            <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">特权通道：</strong> 黄仁勋曾是极少数能直接影响特朗普对华科技政策的科技巨头，甚至成功游说总统放宽了针对英伟达的芯片出口限制。</li>
+            <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">干预调查：</strong> 丑闻中的“间谍情妇”黄乐所在的新加坡公司Megaspeed涉嫌对华走私芯片，而英伟达被指动用高层关系迫使美国商务部中止了对该公司的调查。</li>
+            <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">内阁分裂与问责：</strong> 商务部长卢特尼克因在这起事件中压下机密备忘录、纵容走私而遭到财政部长及两党议员的严厉施压与审查。</li>
+            <li><strong style="color:#1d4ed8;">火烧白宫：</strong> 随着黄仁勋辞职和国会介入，核心问题已直指特朗普本人：在被通报了重大国家安全风险后，总统究竟知晓多少？又为何选择庇护？</li>
+        </ul>
+
+        <h2 class="section-header" style="border-left-color: #ec4899;">📖 双语正文精读</h2>
+        
+        <div class="content-wrap" style="position:relative; margin-bottom: 14px; background: #ffffff; padding: 14px; border-radius: 8px; border: 1px solid #e2e8f0;">
+            <div class="content" style="position:relative;">
+                <span class="litit-en-sentence">The allegations surrounding Jensen Huang's reported affair with Alice Huang, of no relation but a former executive at Singapore-based company Megaspeed, have raised the possibility that a foreign intelligence operation was targeting not just a powerful businessman, but someone with unusually close access to the American president.</span>
+                <span class="litit-zh-sentence">围绕黄仁勋被曝出与毫无亲属关系的新加坡公司Megaspeed前高管黄乐(Alice Huang)有婚外情的指控，引发了这样一种可能性：外国情报机构的目标不仅仅是一位有权势的商人，而是一位能够极其罕见地接近美国总统的人。</span>
+            </div>
+            <div class="anno-box"><div class="anno-view markdown-body"></div><textarea class="anno-edit" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea></div>
+        </div>
+
+        <div class="content-wrap" style="position:relative; margin-bottom: 14px; background: #ffffff; padding: 14px; border-radius: 8px; border: 1px solid #e2e8f0;">
+            <div class="content" style="position:relative;">
+                <span class="litit-en-sentence">The New York Times reported that Nvidia's general counsel contacted Commerce Department investigators probing suspected chip smuggling by Megaspeed invoking a senior Trump appointee. The department allegedly then froze its investigation and handed the case to the Justice Department.</span>
+                <span class="litit-zh-sentence">《纽约时报》报道称，英伟达的法律总顾问在联系负责调查Megaspeed涉嫌走私芯片事件的商务部调查人员时，搬出了一位特朗普政府高级任命官员的名号。据称，该部门随后冻结了调查，并将案件移交给了司法部。</span>
+            </div>
+            <div class="anno-box"><div class="anno-view markdown-body"></div><textarea class="anno-edit" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea></div>
+        </div>
+
+        <div class="content-wrap" style="position:relative; margin-bottom: 14px; background: #ffffff; padding: 14px; border-radius: 8px; border: 1px solid #e2e8f0;">
+            <div class="content" style="position:relative;">
+                <span class="litit-en-sentence">Senator Elizabeth Warren, the top Democrat on the Senate Banking Committee, said Huang's resignation did not absolve him of responsibility, and urged Lutnick to explain why export control loopholes remain open.</span>
+                <span class="litit-zh-sentence">参议院银行委员会最高民主党人、参议员伊丽莎白·沃伦表示，黄仁勋的辞职并不能免除他的责任，并敦促卢特尼克解释为何出口管制漏洞依然存在。</span>
+            </div>
+            <div class="anno-box"><div class="anno-view markdown-body"></div><textarea class="anno-edit" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea></div>
+        </div>
+
+        <h2 class="section-header" style="border-left-color: #8b5cf6;">✨ 本篇亮点与精读</h2>
+        <div style="margin: 14px 0 10px 0;">
+            <details class="litit-fold">
+                <summary>
+                    <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">一、重点记忆</h3>
+                </summary>
+                <div class="litit-fold-content">
+                    <ul style="list-style-type: square; margin: 0; padding-left: 18px; line-height: 1.6;">
+                        <li class="litit-target-sentence content-wrap" style="margin-bottom: 10px;">
+                            <strong class="litit-badge">divert</strong>：转移 / 挪用（物资或资金）<br>
+                            <strong class="content litit-en-sentence">Chips can be bought legally... and then diverted to China.</strong>
+                            <span class="litit-zh-sentence">芯片被合法购买后，再被转移到中国。</span>
+                            <div class="anno-box" style="display:none;"><div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea></div>
+                        </li>
+                        <li class="litit-target-sentence content-wrap" style="margin-bottom: 10px;">
+                            <strong class="litit-badge">counterproductive</strong>：适得其反的<br>
+                            <strong class="content litit-en-sentence">Jensen Huang has long argued that the restrictions are counterproductive.</strong>
+                            <span class="litit-zh-sentence">黄仁勋长期以来一直主张，这些限制措施是适得其反的。</span>
+                            <div class="anno-box" style="display:none;"><div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea></div>
+                        </li>
+                        <li class="litit-target-sentence content-wrap" style="margin-bottom: 10px;">
+                            <strong class="litit-badge">vet</strong>：严格审查 / 调查<br>
+                            <strong class="content litit-en-sentence">An investigation into how the Commerce Department vetted Chinese companies.</strong>
+                            <span class="litit-zh-sentence">一项关于商务部如何审查中国公司的调查。</span>
+                            <div class="anno-box" style="display:none;"><div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea></div>
+                        </li>
+                        <li class="litit-target-sentence content-wrap" style="margin-bottom: 10px;">
+                            <strong class="litit-badge">absolve</strong>：宣告免除（责任、惩罚等）<br>
+                            <strong class="content litit-en-sentence">Huang's resignation did not absolve him of responsibility.</strong>
+                            <span class="litit-zh-sentence">黄仁勋的辞职并不能免除他的责任。</span>
+                            <div class="anno-box" style="display:none;"><div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea></div>
+                        </li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="litit-fold">
+                <summary>
+                    <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">二、高价值表达</h3>
+                </summary>
+                <div class="litit-fold-content">
+                    <ol style="margin: 0; padding-left: 18px;">
+                        <li class="litit-target-sentence content-wrap" style="margin-bottom: 12px;">
+                            <strong class="litit-badge">seek the ear of</strong>：寻求某人的倾听/关注 / 试图影响某人<br>
+                            <strong class="content litit-en-sentence">Jensen Huang wasn't just another tech billionaire seeking the president's ear.</strong>
+                            <span class="litit-zh-sentence">黄仁勋不仅是一个试图向总统进言（寻求总统关注）的科技亿万富翁。<br>（常用于政治报道，指下级或商人试图通过私下接触影响高层决策）。</span>
+                            <div class="anno-box" style="display:none;"><div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea></div>
+                        </li>
+                        <li class="litit-target-sentence content-wrap" style="margin-bottom: 12px;">
+                            <strong class="litit-badge">off limits</strong>：禁止进入的 / 严禁触碰的<br>
+                            <strong class="content litit-en-sentence">Its most advanced Blackwell chips remain off limits.</strong>
+                            <span class="litit-zh-sentence">其最先进的布莱克威尔(Blackwell)芯片仍属禁售范围。<br>（在军事或贸易管制中，指被绝对禁止交易或接触的核心领域）。</span>
+                            <div class="anno-box" style="display:none;"><div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea></div>
+                        </li>
+                        <li class="litit-target-sentence content-wrap" style="margin-bottom: 12px;">
+                            <strong class="litit-badge">invoke someone</strong>：搬出某人 / 援引某人（的权力或名号）<br>
+                            <strong class="content litit-en-sentence">Nvidia's general counsel contacted investigators... invoking a senior Trump appointee.</strong>
+                            <span class="litit-zh-sentence">英伟达的法律总顾问在联系调查人员时，搬出了一位特朗普政府高级任命官员的名号。<br>（形象地表达为了施压或达到目的，狐假虎威地借助更高层领导的权力）。</span>
+                            <div class="anno-box" style="display:none;"><div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea></div>
+                        </li>
+                    </ol>
+                </div>
+            </details>
+
+            <details class="litit-fold">
+                <summary>
+                    <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">三、短语和固定搭配</h3>
+                </summary>
+                <div class="litit-fold-content">
+                    <ul style="list-style-type: square; margin: 0; padding-left: 18px; line-height: 1.6;">
+                        <li class="litit-target-sentence content-wrap" style="margin-bottom: 10px;">
+                            <strong class="litit-badge">of no relation</strong>：毫无亲属关系<br>
+                            <strong class="content litit-en-sentence">Reported affair with Alice Huang, of no relation but a former executive...</strong>
+                            <span class="litit-zh-sentence">与毫无亲属关系的前高管黄乐（Alice Huang）的婚外情。</span>
+                            <div class="anno-box" style="display:none;"><div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea></div>
+                        </li>
+                        <li class="litit-target-sentence content-wrap" style="margin-bottom: 10px;">
+                            <strong class="litit-badge">under scrutiny</strong>：受到严密审查 / 处于风口浪尖<br>
+                            <strong class="content litit-en-sentence">A decision that is now under scrutiny.</strong>
+                            <span class="litit-zh-sentence">这一决定目前正受到审查。</span>
+                            <div class="anno-box" style="display:none;"><div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea></div>
+                        </li>
+                        <li class="litit-target-sentence content-wrap" style="margin-bottom: 10px;">
+                            <strong class="litit-badge">force out</strong>：迫使...辞职 / 逼退<br>
+                            <strong class="content litit-en-sentence">Officials are weighing whether Lutnick should be forced out.</strong>
+                            <span class="litit-zh-sentence">官员们正在权衡是否应迫使卢特尼克辞职。</span>
+                            <div class="anno-box" style="display:none;"><div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea></div>
+                        </li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="litit-fold">
+                <summary>
+                    <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">四、值得学习的句子结构</h3>
+                </summary>
+                <div class="litit-fold-content">
+                    <ol style="margin: 0; padding-left: 18px;">
+                        <li class="litit-target-sentence content-wrap" style="margin-bottom: 12px;">
+                            <strong class="litit-badge">连环反问句式制造悬念与施压</strong><br>
+                            <strong class="content litit-en-sentence">Jensen Huang's personal life may have triggered the crisis, but the questions now reach into the White House itself. How much influence did he have? What did the president know? And who was ultimately responsible for protecting America's most sensitive technology?</strong>
+                            <span class="litit-zh-sentence">黄仁勋的私生活也许是这场危机的导火索，但如今的疑问已触及白宫内部。他到底有多大影响力？总统知道些什么？又是谁最终负责保护美国最敏感的技术？</span>
+                            <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+                                <li style="margin-bottom: 3px;"><strong>词法功能解析</strong>：先用 `may have triggered..., but...` 形成转折，将问题从个人的绯闻拔高到最高政治层面。随后连用三个排比反问句，层层递进地逼问腐败链条的关键节点（影响力的深度、最高层的知情度、监管者的失职）。</li>
+                                <li style="margin-bottom: 3px;"><strong>深度语法解析 (Parsing Method)</strong>：非常典型的西方深度调查报道的结尾写法。通过抛出无需立刻回答但极具震撼力的拷问，将读者的注意力从吃瓜的八卦焦点，死死钉在对政府问责的核心议题上。</li>
+                            </ul>
+                            <div class="anno-box" style="display:none;"><div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea></div>
+                        </li>
+                    </ol>
+                </div>
+            </details>
+
+            <details class="litit-fold">
+                <summary>
+                    <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">五、最值得优先掌握的句型</h3>
+                </summary>
+                <div class="litit-fold-content">
+                    <ol style="margin: 0; padding-left: 18px;">
+                        <li class="litit-target-sentence content-wrap" style="margin-bottom: 12px;">
+                            <strong class="content litit-en-sentence" style="color: #4338ca;">The allegations surrounding [Person]’s reported affair with [Person B] have raised the possibility that a foreign intelligence operation was targeting not just a powerful [Profession], but someone with unusually close access to the [High Official].</strong>
+                            <span class="litit-zh-sentence">围绕 [某人] 被曝出与 [某人B] 有婚外情的指控，引发了这样一种可能性：外国情报机构的目标不仅仅是一位有权势的 [职业]，而是一位能够极其罕见地接近 [高层官员] 的人。<br>
+                            （在涉及高层人物的间谍、渗透或贿赂丑闻报道中，用于揭示“醉翁之意不在酒”、事件背后隐藏的更大政治图谋的极佳分析句式）。</span>
+                            <div class="anno-box" style="display:none;"><div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea></div>
+                        </li>
+                    </ol>
+                </div>
+            </details>
+        </div>
+
+        <h2 class="section-header" style="border-left-color: #0d9488;">💡 幕后冷知识 (Fun Facts)</h2>
+        <ul style="padding-left:18px; line-height:1.8; color:#334155; font-size:14.5px; margin:0 0 24px 0; word-break:break-word;">
+            <li style="margin-bottom: 8px;"><strong>商务部的“黑名单”权力 (Entity List)：</strong> 美国商务部掌控着生杀予夺的“实体清单”。由于跨国走私链条（如通过新加坡Megaspeed中转）极其隐蔽，将可疑企业列入黑名单是斩断供应链最有效的手段。财政部长和国会之所以震怒，正是因为握有这把尚方宝剑的商务部长卢特尼克，在收到高度机密的间谍预警后，居然选择了按兵不动。</li>
+            <li style="margin-bottom: 8px;"><strong>“白手套”与利益输送 (Intervening in investigations)：</strong> 《纽约时报》披露的细节堪称好莱坞政治惊悚片：英伟达不仅向走私中转公司出货，其法律顾问甚至敢直接给负责调查此案的政府调查员打电话，并在电话中“搬出特朗普政府高官（senior Trump appointee）”的名号来施压，直接导致商务部冻结了调查。这种明目张胆的政商勾结，是引爆国会两党集体愤怒的核心原因。</li>
+            <li><strong>闭门作证 (Testify behind closed doors)：</strong> 相比于常在电视上直播的公开听证会（如TikTok CEO受审），“闭门作证”通常涉及高度敏感的国家安全机密、未公开的情报来源或正在进行中的司法部刑事调查（DOJ probe）。黄仁勋同意闭门作证，意味着此案的严重性已远超普通的商业违规。</li>
+        </ul>
+
+        <h2 class="section-header" style="border-left-color: #e11d48;">🎯 全片锐评</h2>
+        <p style="line-height:1.75; color:#1e293b; font-weight:500; background:linear-gradient(135deg, #fff1f2 0%, #ffffff 100%); padding:14px 16px; border-radius:10px; font-size:14.5px; margin:0 0 12px 0; border:1px solid #ffe4e6; word-break:break-word;">
+            如果说黄仁勋此前的丑闻只是一场科技巨头的“后院起火”，那么BBC的这篇报道则彻底将其定性为一场席卷白宫的“政治火灾”。在这场荒诞的政商大戏中，我们看到了令人毛骨悚然的权力寻租：一个控制全球AI算力命脉的寡头，竟然可以通过与总统套近乎、输送利益，换取让商务部冻结对自己客户走私调查的特权。当代表着国家机器的调查员，被英伟达的律师用“特朗普亲信”的名号硬生生逼停调查时，美国标榜的“基于规则的出口管制”便彻底沦为了一个笑话。黄仁勋的皮夹克再也掩盖不住其在国家安全底线上的狂妄与越界。如今，国会传唤与司法部调查的双管齐下，宣告了这场靠“总统特权”维系的危险游戏走到了尽头。黄仁勋或许已经引咎辞职，但留给特朗普政府的，是如何向愤怒的公众和盟友解释——为何美国的最高机密与核心科技，竟在“美人计”与“权力变现”的交易中，防线尽失。
+        </p>
+
+    </div>
+
+    <script id="core-engine">
+        let syncTimeout = null;
+        const AI_PROMPT = "请分析以下英文段落，并严格按照以下 Markdown 格式输出（不要输出任何额外的废话）：\n\n### 📌 完整翻译\n\n[此处填写完整翻译]\n\n### 📌 Key Expressions\n\n- **[单词或短语]**\n  = [中文释义]\n  （[可选的补充说明，如倒装结构或语境等]）\n\n段落内容：\n";
+
+        function initProgressBar() {
+            const progressBar = document.getElementById('reading-progress');
+            if (!progressBar) return;
+            window.addEventListener('scroll', () => {
+                const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+                const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                if (scrollHeight <= 0) return;
+                const scrollPercent = (scrollTop / scrollHeight) * 100;
+                progressBar.style.width = scrollPercent + '%';
+            }, { passive: true });
+        }
+
+        async function fetchGroq(text, apiKey, modelName) {
+            const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + apiKey,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    model: modelName || 'llama-3.3-70b-versatile',
+                    messages: [
+                        { role: 'system', content: 'You are an English teacher. Output EXACTLY in the requested Markdown format.' },
+                        { role: 'user', content: AI_PROMPT + '"' + text + '"' }
+                    ],
+                    temperature: 0.3
+                })
+            });
+            if (!res.ok) throw new Error('Groq Error: ' + res.status);
+            const json = await res.json();
+            return json.choices[0].message.content.trim();
+        }
+
+        async function fetchCustomAI(text, url, apiKey, modelName) {
+            let headers = { 'Content-Type': 'application/json' };
+            let bodyData = {};
+            if (url.includes('anthropic.com')) {
+                headers['x-api-key'] = apiKey;
+                headers['anthropic-version'] = '2023-06-01';
+                headers['anthropic-dangerous-direct-browser-access'] = 'true';
+                bodyData = {
+                    model: modelName || 'claude-3-5-sonnet-20241022',
+                    max_tokens: 2000,
+                    messages: [{ role: 'user', content: AI_PROMPT + '"' + text + '"' }]
+                };
+            } else if (url.includes('generativelanguage.googleapis.com')) {
+                let targetUrl = url;
+                if (!targetUrl.includes('key=')) {
+                    targetUrl += (targetUrl.includes('?') ? '&' : '?') + 'key=' + apiKey;
+                }
+                const res = await fetch(targetUrl, {
+                    method: 'POST',
+                    headers: headers,
+                    body: JSON.stringify({ contents: [{ parts: [{ text: AI_PROMPT + '"' + text + '"' }] }] })
+                });
+                if (!res.ok) throw new Error('Gemini Error: ' + res.status);
+                const json = await res.json();
+                return json.candidates[0].content.parts[0].text.trim();
+            } else {
+                headers['Authorization'] = 'Bearer ' + apiKey;
+                bodyData = {
+                    model: modelName || 'gpt-4o-mini',
+                    messages: [
+                        { role: 'system', content: 'You are an English teacher. Output EXACTLY in the requested Markdown format.' },
+                        { role: 'user', content: AI_PROMPT + '"' + text + '"' }
+                    ],
+                    temperature: 0.3
+                };
+            }
+            const res = await fetch(url, { method: 'POST', headers: headers, body: JSON.stringify(bodyData) });
+            if (!res.ok) throw new Error('AI Interface Error: ' + res.status);
+            const json = await res.json();
+            if (json.choices && json.choices.length > 0) return json.choices[0].message.content.trim();
+            throw new Error('AI 返回数据异常');
+        }
+
+        async function executeAIPipeline(text) {
+            const customUrl = localStorage.getItem('CUSTOM_API_URL') || '';
+            const customKey = localStorage.getItem('CUSTOM_API_KEY') || '';
+            const customModel = localStorage.getItem('CUSTOM_MODEL') || '';
+            const groqKey = localStorage.getItem('GROQ_API_KEY') || '';
+            const groqModel = localStorage.getItem('GROQ_MODEL') || '';
+            if (customUrl && customKey) {
+                try {
+                    return await fetchCustomAI(text, customUrl, customKey, customModel);
+                } catch (err) {
+                    if (groqKey) return await fetchGroq(text, groqKey, groqModel);
+                    throw err;
+                }
+            } else if (groqKey) {
+                return await fetchGroq(text, groqKey, groqModel);
+            } else {
+                const userKey = prompt('⚠️ 当前页面未检测到 AI Key！\n为了安全，密匙只储存在您本地浏览器中。\n\n请输入您的 API Key (如 sk-xxx 或 gsk_xxx):');
+                if (userKey && userKey.trim()) {
+                    const cleanKey = userKey.trim();
+                    if (cleanKey.startsWith('gsk_')) {
+                        localStorage.setItem('GROQ_API_KEY', cleanKey);
+                    } else {
+                        localStorage.setItem('CUSTOM_API_KEY', cleanKey);
+                        localStorage.setItem('CUSTOM_API_URL', 'https://api.chatanywhere.tech/v1/chat/completions');
+                    }
+                }
+                throw new Error('未设置 AI API Key');
+            }
+        }
+
+        function getPurifiedFallbackHTML() {
+            const clone = document.documentElement.cloneNode(true);
+            const foreignSelectors = [
+                'relingo-app', 'relin-highlight', 'relin-hc', '[class*="relingo"]',
+                '[data-relin-paragraph]', 'grammarly-extension', '[data-grammarly-part]',
+                '[class*="immersive-translate"]', '[data-immersive-translate]'
+            ].join(',');
+            clone.querySelectorAll(foreignSelectors).forEach(el => el.remove());
+            clone.querySelectorAll('relin-highlight, relin-hc').forEach(t => {
+                const frag = document.createDocumentFragment();
+                while(t.firstChild) frag.appendChild(t.firstChild);
+                t.parentNode.replaceChild(frag, t);
+            });
+            clone.querySelectorAll('script').forEach(s => {
+                if (!s.src.includes('marked.min.js') && s.id !== 'core-engine') s.remove();
+            });
+            clone.querySelectorAll('style').forEach(s => {
+                if (s.id !== 'core-style') s.remove();
+            });
+            const liveTAs = document.querySelectorAll('.anno-edit');
+            clone.querySelectorAll('.anno-edit').forEach((ta, i) => {
+                if(liveTAs[i]) ta.textContent = liveTAs[i].value.trim();
+                const box = ta.closest('.anno-box');
+                if (box) box.style.display = 'none';
+                const view = box ? box.querySelector('.anno-view') : null;
+                if (view) view.innerHTML = '';
+            });
+            return '<!DOCTYPE html>\n<html lang="zh-CN">\n' + clone.innerHTML + '\n</html>';
+        }
+
+        async function syncToCloud() {
+            const ghToken = localStorage.getItem('LITIT_GH_TOKEN') || localStorage.getItem('GH_TOKEN');
+            const ghOwner = 'moodHappy';
+            const ghRepo = 'dual-read-notes';
+            if (!ghToken) return;
+            const pathParts = window.location.pathname.split('/');
+            const fileName = pathParts.pop();
+            const month = pathParts.pop();
+            const year = pathParts.pop();
+            if(!fileName || !month || !year) return;
+            const fileRelPath = 'Summary/' + year + '/' + month + '/' + fileName;
+            try {
+                const getRes = await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath + '?t=' + Date.now(), {
+                    headers: { 'Authorization': 'Bearer ' + ghToken },
+                    cache: 'no-store'
+                });
+                let finalHTML = '';
+                let sha = '';
+                if (getRes.ok) {
+                    const fileData = await getRes.json();
+                    sha = fileData.sha;
+                    const cleanRawHTML = decodeURIComponent(escape(atob(fileData.content.replace(/\n/g, ''))));
+                    const parser = new DOMParser();
+                    const cleanDoc = parser.parseFromString(cleanRawHTML, 'text/html');
+                    const liveTAs = document.querySelectorAll('.anno-edit');
+                    const cleanTAs = cleanDoc.querySelectorAll('.anno-edit');
+                    liveTAs.forEach((liveTa, index) => {
+                        if (cleanTAs[index]) {
+                            const val = liveTa.value.trim();
+                            cleanTAs[index].textContent = val;
+                            const box = cleanTAs[index].closest('.anno-box');
+                            if (box) box.style.display = 'none';
+                            const view = box ? box.querySelector('.anno-view') : null;
+                            if (view) view.innerHTML = '';
+                        }
+                    });
+                    cleanDoc.querySelectorAll('.anno-toggle').forEach(t => {
+                        t.classList.remove('has-anno');
+                        const ta = t.closest('.content-wrap, .litit-highlight-block')?.querySelector('.anno-edit');
+                        if (ta && ta.textContent.trim()) t.classList.add('has-anno');
+                    });
+                    finalHTML = '<!DOCTYPE html>\n<html lang="zh-CN">\n' + cleanDoc.documentElement.innerHTML + '\n</html>';
+                } else {
+                    finalHTML = getPurifiedFallbackHTML();
+                }
+                await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath, {
+                    method: 'PUT',
+                    headers: { 'Authorization': 'Bearer ' + ghToken, 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        message: 'Silent purified annotation update',
+                        content: btoa(unescape(encodeURIComponent(finalHTML))),
+                        sha: sha || undefined
+                    })
+                });
+                console.log('✅ [My Litit] 纯净无污染批注已静默同步至 GitHub');
+            } catch(e) {
+                console.warn('❌ [My Litit] 同步跳过或失败:', e);
+            }
+        }
+
+        function scheduleSync() {
+            if (syncTimeout) clearTimeout(syncTimeout);
+            syncTimeout = setTimeout(() => { syncToCloud(); }, 3000);
+        }
+
+        function initAnnotations() {
+            document.querySelectorAll('.litit-highlight-block, .content-wrap').forEach(wrap => {
+                let content = wrap.querySelector('.content');
+                if (!content) {
+                    const pText = wrap.querySelector('p');
+                    if (pText) {
+                        content = document.createElement('div');
+                        content.className = 'content';
+                        content.style.cssText = 'position:relative; margin:0 0 6px 0; color:#1a202c; font-family:Georgia, serif; line-height:1.7; font-size:15px; word-break:break-word;';
+                        content.innerHTML = pText.innerHTML;
+                        pText.parentNode.replaceChild(content, pText);
+                    }
+                }
+                if (!content) return;
+                
+                // 优先寻找英文元素的节点，供后续按钮注入使用，确保和英文文本并排
+                let appendTarget = content.querySelector('.litit-en-sentence') || content.querySelector('.litit-en-quote') || content.querySelector('.litit-en-title') || content;
+
+                if (!content.querySelector('.anno-toggle')) {
+                    const toggle = document.createElement('span');
+                    toggle.className = 'anno-toggle';
+                    toggle.title = '手写批注/笔记';
+                    appendTarget.appendChild(toggle);
+                }
+                if (!content.querySelector('.ai-toggle')) {
+                    const aiToggle = document.createElement('span');
+                    aiToggle.className = 'ai-toggle';
+                    aiToggle.title = 'AI智能二次解析';
+                    appendTarget.appendChild(aiToggle);
+                }
+
+                let box = wrap.querySelector('.anno-box');
+                if (!box) {
+                    box = document.createElement('div');
+                    box.className = 'anno-box';
+                    box.style.display = 'none';
+                    box.innerHTML = '<div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 解析..."></textarea>';
+                    wrap.appendChild(box);
+                }
+
+                const view = box.querySelector('.anno-view');
+                const edit = box.querySelector('.anno-edit');
+                const toggle = content.querySelector('.anno-toggle');
+                const aiToggle = content.querySelector('.ai-toggle');
+
+                if (edit && edit.value.trim()) {
+                    toggle.classList.add('has-anno');
+                    try {
+                        view.innerHTML = (typeof marked !== 'undefined') ? marked.parse(edit.value.trim()) : edit.value.trim();
+                    } catch(e){}
+                }
+
+                if (aiToggle) {
+                    aiToggle.onclick = async (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        if (aiToggle.classList.contains('loading')) return;
+                        if (edit && edit.value.trim() !== '') {
+                            const confirmOverwrite = confirm('⚠️ 已经存在批注内容。点击"确定"将使用 AI 解析覆盖现有内容。是否继续？');
+                            if (!confirmOverwrite) return;
+                        }
+                        const pClone = content.cloneNode(true);
+                        pClone.querySelectorAll('.anno-toggle, .ai-toggle').forEach(el => el.remove());
+                        let pText = pClone.textContent.replace(/https?:\/\/\S+/g, '').trim();
+                        if (!pText) return;
+                        
+                        aiToggle.classList.add('loading');
+                        try {
+                            const aiContent = await executeAIPipeline(pText);
+                            box.style.display = 'block';
+                            view.style.display = 'none';
+                            edit.style.display = 'block';
+                            edit.value = aiContent;
+                            edit.focus();
+                            edit.blur();
+                        } catch (err) {
+                            console.error(err);
+                        } finally {
+                            aiToggle.classList.remove('loading');
+                        }
+                    };
+                }
+
+                if (toggle) {
+                    toggle.onclick = (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        if (box.style.display === 'block') {
+                            box.style.display = 'none';
+                        } else {
+                            box.style.display = 'block';
+                            if (!edit.value.trim()) {
+                                view.style.display = 'none';
+                                edit.style.display = 'block';
+                                setTimeout(() => { edit.focus(); }, 150);
+                            } else {
+                                view.style.display = 'block';
+                                edit.style.display = 'none';
+                            }
+                        }
+                    };
+                }
+
+                const triggerEdit = (e) => {
+                    if(e) { e.preventDefault(); e.stopPropagation(); }
+                    view.style.display = 'none';
+                    edit.style.display = 'block';
+                    edit.value = edit.value;
+                    setTimeout(() => { edit.focus(); }, 150);
+                };
+
+                view.addEventListener('dblclick', triggerEdit);
+                let lastTap = 0;
+                view.addEventListener('touchstart', e => {
+                    if (e.touches.length === 2) {
+                        triggerEdit(e);
+                    } else if (e.touches.length === 1) {
+                        const currentTime = new Date().getTime();
+                        if (currentTime - lastTap < 500 && currentTime - lastTap > 0) {
+                            e.preventDefault();
+                            box.style.display = 'none';
+                        }
+                        lastTap = currentTime;
+                    }
+                }, {passive: false});
+
+                if (edit && view) {
+                    edit.onblur = () => {
+                        setTimeout(() => {
+                            const newVal = edit.value.trim();
+                            try {
+                                view.innerHTML = newVal ? ((typeof marked !== 'undefined') ? marked.parse(newVal) : newVal) : '';
+                            } catch(e){}
+                            edit.style.display = 'none';
+                            if (newVal) {
+                                view.style.display = 'block';
+                                toggle.classList.add('has-anno');
+                            } else {
+                                view.style.display = 'none';
+                                box.style.display = 'none';
+                                toggle.classList.remove('has-anno');
+                            }
+                            if (edit.getAttribute('data-old-val') !== newVal) {
+                                edit.setAttribute('data-old-val', newVal);
+                                scheduleSync();
+                            }
+                        }, 150);
+                    };
+                    edit.setAttribute('data-old-val', edit.value.trim());
+                }
+            });
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            initProgressBar();
+            initAnnotations();
+        });
+        window.addEventListener('load', () => {
+            initAnnotations();
+        });
+    </script>
+</body>
+</html>
