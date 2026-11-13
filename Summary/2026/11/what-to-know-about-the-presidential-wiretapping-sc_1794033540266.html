@@ -522,7 +522,7 @@ li.litit-target-sentence > ul > li > strong {
             <strong class="litit-en-sentence">It is unfolding against what many have interpreted as a widening rift between Prabowo and his predecessor, Joko Widodo.</strong>
             <span class="litit-zh-sentence">这一事件正是在许多人认为普拉博沃与他的前任佐科·维多多之间日益扩大的裂痕背景下发生的。</span>
             <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
-              <li style="margin-bottom: 3px;"><strong>介词与从句解析</strong>：`unfolding against` 意为“在……的背景下展开”，其后接由 `what` 引导的名词性从句作为介词宾语。</li>
+              <li style="margin-bottom: 3px;"><strong>介词与从句解析</strong>：`unfolding against` 意为“在……的背景下展开”，其后接由 `what` 引导名词性从句作为介词宾语。</li>
               <li style="margin-bottom: 3px;"><strong>深度语法解析 (Parsing Method)</strong>：外刊极为青睐的宏大叙事句式。它不是简单陈述裂痕存在，而是通过 `what many have interpreted as...` 将丑闻与政治大环境极其自然、客观地关联在一起，展现了记者的洞察力。</li>
             </ul>
           </li>
@@ -575,6 +575,22 @@ li.litit-target-sentence > ul > li > strong {
 <script id="core-engine">
 let syncTimeout = null;
 const AI_PROMPT = "请分析以下英文段落，并严格按照以下 Markdown 格式输出（不要输出任何额外的废话）：\n\n### 📌 完整翻译\n\n[此处填写完整翻译]\n\n### 📌 Key Expressions\n\n- **[单词或短语]**\n = [中文释义]\n （[可选的补充说明，如倒装结构或语境等]）\n\n段落内容：\n";
+
+// 新增功能：自动清理页面中残留的翻译工具乱码标记（如 [span_43](start_span) ）
+function removeTranslateArtifacts() {
+  const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
+  let node;
+  const regex = /\[span_\d+\]\((?:start_span|end_span)\)/g;
+  const nodes = [];
+  while ((node = walker.nextNode())) {
+    if (regex.test(node.nodeValue)) {
+      nodes.push(node);
+    }
+  }
+  nodes.forEach(n => {
+    n.nodeValue = n.nodeValue.replace(/\[span_\d+\]\((?:start_span|end_span)\)/g, '');
+  });
+}
 
 function initProgressBar() {
   const progressBar = document.getElementById('reading-progress');
@@ -716,7 +732,11 @@ function getPurifiedFallbackHTML() {
     const view = box ? box.querySelector('.anno-view') : null;
     if (view) view.innerHTML = '';
   });
-  return '<!DOCTYPE html>\n<html lang="zh-CN">\n' + clone.innerHTML + '\n</html>';
+  
+  let fallbackStr = '<!DOCTYPE html>\n<html lang="zh-CN">\n' + clone.innerHTML + '\n</html>';
+  // 最终后备方案：写入前深度清理翻译乱码标记
+  fallbackStr = fallbackStr.replace(/\[span_\d+\]\((?:start_span|end_span)\)/g, '');
+  return fallbackStr;
 }
 
 async function syncToCloud() {
@@ -769,6 +789,9 @@ async function syncToCloud() {
     } else {
       finalHTML = getPurifiedFallbackHTML();
     }
+
+    // 核心拦截：在上传到 GitHub 之前，进行终极全局字符串过滤
+    finalHTML = finalHTML.replace(/\[span_\d+\]\((?:start_span|end_span)\)/g, '');
 
     await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath, {
       method: 'PUT',
@@ -862,7 +885,10 @@ function initAnnotations() {
 
         aiToggle.classList.add('loading');
         try {
-          const aiContent = await executeAIPipeline(pText);
+          let aiContent = await executeAIPipeline(pText);
+          // AI 拦截清理：剔除可能抓取到的翻译遗留占位符
+          aiContent = aiContent.replace(/\[span_\d+\]\((?:start_span|end_span)\)/g, '');
+          
           box.style.display = 'block';
           view.style.display = 'none';
           edit.style.display = 'block';
@@ -954,6 +980,7 @@ function initAnnotations() {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
+  removeTranslateArtifacts(); // 页面初次加载时进行渲染层清洗
   initProgressBar();
   initAnnotations();
 });
