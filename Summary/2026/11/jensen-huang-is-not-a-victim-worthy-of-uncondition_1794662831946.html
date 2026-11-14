@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Jensen Huang Is Not a Victim Worthy of Unconditional Sympathy</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style id="core-style">
+        :root {
+            --bg-page: #ffffff;
+            --bg-card: #ffffff;
+            --text-main: #0f172a;
+            --text-sub: #334155;
+            --text-muted: #64748b;
+            --accent-primary: #4f46e5;
+            --border-subtle: #e2e8f0;
+            --font-serif: "Georgia", "Charter", "Source Han Serif SC", "Noto Serif CJK SC", serif;
+            --font-sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", Roboto, sans-serif;
+        }
+        body {
+            font-family: var(--font-sans);
+            padding: 12px 12px 36px 12px;
+            margin: 0 auto;
+            max-width: 780px;
+            background: var(--bg-page);
+            color: var(--text-main);
+            line-height: 1.75;
+            font-size: 16px;
+            word-wrap: break-word;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+        * {
+            box-sizing: border-box;
+            max-width: 100%;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        #reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(90deg, #4f46e5, #9333ea);
+            z-index: 9999;
+            transition: width 0.1s ease-out;
+        }
+        .litit-report {
+            background: var(--bg-card);
+            padding: 0;
+        }
+        .anno-toggle, .ai-toggle {
+            display: inline-block;
+            padding: 2px 5px;
+            margin-left: 5px;
+            cursor: pointer;
+            opacity: 0.45;
+            font-size: 0.85rem;
+            vertical-align: middle;
+            transition: all 0.2s;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .anno-toggle:hover, .ai-toggle:hover {
+            opacity: 1;
+            transform: scale(1.15);
+        }
+        .anno-toggle.has-anno {
+            opacity: 1;
+        }
+        .anno-toggle::after {
+            content: "🔴";
+        }
+        .ai-toggle {
+            opacity: 0.7;
+            padding: 2px 4px;
+        }
+        .ai-toggle::after {
+            content: "🤖";
+        }
+        .ai-toggle.loading::after {
+            content: "⏳";
+            display: inline-block;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+        .anno-box {
+            display: none;
+            margin-top: 10px;
+            background: #faf8ff;
+            border-left: 3px solid #7c3aed;
+            padding: 12px 14px;
+            border-radius: 0 8px 8px 0;
+            text-align: left;
+        }
+        .anno-view {
+            font-size: 0.95rem;
+            line-height: 1.65;
+            color: #334155;
+            min-height: 24px;
+        }
+        .anno-edit {
+            width: 100%;
+            min-height: 240px;
+            padding: 10px;
+            font-family: monospace;
+            font-size: 0.95rem;
+            border: 1px dashed #a78bfa;
+            border-radius: 6px;
+            resize: vertical;
+            display: none;
+            background: #fff;
+            color: #1e293b;
+            outline: none;
+        }
+        .anno-edit:focus {
+            border: 1px solid #7c3aed;
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.12);
+        }
+        .markdown-body p {
+            margin-top: 0;
+            margin-bottom: 8px;
+        }
+        .markdown-body p:last-child {
+            margin-bottom: 0;
+        }
+        .markdown-body h1, .markdown-body h2, .markdown-body h3 {
+            color: #5b21b6;
+            font-size: 1.05rem;
+            margin: 10px 0 6px 0;
+            border-bottom: 1px dashed #ddd6fe;
+            padding-bottom: 4px;
+        }
+        .markdown-body ul, .markdown-body ol {
+            margin: 0 0 8px 0;
+            padding-left: 18px;
+        }
+        .markdown-body blockquote {
+            margin: 0 0 10px 0;
+            padding: 8px 12px;
+            background: rgba(124, 58, 237, 0.06);
+            border-left: 3px solid #7c3aed;
+            color: #475569;
+        }
+        .section-header {
+            font-size: 16px;
+            color: #0f172a;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            background: linear-gradient(90deg, #f8fafc 0%, #ffffff 100%);
+            padding: 8px 12px;
+            border-left: 4px solid #4f46e5;
+            margin: 26px 0 14px 0;
+            border-radius: 0 6px 6px 0;
+            display: flex;
+            align-items: center;
+            box-shadow: inset 0 1px 0 #f1f5f9, inset 0 -1px 0 #f1f5f9;
+        }
+        details.litit-fold {
+            margin-bottom: 10px;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            background: #ffffff;
+            overflow: hidden;
+            transition: border-color 0.2s ease;
+        }
+        details.litit-fold[open] {
+            border-color: #cbd5e1;
+        }
+        details.litit-fold summary {
+            cursor: pointer;
+            padding: 12px 14px;
+            outline: none;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f8fafc;
+            transition: background 0.2s;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        details.litit-fold summary::-webkit-details-marker {
+            display: none;
+        }
+        details.litit-fold summary::after {
+            display: none;
+        }
+        details.litit-fold summary:hover {
+            background: #f1f5f9;
+        }
+        details.litit-fold[open] summary {
+            border-bottom: 1px solid #e2e8f0;
+            background: #f8fafc;
+            border-left: 3px solid #4f46e5;
+        }
+        .litit-fold-content {
+            padding: 10px 8px;
+            background: #f8fafc;
+        }
+        .litit-fold-content > ol, .litit-fold-content > ul {
+            list-style: none !important;
+            padding-left: 0 !important;
+            margin: 0 !important;
+            counter-reset: litit-counter;
+        }
+        .litit-fold-content > ol > li, .litit-fold-content > ul > li {
+            counter-increment: litit-counter;
+            position: relative;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 12px 12px;
+            margin-bottom: 10px !important;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.015);
+        }
+        .litit-fold-content > ol > li:last-child, .litit-fold-content > ul > li:last-child {
+            margin-bottom: 0 !important;
+        }
+        .litit-fold-content > ol > li::before, .litit-fold-content > ul > li::before {
+            content: "NO." counter(litit-counter, decimal-leading-zero);
+            display: block;
+            width: max-content;
+            font-size: 10px;
+            font-weight: 800;
+            font-family: -apple-system, BlinkMacSystemFont, monospace;
+            color: #4f46e5;
+            background: #eef2ff;
+            padding: 1px 6px;
+            border-radius: 4px;
+            margin-bottom: 8px;
+            letter-spacing: 0.04em;
+        }
+        .litit-en-sentence {
+            display: block;
+            font-family: var(--font-serif);
+            font-size: 1.04rem;
+            font-weight: 600;
+            color: #0f172a;
+            line-height: 1.5;
+            margin-bottom: 6px;
+        }
+        .litit-zh-sentence {
+            display: block;
+            font-family: var(--font-sans);
+            font-size: 0.93rem;
+            color: #475569;
+            line-height: 1.55;
+            margin-bottom: 2px;
+        }
+        li.litit-target-sentence > br {
+            display: none;
+        }
+        .litit-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #eef2ff 0%, #f3e8ff 100%);
+            color: #4338ca;
+            padding: 2px 8px;
+            border-radius: 5px;
+            font-size: 0.92rem;
+            font-weight: 700;
+            margin-right: 4px;
+            margin-bottom: 6px;
+            border: 1px solid #e0e7ff;
+            vertical-align: middle;
+        }
+        li.litit-target-sentence > ul {
+            list-style: none !important;
+            margin: 10px 0 0 0 !important;
+            padding: 8px 10px !important;
+            background: #f8fafc;
+            border-radius: 6px;
+            border-left: 2.5px solid #94a3b8;
+        }
+        li.litit-target-sentence > ul > li {
+            position: relative;
+            padding-left: 10px;
+            margin-bottom: 5px !important;
+            font-size: 0.88rem;
+            color: #334155;
+            line-height: 1.5;
+        }
+        li.litit-target-sentence > ul > li:last-child {
+            margin-bottom: 0 !important;
+        }
+        li.litit-target-sentence > ul > li::before {
+            content: "·";
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: #4f46e5;
+            font-weight: 900;
+        }
+        li.litit-target-sentence > ul > li > strong {
+            color: #0f172a;
+            font-weight: 600;
+            background: #e2e8f0;
+            padding: 1px 5px;
+            border-radius: 4px;
+            font-size: 0.84rem;
+            margin-right: 3px;
+        }
+        @media (max-width: 600px) {
+            body { padding: 10px 10px 30px 10px; font-size: 15px; }
+            h1.litit-target-title { font-size: 21px !important; }
+            .litit-fold-content { padding: 8px 6px; }
+            .litit-fold-content > ol > li, .litit-fold-content > ul > li { padding: 11px 10px; margin-bottom: 8px !important; }
+        }
+    </style>
+</head>
+<body>
+    <div id="reading-progress"></div>
+    <div class="litit-report" style="width:100%; max-width:100%; box-sizing:border-box; overflow-x:hidden;">
+        
+        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom: 2px solid #0f172a; padding-bottom: 6px; margin-bottom: 14px; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: #64748b; text-transform: uppercase;">
+            <span>The Global Dispatch · 深度双语精读</span>
+            <span>U.S. Politics</span>
+        </div>
+
+        <div class="content-wrap" style="position:relative; margin-bottom: 16px;">
+            <h1 class="litit-target-title" style="color:#0f172a; font-size: 24px; line-height: 1.35; font-family: var(--font-serif); font-weight: 800; border-bottom: 1px solid #e2e8f0; padding-bottom: 14px; margin-top:0; margin-bottom:0; word-break:break-word;">
+                <span class="content litit-en-title" style="position:relative;">Jensen Huang Is Not a Victim Worthy of Unconditional Sympathy</span>
+                <br>
+                <span class="litit-zh-title" style="font-family: var(--font-sans); font-size: 17px; font-weight: 600; color: #475569; margin-top: 8px; display: inline-block; line-height: 1.45;">黄仁勋不是一个值得无条件共情的受害者</span>
+            </h1>
+            <div class="anno-box" style="display:none; margin-top: 10px;">
+                <div class="anno-view markdown-body"></div>
+                <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea>
+            </div>
+        </div>
+
+        <p style="color:#334155; font-size: 15px; line-height: 1.75; margin-bottom:16px; font-weight:400; background: #f8fafc; padding: 12px 14px; border-radius: 8px; border: 1px solid #f1f5f9;">
+            黄仁勋因性丑闻及被指控干预美国对华科技战略而黯然下台，在舆论场中引发了两种极端的反应。独立短讯的这篇锐评犀利地批评了这种两极分化：一方面，作者反驳了将黄包装为“无辜政治受害者”的论调，直言这位掌握着庞大政治影响力的寡头，试图凭借与总统的私交将个人商业利益凌驾于美国国家安全战略之上，理应受到华盛顿鹰派的严厉敲打；另一方面，作者同样痛斥了部分西方媒体（如《纽约时报》的作者），用皮夹克等的私生活细节进行道德构陷的卑劣行径。这篇评论将焦点拉回了最核心的命题：在一个超级大国的政治运转中，究竟该如何划定资本狂妄与国家利益的底线？
+        </p>
+
+        <div style="margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+            <div style="display:flex; flex-wrap:wrap; gap:6px;">
+                <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;">资本与政治</span>
+                <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;">道德审判</span>
+                <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;">国家安全</span>
+            </div>
+            <a href="https://moodhappy.github.io/ShortStories/Summary/2026/11/jensen-huang-is-not-a-victim-worthy-of-uncondition_1794661981000.html" target="_blank" style="font-size: 12.5px; color: #4f46e5; text-decoration: none; font-weight: 600; background: #eef2ff; padding: 5px 12px; border-radius: 16px; border: 1px solid #e0e7ff; display:inline-block;">🔗 来源: 独立短讯 ↗</a>
+        </div>
+
+        <h2 class="section-header" style="border-left-color: #f59e0b;">💬 最佳金句</h2>
+        <div class="content-wrap" style="position:relative; margin-bottom:24px;">
+            <blockquote class="litit-target-quote" style="border-left: 3.5px solid #f59e0b; background: linear-gradient(135deg, #fffbeb 0%, #ffffff 100%); padding: 14px 14px; margin: 0; color: #1e293b; border-radius: 0 10px 10px 0; border-top: 1px solid #fef3c7; border-right: 1px solid #fef3c7; border-bottom: 1px solid #fef3c7;">
+                <div class="content litit-en-quote" style="position:relative; margin:0 0 8px 0; font-family: var(--font-serif); font-style: italic; font-weight:600; font-size: 16.5px; line-height: 1.55; color:#0f172a; word-break:break-word;">
+                    "Corporate interests are not the same as national interests, and commercial judgments do not automatically carry the legitimacy of national strategy."
+                </div>
+                <p class="litit-zh-quote" style="margin:0 0 8px 0; font-weight:400; font-size: 14.5px; line-height: 1.6; color:#475569; word-break:break-word;">
+                    “企业利益不等于国家利益，商业判断也不天然具有国家战略的正当性。”
+                </p>
+                <footer style="text-align:right; font-size:12px; color:#64748b; font-style:normal; font-weight:600;">—— 作者直指核心地点破了黄仁勋遭到美国朝野集体抛弃的最根本原因。</footer>
+            </blockquote>
+            <div class="anno-box" style="display:none;">
+                <div class="anno-view markdown-body"></div>
+                <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea>
+            </div>
+        </div>
+
+        <h2 class="section-header" style="border-left-color: #10b981;">📊 关键数字</h2>
+        <div style="display:grid; grid-template-columns: repeat(2, 1fr); gap:10px; margin:14px 0 24px 0;">
+            <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+                <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+                    2<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">种政策</span>
+                </div>
+                <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">代表着黄仁勋与华盛顿鹰派在对华科技竞争问题上截然相反的两种路线碰撞</div>
+            </div>
+            <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+                <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+                    0<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">政治授权</span>
+                </div>
+                <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">作者强调，黄仁勋没有任何政治授权能把一家公司的利益提升为整个国家的利益</div>
+            </div>
+            <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+                <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+                    2<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">个方面</span>
+                </div>
+                <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">作者一方面批评了黄试图干预国家决策，另一方面也痛斥了媒体对其进行无关痛痒的道德构陷</div>
+            </div>
+            <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+                <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+                    唯一<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">发问</span>
+                </div>
+                <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">文章最终抛出终极疑问：当私人资本干预国家决策时，商业利益与公共利益的边界究竟在哪？</div>
+            </div>
+        </div>
+
+        <h2 class="section-header" style="border-left-color: #3b82f6;">⏱️ 文章核心脉络</h2>
+        <ul style="padding-left:18px; line-height:1.8; color:#334155; font-size: 14.5px; margin-bottom:24px; word-break:break-word;">
+            <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">拒绝过度共情：</strong> 文章开篇批评了将黄仁勋视为“政治斗争受害者”的舆论倾向，指出他绝非弱势群体，而是一个利用私人特权干预国家决策的亿万富翁。</li>
+            <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">路线之争的实质：</strong> 黄仁勋坚持向中国卖芯片是商业利益至上，而华盛顿鹰派则视先进芯片为事关生死的战略资产。这种企业利益凌驾于国家战略的企图，才是他真正激怒政界的根源。</li>
+            <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">痛斥媒体道德构陷：</strong> 作者笔锋一转，严厉批评了部分媒体（指代《纽约时报》的传记作者专栏）避重就轻，用皮夹克和傲慢性格等私生活细节对其进行“荡妇羞辱”式的道德审判，认为这拉低了公共政策讨论的底线。</li>
+            <li><strong style="color:#1d4ed8;">资本与权力的边界：</strong> 结语发出深刻拷问：在一个民主社会中，私人资本究竟能在多大程度上左右国家最高层级的战略方向？</li>
+        </ul>
+
+        <h2 class="section-header" style="border-left-color: #ec4899;">📖 双语正文精读</h2>
+        
+        <div class="content-wrap" style="position:relative; margin-bottom: 14px; background: #ffffff; padding: 14px; border-radius: 8px; border: 1px solid #e2e8f0;">
+            <div class="content" style="position:relative;">
+                <span class="litit-en-sentence">The controversy surrounding Jensen Huang has produced a rather interesting phenomenon in public opinion: many people have portrayed him as a victim of Washington's political infighting, expressing sympathy for his predicament as though a successful entrepreneur were being unfairly targeted by the bureaucratic establishment.</span>
+                <span class="litit-zh-sentence">围绕黄仁勋的风波，舆论中出现了一种颇为有趣的现象：不少人将他视为华盛顿政治斗争的受害者，对他的遭遇表达同情，仿佛一个成功的企业家正在遭受官僚体系的不公正打压。</span>
+            </div>
+            <div class="anno-box"><div class="anno-view markdown-body"></div><textarea class="anno-edit" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea></div>
+        </div>
+
+        <div class="content-wrap" style="position:relative; margin-bottom: 14px; background: #ffffff; padding: 14px; border-radius: 8px; border: 1px solid #e2e8f0;">
+            <div class="content" style="position:relative;">
+                <span class="litit-en-sentence">Rather than examining how Huang may have used personal connections to influence national policy, some reports seem more interested in his leather jacket, coffee habits, working style and personality, speculating about his arrogance, hypocrisy and even his moral character.</span>
+                <span class="litit-zh-sentence">相比于讨论黄仁勋如何利用私人关系影响国家政策，一些报道却热衷于从他的皮夹克、咖啡习惯、工作方式和个人性格入手，揣测他的傲慢、虚伪乃至道德品质。</span>
+            </div>
+            <div class="anno-box"><div class="anno-view markdown-body"></div><textarea class="anno-edit" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea></div>
+        </div>
+
+        <div class="content-wrap" style="position:relative; margin-bottom: 14px; background: #ffffff; padding: 14px; border-radius: 8px; border: 1px solid #e2e8f0;">
+            <div class="content" style="position:relative;">
+                <span class="litit-en-sentence">The public is entirely justified in asking a fundamental question: When private capital begins to exert direct influence over the highest levels of national strategic decision-making, where exactly should the line between commercial interests and the public interest be drawn?</span>
+                <span class="litit-zh-sentence">公众完全有理由追问：当资本开始直接影响国家最高层的战略决策时，究竟应该如何划定商业利益与公共利益之间的边界？</span>
+            </div>
+            <div class="anno-box"><div class="anno-view markdown-body"></div><textarea class="anno-edit" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea></div>
+        </div>
+
+        <h2 class="section-header" style="border-left-color: #8b5cf6;">✨ 本篇亮点与精读</h2>
+        <div style="margin: 14px 0 10px 0;">
+            <details class="litit-fold">
+                <summary>
+                    <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">一、重点记忆</h3>
+                </summary>
+                <div class="litit-fold-content">
+                    <ul style="list-style-type: square; margin: 0; padding-left: 18px; line-height: 1.6;">
+                        <li class="litit-target-sentence content-wrap" style="margin-bottom: 10px;">
+                            <strong class="litit-badge">infighting</strong>：内斗 / 倾轧<br>
+                            <strong class="content litit-en-sentence">Portrayed him as a victim of Washington's political infighting.</strong>
+                            <span class="litit-zh-sentence">将他视为华盛顿政治斗争（内斗）的受害者。</span>
+                            <div class="anno-box" style="display:none;"><div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea></div>
+                        </li>
+                        <li class="litit-target-sentence content-wrap" style="margin-bottom: 10px;">
+                            <strong class="litit-badge">establishment</strong>：权势集团 / 官僚体系<br>
+                            <strong class="content litit-en-sentence">Unfairly targeted by the bureaucratic establishment.</strong>
+                            <span class="litit-zh-sentence">遭受官僚体系（权势集团）的不公正打压。</span>
+                            <div class="anno-box" style="display:none;"><div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea></div>
+                        </li>
+                        <li class="litit-target-sentence content-wrap" style="margin-bottom: 10px;">
+                            <strong class="litit-badge">mandate</strong>：授权 / 政治委托<br>
+                            <strong class="content litit-en-sentence">He has no inherent political mandate to elevate the interests...</strong>
+                            <span class="litit-zh-sentence">他并没有天然的政治授权，可以把利益提升...</span>
+                            <div class="anno-box" style="display:none;"><div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea></div>
+                        </li>
+                        <li class="litit-target-sentence content-wrap" style="margin-bottom: 10px;">
+                            <strong class="litit-badge">smear</strong>：抹黑 / 诽谤<br>
+                            <strong class="content litit-en-sentence">I reject attempts by the media to morally smear him.</strong>
+                            <span class="litit-zh-sentence">我拒绝媒体在道德上抹黑（构陷）他的企图。</span>
+                            <div class="anno-box" style="display:none;"><div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea></div>
+                        </li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="litit-fold">
+                <summary>
+                    <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">二、高价值表达</h3>
+                </summary>
+                <div class="litit-fold-content">
+                    <ol style="margin: 0; padding-left: 18px;">
+                        <li class="litit-target-sentence content-wrap" style="margin-bottom: 12px;">
+                            <strong class="litit-badge">at face value</strong>：从表面上接受 / 信以为真<br>
+                            <strong class="content litit-en-sentence">Nor does it mean that every allegation against him should be accepted at face value.</strong>
+                            <span class="litit-zh-sentence">也不意味着任何针对他的指控都应该被（从表面上）全盘接受。<br>（常用于辩证分析中，提醒读者不要轻易相信未经证实的表面说法）。</span>
+                            <div class="anno-box" style="display:none;"><div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea></div>
+                        </li>
+                        <li class="litit-target-sentence content-wrap" style="margin-bottom: 12px;">
+                            <strong class="litit-badge">in the strongest terms</strong>：以最强烈的措辞 / 极其严厉地<br>
+                            <strong class="content litit-en-sentence">I have no problem with criticizing Huang's political influence in the strongest terms.</strong>
+                            <span class="litit-zh-sentence">我可以极其严厉地（以最强烈的措辞）批评黄仁勋的政治影响力。<br>（外交或评论文章中常用来表达一种毫不妥协的坚定立场）。</span>
+                            <div class="anno-box" style="display:none;"><div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea></div>
+                        </li>
+                        <li class="litit-target-sentence content-wrap" style="margin-bottom: 12px;">
+                            <strong class="litit-badge">draw the line</strong>：划定界限 / 设置底线<br>
+                            <strong class="content litit-en-sentence">Where exactly should the line between commercial interests and the public interest be drawn?</strong>
+                            <span class="litit-zh-sentence">究竟应该如何划定商业利益与公共利益之间的边界？<br>（用于法律、道德或政策探讨中寻找核心平衡点的惯用句型）。</span>
+                            <div class="anno-box" style="display:none;"><div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea></div>
+                        </li>
+                    </ol>
+                </div>
+            </details>
+
+            <details class="litit-fold">
+                <summary>
+                    <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">三、短语和固定搭配</h3>
+                </summary>
+                <div class="litit-fold-content">
+                    <ul style="list-style-type: square; margin: 0; padding-left: 18px; line-height: 1.6;">
+                        <li class="litit-target-sentence content-wrap" style="margin-bottom: 10px;">
+                            <strong class="litit-badge">subject to</strong>：受...约束 / 必须接受...<br>
+                            <strong class="content litit-en-sentence">The exercise of government power must be subject to constraints as well.</strong>
+                            <span class="litit-zh-sentence">政府权力的行使同样需要受到约束。</span>
+                            <div class="anno-box" style="display:none;"><div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea></div>
+                        </li>
+                        <li class="litit-target-sentence content-wrap" style="margin-bottom: 10px;">
+                            <strong class="litit-badge">be entitled to</strong>：有权做某事 / 有资格获得<br>
+                            <strong class="content litit-en-sentence">A billionaire is perfectly entitled to take part in political debate.</strong>
+                            <span class="litit-zh-sentence">一个亿万富翁当然有权参与政治辩论。</span>
+                            <div class="anno-box" style="display:none;"><div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea></div>
+                        </li>
+                        <li class="litit-target-sentence content-wrap" style="margin-bottom: 10px;">
+                            <strong class="litit-badge">first and foremost</strong>：首先 / 首要的是<br>
+                            <strong class="content litit-en-sentence">First and foremost, he is a businessman.</strong>
+                            <span class="litit-zh-sentence">他首先是一个商人。</span>
+                            <div class="anno-box" style="display:none;"><div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea></div>
+                        </li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="litit-fold">
+                <summary>
+                    <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">四、值得学习的句子结构</h3>
+                </summary>
+                <div class="litit-fold-content">
+                    <ol style="margin: 0; padding-left: 18px;">
+                        <li class="litit-target-sentence content-wrap" style="margin-bottom: 12px;">
+                            <strong class="litit-badge">As though 引导的虚拟语气与被动语态结合</strong><br>
+                            <strong class="content litit-en-sentence">The controversy surrounding Jensen Huang has produced a rather interesting phenomenon in public opinion: many people have portrayed him as a victim of Washington's political infighting, expressing sympathy for his predicament as though a successful entrepreneur were being unfairly targeted by the bureaucratic establishment.</strong>
+                            <span class="litit-zh-sentence">围绕黄仁勋的风波，舆论中出现了一种颇为有趣的现象：不少人将他视为华盛顿政治斗争的受害者，对他的遭遇表达同情，仿佛一个成功的企业家正在遭受官僚体系的不公正打压。</span>
+                            <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+                                <li style="margin-bottom: 3px;"><strong>词法功能解析</strong>：`as though` 后面使用了虚拟语气 `were being unfairly targeted`（尽管主语是单数entrepreneur，依然用were），表明作者认为“黄仁勋遭受不公”完全是舆论的错误想象或虚假建构。</li>
+                                <li style="margin-bottom: 3px;"><strong>深度语法解析 (Parsing Method)</strong>：非常高阶且具有强烈批判色彩的句型。通过“描述现象(portrayed him)” + “补充态度(expressing sympathy)” + “虚拟假设(as though...were...)”，在长句的最后轻而易举地颠覆了前面公众看似合理的同情，为后文的反驳铺平了道路。</li>
+                            </ul>
+                            <div class="anno-box" style="display:none;"><div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea></div>
+                        </li>
+                    </ol>
+                </div>
+            </details>
+
+            <details class="litit-fold">
+                <summary>
+                    <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">五、最值得优先掌握的句型</h3>
+                </summary>
+                <div class="litit-fold-content">
+                    <ol style="margin: 0; padding-left: 18px;">
+                        <li class="litit-target-sentence content-wrap" style="margin-bottom: 12px;">
+                            <strong class="content litit-en-sentence" style="color: #4338ca;">Rather than examining how [Entity A] may have used [Means] to influence [Important Outcome], some reports seem more interested in [Trivial Detail A], [Trivial Detail B] and [Trivial Detail C], speculating about his [Negative Trait A] and even his [Negative Trait B].</strong>
+                            <span class="litit-zh-sentence">相比于讨论 [实体A] 如何利用 [某种手段] 影响 [重大结果]，一些报道却热衷于从 [微小细节A]、[细节B] 和 [细节C] 入手，揣测他的 [负面特质A] 乃至 [负面特质B]。<br>
+                            （新闻评论中的“降维打击”句式。极其锋利地批评同行或竞争对手的报道避重就轻、哗众取宠，将严肃议题庸俗化的低劣做法）。</span>
+                            <div class="anno-box" style="display:none;"><div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea></div>
+                        </li>
+                    </ol>
+                </div>
+            </details>
+        </div>
+
+        <h2 class="section-header" style="border-left-color: #0d9488;">💡 幕后冷知识 (Fun Facts)</h2>
+        <ul style="padding-left:18px; line-height:1.8; color:#334155; font-size:14.5px; margin:0 0 24px 0; word-break:break-word;">
+            <li style="margin-bottom: 8px;"><strong>“荡妇羞辱”式的反转 (Slut-shaming in Tech Media)：</strong> 本文在行文后半段暗讽了早前《纽约时报》黄仁勋传记作者发表的名为《黄仁勋因何跌落神坛？傲慢与自负》的专栏。那篇文章大肆描写了黄仁勋的咖啡习惯、皮夹克和暴君脾气。本文作者极度反感这种用私生活八卦掩盖重大政策漏洞的“饭圈化”新闻审查手法，认为这是在模糊焦点的道德构陷。</li>
+            <li style="margin-bottom: 8px;"><strong>利益集团与旋转门 (Revolving Door)：</strong> 黄仁勋试图影响高层决策的行为在美国政治被称为“游说（Lobbying）”。美国允许合法的商业游说，但鹰派反感的是，黄仁勋跳过了正规的参众两院听证会，直接利用给特朗普的政治捐款和在海湖庄园的饭局拿到了免死金牌（对华销售芯片抽成）。这是对美国传统官僚体系（Establishment）底线的严重挑衅。</li>
+            <li><strong>路线之争 (Policy Approaches)：</strong> 华盛顿目前在科技冷战上彻底撕裂为两派：“商业强国派”（认为只有把芯片卖给中国赚钱，才有经费研发下一代技术，保持全球霸主地位）和“国家安全派”（认为任何一点高端算力流入中国，都会变成射向美军的导弹，必须牺牲企业利润来绞杀对手）。黄仁勋风波，正是这两种底层路线发生暴力碰撞的火花。</li>
+        </ul>
+
+        <h2 class="section-header" style="border-left-color: #e11d48;">🎯 全片锐评</h2>
+        <p style="line-height:1.75; color:#1e293b; font-weight:500; background:linear-gradient(135deg, #fff1f2 0%, #ffffff 100%); padding:14px 16px; border-radius:10px; font-size:14.5px; margin:0 0 12px 0; border:1px solid #ffe4e6; word-break:break-word;">
+            当全网都在沉迷于黄仁勋的“间谍情妇”和《纽约时报》对他性格的道德审判时，这篇来自独立短讯的评论如同一记响亮的耳光，打醒了所有被八卦蒙蔽双眼的看客。文章极其冷酷地将黄仁勋从“被政治迫害的可怜企业家”的假象中剥离出来，直指其本质：一个妄图用金钱与总统私交，跨过国会与国安局，将个人百亿利润强行捆绑为国家战略的科技寡头。作者不仅痛批了黄仁勋“资本僭越政治”的狂妄，更罕见地对西方主流媒体展开了“同行相轻”式的降维打击——用皮夹克和傲慢性格去定罪一个改变了全球AI格局的巨头，是新闻业的堕落与避重就轻。这篇评论将这起硅谷最肮脏的丑闻，硬生生拔高到了一个哲学层面的灵魂拷问：在资本能够直接购买总统特权、甚至干预大国冷战战略的今天，美国究竟该拿什么来捍卫那条不容侵犯的“公共利益”底线？
+        </p>
+
+    </div>
+
+    <script id="core-engine">
+        let syncTimeout = null;
+        const AI_PROMPT = "请分析以下英文段落，并严格按照以下 Markdown 格式输出（不要输出任何额外的废话）：\n\n### 📌 完整翻译\n\n[此处填写完整翻译]\n\n### 📌 Key Expressions\n\n- **[单词或短语]**\n  = [中文释义]\n  （[可选的补充说明，如倒装结构或语境等]）\n\n段落内容：\n";
+
+        function initProgressBar() {
+            const progressBar = document.getElementById('reading-progress');
+            if (!progressBar) return;
+            window.addEventListener('scroll', () => {
+                const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+                const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                if (scrollHeight <= 0) return;
+                const scrollPercent = (scrollTop / scrollHeight) * 100;
+                progressBar.style.width = scrollPercent + '%';
+            }, { passive: true });
+        }
+
+        async function fetchGroq(text, apiKey, modelName) {
+            const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + apiKey,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    model: modelName || 'llama-3.3-70b-versatile',
+                    messages: [
+                        { role: 'system', content: 'You are an English teacher. Output EXACTLY in the requested Markdown format.' },
+                        { role: 'user', content: AI_PROMPT + '"' + text + '"' }
+                    ],
+                    temperature: 0.3
+                })
+            });
+            if (!res.ok) throw new Error('Groq Error: ' + res.status);
+            const json = await res.json();
+            return json.choices[0].message.content.trim();
+        }
+
+        async function fetchCustomAI(text, url, apiKey, modelName) {
+            let headers = { 'Content-Type': 'application/json' };
+            let bodyData = {};
+            if (url.includes('anthropic.com')) {
+                headers['x-api-key'] = apiKey;
+                headers['anthropic-version'] = '2023-06-01';
+                headers['anthropic-dangerous-direct-browser-access'] = 'true';
+                bodyData = {
+                    model: modelName || 'claude-3-5-sonnet-20241022',
+                    max_tokens: 2000,
+                    messages: [{ role: 'user', content: AI_PROMPT + '"' + text + '"' }]
+                };
+            } else if (url.includes('generativelanguage.googleapis.com')) {
+                let targetUrl = url;
+                if (!targetUrl.includes('key=')) {
+                    targetUrl += (targetUrl.includes('?') ? '&' : '?') + 'key=' + apiKey;
+                }
+                const res = await fetch(targetUrl, {
+                    method: 'POST',
+                    headers: headers,
+                    body: JSON.stringify({ contents: [{ parts: [{ text: AI_PROMPT + '"' + text + '"' }] }] })
+                });
+                if (!res.ok) throw new Error('Gemini Error: ' + res.status);
+                const json = await res.json();
+                return json.candidates[0].content.parts[0].text.trim();
+            } else {
+                headers['Authorization'] = 'Bearer ' + apiKey;
+                bodyData = {
+                    model: modelName || 'gpt-4o-mini',
+                    messages: [
+                        { role: 'system', content: 'You are an English teacher. Output EXACTLY in the requested Markdown format.' },
+                        { role: 'user', content: AI_PROMPT + '"' + text + '"' }
+                    ],
+                    temperature: 0.3
+                };
+            }
+            const res = await fetch(url, { method: 'POST', headers: headers, body: JSON.stringify(bodyData) });
+            if (!res.ok) throw new Error('AI Interface Error: ' + res.status);
+            const json = await res.json();
+            if (json.choices && json.choices.length > 0) return json.choices[0].message.content.trim();
+            throw new Error('AI 返回数据异常');
+        }
+
+        async function executeAIPipeline(text) {
+            const customUrl = localStorage.getItem('CUSTOM_API_URL') || '';
+            const customKey = localStorage.getItem('CUSTOM_API_KEY') || '';
+            const customModel = localStorage.getItem('CUSTOM_MODEL') || '';
+            const groqKey = localStorage.getItem('GROQ_API_KEY') || '';
+            const groqModel = localStorage.getItem('GROQ_MODEL') || '';
+            if (customUrl && customKey) {
+                try {
+                    return await fetchCustomAI(text, customUrl, customKey, customModel);
+                } catch (err) {
+                    if (groqKey) return await fetchGroq(text, groqKey, groqModel);
+                    throw err;
+                }
+            } else if (groqKey) {
+                return await fetchGroq(text, groqKey, groqModel);
+            } else {
+                const userKey = prompt('⚠️ 当前页面未检测到 AI Key！\n为了安全，密匙只储存在您本地浏览器中。\n\n请输入您的 API Key (如 sk-xxx 或 gsk_xxx):');
+                if (userKey && userKey.trim()) {
+                    const cleanKey = userKey.trim();
+                    if (cleanKey.startsWith('gsk_')) {
+                        localStorage.setItem('GROQ_API_KEY', cleanKey);
+                    } else {
+                        localStorage.setItem('CUSTOM_API_KEY', cleanKey);
+                        localStorage.setItem('CUSTOM_API_URL', 'https://api.chatanywhere.tech/v1/chat/completions');
+                    }
+                }
+                throw new Error('未设置 AI API Key');
+            }
+        }
+
+        function getPurifiedFallbackHTML() {
+            const clone = document.documentElement.cloneNode(true);
+            const foreignSelectors = [
+                'relingo-app', 'relin-highlight', 'relin-hc', '[class*="relingo"]',
+                '[data-relin-paragraph]', 'grammarly-extension', '[data-grammarly-part]',
+                '[class*="immersive-translate"]', '[data-immersive-translate]'
+            ].join(',');
+            clone.querySelectorAll(foreignSelectors).forEach(el => el.remove());
+            clone.querySelectorAll('relin-highlight, relin-hc').forEach(t => {
+                const frag = document.createDocumentFragment();
+                while(t.firstChild) frag.appendChild(t.firstChild);
+                t.parentNode.replaceChild(frag, t);
+            });
+            clone.querySelectorAll('script').forEach(s => {
+                if (!s.src.includes('marked.min.js') && s.id !== 'core-engine') s.remove();
+            });
+            clone.querySelectorAll('style').forEach(s => {
+                if (s.id !== 'core-style') s.remove();
+            });
+            const liveTAs = document.querySelectorAll('.anno-edit');
+            clone.querySelectorAll('.anno-edit').forEach((ta, i) => {
+                if(liveTAs[i]) ta.textContent = liveTAs[i].value.trim();
+                const box = ta.closest('.anno-box');
+                if (box) box.style.display = 'none';
+                const view = box ? box.querySelector('.anno-view') : null;
+                if (view) view.innerHTML = '';
+            });
+            return '<!DOCTYPE html>\n<html lang="zh-CN">\n' + clone.innerHTML + '\n</html>';
+        }
+
+        async function syncToCloud() {
+            const ghToken = localStorage.getItem('LITIT_GH_TOKEN') || localStorage.getItem('GH_TOKEN');
+            const ghOwner = 'moodHappy';
+            const ghRepo = 'dual-read-notes';
+            if (!ghToken) return;
+            const pathParts = window.location.pathname.split('/');
+            const fileName = pathParts.pop();
+            const month = pathParts.pop();
+            const year = pathParts.pop();
+            if(!fileName || !month || !year) return;
+            const fileRelPath = 'Summary/' + year + '/' + month + '/' + fileName;
+            try {
+                const getRes = await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath + '?t=' + Date.now(), {
+                    headers: { 'Authorization': 'Bearer ' + ghToken },
+                    cache: 'no-store'
+                });
+                let finalHTML = '';
+                let sha = '';
+                if (getRes.ok) {
+                    const fileData = await getRes.json();
+                    sha = fileData.sha;
+                    const cleanRawHTML = decodeURIComponent(escape(atob(fileData.content.replace(/\n/g, ''))));
+                    const parser = new DOMParser();
+                    const cleanDoc = parser.parseFromString(cleanRawHTML, 'text/html');
+                    const liveTAs = document.querySelectorAll('.anno-edit');
+                    const cleanTAs = cleanDoc.querySelectorAll('.anno-edit');
+                    liveTAs.forEach((liveTa, index) => {
+                        if (cleanTAs[index]) {
+                            const val = liveTa.value.trim();
+                            cleanTAs[index].textContent = val;
+                            const box = cleanTAs[index].closest('.anno-box');
+                            if (box) box.style.display = 'none';
+                            const view = box ? box.querySelector('.anno-view') : null;
+                            if (view) view.innerHTML = '';
+                        }
+                    });
+                    cleanDoc.querySelectorAll('.anno-toggle').forEach(t => {
+                        t.classList.remove('has-anno');
+                        const ta = t.closest('.content-wrap, .litit-highlight-block')?.querySelector('.anno-edit');
+                        if (ta && ta.textContent.trim()) t.classList.add('has-anno');
+                    });
+                    finalHTML = '<!DOCTYPE html>\n<html lang="zh-CN">\n' + cleanDoc.documentElement.innerHTML + '\n</html>';
+                } else {
+                    finalHTML = getPurifiedFallbackHTML();
+                }
+                await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath, {
+                    method: 'PUT',
+                    headers: { 'Authorization': 'Bearer ' + ghToken, 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        message: 'Silent purified annotation update',
+                        content: btoa(unescape(encodeURIComponent(finalHTML))),
+                        sha: sha || undefined
+                    })
+                });
+                console.log('✅ [My Litit] 纯净无污染批注已静默同步至 GitHub');
+            } catch(e) {
+                console.warn('❌ [My Litit] 同步跳过或失败:', e);
+            }
+        }
+
+        function scheduleSync() {
+            if (syncTimeout) clearTimeout(syncTimeout);
+            syncTimeout = setTimeout(() => { syncToCloud(); }, 3000);
+        }
+
+        function initAnnotations() {
+            document.querySelectorAll('.litit-highlight-block, .content-wrap').forEach(wrap => {
+                let content = wrap.querySelector('.content');
+                if (!content) {
+                    const pText = wrap.querySelector('p');
+                    if (pText) {
+                        content = document.createElement('div');
+                        content.className = 'content';
+                        content.style.cssText = 'position:relative; margin:0 0 6px 0; color:#1a202c; font-family:Georgia, serif; line-height:1.7; font-size:15px; word-break:break-word;';
+                        content.innerHTML = pText.innerHTML;
+                        pText.parentNode.replaceChild(content, pText);
+                    }
+                }
+                if (!content) return;
+                
+                // 优先寻找英文元素的节点，供后续按钮注入使用，确保和英文文本并排
+                let appendTarget = content.querySelector('.litit-en-sentence') || content.querySelector('.litit-en-quote') || content.querySelector('.litit-en-title') || content;
+
+                if (!content.querySelector('.anno-toggle')) {
+                    const toggle = document.createElement('span');
+                    toggle.className = 'anno-toggle';
+                    toggle.title = '手写批注/笔记';
+                    appendTarget.appendChild(toggle);
+                }
+                if (!content.querySelector('.ai-toggle')) {
+                    const aiToggle = document.createElement('span');
+                    aiToggle.className = 'ai-toggle';
+                    aiToggle.title = 'AI智能二次解析';
+                    appendTarget.appendChild(aiToggle);
+                }
+
+                let box = wrap.querySelector('.anno-box');
+                if (!box) {
+                    box = document.createElement('div');
+                    box.className = 'anno-box';
+                    box.style.display = 'none';
+                    box.innerHTML = '<div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 解析..."></textarea>';
+                    wrap.appendChild(box);
+                }
+
+                const view = box.querySelector('.anno-view');
+                const edit = box.querySelector('.anno-edit');
+                const toggle = content.querySelector('.anno-toggle');
+                const aiToggle = content.querySelector('.ai-toggle');
+
+                if (edit && edit.value.trim()) {
+                    toggle.classList.add('has-anno');
+                    try {
+                        view.innerHTML = (typeof marked !== 'undefined') ? marked.parse(edit.value.trim()) : edit.value.trim();
+                    } catch(e){}
+                }
+
+                if (aiToggle) {
+                    aiToggle.onclick = async (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        if (aiToggle.classList.contains('loading')) return;
+                        if (edit && edit.value.trim() !== '') {
+                            const confirmOverwrite = confirm('⚠️ 已经存在批注内容。点击"确定"将使用 AI 解析覆盖现有内容。是否继续？');
+                            if (!confirmOverwrite) return;
+                        }
+                        const pClone = content.cloneNode(true);
+                        pClone.querySelectorAll('.anno-toggle, .ai-toggle').forEach(el => el.remove());
+                        let pText = pClone.textContent.replace(/https?:\/\/\S+/g, '').trim();
+                        if (!pText) return;
+                        
+                        aiToggle.classList.add('loading');
+                        try {
+                            const aiContent = await executeAIPipeline(pText);
+                            box.style.display = 'block';
+                            view.style.display = 'none';
+                            edit.style.display = 'block';
+                            edit.value = aiContent;
+                            edit.focus();
+                            edit.blur();
+                        } catch (err) {
+                            console.error(err);
+                        } finally {
+                            aiToggle.classList.remove('loading');
+                        }
+                    };
+                }
+
+                if (toggle) {
+                    toggle.onclick = (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        if (box.style.display === 'block') {
+                            box.style.display = 'none';
+                        } else {
+                            box.style.display = 'block';
+                            if (!edit.value.trim()) {
+                                view.style.display = 'none';
+                                edit.style.display = 'block';
+                                setTimeout(() => { edit.focus(); }, 150);
+                            } else {
+                                view.style.display = 'block';
+                                edit.style.display = 'none';
+                            }
+                        }
+                    };
+                }
+
+                const triggerEdit = (e) => {
+                    if(e) { e.preventDefault(); e.stopPropagation(); }
+                    view.style.display = 'none';
+                    edit.style.display = 'block';
+                    edit.value = edit.value;
+                    setTimeout(() => { edit.focus(); }, 150);
+                };
+
+                view.addEventListener('dblclick', triggerEdit);
+                let lastTap = 0;
+                view.addEventListener('touchstart', e => {
+                    if (e.touches.length === 2) {
+                        triggerEdit(e);
+                    } else if (e.touches.length === 1) {
+                        const currentTime = new Date().getTime();
+                        if (currentTime - lastTap < 500 && currentTime - lastTap > 0) {
+                            e.preventDefault();
+                            box.style.display = 'none';
+                        }
+                        lastTap = currentTime;
+                    }
+                }, {passive: false});
+
+                if (edit && view) {
+                    edit.onblur = () => {
+                        setTimeout(() => {
+                            const newVal = edit.value.trim();
+                            try {
+                                view.innerHTML = newVal ? ((typeof marked !== 'undefined') ? marked.parse(newVal) : newVal) : '';
+                            } catch(e){}
+                            edit.style.display = 'none';
+                            if (newVal) {
+                                view.style.display = 'block';
+                                toggle.classList.add('has-anno');
+                            } else {
+                                view.style.display = 'none';
+                                box.style.display = 'none';
+                                toggle.classList.remove('has-anno');
+                            }
+                            if (edit.getAttribute('data-old-val') !== newVal) {
+                                edit.setAttribute('data-old-val', newVal);
+                                scheduleSync();
+                            }
+                        }, 150);
+                    };
+                    edit.setAttribute('data-old-val', edit.value.trim());
+                }
+            });
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            initProgressBar();
+            initAnnotations();
+        });
+        window.addEventListener('load', () => {
+            initAnnotations();
+        });
+    </script>
+</body>
+</html>
