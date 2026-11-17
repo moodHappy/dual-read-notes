@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Trump’s Asia Trip Will Bring Him to the Table With Xi and Putin</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style id="core-style">
+        :root {
+            --bg-page: #ffffff;
+            --bg-card: #ffffff;
+            --text-main: #0f172a;
+            --text-sub: #334155;
+            --text-muted: #64748b;
+            --accent-primary: #4f46e5;
+            --border-subtle: #e2e8f0;
+            --font-serif: "Georgia", "Charter", "Source Han Serif SC", "Noto Serif CJK SC", serif;
+            --font-sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", Roboto, sans-serif;
+        }
+        body {
+            font-family: var(--font-sans);
+            padding: 12px 12px 36px 12px;
+            margin: 0 auto;
+            max-width: 780px;
+            background: var(--bg-page);
+            color: var(--text-main);
+            line-height: 1.75;
+            font-size: 16px;
+            word-wrap: break-word;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+        * {
+            box-sizing: border-box;
+            max-width: 100%;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        #reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(90deg, #4f46e5, #9333ea);
+            z-index: 9999;
+            transition: width 0.1s ease-out;
+        }
+        .litit-report {
+            background: var(--bg-card);
+            padding: 0;
+        }
+        .anno-toggle, .ai-toggle {
+            display: inline-block;
+            padding: 2px 5px;
+            margin-left: 5px;
+            cursor: pointer;
+            opacity: 0.45;
+            font-size: 0.85rem;
+            vertical-align: middle;
+            transition: all 0.2s;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .anno-toggle:hover, .ai-toggle:hover {
+            opacity: 1;
+            transform: scale(1.15);
+        }
+        .anno-toggle.has-anno {
+            opacity: 1;
+        }
+        .anno-toggle::after {
+            content: "🔴";
+        }
+        .ai-toggle {
+            opacity: 0.7;
+            padding: 2px 4px;
+        }
+        .ai-toggle::after {
+            content: "🤖";
+        }
+        .ai-toggle.loading::after {
+            content: "⏳";
+            display: inline-block;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+        .anno-box {
+            display: none;
+            margin-top: 10px;
+            background: #faf8ff;
+            border-left: 3px solid #7c3aed;
+            padding: 12px 14px;
+            border-radius: 0 8px 8px 0;
+            text-align: left;
+        }
+        .anno-view {
+            font-size: 0.95rem;
+            line-height: 1.65;
+            color: #334155;
+            min-height: 24px;
+        }
+        .anno-edit {
+            width: 100%;
+            min-height: 240px;
+            padding: 10px;
+            font-family: monospace;
+            font-size: 0.95rem;
+            border: 1px dashed #a78bfa;
+            border-radius: 6px;
+            resize: vertical;
+            display: none;
+            background: #fff;
+            color: #1e293b;
+            outline: none;
+        }
+        .anno-edit:focus {
+            border: 1px solid #7c3aed;
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.12);
+        }
+        .markdown-body p {
+            margin-top: 0;
+            margin-bottom: 8px;
+        }
+        .markdown-body p:last-child {
+            margin-bottom: 0;
+        }
+        .markdown-body h1, .markdown-body h2, .markdown-body h3 {
+            color: #5b21b6;
+            font-size: 1.05rem;
+            margin: 10px 0 6px 0;
+            border-bottom: 1px dashed #ddd6fe;
+            padding-bottom: 4px;
+        }
+        .markdown-body ul, .markdown-body ol {
+            margin: 0 0 8px 0;
+            padding-left: 18px;
+        }
+        .markdown-body blockquote {
+            margin: 0 0 10px 0;
+            padding: 8px 12px;
+            background: rgba(124, 58, 237, 0.06);
+            border-left: 3px solid #7c3aed;
+            color: #475569;
+        }
+        .section-header {
+            font-size: 16px;
+            color: #0f172a;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            background: linear-gradient(90deg, #f8fafc 0%, #ffffff 100%);
+            padding: 8px 12px;
+            border-left: 4px solid #4f46e5;
+            margin: 26px 0 14px 0;
+            border-radius: 0 6px 6px 0;
+            display: flex;
+            align-items: center;
+            box-shadow: inset 0 1px 0 #f1f5f9, inset 0 -1px 0 #f1f5f9;
+        }
+        details.litit-fold {
+            margin-bottom: 10px;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            background: #ffffff;
+            overflow: hidden;
+            transition: border-color 0.2s ease;
+        }
+        details.litit-fold[open] {
+            border-color: #cbd5e1;
+        }
+        details.litit-fold summary {
+            cursor: pointer;
+            padding: 12px 14px;
+            outline: none;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f8fafc;
+            transition: background 0.2s;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        details.litit-fold summary::-webkit-details-marker {
+            display: none;
+        }
+        details.litit-fold summary::after {
+            display: none;
+        }
+        details.litit-fold summary:hover {
+            background: #f1f5f9;
+        }
+        details.litit-fold[open] summary {
+            border-bottom: 1px solid #e2e8f0;
+            background: #f8fafc;
+            border-left: 3px solid #4f46e5;
+        }
+        .litit-fold-content {
+            padding: 10px 8px;
+            background: #f8fafc;
+        }
+        .litit-fold-content > ol, .litit-fold-content > ul {
+            list-style: none !important;
+            padding-left: 0 !important;
+            margin: 0 !important;
+            counter-reset: litit-counter;
+        }
+        .litit-fold-content > ol > li, .litit-fold-content > ul > li {
+            counter-increment: litit-counter;
+            position: relative;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 12px 12px;
+            margin-bottom: 10px !important;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.015);
+        }
+        .litit-fold-content > ol > li:last-child, .litit-fold-content > ul > li:last-child {
+            margin-bottom: 0 !important;
+        }
+        .litit-fold-content > ol > li::before, .litit-fold-content > ul > li::before {
+            content: "NO." counter(litit-counter, decimal-leading-zero);
+            display: block;
+            width: max-content;
+            font-size: 10px;
+            font-weight: 800;
+            font-family: -apple-system, BlinkMacSystemFont, monospace;
+            color: #4f46e5;
+            background: #eef2ff;
+            padding: 1px 6px;
+            border-radius: 4px;
+            margin-bottom: 8px;
+            letter-spacing: 0.04em;
+        }
+        .litit-en-sentence {
+            display: block;
+            font-family: var(--font-serif);
+            font-size: 1.04rem;
+            font-weight: 600;
+            color: #0f172a;
+            line-height: 1.5;
+            margin-bottom: 6px;
+        }
+        .litit-zh-sentence {
+            display: block;
+            font-family: var(--font-sans);
+            font-size: 0.93rem;
+            color: #475569;
+            line-height: 1.55;
+            margin-bottom: 2px;
+        }
+        li.litit-target-sentence > br {
+            display: none;
+        }
+        .litit-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #eef2ff 0%, #f3e8ff 100%);
+            color: #4338ca;
+            padding: 2px 8px;
+            border-radius: 5px;
+            font-size: 0.92rem;
+            font-weight: 700;
+            margin-right: 4px;
+            margin-bottom: 6px;
+            border: 1px solid #e0e7ff;
+            vertical-align: middle;
+        }
+        li.litit-target-sentence > ul {
+            list-style: none !important;
+            margin: 10px 0 0 0 !important;
+            padding: 8px 10px !important;
+            background: #f8fafc;
+            border-radius: 6px;
+            border-left: 2.5px solid #94a3b8;
+        }
+        li.litit-target-sentence > ul > li {
+            position: relative;
+            padding-left: 10px;
+            margin-bottom: 5px !important;
+            font-size: 0.88rem;
+            color: #334155;
+            line-height: 1.5;
+        }
+        li.litit-target-sentence > ul > li:last-child {
+            margin-bottom: 0 !important;
+        }
+        li.litit-target-sentence > ul > li::before {
+            content: "·";
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: #4f46e5;
+            font-weight: 900;
+        }
+        li.litit-target-sentence > ul > li > strong {
+            color: #0f172a;
+            font-weight: 600;
+            background: #e2e8f0;
+            padding: 1px 5px;
+            border-radius: 4px;
+            font-size: 0.84rem;
+            margin-right: 3px;
+        }
+        @media (max-width: 600px) {
+            body { padding: 10px 10px 30px 10px; font-size: 15px; }
+            h1.litit-target-title { font-size: 21px !important; }
+            .litit-fold-content { padding: 8px 6px; }
+            .litit-fold-content > ol > li, .litit-fold-content > ul > li { padding: 11px 10px; margin-bottom: 8px !important; }
+        }
+    </style>
+</head>
+<body>
+    <div id="reading-progress"></div>
+    <div class="litit-report" style="width:100%; max-width:100%; box-sizing:border-box; overflow-x:hidden;">
+        
+        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom: 2px solid #0f172a; padding-bottom: 6px; margin-bottom: 14px; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: #64748b; text-transform: uppercase;">
+            <span>The Global Dispatch · 深度双语精读</span>
+            <span>Geopolitics & Tech</span>
+        </div>
+
+        <div class="content-wrap" style="position:relative; margin-bottom: 16px;">
+            <h1 class="litit-target-title" style="color:#0f172a; font-size: 24px; line-height: 1.35; font-family: var(--font-serif); font-weight: 800; border-bottom: 1px solid #e2e8f0; padding-bottom: 14px; margin-top:0; margin-bottom:0; word-break:break-word;">
+                <span class="content litit-en-title" style="position:relative;">Trump’s Asia Trip Will Bring Him to the Table With Xi and Putin</span>
+                <br>
+                <span class="litit-zh-title" style="font-family: var(--font-sans); font-size: 17px; font-weight: 600; color: #475569; margin-top: 8px; display: inline-block; line-height: 1.45;">关于特朗普访华及中美俄首脑会晤，你应该了解的</span>
+            </h1>
+            <div class="anno-box" style="display:none; margin-top: 10px;">
+                <div class="anno-view markdown-body"></div>
+                <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea>
+            </div>
+        </div>
+
+        <p style="color:#334155; font-size: 15px; line-height: 1.75; margin-bottom:16px; font-weight:400; background: #f8fafc; padding: 12px 14px; border-radius: 8px; border: 1px solid #f1f5f9;">
+            本周，刚在中期选举中遭遇挫败的特朗普总统，将开启一场犹如现代版“雅尔塔会议”的亚洲之行。在中国的深圳，他将史无前例地与中国国家主席习近平和俄罗斯总统普京同台，这三位掌握着全球最大核武库的领导人将首次坐上同一张谈判桌。然而，横亘在这次历史性峰会面前的，不仅有美伊战争的阴霾和核军控的僵局，更有一个刚刚引爆美国政商两界的深水炸弹：英伟达前CEO黄仁勋卷入的涉华“间谍门”。失去了黄仁勋这个科技缓冲垫，面对国内民主党控制国会的掣肘，特朗普与习近平在这场充满核威慑、AI制裁与稀土博弈的谈判中，还能否维系中美之间本就脆弱的贸易休战？
+        </p>
+
+        <div style="margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+            <div style="display:flex; flex-wrap:wrap; gap:6px;">
+                <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;">大国博弈</span>
+                <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;">科技脱钩</span>
+                <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;">核军控</span>
+            </div>
+            <a href="https://cn.nytimes.com/world/20261117/trump-asia-china-xi-putin/dual/" target="_blank" style="font-size: 12.5px; color: #4f46e5; text-decoration: none; font-weight: 600; background: #eef2ff; padding: 5px 12px; border-radius: 16px; border: 1px solid #e0e7ff; display:inline-block;">🔗 来源: 纽约时报 ↗</a>
+        </div>
+
+        <h2 class="section-header" style="border-left-color: #f59e0b;">💬 最佳金句</h2>
+        <div class="content-wrap" style="position:relative; margin-bottom:24px;">
+            <blockquote class="litit-target-quote" style="border-left: 3.5px solid #f59e0b; background: linear-gradient(135deg, #fffbeb 0%, #ffffff 100%); padding: 14px 14px; margin: 0; color: #1e293b; border-radius: 0 10px 10px 0; border-top: 1px solid #fef3c7; border-right: 1px solid #fef3c7; border-bottom: 1px solid #fef3c7;">
+                <div class="content litit-en-quote" style="position:relative; margin:0 0 8px 0; font-family: var(--font-serif); font-style: italic; font-weight:600; font-size: 16.5px; line-height: 1.55; color:#0f172a; word-break:break-word;">
+                    “The prospect of their summit has drawn comparisons to the 1945 conference in the Crimean city of Yalta, where the leaders of the United States, the Soviet Union and Britain met to decide the shape of postwar Europe.”
+                </div>
+                <p class="litit-zh-quote" style="margin:0 0 8px 0; font-weight:400; font-size: 14.5px; line-height: 1.6; color:#475569; word-break:break-word;">
+                    “这场峰会让人联想到1945年在克里米亚城市雅尔塔举行的会议。当时，美苏英三国领导人举行会晤，以决定战后欧洲的格局。”
+                </p>
+                <footer style="text-align:right; font-size:12px; color:#64748b; font-style:normal; font-weight:600;">—— 借用“雅尔塔会议”这个极具历史重量的隐喻，不仅点出了此次美中俄三方首脑会晤的极高规格，更暗示了三位手握核按钮的强人可能会像当年一样，在闭门会议中重新划分全球势力范围。</footer>
+            </blockquote>
+            <div class="anno-box" style="display:none;">
+                <div class="anno-view markdown-body"></div>
+                <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea>
+            </div>
+        </div>
+
+        <h2 class="section-header" style="border-left-color: #10b981;">📊 关键数字</h2>
+        <div style="display:grid; grid-template-columns: repeat(2, 1fr); gap:10px; margin:14px 0 24px 0;">
+            <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+                <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+                    2<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">次</span>
+                </div>
+                <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">特朗普将成为首位在一个自然年内两次访华的美国总统，足见此次外交调整的迫切性。</div>
+            </div>
+            <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+                <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+                    1000<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">枚</span>
+                </div>
+                <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">美国官员担忧中国加速核扩充，预计到2030年中国核弹头数量将达到此数字（目前约620枚）。</div>
+            </div>
+            <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+                <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+                    5000<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">+</span>
+                </div>
+                <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">美俄各自拥有的核弹头数量基数，远远超过中国目前的核武库规模。</div>
+            </div>
+            <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+                <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+                    2<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">个月</span>
+                </div>
+                <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">由于中国限制稀土出口，华盛顿作为筹码，仅同意将美中贸易休战协议短暂延长至明年1月。</div>
+            </div>
+        </div>
+
+        <h2 class="section-header" style="border-left-color: #3b82f6;">⏱️ 文章核心脉络</h2>
+        <ul style="padding-left:18px; line-height:1.8; color:#334155; font-size: 14.5px; margin-bottom:24px; word-break:break-word;">
+            <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">“现代雅尔塔”峰会：</strong> 特朗普将在中国深圳历史性地与习近平和普京同台，核心议题直指全球核军控（美方希望将中国拉入条约）与美伊战争，而乌克兰问题被微妙地排除在外。</li>
+            <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">安抚盟友的开场：</strong> 特朗普首站选择菲律宾，试图在“四方安全对话”（Quad）的框架下安抚亚太盟友，这被外界视作其在中期选举受挫后迫切展示外交实力的举动。</li>
+            <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">芯片阴云笼罩：</strong> 英伟达前CEO黄仁勋因间谍丑闻缺席此次访华，失去了这位曾经说服特朗普放宽芯片限制的“桥梁”，中方极度担忧美国会进一步锁死AI科技出口。</li>
+            <li><strong style="color:#1d4ed8;">贸易与稀土拉锯：</strong> 面对即将由民主党控制的国内制约，特朗普的筹码有限。双方维系脆弱贸易休战（仅延期两个月）的核心矛盾，仍卡在中国的关键稀土出口限制上。</li>
+        </ul>
+
+        <h2 class="section-header" style="border-left-color: #ec4899;">📖 双语正文精读</h2>
+        
+        <div class="content-wrap" style="position:relative; margin-bottom: 14px; background: #ffffff; padding: 14px; border-radius: 8px; border: 1px solid #e2e8f0;">
+            <div class="content" style="position:relative;">
+                <span class="litit-en-sentence">For Mr. Trump, the trip will be a pivot to foreign policy and relationships after American voters delivered a swift rebuke to his party in the midterm elections.</span>
+                <span class="litit-zh-sentence">对于特朗普而言，在美国选民于中期选举中迅速对其所属政党表达不满之后，此行将是一次转向外交政策和对外关系的调整。</span>
+            </div>
+            <div class="anno-box"><div class="anno-view markdown-body"></div><textarea class="anno-edit" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea></div>
+        </div>
+
+        <div class="content-wrap" style="position:relative; margin-bottom: 14px; background: #ffffff; padding: 14px; border-radius: 8px; border: 1px solid #e2e8f0;">
+            <div class="content" style="position:relative;">
+                <span class="litit-en-sentence">Mr. Huang stepped down from his role at Nvidia after revelations that he had an affair with a Chinese businesswoman, Alice Huang, who U.S. intelligence officials believe was collecting intelligence on Mr. Huang for Beijing.</span>
+                <span class="litit-zh-sentence">在与中国商界女性黄乐(Alice Huang)发生婚外情的消息曝光后，黄仁勋辞去了英伟达的职务。美国情报官员认为，黄乐一直在为北京方面收集有关黄仁勋的情报。</span>
+            </div>
+            <div class="anno-box"><div class="anno-view markdown-body"></div><textarea class="anno-edit" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea></div>
+        </div>
+
+        <div class="content-wrap" style="position:relative; margin-bottom: 14px; background: #ffffff; padding: 14px; border-radius: 8px; border: 1px solid #e2e8f0;">
+            <div class="content" style="position:relative;">
+                <span class="litit-en-sentence">As a result, U.S.-based analysts speculated that Mr. Xi might try to use his personal relationship with Mr. Trump to forestall such restrictions.</span>
+                <span class="litit-zh-sentence">因此，美国的分析人士推测，习近平可能试图利用自己与特朗普的私人关系，阻止美国进一步收紧相关限制。</span>
+            </div>
+            <div class="anno-box"><div class="anno-view markdown-body"></div><textarea class="anno-edit" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea></div>
+        </div>
+
+        <h2 class="section-header" style="border-left-color: #8b5cf6;">✨ 本篇亮点与精读</h2>
+        <div style="margin: 14px 0 10px 0;">
+            <details class="litit-fold">
+                <summary>
+                    <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">一、重点记忆</h3>
+                </summary>
+                <div class="litit-fold-content">
+                    <ul style="list-style-type: square; margin: 0; padding-left: 18px; line-height: 1.6;">
+                        <li class="litit-target-sentence content-wrap" style="margin-bottom: 10px;">
+                            <strong class="litit-badge">culminate in</strong>：以...告终 / 达到高潮<br>
+                            <strong class="content litit-en-sentence">Meetings in Asia that will culminate in a summit.</strong>
+                            <span class="litit-zh-sentence">在亚洲参加的一系列会议，行程的高潮将是举行峰会。</span>
+                            <div class="anno-box" style="display:none;"><div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea></div>
+                        </li>
+                        <li class="litit-target-sentence content-wrap" style="margin-bottom: 10px;">
+                            <strong class="litit-badge">rebuke</strong>：指责 / 批评 / 不满<br>
+                            <strong class="content litit-en-sentence">American voters delivered a swift rebuke to his party.</strong>
+                            <span class="litit-zh-sentence">美国选民迅速对其所属政党表达了不满。</span>
+                            <div class="anno-box" style="display:none;"><div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea></div>
+                        </li>
+                        <li class="litit-target-sentence content-wrap" style="margin-bottom: 10px;">
+                            <strong class="litit-badge">de-escalation</strong>：降温 / 缓和<br>
+                            <strong class="content litit-en-sentence">We want to see a de-escalation in the conflicts.</strong>
+                            <span class="litit-zh-sentence">我们希望看到冲突降温。</span>
+                            <div class="anno-box" style="display:none;"><div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea></div>
+                        </li>
+                        <li class="litit-target-sentence content-wrap" style="margin-bottom: 10px;">
+                            <strong class="litit-badge">forestall</strong>：预先阻止 / 抢先防备<br>
+                            <strong class="content litit-en-sentence">To forestall such restrictions.</strong>
+                            <span class="litit-zh-sentence">阻止（防范于未然）进一步收紧相关限制。</span>
+                            <div class="anno-box" style="display:none;"><div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea></div>
+                        </li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="litit-fold">
+                <summary>
+                    <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">二、高价值表达</h3>
+                </summary>
+                <div class="litit-fold-content">
+                    <ol style="margin: 0; padding-left: 18px;">
+                        <li class="litit-target-sentence content-wrap" style="margin-bottom: 12px;">
+                            <strong class="litit-badge">command the arsenal</strong>：掌握武库 / 指挥武装<br>
+                            <strong class="content litit-en-sentence">The three men, who command the world’s largest nuclear arsenals.</strong>
+                            <span class="litit-zh-sentence">掌握全球最大核武库的三位领导人。<br>（极具权力和威慑力的表达，描绘出大国领袖的底牌）。</span>
+                            <div class="anno-box" style="display:none;"><div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea></div>
+                        </li>
+                        <li class="litit-target-sentence content-wrap" style="margin-bottom: 12px;">
+                            <strong class="litit-badge">pivot to</strong>：转向 / 调整重心至<br>
+                            <strong class="content litit-en-sentence">The trip will be a pivot to foreign policy.</strong>
+                            <span class="litit-zh-sentence">此行将是一次转向外交政策的调整。<br>（政治新闻高频词，形容国家战略或个人焦点的重大转移）。</span>
+                            <div class="anno-box" style="display:none;"><div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea></div>
+                        </li>
+                        <li class="litit-target-sentence content-wrap" style="margin-bottom: 12px;">
+                            <strong class="litit-badge">keep sb. on side</strong>：让某人保持同一阵线<br>
+                            <strong class="content litit-en-sentence">Xi will have to work much harder to keep Trump on side.</strong>
+                            <span class="litit-zh-sentence">习近平将不得不付出更大努力，才能让特朗普继续站在自己这一边。<br>（非常地道的政治/谈判用语，描述拉拢盟友或谈判对手）。</span>
+                            <div class="anno-box" style="display:none;"><div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea></div>
+                        </li>
+                    </ol>
+                </div>
+            </details>
+
+            <details class="litit-fold">
+                <summary>
+                    <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">三、短语和固定搭配</h3>
+                </summary>
+                <div class="litit-fold-content">
+                    <ul style="list-style-type: square; margin: 0; padding-left: 18px; line-height: 1.6;">
+                        <li class="litit-target-sentence content-wrap" style="margin-bottom: 10px;">
+                            <strong class="litit-badge">draw comparisons to</strong>：让人联想到 / 与...作比较<br>
+                            <strong class="content litit-en-sentence">The prospect of their summit has drawn comparisons to the 1945 conference.</strong>
+                            <span class="litit-zh-sentence">这场峰会让人联想到1945年举行的会议。</span>
+                            <div class="anno-box" style="display:none;"><div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea></div>
+                        </li>
+                        <li class="litit-target-sentence content-wrap" style="margin-bottom: 10px;">
+                            <strong class="litit-badge">outweigh</strong>：大于 / 超过<br>
+                            <strong class="content litit-en-sentence">Its symbolic value outweighs its practical value.</strong>
+                            <span class="litit-zh-sentence">其象征意义大于实际效用。</span>
+                            <div class="anno-box" style="display:none;"><div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea></div>
+                        </li>
+                        <li class="litit-target-sentence content-wrap" style="margin-bottom: 10px;">
+                            <strong class="litit-badge">hold together</strong>：维系 / 保持团结<br>
+                            <strong class="content litit-en-sentence">The only thing holding together a fragile détente.</strong>
+                            <span class="litit-zh-sentence">维系双方脆弱缓和关系的唯一支柱。</span>
+                            <div class="anno-box" style="display:none;"><div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea></div>
+                        </li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="litit-fold">
+                <summary>
+                    <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">四、值得学习的句子结构</h3>
+                </summary>
+                <div class="litit-fold-content">
+                    <ol style="margin: 0; padding-left: 18px;">
+                        <li class="litit-target-sentence content-wrap" style="margin-bottom: 12px;">
+                            <strong class="litit-badge">将来完成时表动作在未来某一时刻已完成</strong><br>
+                            <strong class="content litit-en-sentence">It will be the first time the three men... will have sat down together.</strong>
+                            <span class="litit-zh-sentence">这将是三位掌握……的领导人首次坐在一起。</span>
+                            <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+                                <li style="margin-bottom: 3px;"><strong>词法功能解析</strong>：`will have sat down` 使用了将来完成时，这在新闻预告中非常高级，它强调的是“当这个峰会发生时，他们已经完成了‘坐在一起’这个前所未有的历史成就”。</li>
+                                <li style="margin-bottom: 3px;"><strong>深度语法解析 (Parsing Method)</strong>：通常我们用 "It is the first time sb. has done sth."。这里将其推向未来，变成了 "It will be the first time sb. will have done sth."，时态的精确运用彰显了事件的历史分量。</li>
+                            </ul>
+                            <div class="anno-box" style="display:none;"><div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea></div>
+                        </li>
+                    </ol>
+                </div>
+            </details>
+
+            <details class="litit-fold">
+                <summary>
+                    <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">五、万能实用语料库</h3>
+                </summary>
+                <div class="litit-fold-content">
+                    <ol style="margin: 0; padding-left: 18px;">
+                        <li class="litit-target-sentence content-wrap" style="margin-bottom: 12px;">
+                            <strong class="litit-badge">bring up</strong>：提出 / 提及（话题）<br>
+                            <strong class="content litit-en-sentence">He is not expected to bring up the war.</strong>
+                            <span class="litit-zh-sentence">预计他不会提及这场战争。<br>（实用词块：会议沟通或谈判中经常用到的短语）。</span>
+                            <div class="anno-box" style="display:none;"><div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea></div>
+                        </li>
+                        <li class="litit-target-sentence content-wrap" style="margin-bottom: 12px;">
+                            <strong class="litit-badge">on the sidelines of</strong>：在...的场外 / 期间<br>
+                            <strong class="content litit-en-sentence">Meet him on the sidelines of the APEC.</strong>
+                            <span class="litit-zh-sentence">在亚太经合组织会议期间与他会晤。<br>（实用词块：国际会议中经常发生的大佬私下会晤）。</span>
+                            <div class="anno-box" style="display:none;"><div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea></div>
+                        </li>
+                        <li class="litit-target-sentence content-wrap" style="margin-bottom: 12px;">
+                            <strong class="litit-badge">the bad actors</strong>：不法分子 / 恶意行为者<br>
+                            <strong class="content litit-en-sentence">Misused by bad actors.</strong>
+                            <span class="litit-zh-sentence">被不法分子滥用。<br>（实用词块：网络安全、AI监管领域指代反派的标准说法）。</span>
+                            <div class="anno-box" style="display:none;"><div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea></div>
+                        </li>
+                    </ol>
+                </div>
+            </details>
+        </div>
+
+        <h2 class="section-header" style="border-left-color: #0d9488;">💡 幕后冷知识 (Fun Facts)</h2>
+        <ul style="padding-left:18px; line-height:1.8; color:#334155; font-size:14.5px; margin:0 0 24px 0; word-break:break-word;">
+            <li style="margin-bottom: 8px;"><strong>“雅尔塔会议”的历史隐喻：</strong> 白宫刻意释放出将此次深圳峰会与“雅尔塔会议”相提并论的信号，意味深长。1945年的雅尔塔三巨头（罗斯福、斯大林、丘吉尔）是在闭门划分二战后的世界版图；而如今的“新三巨头”（特朗普、习近平、普京）聚首，或许也暗示着某种越过盟友、直接由超级大国定下全球新秩序规则的大棋盘交易。这也正是乌克兰和菲律宾等盟国感到恐慌的原因。</li>
+            <li style="margin-bottom: 8px;"><strong>黄仁勋的缺席与中国AI焦虑：</strong> 特朗普上一次访华时，正是英伟达CEO黄仁勋以随行顾问的身份，成功游说特朗普放宽了对华算力限制。如今，这位“对华最友好的美国科技推销员”却因卷入中国间谍（黄乐）的桃色漩涡而黯然下台。中方极度担心，失去这个关键桥梁后，美国商务部的鹰派将再无顾忌，彻底锁死AI大模型的底层算力。</li>
+            <li><strong>短命的“两个月”休战：</strong> 文章末尾点出中美贸易休战协议被“精准”地只延长了两个月，这是一个极为刁钻的谈判技巧。这表明美国正拿延长协议为诱饵，强迫中国在解禁关键稀土出口上做出实质性让步。如果中方在“雅尔塔2.0”峰会上不低头，两个月后美国随时可以重启毁灭性的关税大棒。</li>
+        </ul>
+
+        <h2 class="section-header" style="border-left-color: #e11d48;">🎯 全片锐评</h2>
+        <p style="line-height:1.75; color:#1e293b; font-weight:500; background:linear-gradient(135deg, #fff1f2 0%, #ffffff 100%); padding:14px 16px; border-radius:10px; font-size:14.5px; margin:0 0 12px 0; border:1px solid #ffe4e6; word-break:break-word;">
+            特朗普的亚洲之行，无疑是一场充满戏剧张力与算计的“大国轮盘赌”。在这个前所未有的“新三巨头”（美、中、俄）牌桌上，每一个玩家都捏着足以毁灭世界的底牌：核武库的扩张、中东战火的蔓延、以及能掐断现代科技命脉的稀土制裁。然而，《纽约时报》的这篇前瞻报道敏锐地指出了特朗普谈判桌下的两个致命软肋：一是他在中期选举受挫后，即将面临由民主党控制的国会强硬派的严厉掣肘，让他难以轻易做出妥协；二是那个曾经在华盛顿与北京之间长袖善舞、充当算力“润滑剂”的英伟达前CEO黄仁勋，正因间谍丑闻彻底出局。这意味着，特朗普与习近平在这场形同“现代雅尔塔”的峰会上，不仅要面对冰冷的核弹数量和关税数字，更要在一个失去商业互信、科技脱钩日益加剧的地雷阵中，艰难寻找那维持世界不至滑向深渊的最后一丝平衡。
+        </p>
+
+    </div>
+
+    <script id="core-engine">
+        let syncTimeout = null;
+        const AI_PROMPT = "请分析以下英文段落，并严格按照以下 Markdown 格式输出（不要输出任何额外的废话）：\n\n### 📌 完整翻译\n\n[此处填写完整翻译]\n\n### 📌 Key Expressions\n\n- **[单词或短语]**\n  = [中文释义]\n  （[可选的补充说明，如倒装结构或语境等]）\n\n段落内容：\n";
+
+        function initProgressBar() {
+            const progressBar = document.getElementById('reading-progress');
+            if (!progressBar) return;
+            window.addEventListener('scroll', () => {
+                const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+                const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                if (scrollHeight <= 0) return;
+                const scrollPercent = (scrollTop / scrollHeight) * 100;
+                progressBar.style.width = scrollPercent + '%';
+            }, { passive: true });
+        }
+
+        async function fetchGroq(text, apiKey, modelName) {
+            const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + apiKey,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    model: modelName || 'llama-3.3-70b-versatile',
+                    messages: [
+                        { role: 'system', content: 'You are an English teacher. Output EXACTLY in the requested Markdown format.' },
+                        { role: 'user', content: AI_PROMPT + '"' + text + '"' }
+                    ],
+                    temperature: 0.3
+                })
+            });
+            if (!res.ok) throw new Error('Groq Error: ' + res.status);
+            const json = await res.json();
+            return json.choices[0].message.content.trim();
+        }
+
+        async function fetchCustomAI(text, url, apiKey, modelName) {
+            let headers = { 'Content-Type': 'application/json' };
+            let bodyData = {};
+            if (url.includes('anthropic.com')) {
+                headers['x-api-key'] = apiKey;
+                headers['anthropic-version'] = '2023-06-01';
+                headers['anthropic-dangerous-direct-browser-access'] = 'true';
+                bodyData = {
+                    model: modelName || 'claude-3-5-sonnet-20241022',
+                    max_tokens: 2000,
+                    messages: [{ role: 'user', content: AI_PROMPT + '"' + text + '"' }]
+                };
+            } else if (url.includes('generativelanguage.googleapis.com')) {
+                let targetUrl = url;
+                if (!targetUrl.includes('key=')) {
+                    targetUrl += (targetUrl.includes('?') ? '&' : '?') + 'key=' + apiKey;
+                }
+                const res = await fetch(targetUrl, {
+                    method: 'POST',
+                    headers: headers,
+                    body: JSON.stringify({ contents: [{ parts: [{ text: AI_PROMPT + '"' + text + '"' }] }] })
+                });
+                if (!res.ok) throw new Error('Gemini Error: ' + res.status);
+                const json = await res.json();
+                return json.candidates[0].content.parts[0].text.trim();
+            } else {
+                headers['Authorization'] = 'Bearer ' + apiKey;
+                bodyData = {
+                    model: modelName || 'gpt-4o-mini',
+                    messages: [
+                        { role: 'system', content: 'You are an English teacher. Output EXACTLY in the requested Markdown format.' },
+                        { role: 'user', content: AI_PROMPT + '"' + text + '"' }
+                    ],
+                    temperature: 0.3
+                };
+            }
+            const res = await fetch(url, { method: 'POST', headers: headers, body: JSON.stringify(bodyData) });
+            if (!res.ok) throw new Error('AI Interface Error: ' + res.status);
+            const json = await res.json();
+            if (json.choices && json.choices.length > 0) return json.choices[0].message.content.trim();
+            throw new Error('AI 返回数据异常');
+        }
+
+        async function executeAIPipeline(text) {
+            const customUrl = localStorage.getItem('CUSTOM_API_URL') || '';
+            const customKey = localStorage.getItem('CUSTOM_API_KEY') || '';
+            const customModel = localStorage.getItem('CUSTOM_MODEL') || '';
+            const groqKey = localStorage.getItem('GROQ_API_KEY') || '';
+            const groqModel = localStorage.getItem('GROQ_MODEL') || '';
+            if (customUrl && customKey) {
+                try {
+                    return await fetchCustomAI(text, customUrl, customKey, customModel);
+                } catch (err) {
+                    if (groqKey) return await fetchGroq(text, groqKey, groqModel);
+                    throw err;
+                }
+            } else if (groqKey) {
+                return await fetchGroq(text, groqKey, groqModel);
+            } else {
+                const userKey = prompt('⚠️ 当前页面未检测到 AI Key！\n为了安全，密匙只储存在您本地浏览器中。\n\n请输入您的 API Key (如 sk-xxx 或 gsk_xxx):');
+                if (userKey && userKey.trim()) {
+                    const cleanKey = userKey.trim();
+                    if (cleanKey.startsWith('gsk_')) {
+                        localStorage.setItem('GROQ_API_KEY', cleanKey);
+                    } else {
+                        localStorage.setItem('CUSTOM_API_KEY', cleanKey);
+                        localStorage.setItem('CUSTOM_API_URL', 'https://api.chatanywhere.tech/v1/chat/completions');
+                    }
+                }
+                throw new Error('未设置 AI API Key');
+            }
+        }
+
+        function getPurifiedFallbackHTML() {
+            const clone = document.documentElement.cloneNode(true);
+            const foreignSelectors = [
+                'relingo-app', 'relin-highlight', 'relin-hc', '[class*="relingo"]',
+                '[data-relin-paragraph]', 'grammarly-extension', '[data-grammarly-part]',
+                '[class*="immersive-translate"]', '[data-immersive-translate]'
+            ].join(',');
+            clone.querySelectorAll(foreignSelectors).forEach(el => el.remove());
+            clone.querySelectorAll('relin-highlight, relin-hc').forEach(t => {
+                const frag = document.createDocumentFragment();
+                while(t.firstChild) frag.appendChild(t.firstChild);
+                t.parentNode.replaceChild(frag, t);
+            });
+            clone.querySelectorAll('script').forEach(s => {
+                if (!s.src.includes('marked.min.js') && s.id !== 'core-engine') s.remove();
+            });
+            clone.querySelectorAll('style').forEach(s => {
+                if (s.id !== 'core-style') s.remove();
+            });
+            const liveTAs = document.querySelectorAll('.anno-edit');
+            clone.querySelectorAll('.anno-edit').forEach((ta, i) => {
+                if(liveTAs[i]) ta.textContent = liveTAs[i].value.trim();
+                const box = ta.closest('.anno-box');
+                if (box) box.style.display = 'none';
+                const view = box ? box.querySelector('.anno-view') : null;
+                if (view) view.innerHTML = '';
+            });
+            return '<!DOCTYPE html>\n<html lang="zh-CN">\n' + clone.innerHTML + '\n</html>';
+        }
+
+        async function syncToCloud() {
+            const ghToken = localStorage.getItem('LITIT_GH_TOKEN') || localStorage.getItem('GH_TOKEN');
+            const ghOwner = 'moodHappy';
+            const ghRepo = 'dual-read-notes';
+            if (!ghToken) return;
+            const pathParts = window.location.pathname.split('/');
+            const fileName = pathParts.pop();
+            const month = pathParts.pop();
+            const year = pathParts.pop();
+            if(!fileName || !month || !year) return;
+            const fileRelPath = 'Summary/' + year + '/' + month + '/' + fileName;
+            try {
+                const getRes = await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath + '?t=' + Date.now(), {
+                    headers: { 'Authorization': 'Bearer ' + ghToken },
+                    cache: 'no-store'
+                });
+                let finalHTML = '';
+                let sha = '';
+                if (getRes.ok) {
+                    const fileData = await getRes.json();
+                    sha = fileData.sha;
+                    const cleanRawHTML = decodeURIComponent(escape(atob(fileData.content.replace(/\n/g, ''))));
+                    const parser = new DOMParser();
+                    const cleanDoc = parser.parseFromString(cleanRawHTML, 'text/html');
+                    const liveTAs = document.querySelectorAll('.anno-edit');
+                    const cleanTAs = cleanDoc.querySelectorAll('.anno-edit');
+                    liveTAs.forEach((liveTa, index) => {
+                        if (cleanTAs[index]) {
+                            const val = liveTa.value.trim();
+                            cleanTAs[index].textContent = val;
+                            const box = cleanTAs[index].closest('.anno-box');
+                            if (box) box.style.display = 'none';
+                            const view = box ? box.querySelector('.anno-view') : null;
+                            if (view) view.innerHTML = '';
+                        }
+                    });
+                    cleanDoc.querySelectorAll('.anno-toggle').forEach(t => {
+                        t.classList.remove('has-anno');
+                        const ta = t.closest('.content-wrap, .litit-highlight-block')?.querySelector('.anno-edit');
+                        if (ta && ta.textContent.trim()) t.classList.add('has-anno');
+                    });
+                    finalHTML = '<!DOCTYPE html>\n<html lang="zh-CN">\n' + cleanDoc.documentElement.innerHTML + '\n</html>';
+                } else {
+                    finalHTML = getPurifiedFallbackHTML();
+                }
+                await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath, {
+                    method: 'PUT',
+                    headers: { 'Authorization': 'Bearer ' + ghToken, 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        message: 'Silent purified annotation update',
+                        content: btoa(unescape(encodeURIComponent(finalHTML))),
+                        sha: sha || undefined
+                    })
+                });
+                console.log('✅ [My Litit] 纯净无污染批注已静默同步至 GitHub');
+            } catch(e) {
+                console.warn('❌ [My Litit] 同步跳过或失败:', e);
+            }
+        }
+
+        function scheduleSync() {
+            if (syncTimeout) clearTimeout(syncTimeout);
+            syncTimeout = setTimeout(() => { syncToCloud(); }, 3000);
+        }
+
+        function initAnnotations() {
+            document.querySelectorAll('.litit-highlight-block, .content-wrap').forEach(wrap => {
+                let content = wrap.querySelector('.content');
+                if (!content) {
+                    const pText = wrap.querySelector('p');
+                    if (pText) {
+                        content = document.createElement('div');
+                        content.className = 'content';
+                        content.style.cssText = 'position:relative; margin:0 0 6px 0; color:#1a202c; font-family:Georgia, serif; line-height:1.7; font-size:15px; word-break:break-word;';
+                        content.innerHTML = pText.innerHTML;
+                        pText.parentNode.replaceChild(content, pText);
+                    }
+                }
+                if (!content) return;
+                
+                let appendTarget = content.querySelector('.litit-en-sentence') || content.querySelector('.litit-en-quote') || content.querySelector('.litit-en-title') || content;
+
+                if (!content.querySelector('.anno-toggle')) {
+                    const toggle = document.createElement('span');
+                    toggle.className = 'anno-toggle';
+                    toggle.title = '手写批注/笔记';
+                    appendTarget.appendChild(toggle);
+                }
+                if (!content.querySelector('.ai-toggle')) {
+                    const aiToggle = document.createElement('span');
+                    aiToggle.className = 'ai-toggle';
+                    aiToggle.title = 'AI智能二次解析';
+                    appendTarget.appendChild(aiToggle);
+                }
+
+                let box = wrap.querySelector('.anno-box');
+                if (!box) {
+                    box = document.createElement('div');
+                    box.className = 'anno-box';
+                    box.style.display = 'none';
+                    box.innerHTML = '<div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 解析..."></textarea>';
+                    wrap.appendChild(box);
+                }
+
+                const view = box.querySelector('.anno-view');
+                const edit = box.querySelector('.anno-edit');
+                const toggle = content.querySelector('.anno-toggle');
+                const aiToggle = content.querySelector('.ai-toggle');
+
+                if (edit && edit.value.trim()) {
+                    toggle.classList.add('has-anno');
+                    try {
+                        view.innerHTML = (typeof marked !== 'undefined') ? marked.parse(edit.value.trim()) : edit.value.trim();
+                    } catch(e){}
+                }
+
+                if (aiToggle) {
+                    aiToggle.onclick = async (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        if (aiToggle.classList.contains('loading')) return;
+                        if (edit && edit.value.trim() !== '') {
+                            const confirmOverwrite = confirm('⚠️ 已经存在批注内容。点击"确定"将使用 AI 解析覆盖现有内容。是否继续？');
+                            if (!confirmOverwrite) return;
+                        }
+                        const pClone = content.cloneNode(true);
+                        pClone.querySelectorAll('.anno-toggle, .ai-toggle').forEach(el => el.remove());
+                        let pText = pClone.textContent.replace(/https?:\/\/\S+/g, '').trim();
+                        if (!pText) return;
+                        
+                        aiToggle.classList.add('loading');
+                        try {
+                            const aiContent = await executeAIPipeline(pText);
+                            box.style.display = 'block';
+                            view.style.display = 'none';
+                            edit.style.display = 'block';
+                            edit.value = aiContent;
+                            edit.focus();
+                            edit.blur();
+                        } catch (err) {
+                            console.error(err);
+                        } finally {
+                            aiToggle.classList.remove('loading');
+                        }
+                    };
+                }
+
+                if (toggle) {
+                    toggle.onclick = (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        if (box.style.display === 'block') {
+                            box.style.display = 'none';
+                        } else {
+                            box.style.display = 'block';
+                            if (!edit.value.trim()) {
+                                view.style.display = 'none';
+                                edit.style.display = 'block';
+                                setTimeout(() => { edit.focus(); }, 150);
+                            } else {
+                                view.style.display = 'block';
+                                edit.style.display = 'none';
+                            }
+                        }
+                    };
+                }
+
+                const triggerEdit = (e) => {
+                    if(e) { e.preventDefault(); e.stopPropagation(); }
+                    view.style.display = 'none';
+                    edit.style.display = 'block';
+                    edit.value = edit.value;
+                    setTimeout(() => { edit.focus(); }, 150);
+                };
+
+                view.addEventListener('dblclick', triggerEdit);
+                let lastTap = 0;
+                view.addEventListener('touchstart', e => {
+                    if (e.touches.length === 2) {
+                        triggerEdit(e);
+                    } else if (e.touches.length === 1) {
+                        const currentTime = new Date().getTime();
+                        if (currentTime - lastTap < 500 && currentTime - lastTap > 0) {
+                            e.preventDefault();
+                            box.style.display = 'none';
+                        }
+                        lastTap = currentTime;
+                    }
+                }, {passive: false});
+
+                if (edit && view) {
+                    edit.onblur = () => {
+                        setTimeout(() => {
+                            const newVal = edit.value.trim();
+                            try {
+                                view.innerHTML = newVal ? ((typeof marked !== 'undefined') ? marked.parse(newVal) : newVal) : '';
+                            } catch(e){}
+                            edit.style.display = 'none';
+                            if (newVal) {
+                                view.style.display = 'block';
+                                toggle.classList.add('has-anno');
+                            } else {
+                                view.style.display = 'none';
+                                box.style.display = 'none';
+                                toggle.classList.remove('has-anno');
+                            }
+                            if (edit.getAttribute('data-old-val') !== newVal) {
+                                edit.setAttribute('data-old-val', newVal);
+                                scheduleSync();
+                            }
+                        }, 150);
+                    };
+                    edit.setAttribute('data-old-val', edit.value.trim());
+                }
+            });
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            initProgressBar();
+            initAnnotations();
+        });
+        window.addEventListener('load', () => {
+            initAnnotations();
+        });
+    </script>
+</body>
+</html>
