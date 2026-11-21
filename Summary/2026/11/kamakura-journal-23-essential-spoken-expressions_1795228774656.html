@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="referrer" content="no-referrer" />
   <title>KAMAKURA JOURNAL — 23 Essential Spoken Expressions</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -69,7 +70,6 @@
       padding-bottom: env(safe-area-inset-bottom, 24px);
     }
 
-    /* Subtle editorial paper grain */
     body::before {
       content: "";
       position: fixed;
@@ -422,13 +422,13 @@
       word-break: break-word;
     }
 
-    .phrase-speak {
+    .phrase-speak,
+    .line-speak {
+      position: relative;
       flex-shrink: 0;
       border: none;
       background: transparent;
       color: var(--ink-muted);
-      width: 32px;
-      height: 32px;
       border-radius: 50%;
       cursor: pointer;
       display: inline-flex;
@@ -437,10 +437,40 @@
       transition: background 0.2s ease, color 0.2s ease;
     }
 
+    .phrase-speak {
+      width: 34px;
+      height: 34px;
+    }
+
+    .line-speak {
+      margin-top: 2px;
+      width: 30px;
+      height: 30px;
+    }
+
     .phrase-speak:hover,
-    .phrase-speak.speaking {
+    .line-speak:hover,
+    .phrase-speak.speaking,
+    .line-speak.speaking,
+    .phrase-speak.loading,
+    .line-speak.loading {
       background: var(--accent-soft);
       color: var(--accent);
+    }
+
+    .phrase-speak.loading::after,
+    .line-speak.loading::after {
+      content: "";
+      position: absolute;
+      inset: 2px;
+      border-radius: 50%;
+      border: 1.6px solid transparent;
+      border-top-color: var(--accent);
+      animation: ttsSpin 0.8s linear infinite;
+    }
+
+    @keyframes ttsSpin {
+      to { transform: rotate(360deg); }
     }
 
     .phrase-speak.speaking,
@@ -522,28 +552,6 @@
       -webkit-box-decoration-break: clone;
     }
 
-    .line-speak {
-      flex-shrink: 0;
-      margin-top: 2px;
-      border: none;
-      background: transparent;
-      color: var(--ink-muted);
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s ease;
-    }
-
-    .line-speak:hover,
-    .line-speak.speaking {
-      background: var(--accent-soft);
-      color: var(--accent);
-    }
-
     .example-cn {
       margin-top: 6px;
       font-size: 0.86rem;
@@ -611,6 +619,33 @@
     .colophon-link:hover {
       color: var(--rust);
       border-color: var(--rust);
+    }
+
+    /* Subtle non-intrusive status toast */
+    .tts-toast {
+      position: fixed;
+      left: 50%;
+      bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+      transform: translateX(-50%) translateY(12px);
+      z-index: 60;
+      background: var(--ink);
+      color: var(--bg);
+      font-size: 0.76rem;
+      letter-spacing: 0.03em;
+      padding: 7px 14px;
+      border-radius: 999px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.22s ease, transform 0.22s ease;
+      max-width: calc(100vw - 32px);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .tts-toast.show {
+      opacity: 0.92;
+      transform: translateX(-50%) translateY(0);
     }
 
     /* Mobile Optimization */
@@ -787,9 +822,20 @@
     </footer>
   </div>
 
+  <div class="tts-toast" id="ttsToast" role="status" aria-live="polite"></div>
+
   <script>
+    let toastTimer = null;
+    function showToast(msg) {
+      const el = document.getElementById("ttsToast");
+      if (!el) return;
+      el.textContent = msg;
+      el.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => el.classList.remove("show"), 2600);
+    }
+
     const TTS = {
-      // 默认固定音色（若想每次随机，调用时传入 TTS.getRandomEnVoice()）
       defaultVoice: "en-US-EricNeural",
 
       englishVoices: [
@@ -805,75 +851,148 @@
         ru: "ru-RU-DmitryNeural", he: "he-IL-AvriNeural"
       },
 
-      // 按顺序轮询，前一个挂了自动切下一个
       apis: [
         { url: "https://ms-ra-forwarder-for-ifreetime-2.vercel.app/api/aiyue", type: "ms-ra" },
         { url: "https://libre-tts-nu.vercel.app/api/tts", type: "libre" },
         { url: "https://ms-ra-forwarder-for-ifreetime-beta-two.vercel.app/api/aiyue", type: "ms-ra" }
       ],
 
+      _audio: null,
       _playToken: 0,
+      _timer: null,
+      _timeoutMs: 8000,
+
+      getAudio() {
+        if (!this._audio) {
+          const audio = document.createElement("audio");
+          audio.id = "custom-tts-audio";
+          audio.preload = "auto";
+          audio.style.display = "none";
+          // 不设置 crossOrigin="anonymous"，避免本地 file:// 打开或接口无 CORS 响应头时被浏览器直接拦截
+          document.body.appendChild(audio);
+          this._audio = audio;
+        }
+        return this._audio;
+      },
 
       getRandomEnVoice() {
         return this.englishVoices[Math.floor(Math.random() * this.englishVoices.length)];
       },
 
+      sanitizeText(text) {
+        return String(text || "")
+          .replace(/—/g, ", ")
+          .replace(/\s+/g, " ")
+          .trim();
+      },
+
       buildUrl(api, text, voice) {
-        const params = api.type === "ms-ra"
-          ? new URLSearchParams({ text: text.trim(), voiceName: voice, speed: 0 })
-          : new URLSearchParams({ t: text.trim(), v: voice, r: 0, p: 0 });
-        return `${api.url}?${params.toString()}`;
+        const q = encodeURIComponent(text);
+        const v = encodeURIComponent(voice);
+        if (api.type === "ms-ra") {
+          return `${api.url}?text=${q}&voiceName=${v}&speed=0`;
+        }
+        return `${api.url}?t=${q}&v=${v}&r=0&p=0`;
       },
 
       stop() {
         this._playToken++;
-        const existing = document.getElementById("custom-tts-audio");
-        if (existing) {
-          existing.pause();
-          existing.src = "";
-          existing.remove();
+        clearTimeout(this._timer);
+        if (this._audio) {
+          this._audio.onerror = null;
+          this._audio.onended = null;
+          this._audio.onplaying = null;
+          this._audio.pause();
+        }
+        if ("speechSynthesis" in window) {
+          window.speechSynthesis.cancel();
         }
       },
 
-      play(text, voice = this.defaultVoice, onEnd = null) {
-        if (!text) return;
+      playLocalFallback(text, token, onPlay, onEnd) {
+        if (token !== this._playToken) return;
+        if (!("speechSynthesis" in window)) {
+          showToast("在线语音节点暂不可用");
+          onEnd?.();
+          return;
+        }
+        showToast("在线 TTS 暂不可用，已切本地语音");
+        const utter = new SpeechSynthesisUtterance(text);
+        utter.lang = "en-US";
+        utter.rate = 0.96;
+        const voices = window.speechSynthesis.getVoices();
+        const preferred =
+          voices.find((v) => v.lang === "en-US" && /Samantha|Google US English|Natural|Aria|Jenny/i.test(v.name)) ||
+          voices.find((v) => v.lang === "en-US");
+        if (preferred) utter.voice = preferred;
+
+        utter.onstart = () => {
+          if (token === this._playToken) onPlay?.();
+        };
+        utter.onend = () => {
+          if (token === this._playToken) onEnd?.();
+        };
+        utter.onerror = () => {
+          if (token === this._playToken) onEnd?.();
+        };
+        window.speechSynthesis.speak(utter);
+      },
+
+      play(text, voice = this.defaultVoice, callbacks = null) {
+        const cleanText = this.sanitizeText(text);
+        if (!cleanText) return;
+
+        const onPlay = typeof callbacks === "function" ? null : callbacks?.onPlay;
+        const onEnd = typeof callbacks === "function" ? callbacks : callbacks?.onEnd;
+
         this.stop();
         const currentToken = this._playToken;
+        const audio = this.getAudio();
         let apiIndex = 0;
 
         const tryNext = () => {
           if (currentToken !== this._playToken) return;
           if (apiIndex >= this.apis.length) {
-            onEnd?.();
+            this.playLocalFallback(cleanText, currentToken, onPlay, onEnd);
             return;
           }
-          const src = this.buildUrl(this.apis[apiIndex], text, voice);
 
-          const prev = document.getElementById("custom-tts-audio");
-          if (prev) {
-            prev.pause();
-            prev.src = "";
-            prev.remove();
-          }
+          const api = this.apis[apiIndex];
+          const src = this.buildUrl(api, cleanText, voice);
+          let handled = false;
 
-          const audio = document.createElement("audio");
-          audio.id = "custom-tts-audio";
-          audio.style.display = "none";
-          audio.crossOrigin = "anonymous";
-          audio.src = src;
-          document.body.appendChild(audio);
-
-          const fallback = () => {
-            if (currentToken !== this._playToken) return;
+          const failAndNext = () => {
+            if (handled || currentToken !== this._playToken) return;
+            handled = true;
+            clearTimeout(this._timer);
             apiIndex++;
             tryNext();
           };
 
-          audio.onerror = fallback;
-          audio.onended = () => {
-            if (currentToken === this._playToken) onEnd?.();
+          audio.onerror = failAndNext;
+          audio.onplaying = () => {
+            if (currentToken !== this._playToken) return;
+            clearTimeout(this._timer);
+            onPlay?.();
           };
-          audio.play().catch(fallback);
+          audio.onended = () => {
+            if (currentToken !== this._playToken) return;
+            handled = true;
+            clearTimeout(this._timer);
+            onEnd?.();
+          };
+
+          clearTimeout(this._timer);
+          this._timer = setTimeout(failAndNext, this._timeoutMs);
+
+          audio.src = src;
+          const playPromise = audio.play();
+          if (playPromise && typeof playPromise.catch === "function") {
+            playPromise.catch((err) => {
+              if (err && err.name === "AbortError") return;
+              failAndNext();
+            });
+          }
         };
 
         tryNext();
@@ -1363,7 +1482,10 @@
         let entriesHtml = "";
         chapter.items.forEach((item) => {
           const num = String(counter++).padStart(2, "0");
-          const cleanPhrase = item.en.replace(/\.\.\./g, " ").replace(/sb\./g, "somebody").replace(/sth\./g, "something");
+          const cleanPhrase = item.en
+            .replace(/\.\.\./g, " ")
+            .replace(/sb\./g, "somebody")
+            .replace(/sth\./g, "something");
 
           const examplesHtml = item.examples
             .map((ex) => {
@@ -1418,30 +1540,43 @@
       });
     }
 
-    // Custom Neural TTS Integration
+    // Speaker Button State Controller
     let activeSpeakBtn = null;
     let useRandomVoice = localStorage.getItem("kamakura_random_voice") === "1";
+
+    function resetSpeakBtn(btn) {
+      if (!btn) return;
+      btn.classList.remove("loading", "speaking");
+    }
 
     function speakText(text, btn) {
       if (activeSpeakBtn === btn) {
         TTS.stop();
-        btn.classList.remove("speaking");
+        resetSpeakBtn(btn);
         activeSpeakBtn = null;
         return;
       }
 
       if (activeSpeakBtn) {
-        activeSpeakBtn.classList.remove("speaking");
+        resetSpeakBtn(activeSpeakBtn);
       }
 
       activeSpeakBtn = btn;
-      btn.classList.add("speaking");
+      btn.classList.add("loading");
 
       const voice = useRandomVoice ? TTS.getRandomEnVoice() : TTS.defaultVoice;
-      TTS.play(text, voice, () => {
-        if (activeSpeakBtn === btn) {
-          btn.classList.remove("speaking");
-          activeSpeakBtn = null;
+      TTS.play(text, voice, {
+        onPlay: () => {
+          if (activeSpeakBtn === btn) {
+            btn.classList.remove("loading");
+            btn.classList.add("speaking");
+          }
+        },
+        onEnd: () => {
+          if (activeSpeakBtn === btn) {
+            resetSpeakBtn(btn);
+            activeSpeakBtn = null;
+          }
         }
       });
     }
@@ -1454,7 +1589,6 @@
       const fontBtn = document.getElementById("fontBtn");
       const htmlEl = document.documentElement;
 
-      // Voice mode toggle (Fixed EricNeural vs Random US Neural)
       const syncVoiceBtn = () => {
         voiceModeBtn.textContent = useRandomVoice ? "随机音色" : "固定音色";
         voiceModeBtn.classList.toggle("is-active", useRandomVoice);
@@ -1465,9 +1599,9 @@
         useRandomVoice = !useRandomVoice;
         localStorage.setItem("kamakura_random_voice", useRandomVoice ? "1" : "0");
         syncVoiceBtn();
+        showToast(useRandomVoice ? "已切换为随机美式 Neural 音色" : "已切换为默认音色 (EricNeural)");
       });
 
-      // Theme persistence
       const savedTheme = localStorage.getItem("kamakura_theme");
       if (savedTheme === "dark") {
         htmlEl.setAttribute("data-theme", "dark");
@@ -1487,7 +1621,6 @@
         }
       });
 
-      // Chinese translation mask toggle
       cnToggleBtn.addEventListener("click", () => {
         const hidden = document.body.classList.toggle("hide-cn");
         cnToggleBtn.classList.toggle("is-active", hidden);
@@ -1497,7 +1630,6 @@
         }
       });
 
-      // Font size cycling (16px -> 18px -> 20px -> 16px)
       const sizes = [16, 18, 20];
       let sizeIdx = 0;
       fontBtn.addEventListener("click", () => {
@@ -1507,7 +1639,6 @@
         fontBtn.classList.toggle("is-active", sizeIdx > 0);
       });
 
-      // Delegated clicks for speech and tap-to-reveal Chinese
       document.getElementById("magazineContent").addEventListener("click", (e) => {
         const speakBtn = e.target.closest("[data-speech]");
         if (speakBtn) {
@@ -1520,7 +1651,6 @@
         }
       });
 
-      // Scrollspy for chapter pills
       const pills = Array.from(document.querySelectorAll(".nav-pill"));
       const chapters = Array.from(document.querySelectorAll(".chapter"));
       const observer = new IntersectionObserver(
@@ -1538,6 +1668,9 @@
 
     renderMagazine();
     setupControls();
+    if ("speechSynthesis" in window) {
+      window.speechSynthesis.getVoices();
+    }
   </script>
 </body>
 </html>
