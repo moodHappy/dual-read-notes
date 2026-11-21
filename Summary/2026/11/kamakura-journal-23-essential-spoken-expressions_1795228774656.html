@@ -835,6 +835,142 @@
       toastTimer = setTimeout(() => el.classList.remove("show"), 2600);
     }
 
+    // 7-Day IndexedDB + In-Memory Audio Cache
+    const TTSCache = {
+      DB_NAME: "KamakuraTTSCacheDB",
+      STORE_NAME: "audioCache",
+      DB_VERSION: 1,
+      TTL_MS: 7 * 24 * 60 * 60 * 1000, // 7 days
+      _dbPromise: null,
+      _memCache: new Map(), // key -> { url, expiresAt }
+
+      open() {
+        if (this._dbPromise) return this._dbPromise;
+        if (!("indexedDB" in window)) {
+          this._dbPromise = Promise.resolve(null);
+          return this._dbPromise;
+        }
+        this._dbPromise = new Promise((resolve) => {
+          try {
+            const req = indexedDB.open(this.DB_NAME, this.DB_VERSION);
+            req.onupgradeneeded = (e) => {
+              const db = e.target.result;
+              if (!db.objectStoreNames.contains(this.STORE_NAME)) {
+                const store = db.createObjectStore(this.STORE_NAME, { keyPath: "key" });
+                store.createIndex("expiresAt", "expiresAt", { unique: false });
+              }
+            };
+            req.onsuccess = () => resolve(req.result);
+            req.onerror = () => resolve(null);
+            req.onblocked = () => resolve(null);
+          } catch {
+            resolve(null);
+          }
+        });
+        return this._dbPromise;
+      },
+
+      getSyncUrl(key) {
+        const hit = this._memCache.get(key);
+        if (!hit) return null;
+        if (Date.now() >= hit.expiresAt) {
+          URL.revokeObjectURL(hit.url);
+          this._memCache.delete(key);
+          this.delete(key);
+          return null;
+        }
+        return hit.url;
+      },
+
+      rememberBlob(key, blob, expiresAt) {
+        const prev = this._memCache.get(key);
+        if (prev) URL.revokeObjectURL(prev.url);
+        const url = URL.createObjectURL(blob);
+        this._memCache.set(key, { url, expiresAt });
+        return url;
+      },
+
+      async getUrl(key) {
+        const memUrl = this.getSyncUrl(key);
+        if (memUrl) return memUrl;
+
+        const db = await this.open();
+        if (!db) return null;
+
+        return new Promise((resolve) => {
+          try {
+            const tx = db.transaction(this.STORE_NAME, "readonly");
+            const req = tx.objectStore(this.STORE_NAME).get(key);
+            req.onsuccess = () => {
+              const record = req.result;
+              if (!record || !record.blob) {
+                resolve(null);
+                return;
+              }
+              if (Date.now() >= record.expiresAt) {
+                this.delete(key);
+                resolve(null);
+                return;
+              }
+              resolve(this.rememberBlob(key, record.blob, record.expiresAt));
+            };
+            req.onerror = () => resolve(null);
+          } catch {
+            resolve(null);
+          }
+        });
+      },
+
+      async set(key, blob) {
+        const expiresAt = Date.now() + this.TTL_MS;
+        const url = this.rememberBlob(key, blob, expiresAt);
+
+        const db = await this.open();
+        if (!db) return url;
+
+        try {
+          const tx = db.transaction(this.STORE_NAME, "readwrite");
+          tx.objectStore(this.STORE_NAME).put({
+            key,
+            blob,
+            savedAt: Date.now(),
+            expiresAt
+          });
+        } catch {
+          // Quota exceeded or restricted storage: memory cache still works
+        }
+        return url;
+      },
+
+      async delete(key) {
+        const db = await this.open();
+        if (!db) return;
+        try {
+          const tx = db.transaction(this.STORE_NAME, "readwrite");
+          tx.objectStore(this.STORE_NAME).delete(key);
+        } catch {}
+      },
+
+      async pruneExpired() {
+        const db = await this.open();
+        if (!db) return;
+        try {
+          const tx = db.transaction(this.STORE_NAME, "readwrite");
+          const store = tx.objectStore(this.STORE_NAME);
+          const now = Date.now();
+          const req = store.openCursor();
+          req.onsuccess = (e) => {
+            const cursor = e.target.result;
+            if (!cursor) return;
+            if (cursor.value && cursor.value.expiresAt <= now) {
+              cursor.delete();
+            }
+            cursor.continue();
+          };
+        } catch {}
+      }
+    };
+
     const TTS = {
       defaultVoice: "en-US-EricNeural",
 
@@ -858,9 +994,12 @@
       ],
 
       _audio: null,
+      _unlocked: false,
       _playToken: 0,
       _timer: null,
+      _abortController: null,
       _timeoutMs: 8000,
+      _silentWav: "data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAAABkYXRhAgAAAAEA",
 
       getAudio() {
         if (!this._audio) {
@@ -868,11 +1007,26 @@
           audio.id = "custom-tts-audio";
           audio.preload = "auto";
           audio.style.display = "none";
-          // 不设置 crossOrigin="anonymous"，避免本地 file:// 打开或接口无 CORS 响应头时被浏览器直接拦截
           document.body.appendChild(audio);
           this._audio = audio;
         }
         return this._audio;
+      },
+
+      // Keep mobile autoplay permission alive across async cache/fetch awaits
+      unlockAudio() {
+        if (this._unlocked) return;
+        const audio = this.getAudio();
+        audio.onerror = null;
+        audio.onended = null;
+        audio.onplaying = null;
+        audio.src = this._silentWav;
+        const p = audio.play();
+        if (p && typeof p.then === "function") {
+          p.then(() => {
+            this._unlocked = true;
+          }).catch(() => {});
+        }
       },
 
       getRandomEnVoice() {
@@ -898,6 +1052,10 @@
       stop() {
         this._playToken++;
         clearTimeout(this._timer);
+        if (this._abortController) {
+          this._abortController.abort();
+          this._abortController = null;
+        }
         if (this._audio) {
           this._audio.onerror = null;
           this._audio.onended = null;
@@ -906,6 +1064,89 @@
         }
         if ("speechSynthesis" in window) {
           window.speechSynthesis.cancel();
+        }
+      },
+
+      playAudioSrc(src, token, onPlay, onEnd) {
+        return new Promise((resolve) => {
+          if (token !== this._playToken) {
+            resolve(false);
+            return;
+          }
+
+          const audio = this.getAudio();
+          let settled = false;
+
+          const finish = (ok) => {
+            if (settled) return;
+            settled = true;
+            clearTimeout(this._timer);
+            resolve(ok);
+          };
+
+          audio.onerror = () => finish(false);
+          audio.onplaying = () => {
+            if (token !== this._playToken) return;
+            clearTimeout(this._timer);
+            this._unlocked = true;
+            onPlay?.();
+          };
+          audio.onended = () => {
+            if (token !== this._playToken) return;
+            finish(true);
+            onEnd?.();
+          };
+
+          clearTimeout(this._timer);
+          this._timer = setTimeout(() => finish(false), this._timeoutMs);
+
+          audio.src = src;
+          const playPromise = audio.play();
+          if (playPromise && typeof playPromise.catch === "function") {
+            playPromise.catch((err) => {
+              if (err && err.name === "AbortError") return;
+              finish(false);
+            });
+          }
+        });
+      },
+
+      async fetchAudioBlob(src, token) {
+        const controller = new AbortController();
+        this._abortController = controller;
+        const timeoutId = setTimeout(() => controller.abort(), this._timeoutMs);
+
+        try {
+          const res = await fetch(src, {
+            method: "GET",
+            mode: "cors",
+            referrerPolicy: "no-referrer",
+            signal: controller.signal
+          });
+          clearTimeout(timeoutId);
+
+          if (token !== this._playToken || !res.ok) {
+            return { blob: null, timedOut: false };
+          }
+
+          const ct = (res.headers.get("content-type") || "").toLowerCase();
+          if (ct.includes("text/html") || ct.includes("application/json") || ct.includes("text/plain")) {
+            return { blob: null, timedOut: false };
+          }
+
+          const blob = await res.blob();
+          if (token !== this._playToken || !blob || blob.size < 500) {
+            return { blob: null, timedOut: false };
+          }
+
+          return { blob, timedOut: false };
+        } catch (err) {
+          clearTimeout(timeoutId);
+          return { blob: null, timedOut: err && err.name === "AbortError" };
+        } finally {
+          if (this._abortController === controller) {
+            this._abortController = null;
+          }
         }
       },
 
@@ -938,7 +1179,7 @@
         window.speechSynthesis.speak(utter);
       },
 
-      play(text, voice = this.defaultVoice, callbacks = null) {
+      async play(text, voice = this.defaultVoice, callbacks = null) {
         const cleanText = this.sanitizeText(text);
         if (!cleanText) return;
 
@@ -947,55 +1188,53 @@
 
         this.stop();
         const currentToken = this._playToken;
-        const audio = this.getAudio();
-        let apiIndex = 0;
+        const cacheKey = `${voice}::${cleanText}`;
 
-        const tryNext = () => {
+        // 1. Instant synchronous hit from in-memory cache
+        const syncUrl = TTSCache.getSyncUrl(cacheKey);
+        if (syncUrl) {
+          const played = await this.playAudioSrc(syncUrl, currentToken, onPlay, onEnd);
+          if (played || currentToken !== this._playToken) return;
+        }
+
+        // Unlock mobile audio element synchronously before async operations
+        this.unlockAudio();
+
+        // 2. Hit from 7-day IndexedDB cache
+        const cachedUrl = await TTSCache.getUrl(cacheKey);
+        if (currentToken !== this._playToken) return;
+        if (cachedUrl) {
+          const played = await this.playAudioSrc(cachedUrl, currentToken, onPlay, onEnd);
+          if (played || currentToken !== this._playToken) return;
+          // Corrupted cache entry: drop and refetch
+          TTSCache.delete(cacheKey);
+        }
+
+        // 3. Cache miss -> Fetch from APIs in order, cache for 7 days, and play
+        for (let i = 0; i < this.apis.length; i++) {
           if (currentToken !== this._playToken) return;
-          if (apiIndex >= this.apis.length) {
-            this.playLocalFallback(cleanText, currentToken, onPlay, onEnd);
-            return;
+          const src = this.buildUrl(this.apis[i], cleanText, voice);
+
+          const { blob, timedOut } = await this.fetchAudioBlob(src, currentToken);
+          if (currentToken !== this._playToken) return;
+
+          if (blob) {
+            const blobUrl = await TTSCache.set(cacheKey, blob);
+            if (currentToken !== this._playToken) return;
+            const played = await this.playAudioSrc(blobUrl, currentToken, onPlay, onEnd);
+            if (played || currentToken !== this._playToken) return;
+            continue;
           }
 
-          const api = this.apis[apiIndex];
-          const src = this.buildUrl(api, cleanText, voice);
-          let handled = false;
-
-          const failAndNext = () => {
-            if (handled || currentToken !== this._playToken) return;
-            handled = true;
-            clearTimeout(this._timer);
-            apiIndex++;
-            tryNext();
-          };
-
-          audio.onerror = failAndNext;
-          audio.onplaying = () => {
-            if (currentToken !== this._playToken) return;
-            clearTimeout(this._timer);
-            onPlay?.();
-          };
-          audio.onended = () => {
-            if (currentToken !== this._playToken) return;
-            handled = true;
-            clearTimeout(this._timer);
-            onEnd?.();
-          };
-
-          clearTimeout(this._timer);
-          this._timer = setTimeout(failAndNext, this._timeoutMs);
-
-          audio.src = src;
-          const playPromise = audio.play();
-          if (playPromise && typeof playPromise.catch === "function") {
-            playPromise.catch((err) => {
-              if (err && err.name === "AbortError") return;
-              failAndNext();
-            });
+          // If fetch failed due to CORS (e.g. file://) rather than timeout, still try direct <audio> playback
+          if (!timedOut) {
+            const directPlayed = await this.playAudioSrc(src, currentToken, onPlay, onEnd);
+            if (directPlayed || currentToken !== this._playToken) return;
           }
-        };
+        }
 
-        tryNext();
+        // 4. All remote endpoints failed -> Local browser speech fallback
+        this.playLocalFallback(cleanText, currentToken, onPlay, onEnd);
       }
     };
 
@@ -1668,6 +1907,7 @@
 
     renderMagazine();
     setupControls();
+    setTimeout(() => TTSCache.pruneExpired(), 1500);
     if ("speechSynthesis" in window) {
       window.speechSynthesis.getVoices();
     }
