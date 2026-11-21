@@ -443,6 +443,20 @@
       color: var(--accent);
     }
 
+    .phrase-speak.speaking,
+    .line-speak.speaking {
+      animation: speakPulse 1.3s ease-in-out infinite;
+    }
+
+    @keyframes speakPulse {
+      0%, 100% {
+        box-shadow: 0 0 0 0 var(--accent-soft);
+      }
+      50% {
+        box-shadow: 0 0 0 5px transparent;
+      }
+    }
+
     .phrase-cn {
       margin-top: 6px;
       display: inline-flex;
@@ -709,7 +723,7 @@
         <span class="kicker">Curated Vlog Lexicon</span>
         <h1 class="cover-title">Everyday <em>Idioms</em><br />by the Coast</h1>
         <p class="cover-deck">
-          精选镰仓 Vlog 中最地道、复用率极高的 23 组英语口语表达。每一条均配有三句贴近真实生活的日常例句，支持点击发声与遮罩自测。
+          精选镰仓 Vlog 中最地道、复用率极高的 23 组英语口语表达。每一条均配有三句贴近真实生活的日常例句，支持 Neural TTS 发声与遮罩自测。
         </p>
 
         <div class="source-link-wrap">
@@ -748,6 +762,7 @@
       <div class="toolbar-inner">
         <div class="chapter-nav" id="chapterNav"></div>
         <div class="controls">
+          <button class="ctrl-btn" id="voiceModeBtn" type="button" title="切换固定音色或随机美式音色">固定音色</button>
           <button class="ctrl-btn" id="fontBtn" type="button" title="切换字号">A+</button>
           <button class="ctrl-btn" id="cnToggleBtn" type="button" title="隐藏或显示中文译文">遮罩中文</button>
           <button class="ctrl-btn" id="themeBtn" type="button" title="切换深浅色主题">深色</button>
@@ -768,11 +783,103 @@
           rel="noopener noreferrer"
         >Watch Original Vlog ↗</a>
       </div>
-      <span>Tap speaker icon for US audio · Tap blurred text to peek</span>
+      <span>Tap speaker icon for Neural TTS · Tap blurred text to peek</span>
     </footer>
   </div>
 
   <script>
+    const TTS = {
+      // 默认固定音色（若想每次随机，调用时传入 TTS.getRandomEnVoice()）
+      defaultVoice: "en-US-EricNeural",
+
+      englishVoices: [
+        "en-US-AdamNeural", "en-US-AriaNeural", "en-US-AnaNeural", "en-US-AndrewNeural", "en-US-AvaNeural",
+        "en-US-BrianNeural", "en-US-ChristopherNeural", "en-US-CoraNeural", "en-US-DavisNeural", "en-US-ElizabethNeural",
+        "en-US-EricNeural", "en-US-GuyNeural", "en-US-JennyNeural", "en-US-MichelleNeural", "en-US-RogerNeural",
+        "en-US-SteffanNeural", "en-US-TonyNeural"
+      ],
+
+      voiceMap: {
+        de: "de-DE-ConradNeural", es: "es-ES-AlvaroNeural", it: "it-IT-DiegoNeural",
+        hi: "hi-IN-MadhurNeural", ko: "ko-KR-SunHiNeural", fr: "fr-FR-DeniseNeural",
+        ru: "ru-RU-DmitryNeural", he: "he-IL-AvriNeural"
+      },
+
+      // 按顺序轮询，前一个挂了自动切下一个
+      apis: [
+        { url: "https://ms-ra-forwarder-for-ifreetime-2.vercel.app/api/aiyue", type: "ms-ra" },
+        { url: "https://libre-tts-nu.vercel.app/api/tts", type: "libre" },
+        { url: "https://ms-ra-forwarder-for-ifreetime-beta-two.vercel.app/api/aiyue", type: "ms-ra" }
+      ],
+
+      _playToken: 0,
+
+      getRandomEnVoice() {
+        return this.englishVoices[Math.floor(Math.random() * this.englishVoices.length)];
+      },
+
+      buildUrl(api, text, voice) {
+        const params = api.type === "ms-ra"
+          ? new URLSearchParams({ text: text.trim(), voiceName: voice, speed: 0 })
+          : new URLSearchParams({ t: text.trim(), v: voice, r: 0, p: 0 });
+        return `${api.url}?${params.toString()}`;
+      },
+
+      stop() {
+        this._playToken++;
+        const existing = document.getElementById("custom-tts-audio");
+        if (existing) {
+          existing.pause();
+          existing.src = "";
+          existing.remove();
+        }
+      },
+
+      play(text, voice = this.defaultVoice, onEnd = null) {
+        if (!text) return;
+        this.stop();
+        const currentToken = this._playToken;
+        let apiIndex = 0;
+
+        const tryNext = () => {
+          if (currentToken !== this._playToken) return;
+          if (apiIndex >= this.apis.length) {
+            onEnd?.();
+            return;
+          }
+          const src = this.buildUrl(this.apis[apiIndex], text, voice);
+
+          const prev = document.getElementById("custom-tts-audio");
+          if (prev) {
+            prev.pause();
+            prev.src = "";
+            prev.remove();
+          }
+
+          const audio = document.createElement("audio");
+          audio.id = "custom-tts-audio";
+          audio.style.display = "none";
+          audio.crossOrigin = "anonymous";
+          audio.src = src;
+          document.body.appendChild(audio);
+
+          const fallback = () => {
+            if (currentToken !== this._playToken) return;
+            apiIndex++;
+            tryNext();
+          };
+
+          audio.onerror = fallback;
+          audio.onended = () => {
+            if (currentToken === this._playToken) onEnd?.();
+          };
+          audio.play().catch(fallback);
+        };
+
+        tryNext();
+      }
+    };
+
     const MAGAZINE_DATA = [
       {
         id: "transit",
@@ -1311,44 +1418,54 @@
       });
     }
 
-    // Speech synthesis (US English)
+    // Custom Neural TTS Integration
     let activeSpeakBtn = null;
+    let useRandomVoice = localStorage.getItem("kamakura_random_voice") === "1";
+
     function speakText(text, btn) {
-      if (!("speechSynthesis" in window)) return;
-      window.speechSynthesis.cancel();
-      if (activeSpeakBtn) activeSpeakBtn.classList.remove("speaking");
+      if (activeSpeakBtn === btn) {
+        TTS.stop();
+        btn.classList.remove("speaking");
+        activeSpeakBtn = null;
+        return;
+      }
 
-      const utter = new SpeechSynthesisUtterance(text);
-      utter.lang = "en-US";
-      utter.rate = 0.96;
-
-      const voices = window.speechSynthesis.getVoices();
-      const preferred =
-        voices.find((v) => v.lang === "en-US" && /Samantha|Google US English|Natural|Aria|Jenny/i.test(v.name)) ||
-        voices.find((v) => v.lang === "en-US");
-      if (preferred) utter.voice = preferred;
+      if (activeSpeakBtn) {
+        activeSpeakBtn.classList.remove("speaking");
+      }
 
       activeSpeakBtn = btn;
       btn.classList.add("speaking");
 
-      const clear = () => {
+      const voice = useRandomVoice ? TTS.getRandomEnVoice() : TTS.defaultVoice;
+      TTS.play(text, voice, () => {
         if (activeSpeakBtn === btn) {
           btn.classList.remove("speaking");
           activeSpeakBtn = null;
         }
-      };
-      utter.onend = clear;
-      utter.onerror = clear;
-
-      window.speechSynthesis.speak(utter);
+      });
     }
 
     // Interactive Controls
     function setupControls() {
+      const voiceModeBtn = document.getElementById("voiceModeBtn");
       const themeBtn = document.getElementById("themeBtn");
       const cnToggleBtn = document.getElementById("cnToggleBtn");
       const fontBtn = document.getElementById("fontBtn");
       const htmlEl = document.documentElement;
+
+      // Voice mode toggle (Fixed EricNeural vs Random US Neural)
+      const syncVoiceBtn = () => {
+        voiceModeBtn.textContent = useRandomVoice ? "随机音色" : "固定音色";
+        voiceModeBtn.classList.toggle("is-active", useRandomVoice);
+      };
+      syncVoiceBtn();
+
+      voiceModeBtn.addEventListener("click", () => {
+        useRandomVoice = !useRandomVoice;
+        localStorage.setItem("kamakura_random_voice", useRandomVoice ? "1" : "0");
+        syncVoiceBtn();
+      });
 
       // Theme persistence
       const savedTheme = localStorage.getItem("kamakura_theme");
@@ -1421,9 +1538,6 @@
 
     renderMagazine();
     setupControls();
-    if ("speechSynthesis" in window) {
-      window.speechSynthesis.getVoices();
-    }
   </script>
 </body>
 </html>
