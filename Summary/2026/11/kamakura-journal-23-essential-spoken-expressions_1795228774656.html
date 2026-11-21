@@ -1,0 +1,1429 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>KAMAKURA JOURNAL — 23 Essential Spoken Expressions</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #F5F0E1;
+      --surface: #FAF7EE;
+      --surface-tint: #E5EBDD;
+      --ink: #1C1E1B;
+      --ink-secondary: #535850;
+      --ink-muted: #848980;
+      --accent: #2C4A3B;
+      --accent-soft: rgba(44, 74, 59, 0.11);
+      --rust: #9A4D36;
+      --rule: rgba(28, 30, 27, 0.14);
+      --rule-strong: rgba(28, 30, 27, 0.72);
+      --mark-bg: #E5EBDD;
+      --mark-ink: #1E3A2C;
+      --shadow: 0 1px 2px rgba(28, 30, 27, 0.04);
+      --font-serif: "Cormorant Garamond", "Georgia", "Songti SC", "Noto Serif SC", serif;
+      --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      --base-size: 16px;
+    }
+
+    [data-theme="dark"] {
+      --bg: #161816;
+      --surface: #1D201D;
+      --surface-tint: #252B25;
+      --ink: #E8E3D5;
+      --ink-secondary: #A9AEA5;
+      --ink-muted: #767B73;
+      --accent: #8FB39C;
+      --accent-soft: rgba(143, 179, 156, 0.14);
+      --rust: #D4886E;
+      --rule: rgba(232, 227, 213, 0.13);
+      --rule-strong: rgba(232, 227, 213, 0.65);
+      --mark-bg: rgba(143, 179, 156, 0.18);
+      --mark-ink: #C5DFCE;
+      --shadow: none;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: var(--base-size);
+      background: var(--bg);
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      transition: background-color 0.28s ease, color 0.28s ease;
+      padding-bottom: env(safe-area-inset-bottom, 24px);
+    }
+
+    /* Subtle editorial paper grain */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.028;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 0 24px 72px;
+    }
+
+    /* Masthead */
+    .masthead {
+      padding-top: 28px;
+      padding-bottom: 24px;
+      border-bottom: 3px double var(--rule-strong);
+    }
+
+    .meta-strip {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.7rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink-secondary);
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .meta-strip .issue-tag {
+      color: var(--rust);
+      font-weight: 600;
+    }
+
+    .cover-header {
+      padding: 34px 0 12px;
+      text-align: center;
+    }
+
+    .kicker {
+      display: inline-block;
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .cover-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2.5rem, 7.5vw, 4.4rem);
+      font-weight: 600;
+      line-height: 0.98;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 14px;
+    }
+
+    .cover-title em {
+      font-style: italic;
+      font-weight: 500;
+      color: var(--accent);
+    }
+
+    .cover-deck {
+      max-width: 560px;
+      margin: 0 auto;
+      font-size: 0.94rem;
+      color: var(--ink-secondary);
+      line-height: 1.7;
+    }
+
+    /* Editorial Source Link */
+    .source-link-wrap {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .source-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 16px;
+      border-radius: 999px;
+      border: 1px solid var(--rule);
+      background: var(--surface);
+      color: var(--ink-secondary);
+      text-decoration: none;
+      font-size: 0.76rem;
+      letter-spacing: 0.04em;
+      font-weight: 500;
+      box-shadow: var(--shadow);
+      transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .source-link:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--accent-soft);
+      transform: translateY(-1px);
+    }
+
+    .source-link svg {
+      color: var(--rust);
+      flex-shrink: 0;
+    }
+
+    .source-link .source-arrow {
+      font-size: 0.85em;
+      opacity: 0.72;
+      transition: transform 0.2s ease;
+    }
+
+    .source-link:hover .source-arrow {
+      transform: translate(2px, -1px);
+      opacity: 1;
+    }
+
+    .editorial-stats {
+      margin-top: 24px;
+      padding-top: 16px;
+      border-top: 1px solid var(--rule);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      text-align: center;
+      gap: 8px;
+    }
+
+    .stat-num {
+      font-family: var(--font-serif);
+      font-size: 1.55rem;
+      font-weight: 600;
+      line-height: 1.1;
+      color: var(--ink);
+    }
+
+    .stat-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-top: 3px;
+    }
+
+    /* Sticky Utility Navigation */
+    .sticky-bar {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      margin: 0 -24px 28px;
+      padding: 10px 24px;
+      background: color-mix(in srgb, var(--bg) 90%, transparent);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .toolbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .chapter-nav {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      padding: 2px 0;
+    }
+
+    .chapter-nav::-webkit-scrollbar {
+      display: none;
+    }
+
+    .nav-pill {
+      flex: 0 0 auto;
+      text-decoration: none;
+      font-size: 0.74rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--ink-secondary);
+      padding: 5px 11px;
+      border-radius: 999px;
+      border: 1px solid var(--rule);
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .nav-pill:hover,
+    .nav-pill.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #FAF7EE;
+    }
+
+    [data-theme="dark"] .nav-pill:hover,
+    [data-theme="dark"] .nav-pill.active {
+      color: #161816;
+    }
+
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .ctrl-btn {
+      appearance: none;
+      border: 1px solid var(--rule);
+      background: var(--surface);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      font-size: 0.74rem;
+      font-weight: 500;
+      height: 30px;
+      padding: 0 10px;
+      border-radius: 999px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .ctrl-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .ctrl-btn.is-active {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* Section Headers */
+    .chapter {
+      margin-top: 42px;
+      scroll-margin-top: 66px;
+    }
+
+    .chapter:first-of-type {
+      margin-top: 8px;
+    }
+
+    .chapter-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      padding-bottom: 12px;
+      margin-bottom: 8px;
+      border-bottom: 2px solid var(--rule-strong);
+    }
+
+    .chapter-title-wrap {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+    }
+
+    .chapter-roman {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1.45rem;
+      font-weight: 600;
+      color: var(--rust);
+    }
+
+    .chapter-title {
+      font-family: var(--font-serif);
+      font-size: 1.55rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+    }
+
+    .chapter-cn {
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      color: var(--ink-muted);
+      white-space: nowrap;
+    }
+
+    /* Editorial Entry */
+    .entry {
+      padding: 26px 0 28px;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .entry:last-child {
+      border-bottom: none;
+    }
+
+    .entry-top {
+      display: grid;
+      grid-template-columns: 54px 1fr;
+      gap: 14px;
+      align-items: start;
+      margin-bottom: 18px;
+    }
+
+    .entry-index {
+      font-family: var(--font-serif);
+      font-size: 2.35rem;
+      font-weight: 500;
+      line-height: 0.88;
+      color: var(--ink-muted);
+      opacity: 0.58;
+      letter-spacing: -0.03em;
+      user-select: none;
+    }
+
+    .entry-heading {
+      min-width: 0;
+    }
+
+    .phrase-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .phrase-en {
+      font-family: var(--font-serif);
+      font-size: clamp(1.5rem, 4.2vw, 1.9rem);
+      font-weight: 700;
+      line-height: 1.18;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+      word-break: break-word;
+    }
+
+    .phrase-speak {
+      flex-shrink: 0;
+      border: none;
+      background: transparent;
+      color: var(--ink-muted);
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+
+    .phrase-speak:hover,
+    .phrase-speak.speaking {
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    .phrase-cn {
+      margin-top: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.88rem;
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .phrase-cn::before {
+      content: "";
+      display: inline-block;
+      width: 14px;
+      height: 1px;
+      background: var(--rust);
+    }
+
+    /* Examples Column */
+    .examples {
+      margin-left: 68px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .example-card {
+      position: relative;
+      background: var(--surface);
+      border: 1px solid var(--rule);
+      border-left: 2.5px solid var(--accent);
+      border-radius: 2px 8px 8px 2px;
+      padding: 13px 16px;
+      box-shadow: var(--shadow);
+      transition: border-color 0.2s ease, background-color 0.2s ease;
+    }
+
+    .example-card:hover {
+      border-left-color: var(--rust);
+    }
+
+    .example-en-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .example-en {
+      font-size: 0.98rem;
+      line-height: 1.62;
+      color: var(--ink);
+      font-weight: 400;
+    }
+
+    .example-en mark {
+      background: var(--mark-bg);
+      color: var(--mark-ink);
+      font-weight: 600;
+      padding: 1px 5px;
+      border-radius: 3px;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    .line-speak {
+      flex-shrink: 0;
+      margin-top: 2px;
+      border: none;
+      background: transparent;
+      color: var(--ink-muted);
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+
+    .line-speak:hover,
+    .line-speak.speaking {
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    .example-cn {
+      margin-top: 6px;
+      font-size: 0.86rem;
+      line-height: 1.55;
+      color: var(--ink-secondary);
+      transition: filter 0.22s ease, opacity 0.22s ease;
+    }
+
+    /* Hide Chinese Mode (Tap to reveal) */
+    body.hide-cn .example-cn {
+      filter: blur(5px);
+      opacity: 0.32;
+      user-select: none;
+      cursor: pointer;
+    }
+
+    body.hide-cn .example-cn.revealed {
+      filter: none;
+      opacity: 1;
+      user-select: text;
+    }
+
+    /* Colophon Footer */
+    .colophon {
+      margin-top: 56px;
+      padding-top: 22px;
+      border-top: 3px double var(--rule-strong);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px 18px;
+      font-size: 0.74rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+    }
+
+    .colophon-brand {
+      display: inline-flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .colophon strong {
+      font-family: var(--font-serif);
+      font-size: 0.98rem;
+      font-style: italic;
+      text-transform: none;
+      letter-spacing: 0.02em;
+      color: var(--ink-secondary);
+      font-weight: 600;
+    }
+
+    .colophon-link {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+      padding-bottom: 1px;
+      font-weight: 500;
+      transition: color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .colophon-link:hover {
+      color: var(--rust);
+      border-color: var(--rust);
+    }
+
+    /* Mobile Optimization */
+    @media (max-width: 640px) {
+      .page {
+        padding: 0 16px 56px;
+      }
+
+      .masthead {
+        padding-top: 18px;
+        padding-bottom: 18px;
+      }
+
+      .meta-strip {
+        font-size: 0.64rem;
+        letter-spacing: 0.11em;
+      }
+
+      .cover-header {
+        padding: 24px 0 10px;
+      }
+
+      .cover-deck {
+        font-size: 0.88rem;
+      }
+
+      .source-link {
+        font-size: 0.72rem;
+        padding: 6px 13px;
+      }
+
+      .sticky-bar {
+        margin: 0 -16px 20px;
+        padding: 9px 16px;
+      }
+
+      .toolbar-inner {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+      }
+
+      .controls {
+        justify-content: flex-end;
+      }
+
+      .chapter {
+        margin-top: 34px;
+        scroll-margin-top: 96px;
+      }
+
+      .chapter-head {
+        flex-direction: column;
+        gap: 3px;
+        padding-bottom: 10px;
+      }
+
+      .chapter-title {
+        font-size: 1.38rem;
+      }
+
+      .entry {
+        padding: 22px 0 24px;
+      }
+
+      .entry-top {
+        grid-template-columns: 38px 1fr;
+        gap: 10px;
+        margin-bottom: 14px;
+      }
+
+      .entry-index {
+        font-size: 1.85rem;
+      }
+
+      .examples {
+        margin-left: 0;
+        gap: 10px;
+      }
+
+      .example-card {
+        padding: 12px 13px;
+      }
+
+      .example-en {
+        font-size: 0.96rem;
+      }
+
+      .example-cn {
+        font-size: 0.85rem;
+      }
+
+      .colophon {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="masthead">
+      <div class="meta-strip">
+        <span class="issue-tag">ISSUE NO. 01 · KAMAKURA</span>
+        <span>SPOKEN ENGLISH ARCHIVE</span>
+        <span>VOL. 2026</span>
+      </div>
+
+      <div class="cover-header">
+        <span class="kicker">Curated Vlog Lexicon</span>
+        <h1 class="cover-title">Everyday <em>Idioms</em><br />by the Coast</h1>
+        <p class="cover-deck">
+          精选镰仓 Vlog 中最地道、复用率极高的 23 组英语口语表达。每一条均配有三句贴近真实生活的日常例句，支持点击发声与遮罩自测。
+        </p>
+
+        <div class="source-link-wrap">
+          <a
+            class="source-link"
+            href="https://youtu.be/_vlPtbJ0CeQ"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <polygon points="6 4 20 12 6 20 6 4"></polygon>
+            </svg>
+            <span>原视频 · Japan, Kamakura vlog (hanavocado)</span>
+            <span class="source-arrow" aria-hidden="true">↗</span>
+          </a>
+        </div>
+
+        <div class="editorial-stats">
+          <div>
+            <div class="stat-num">23</div>
+            <div class="stat-label">Expressions</div>
+          </div>
+          <div>
+            <div class="stat-num">69</div>
+            <div class="stat-label">Spoken Lines</div>
+          </div>
+          <div>
+            <div class="stat-num">04</div>
+            <div class="stat-label">Chapters</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <nav class="sticky-bar" aria-label="章节与阅读工具">
+      <div class="toolbar-inner">
+        <div class="chapter-nav" id="chapterNav"></div>
+        <div class="controls">
+          <button class="ctrl-btn" id="fontBtn" type="button" title="切换字号">A+</button>
+          <button class="ctrl-btn" id="cnToggleBtn" type="button" title="隐藏或显示中文译文">遮罩中文</button>
+          <button class="ctrl-btn" id="themeBtn" type="button" title="切换深浅色主题">深色</button>
+        </div>
+      </div>
+    </nav>
+
+    <main id="magazineContent"></main>
+
+    <footer class="colophon">
+      <div class="colophon-brand">
+        <strong>Kamakura Spoken English Journal</strong>
+        <span aria-hidden="true">·</span>
+        <a
+          class="colophon-link"
+          href="https://youtu.be/_vlPtbJ0CeQ"
+          target="_blank"
+          rel="noopener noreferrer"
+        >Watch Original Vlog ↗</a>
+      </div>
+      <span>Tap speaker icon for US audio · Tap blurred text to peek</span>
+    </footer>
+  </div>
+
+  <script>
+    const MAGAZINE_DATA = [
+      {
+        id: "transit",
+        roman: "I.",
+        title: "Transit & Movement",
+        cn: "出行与交通",
+        items: [
+          {
+            en: "on one's way to",
+            cn: "在去……的路上",
+            examples: [
+              {
+                en: "I'm <mark>on my way to</mark> the station right now—should be there in ten.",
+                cn: "我现在正在去车站的路上，十分钟后应该能到。"
+              },
+              {
+                en: "Could you grab some milk <mark>on your way to</mark> my place?",
+                cn: "你来我这儿的路上能顺便带盒牛奶吗？"
+              },
+              {
+                en: "We stopped by a tiny bakery <mark>on our way to</mark> the beach.",
+                cn: "我们在去海边的路上顺道逛了家小面包店。"
+              }
+            ]
+          },
+          {
+            en: "where sb. is staying",
+            cn: "某人下榻的地方；临时住处",
+            examples: [
+              {
+                en: "The night market is just a five-minute walk from <mark>where we're staying</mark>.",
+                cn: "夜市离我们住的地方步行只要五分钟。"
+              },
+              {
+                en: "Send me the address of <mark>where you're staying</mark> so I can drop off your umbrella.",
+                cn: "把你住的地址发我一下，我把伞给你送过去。"
+              },
+              {
+                en: "Honestly, the view from <mark>where I'm staying</mark> is way better than the photos online.",
+                cn: "说真的，我住的这儿风景比网上照片好看多了。"
+              }
+            ]
+          },
+          {
+            en: "almost miss one's stop",
+            cn: "差点坐过站",
+            examples: [
+              {
+                en: "I got so sucked into my book that I <mark>almost missed my stop</mark>.",
+                cn: "我看书看得太入迷，差点就坐过站了。"
+              },
+              {
+                en: "The train was packed, and I <mark>almost missed my stop</mark> trying to squeeze to the door.",
+                cn: "车厢里挤满了人，我往门口挤的时候差点没下去坐过站。"
+              },
+              {
+                en: "Wake me up if I nod off—I <mark>almost missed my stop</mark> twice this week already.",
+                cn: "要是我打瞌睡记得叫我，这周我已经差点坐过站两次了。"
+              }
+            ]
+          },
+          {
+            en: "miss one's connecting train",
+            cn: "错过换乘列车；没赶上接驳车",
+            examples: [
+              {
+                en: "Because of a ten-minute delay, we <mark>missed our connecting train</mark> and had to wait half an hour.",
+                cn: "因为晚点了十分钟，我们错过了换乘列车，只好干等半小时。"
+              },
+              {
+                en: "Walk a little faster, or we're definitely going to <mark>miss our connecting train</mark> at Platform 4.",
+                cn: "走快点儿，不然咱们肯定赶不上四号站台的接驳列车了。"
+              },
+              {
+                en: "Nothing throws off a smooth trip faster than <mark>missing your connecting train</mark> in the rain.",
+                cn: "大下雨天的错过换乘列车，真是瞬间打乱好好的行程。"
+              }
+            ]
+          },
+          {
+            en: "around about",
+            cn: "大约；差不多左右",
+            examples: [
+              {
+                en: "The ferry leaves <mark>around about</mark> four-thirty, so let's head down to the pier soon.",
+                cn: "渡轮大概四点半左右开，咱们一会儿就往码头走吧。"
+              },
+              {
+                en: "It cost me <mark>around about</mark> twenty bucks, which felt like a steal for the quality.",
+                cn: "花了大概二十美元左右，冲这品质感觉挺值。"
+              },
+              {
+                en: "We should be back at the hotel <mark>around about</mark> nine if traffic behaves.",
+                cn: "要是路上不堵车，我们九点左右就能回酒店。"
+              }
+            ]
+          },
+          {
+            en: "stay on for ... stops",
+            cn: "继续在车上坐几站（再下车）",
+            examples: [
+              {
+                en: "Don't get off here—just <mark>stay on for three more stops</mark> until you see the river.",
+                cn: "别在这儿下，继续坐三站，看到那条河再下车。"
+              },
+              {
+                en: "If you <mark>stay on for two extra stops</mark>, the street food alley is right outside the exit.",
+                cn: "你多坐两站的话，小吃街就在出口外面。"
+              },
+              {
+                en: "Wait, do we transfer at Shinjuku or <mark>stay on for five stops</mark>?",
+                cn: "等等，咱们是在新宿换乘，还是继续在车上坐五站？"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: "style",
+        roman: "II.",
+        title: "Packing, Style & Days",
+        cn: "行囊、穿搭与日程",
+        items: [
+          {
+            en: "the only thing sb. is missing",
+            cn: "某人唯一漏带或缺少的东西",
+            examples: [
+              {
+                en: "I've got my passport and chargers, so <mark>the only thing I'm missing</mark> is a pair of walking shoes.",
+                cn: "护照和充电器都带齐了，我现在唯一缺的就是一双好走路的鞋。"
+              },
+              {
+                en: "Your living room looks super cozy—<mark>the only thing it's missing</mark> is a few indoor plants.",
+                cn: "你家客厅看着超温馨，唯一少的就是几盆室内绿植。"
+              },
+              {
+                en: "Let me double-check my backpack; <mark>the only thing I'm missing</mark> might be my sunglasses.",
+                cn: "让我再检查下背包，我唯一可能漏带的就是墨镜了。"
+              }
+            ]
+          },
+          {
+            en: "be out for",
+            cn: "外出（多长时间）；在外面待着",
+            examples: [
+              {
+                en: "Better bring a light jacket since we'll <mark>be out for</mark> most of the afternoon.",
+                cn: "最好带件薄外套，因为我们大半个下午都在外面。"
+              },
+              {
+                en: "I didn't expect to <mark>be out for</mark> six hours, so my phone is down to five percent.",
+                cn: "我没料到会在外面待六个小时，手机电量只剩百分之五了。"
+              },
+              {
+                en: "How long are you planning to <mark>be out for</mark>? Just wondering if I should save you dinner.",
+                cn: "你打算在外面待多久？我就想问问要不要给你留晚饭。"
+              }
+            ]
+          },
+          {
+            en: "outfit for the day",
+            cn: "今日穿搭；当天的装扮",
+            examples: [
+              {
+                en: "I threw on an oversized shirt and jeans—pretty basic <mark>outfit for the day</mark>.",
+                cn: "我随便套了件宽松衬衫和牛仔裤，今天的穿搭挺基础的。"
+              },
+              {
+                en: "Since it's supposed to drizzle, I had to rethink my whole <mark>outfit for the day</mark>.",
+                cn: "听说今天要下毛毛雨，我只好把今天的一身穿搭全换了。"
+              },
+              {
+                en: "Love your <mark>outfit for the day</mark>! That linen jacket ties everything together.",
+                cn: "超喜欢你今天的穿搭！那件亚麻外套把整身都搭活了。"
+              }
+            ]
+          },
+          {
+            en: "match the vibes",
+            cn: "符合氛围；画风搭调",
+            examples: [
+              {
+                en: "That lo-fi playlist totally <mark>matches the vibes</mark> of a rainy Sunday morning.",
+                cn: "那个轻音乐歌单简直完美契合下雨天周日早晨的氛围。"
+              },
+              {
+                en: "I felt a bit overdressed in heels—it didn't really <mark>match the vibes</mark> of a casual picnic.",
+                cn: "我穿高跟鞋感觉有点太隆重了，跟轻松的野餐画风不太搭。"
+              },
+              {
+                en: "Let's pick a dim, quiet café that actually <mark>matches the vibes</mark> tonight.",
+                cn: "今晚咱们挑一家灯光柔和、安静点的咖啡馆，才对得上这氛围。"
+              }
+            ]
+          },
+          {
+            en: "feel comfortable doing sth.",
+            cn: "做某事觉得自在；心理上放得开",
+            examples: [
+              {
+                en: "I finally <mark>feel comfortable ordering</mark> food in English without checking my phone first.",
+                cn: "我终于能自在地用英语点餐，不用先查手机了。"
+              },
+              {
+                en: "Don't push yourself if you don't <mark>feel comfortable driving</mark> on those narrow mountain roads.",
+                cn: "要是开那种窄山路觉得心里没底，就别勉强自己。"
+              },
+              {
+                en: "It's funny how I <mark>feel comfortable wearing</mark> bright colors on vacation, even though I only wear black at home.",
+                cn: "挺奇妙的，度假时我穿亮色觉得特自在，在家却只穿黑色。"
+              }
+            ]
+          },
+          {
+            en: "last full day",
+            cn: "最后一个完整的一天",
+            examples: [
+              {
+                en: "Tomorrow's our <mark>last full day</mark> in Kyoto, so let's not sleep in until noon.",
+                cn: "明天是我们在京都的最后一个完整的一天，咱们可别睡到中午。"
+              },
+              {
+                en: "I usually save souvenir shopping for the <mark>last full day</mark> so I don't have to haul bags around.",
+                cn: "我一般把买伴手礼留到最后一个整天，省得一路拎着大包小包。"
+              },
+              {
+                en: "It always hits me a little hard on the <mark>last full day</mark> of a great trip.",
+                cn: "每趟超棒的旅行到了最后一个整天，我心里总会有点舍不得。"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: "narrative",
+        roman: "III.",
+        title: "Feelings & Everyday Stories",
+        cn: "感受、叙事与高频口语",
+        items: [
+          {
+            en: "have always wanted to",
+            cn: "一直很想（做某事/去某地）",
+            examples: [
+              {
+                en: "I <mark>have always wanted to</mark> try pottery, I just never got around to signing up.",
+                cn: "我一直很想试试做陶艺，只是之前一直没顾上报班。"
+              },
+              {
+                en: "She <mark>has always wanted to</mark> see the northern lights in the dead of winter.",
+                cn: "她一直梦想着在隆冬时节去看一次极光。"
+              },
+              {
+                en: "We <mark>have always wanted to</mark> take a slow coastal train with no fixed schedule.",
+                cn: "我们一直很想坐一次没有固定行程的沿海慢火车。"
+              }
+            ]
+          },
+          {
+            en: "see sth. with one's own eyes",
+            cn: "亲眼看到某物",
+            examples: [
+              {
+                en: "Photos really don't do it justice—you have to <mark>see it with your own eyes</mark>.",
+                cn: "照片根本拍不出它的美，你得亲眼看看才行。"
+              },
+              {
+                en: "I couldn't believe how tiny the noodle shop was until I <mark>saw it with my own eyes</mark>.",
+                cn: "直到我亲眼看见，才敢相信那家面馆居然那么袖珍。"
+              },
+              {
+                en: "After hearing about this seaside town for years, it feels surreal to <mark>see it with my own eyes</mark>.",
+                cn: "听说了这座海滨小镇这么多年，亲眼看到的感觉真有点不真实。"
+              }
+            ]
+          },
+          {
+            en: "pretty much",
+            cn: "基本上；差不多",
+            examples: [
+              {
+                en: "We're <mark>pretty much</mark> done packing; I just need to zip up the carry-on.",
+                cn: "我们行李差不多收完了，我就剩把登机箱拉链拉上了。"
+              },
+              {
+                en: "The town quiets down at eight, so <mark>pretty much</mark> everything is closed by now.",
+                cn: "小镇八点就安静下来了，现在基本上所有店都关门了。"
+              },
+              {
+                en: "I <mark>pretty much</mark> live on iced coffee whenever the weather gets this humid.",
+                cn: "天气一变得这么潮湿闷热，我基本全靠冰咖啡续命。"
+              }
+            ]
+          },
+          {
+            en: "end up doing sth.",
+            cn: "结果却……；阴差阳错成了……",
+            examples: [
+              {
+                en: "We planned to visit three museums, but we <mark>ended up sitting</mark> in a park eating gelato all afternoon.",
+                cn: "我们原本打算逛三家博物馆，结果一下午都在公园坐着吃意式冰淇淋了。"
+              },
+              {
+                en: "I only went in to browse and <mark>ended up buying</mark> two ceramic mugs I didn't need.",
+                cn: "我本来只是进去随便逛逛，结果买了俩根本用不着的陶瓷杯。"
+              },
+              {
+                en: "Whenever I skip lunch, I always <mark>end up ordering</mark> way too much food for dinner.",
+                cn: "每次不吃午饭，我晚饭最后总会点一大堆吃不完的菜。"
+              }
+            ]
+          },
+          {
+            en: "like how ...",
+            cn: "喜欢……这点；觉得……的方式很不错",
+            examples: [
+              {
+                en: "I <mark>like how</mark> the barista always draws a tiny cat on the foam.",
+                cn: "我很喜欢咖啡师总在奶泡上画只小猫这个细节。"
+              },
+              {
+                en: "Don't you <mark>like how</mark> peaceful the neighborhood gets right after sunset?",
+                cn: "你不觉得太阳刚落山时，这片街区安静下来的感觉特棒吗？"
+              },
+              {
+                en: "I really <mark>like how</mark> easy it is to use this app with just one hand.",
+                cn: "我真挺喜欢这个应用单手就能轻松操作的这一点。"
+              }
+            ]
+          },
+          {
+            en: "what the freak",
+            cn: "搞什么鬼；什么情况（较温和的口语感叹）",
+            examples: [
+              {
+                en: "<mark>What the freak</mark>? The sun was literally out five minutes ago, and now it's pouring!",
+                cn: "搞什么鬼？五分钟前还大太阳呢，现在居然下暴雨了！"
+              },
+              {
+                en: "Wait, <mark>what the freak</mark> happened to the Wi-Fi? It just died right in the middle of my download.",
+                cn: "等等，Wi-Fi 怎么回事？我正下载到一半突然就断了。"
+              },
+              {
+                en: "<mark>What the freak</mark>, why is a tiny iced latte nine dollars at this airport?",
+                cn: "什么情况，这机场一杯这么小的冰拿铁怎么要九美元？"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: "idioms",
+        roman: "IV.",
+        title: "Social Cues & Idioms",
+        cn: "文化礼仪与地道惯用语",
+        items: [
+          {
+            en: "smell fishy",
+            cn: "闻起来有鱼腥味；感觉可疑、有猫腻",
+            examples: [
+              {
+                en: "Let's walk away from the docks—it's starting to <mark>smell a little fishy</mark> over here.",
+                cn: "咱们离码头远点吧，这儿开始闻起来有点鱼腥味了。"
+              },
+              {
+                en: "A downtown apartment for half the usual rent? That <mark>smells super fishy</mark> to me.",
+                cn: "市中心的公寓只要平时一半租金？我怎么觉得这事有猫腻。"
+              },
+              {
+                en: "Something <mark>smells fishy</mark> about that text asking you to verify your bank password.",
+                cn: "那条让你验证银行密码的短信看着就很可疑。"
+              }
+            ]
+          },
+          {
+            en: "be not supposed to do sth.",
+            cn: "按规矩/习俗不该做某事",
+            examples: [
+              {
+                en: "Put your flash off—you'<mark>re not supposed to take</mark> flash photos inside the gallery.",
+                cn: "把闪光灯关了，美术馆里按规定不能开闪光灯拍照。"
+              },
+              {
+                en: "We'<mark>re not supposed to feed</mark> the deer anything other than the official crackers.",
+                cn: "按规矩我们不能给小鹿喂官方鹿仙贝以外的任何东西。"
+              },
+              {
+                en: "Technically I'<mark>m not supposed to drink</mark> coffee after four, or I'll be wide awake at midnight.",
+                cn: "按理说我四点以后不该喝咖啡的，不然半夜准睡不着。"
+              }
+            ]
+          },
+          {
+            en: "be so cringe",
+            cn: "太尴尬了；让人脚趾抠地",
+            examples: [
+              {
+                en: "Looking back at my posts from ten years ago—oh man, I <mark>was so cringe</mark>.",
+                cn: "回头看我十年前发的动态，天哪，那会儿也太尴尬了。"
+              },
+              {
+                en: "Can we stop posing like this? Everyone's staring and we <mark>are so cringe</mark> right now.",
+                cn: "咱能别这样凹造型了吗？大家都在看，现在简直脚趾抠地。"
+              },
+              {
+                en: "That forced joke in the middle of the speech <mark>was so cringe</mark> I actually looked away.",
+                cn: "演讲中间硬插的那个笑话太尬了，我都没敢直视。"
+              }
+            ]
+          },
+          {
+            en: "there we go",
+            cn: "这就对了；搞定；总算来了",
+            examples: [
+              {
+                en: "Just wiggle the key a little to the left... <mark>there we go</mark>, door's open!",
+                cn: "把钥匙往左稍微晃一下……这就对了，门开了！"
+              },
+              {
+                en: "Finally got the tripod balanced on this uneven bench—<mark>there we go</mark>, ready to roll.",
+                cn: "总算把三脚架在这张不平的长椅上架稳了——搞定，可以开拍了。"
+              },
+              {
+                en: "<mark>There we go</mark>, the bus is turning the corner right now.",
+                cn: "总算来了，公交车正拐弯呢。"
+              }
+            ]
+          },
+          {
+            en: "get down to business",
+            cn: "言归正传；开始办正事",
+            examples: [
+              {
+                en: "Alright, coffee's poured and phones are on silent—let's <mark>get down to business</mark>.",
+                cn: "好了，咖啡倒好了，手机也静音了，咱们言归正传吧。"
+              },
+              {
+                en: "Enough small talk about the weather, it's time to <mark>get down to business</mark> and map out our route.",
+                cn: "闲聊天气就到这儿，该办正事规划路线了。"
+              },
+              {
+                en: "Once we <mark>got down to business</mark>, we wrapped up the whole draft in under an hour.",
+                cn: "一旦开始认真干正事，我们不到一小时就把整篇初稿搞定了。"
+              }
+            ]
+          }
+        ]
+      }
+    ];
+
+    const speakerSvg = `
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+        <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+        <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+      </svg>
+    `;
+
+    function stripHtml(html) {
+      const tmp = document.createElement("div");
+      tmp.innerHTML = html;
+      return tmp.textContent || tmp.innerText || "";
+    }
+
+    function renderMagazine() {
+      const navEl = document.getElementById("chapterNav");
+      const mainEl = document.getElementById("magazineContent");
+      let counter = 1;
+
+      MAGAZINE_DATA.forEach((chapter, idx) => {
+        const pill = document.createElement("a");
+        pill.className = "nav-pill" + (idx === 0 ? " active" : "");
+        pill.href = `#${chapter.id}`;
+        pill.textContent = `${chapter.roman} ${chapter.cn}`;
+        pill.dataset.target = chapter.id;
+        navEl.appendChild(pill);
+
+        const section = document.createElement("section");
+        section.className = "chapter";
+        section.id = chapter.id;
+
+        let entriesHtml = "";
+        chapter.items.forEach((item) => {
+          const num = String(counter++).padStart(2, "0");
+          const cleanPhrase = item.en.replace(/\.\.\./g, " ").replace(/sb\./g, "somebody").replace(/sth\./g, "something");
+
+          const examplesHtml = item.examples
+            .map((ex) => {
+              const plainText = stripHtml(ex.en).replace(/"/g, "&quot;");
+              return `
+                <div class="example-card">
+                  <div class="example-en-row">
+                    <p class="example-en">${ex.en}</p>
+                    <button class="line-speak" type="button" data-speech="${plainText}" aria-label="朗读例句" title="点击朗读">
+                      ${speakerSvg}
+                    </button>
+                  </div>
+                  <p class="example-cn">${ex.cn}</p>
+                </div>
+              `;
+            })
+            .join("");
+
+          entriesHtml += `
+            <article class="entry">
+              <div class="entry-top">
+                <div class="entry-index">${num}</div>
+                <div class="entry-heading">
+                  <div class="phrase-row">
+                    <h3 class="phrase-en">${item.en}</h3>
+                    <button class="phrase-speak" type="button" data-speech="${cleanPhrase.replace(/"/g, "&quot;")}" aria-label="朗读词组" title="点击朗读">
+                      ${speakerSvg}
+                    </button>
+                  </div>
+                  <div class="phrase-cn">${item.cn}</div>
+                </div>
+              </div>
+              <div class="examples">
+                ${examplesHtml}
+              </div>
+            </article>
+          `;
+        });
+
+        section.innerHTML = `
+          <div class="chapter-head">
+            <div class="chapter-title-wrap">
+              <span class="chapter-roman">${chapter.roman}</span>
+              <h2 class="chapter-title">${chapter.title}</h2>
+            </div>
+            <span class="chapter-cn">${chapter.cn}</span>
+          </div>
+          ${entriesHtml}
+        `;
+
+        mainEl.appendChild(section);
+      });
+    }
+
+    // Speech synthesis (US English)
+    let activeSpeakBtn = null;
+    function speakText(text, btn) {
+      if (!("speechSynthesis" in window)) return;
+      window.speechSynthesis.cancel();
+      if (activeSpeakBtn) activeSpeakBtn.classList.remove("speaking");
+
+      const utter = new SpeechSynthesisUtterance(text);
+      utter.lang = "en-US";
+      utter.rate = 0.96;
+
+      const voices = window.speechSynthesis.getVoices();
+      const preferred =
+        voices.find((v) => v.lang === "en-US" && /Samantha|Google US English|Natural|Aria|Jenny/i.test(v.name)) ||
+        voices.find((v) => v.lang === "en-US");
+      if (preferred) utter.voice = preferred;
+
+      activeSpeakBtn = btn;
+      btn.classList.add("speaking");
+
+      const clear = () => {
+        if (activeSpeakBtn === btn) {
+          btn.classList.remove("speaking");
+          activeSpeakBtn = null;
+        }
+      };
+      utter.onend = clear;
+      utter.onerror = clear;
+
+      window.speechSynthesis.speak(utter);
+    }
+
+    // Interactive Controls
+    function setupControls() {
+      const themeBtn = document.getElementById("themeBtn");
+      const cnToggleBtn = document.getElementById("cnToggleBtn");
+      const fontBtn = document.getElementById("fontBtn");
+      const htmlEl = document.documentElement;
+
+      // Theme persistence
+      const savedTheme = localStorage.getItem("kamakura_theme");
+      if (savedTheme === "dark") {
+        htmlEl.setAttribute("data-theme", "dark");
+        themeBtn.textContent = "浅色";
+      }
+
+      themeBtn.addEventListener("click", () => {
+        const isDark = htmlEl.getAttribute("data-theme") === "dark";
+        if (isDark) {
+          htmlEl.removeAttribute("data-theme");
+          themeBtn.textContent = "深色";
+          localStorage.setItem("kamakura_theme", "light");
+        } else {
+          htmlEl.setAttribute("data-theme", "dark");
+          themeBtn.textContent = "浅色";
+          localStorage.setItem("kamakura_theme", "dark");
+        }
+      });
+
+      // Chinese translation mask toggle
+      cnToggleBtn.addEventListener("click", () => {
+        const hidden = document.body.classList.toggle("hide-cn");
+        cnToggleBtn.classList.toggle("is-active", hidden);
+        cnToggleBtn.textContent = hidden ? "显示中文" : "遮罩中文";
+        if (!hidden) {
+          document.querySelectorAll(".example-cn.revealed").forEach((el) => el.classList.remove("revealed"));
+        }
+      });
+
+      // Font size cycling (16px -> 18px -> 20px -> 16px)
+      const sizes = [16, 18, 20];
+      let sizeIdx = 0;
+      fontBtn.addEventListener("click", () => {
+        sizeIdx = (sizeIdx + 1) % sizes.length;
+        htmlEl.style.setProperty("--base-size", sizes[sizeIdx] + "px");
+        fontBtn.textContent = sizeIdx === 0 ? "A+" : sizeIdx === 1 ? "A++" : "A";
+        fontBtn.classList.toggle("is-active", sizeIdx > 0);
+      });
+
+      // Delegated clicks for speech and tap-to-reveal Chinese
+      document.getElementById("magazineContent").addEventListener("click", (e) => {
+        const speakBtn = e.target.closest("[data-speech]");
+        if (speakBtn) {
+          speakText(speakBtn.dataset.speech, speakBtn);
+          return;
+        }
+        const cnEl = e.target.closest(".example-cn");
+        if (cnEl && document.body.classList.contains("hide-cn")) {
+          cnEl.classList.toggle("revealed");
+        }
+      });
+
+      // Scrollspy for chapter pills
+      const pills = Array.from(document.querySelectorAll(".nav-pill"));
+      const chapters = Array.from(document.querySelectorAll(".chapter"));
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              pills.forEach((p) => p.classList.toggle("active", p.dataset.target === entry.target.id));
+            }
+          });
+        },
+        { rootMargin: "-25% 0px -65% 0px" }
+      );
+      chapters.forEach((c) => observer.observe(c));
+    }
+
+    renderMagazine();
+    setupControls();
+    if ("speechSynthesis" in window) {
+      window.speechSynthesis.getVoices();
+    }
+  </script>
+</body>
+</html>
