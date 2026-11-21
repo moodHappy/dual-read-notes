@@ -835,6 +835,118 @@
       toastTimer = setTimeout(() => el.classList.remove("show"), 2600);
     }
 
+    const AudioCache = {
+      dbName: "tts_audio_cache_v1",
+      storeName: "audio_clips",
+      ttlMs: 7 * 24 * 60 * 60 * 1000, // 本地缓存 1 周（7 天）
+      _dbPromise: null,
+
+      open() {
+        if (!("indexedDB" in window)) return Promise.resolve(null);
+        if (this._dbPromise) return this._dbPromise;
+
+        this._dbPromise = new Promise((resolve) => {
+          try {
+            const req = indexedDB.open(this.dbName, 1);
+            req.onupgradeneeded = () => {
+              const db = req.result;
+              if (!db.objectStoreNames.contains(this.storeName)) {
+                const store = db.createObjectStore(this.storeName, { keyPath: "key" });
+                store.createIndex("expiresAt", "expiresAt", { unique: false });
+              }
+            };
+            req.onsuccess = () => resolve(req.result);
+            req.onerror = () => resolve(null);
+            req.onblocked = () => resolve(null);
+          } catch (_) {
+            resolve(null);
+          }
+        });
+        return this._dbPromise;
+      },
+
+      async get(key) {
+        const db = await this.open();
+        if (!db) return null;
+        return new Promise((resolve) => {
+          try {
+            const tx = db.transaction(this.storeName, "readonly");
+            const req = tx.objectStore(this.storeName).get(key);
+            req.onsuccess = () => {
+              const record = req.result;
+              if (!record || !record.blob) {
+                resolve(null);
+                return;
+              }
+              if (record.expiresAt <= Date.now()) {
+                this.del(key);
+                resolve(null);
+                return;
+              }
+              resolve(record.blob);
+            };
+            req.onerror = () => resolve(null);
+          } catch (_) {
+            resolve(null);
+          }
+        });
+      },
+
+      async set(key, blob) {
+        const db = await this.open();
+        if (!db || !blob) return;
+        return new Promise((resolve) => {
+          try {
+            const now = Date.now();
+            const tx = db.transaction(this.storeName, "readwrite");
+            tx.objectStore(this.storeName).put({
+              key,
+              blob,
+              createdAt: now,
+              expiresAt: now + this.ttlMs
+            });
+            tx.oncomplete = () => resolve(true);
+            tx.onerror = () => resolve(false);
+          } catch (_) {
+            resolve(false);
+          }
+        });
+      },
+
+      async del(key) {
+        const db = await this.open();
+        if (!db) return;
+        return new Promise((resolve) => {
+          try {
+            const tx = db.transaction(this.storeName, "readwrite");
+            tx.objectStore(this.storeName).delete(key);
+            tx.oncomplete = () => resolve();
+            tx.onerror = () => resolve();
+          } catch (_) {
+            resolve();
+          }
+        });
+      },
+
+      async pruneExpired() {
+        const db = await this.open();
+        if (!db) return;
+        try {
+          const tx = db.transaction(this.storeName, "readwrite");
+          const index = tx.objectStore(this.storeName).index("expiresAt");
+          const range = IDBKeyRange.upperBound(Date.now());
+          const req = index.openCursor(range);
+          req.onsuccess = () => {
+            const cursor = req.result;
+            if (cursor) {
+              cursor.delete();
+              cursor.continue();
+            }
+          };
+        } catch (_) {}
+      }
+    };
+
     const TTS = {
       defaultVoice: "en-US-EricNeural",
 
@@ -861,6 +973,9 @@
       _playToken: 0,
       _timer: null,
       _timeoutMs: 8000,
+      _abortController: null,
+      _objectUrl: null,
+      _unlocked: false,
 
       getAudio() {
         if (!this._audio) {
@@ -872,6 +987,24 @@
           this._audio = audio;
         }
         return this._audio;
+      },
+
+      unlockAudio() {
+        const audio = this.getAudio();
+        if (this._unlocked) return;
+        this._unlocked = true;
+        try {
+          audio.src = "data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAAABkYXRhAgAAAAEA";
+          const p = audio.play();
+          if (p && typeof p.catch === "function") p.catch(() => {});
+        } catch (_) {}
+      },
+
+      revokeObjectUrl() {
+        if (this._objectUrl) {
+          URL.revokeObjectURL(this._objectUrl);
+          this._objectUrl = null;
+        }
       },
 
       getRandomEnVoice() {
@@ -897,15 +1030,66 @@
       stop() {
         this._playToken++;
         clearTimeout(this._timer);
+        if (this._abortController) {
+          this._abortController.abort();
+          this._abortController = null;
+        }
         if (this._audio) {
           this._audio.onerror = null;
           this._audio.onended = null;
           this._audio.onplaying = null;
           this._audio.pause();
         }
+        this.revokeObjectUrl();
         if ("speechSynthesis" in window) {
           window.speechSynthesis.cancel();
         }
+      },
+
+      playAudioSource(src, token, onPlay, onEnd, onFail) {
+        if (token !== this._playToken) return;
+        const audio = this.getAudio();
+        let handled = false;
+
+        const fail = () => {
+          if (handled || token !== this._playToken) return;
+          handled = true;
+          clearTimeout(this._timer);
+          onFail?.();
+        };
+
+        audio.onerror = fail;
+        audio.onplaying = () => {
+          if (token !== this._playToken) return;
+          clearTimeout(this._timer);
+          onPlay?.();
+        };
+        audio.onended = () => {
+          if (token !== this._playToken) return;
+          handled = true;
+          clearTimeout(this._timer);
+          onEnd?.();
+        };
+
+        clearTimeout(this._timer);
+        this._timer = setTimeout(fail, this._timeoutMs);
+
+        audio.src = src;
+        const playPromise = audio.play();
+        if (playPromise && typeof playPromise.catch === "function") {
+          playPromise.catch((err) => {
+            if (err && err.name === "AbortError") return;
+            fail();
+          });
+        }
+      },
+
+      playBlob(blob, token, onPlay, onEnd, onFail) {
+        if (token !== this._playToken) return;
+        this.revokeObjectUrl();
+        const url = URL.createObjectURL(blob);
+        this._objectUrl = url;
+        this.playAudioSource(url, token, onPlay, onEnd, onFail);
       },
 
       playLocalFallback(text, token, onPlay, onEnd) {
@@ -937,7 +1121,7 @@
         window.speechSynthesis.speak(utter);
       },
 
-      play(text, voice = this.defaultVoice, callbacks = null) {
+      async play(text, voice = this.defaultVoice, callbacks = null) {
         const cleanText = this.sanitizeText(text);
         if (!cleanText) return;
 
@@ -945,11 +1129,36 @@
         const onEnd = typeof callbacks === "function" ? callbacks : callbacks?.onEnd;
 
         this.stop();
+        this.unlockAudio();
         const currentToken = this._playToken;
-        const audio = this.getAudio();
-        let apiIndex = 0;
+        const cacheKey = `${voice}::${cleanText}`;
 
-        const tryNext = () => {
+        // 1. 优先读取一周内本地缓存
+        const cachedBlob = await AudioCache.get(cacheKey);
+        if (currentToken !== this._playToken) return;
+
+        if (cachedBlob) {
+          const playedFromCache = await new Promise((resolve) => {
+            this.playBlob(
+              cachedBlob,
+              currentToken,
+              () => {
+                onPlay?.();
+                resolve(true);
+              },
+              onEnd,
+              () => {
+                AudioCache.del(cacheKey);
+                resolve(false);
+              }
+            );
+          });
+          if (playedFromCache || currentToken !== this._playToken) return;
+        }
+
+        // 2. 缓存未命中：请求在线接口并写入本地缓存（有效期 7 天）
+        let apiIndex = 0;
+        const tryNext = async () => {
           if (currentToken !== this._playToken) return;
           if (apiIndex >= this.apis.length) {
             this.playLocalFallback(cleanText, currentToken, onPlay, onEnd);
@@ -958,38 +1167,44 @@
 
           const api = this.apis[apiIndex];
           const src = this.buildUrl(api, cleanText, voice);
-          let handled = false;
+          const controller = new AbortController();
+          this._abortController = controller;
+          const fetchTimer = setTimeout(() => controller.abort(), this._timeoutMs);
 
-          const failAndNext = () => {
-            if (handled || currentToken !== this._playToken) return;
-            handled = true;
-            clearTimeout(this._timer);
-            apiIndex++;
-            tryNext();
-          };
-
-          audio.onerror = failAndNext;
-          audio.onplaying = () => {
+          try {
+            const res = await fetch(src, { signal: controller.signal });
+            clearTimeout(fetchTimer);
             if (currentToken !== this._playToken) return;
-            clearTimeout(this._timer);
-            onPlay?.();
-          };
-          audio.onended = () => {
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+            const blob = await res.blob();
             if (currentToken !== this._playToken) return;
-            handled = true;
-            clearTimeout(this._timer);
-            onEnd?.();
-          };
 
-          clearTimeout(this._timer);
-          this._timer = setTimeout(failAndNext, this._timeoutMs);
+            const mime = (blob.type || "").toLowerCase();
+            if (!blob || blob.size < 128 || mime.includes("text/") || mime.includes("json") || mime.includes("xml")) {
+              throw new Error("Invalid audio payload");
+            }
 
-          audio.src = src;
-          const playPromise = audio.play();
-          if (playPromise && typeof playPromise.catch === "function") {
-            playPromise.catch((err) => {
-              if (err && err.name === "AbortError") return;
-              failAndNext();
+            AudioCache.set(cacheKey, blob);
+            this.playBlob(blob, currentToken, onPlay, onEnd, () => {
+              apiIndex++;
+              tryNext();
+            });
+          } catch (err) {
+            clearTimeout(fetchTimer);
+            if (currentToken !== this._playToken) return;
+
+            // 超时则换下一个节点
+            if (err && err.name === "AbortError") {
+              apiIndex++;
+              tryNext();
+              return;
+            }
+
+            // 若因跨域/file:// 限制导致 fetch 失败，回退为直连 <audio> 播放
+            this.playAudioSource(src, currentToken, onPlay, onEnd, () => {
+              apiIndex++;
+              tryNext();
             });
           }
         };
@@ -1667,6 +1882,7 @@
 
     renderMagazine();
     setupControls();
+    setTimeout(() => AudioCache.pruneExpired(), 1500);
     if ("speechSynthesis" in window) {
       window.speechSynthesis.getVoices();
     }
