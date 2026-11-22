@@ -95,26 +95,8 @@
       border-bottom: 3px double var(--rule-strong);
     }
 
-    .meta-strip {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      font-size: 0.7rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--ink-secondary);
-      padding-bottom: 14px;
-      border-bottom: 1px solid var(--rule);
-    }
-
-    .meta-strip .issue-tag {
-      color: var(--rust);
-      font-weight: 600;
-    }
-
     .cover-header {
-      padding: 34px 0 12px;
+      padding: 12px 0 8px;
       text-align: center;
     }
 
@@ -150,53 +132,6 @@
       font-size: 0.94rem;
       color: var(--ink-secondary);
       line-height: 1.7;
-    }
-
-    /* Editorial Source Link */
-    .source-link-wrap {
-      margin-top: 20px;
-      display: flex;
-      justify-content: center;
-    }
-
-    .source-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 7px 16px;
-      border-radius: 999px;
-      border: 1px solid var(--rule);
-      background: var(--surface);
-      color: var(--ink-secondary);
-      text-decoration: none;
-      font-size: 0.76rem;
-      letter-spacing: 0.04em;
-      font-weight: 500;
-      box-shadow: var(--shadow);
-      transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
-    }
-
-    .source-link:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-      background: var(--accent-soft);
-      transform: translateY(-1px);
-    }
-
-    .source-link svg {
-      color: var(--rust);
-      flex-shrink: 0;
-    }
-
-    .source-link .source-arrow {
-      font-size: 0.85em;
-      opacity: 0.72;
-      transition: transform 0.2s ease;
-    }
-
-    .source-link:hover .source-arrow {
-      transform: translate(2px, -1px);
-      opacity: 1;
     }
 
     .editorial-stats {
@@ -580,10 +515,8 @@
       padding-top: 22px;
       border-top: 3px double var(--rule-strong);
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
-      flex-wrap: wrap;
-      gap: 10px 18px;
       font-size: 0.74rem;
       letter-spacing: 0.08em;
       text-transform: uppercase;
@@ -593,6 +526,7 @@
     .colophon-brand {
       display: inline-flex;
       align-items: baseline;
+      justify-content: center;
       flex-wrap: wrap;
       gap: 8px;
     }
@@ -655,26 +589,16 @@
       }
 
       .masthead {
-        padding-top: 18px;
+        padding-top: 20px;
         padding-bottom: 18px;
       }
 
-      .meta-strip {
-        font-size: 0.64rem;
-        letter-spacing: 0.11em;
-      }
-
       .cover-header {
-        padding: 24px 0 10px;
+        padding: 8px 0 6px;
       }
 
       .cover-deck {
         font-size: 0.88rem;
-      }
-
-      .source-link {
-        font-size: 0.72rem;
-        padding: 6px 13px;
       }
 
       .sticky-bar {
@@ -737,44 +661,18 @@
       .example-cn {
         font-size: 0.85rem;
       }
-
-      .colophon {
-        flex-direction: column;
-        align-items: flex-start;
-      }
     }
   </style>
 </head>
 <body>
   <div class="page">
     <header class="masthead">
-      <div class="meta-strip">
-        <span class="issue-tag">ISSUE NO. 01 · KAMAKURA</span>
-        <span>SPOKEN ENGLISH ARCHIVE</span>
-        <span>VOL. 2026</span>
-      </div>
-
       <div class="cover-header">
         <span class="kicker">Curated Vlog Lexicon</span>
         <h1 class="cover-title">Everyday <em>Idioms</em><br />by the Coast</h1>
         <p class="cover-deck">
-          精选镰仓 Vlog 中最地道、复用率极高的 23 组英语口语表达。每一条均配有三句贴近真实生活的日常例句，支持 Neural TTS 发声与遮罩自测。
+          精选镰仓 Vlog 中最地道、复用率极高的 23 组英语口语表达。每一条均配有三句贴近真实生活的日常例句。
         </p>
-
-        <div class="source-link-wrap">
-          <a
-            class="source-link"
-            href="https://youtu.be/_vlPtbJ0CeQ"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <polygon points="6 4 20 12 6 20 6 4"></polygon>
-            </svg>
-            <span>原视频 · Japan, Kamakura vlog (hanavocado)</span>
-            <span class="source-arrow" aria-hidden="true">↗</span>
-          </a>
-        </div>
 
         <div class="editorial-stats">
           <div>
@@ -818,7 +716,6 @@
           rel="noopener noreferrer"
         >Watch Original Vlog ↗</a>
       </div>
-      <span>Tap speaker icon for Neural TTS · Tap blurred text to peek</span>
     </footer>
   </div>
 
@@ -1013,7 +910,6 @@
         return this._audio;
       },
 
-      // Keep mobile autoplay permission alive across async cache/fetch awaits
       unlockAudio() {
         if (this._unlocked) return;
         const audio = this.getAudio();
@@ -1190,27 +1086,22 @@
         const currentToken = this._playToken;
         const cacheKey = `${voice}::${cleanText}`;
 
-        // 1. Instant synchronous hit from in-memory cache
         const syncUrl = TTSCache.getSyncUrl(cacheKey);
         if (syncUrl) {
           const played = await this.playAudioSrc(syncUrl, currentToken, onPlay, onEnd);
           if (played || currentToken !== this._playToken) return;
         }
 
-        // Unlock mobile audio element synchronously before async operations
         this.unlockAudio();
 
-        // 2. Hit from 7-day IndexedDB cache
         const cachedUrl = await TTSCache.getUrl(cacheKey);
         if (currentToken !== this._playToken) return;
         if (cachedUrl) {
           const played = await this.playAudioSrc(cachedUrl, currentToken, onPlay, onEnd);
           if (played || currentToken !== this._playToken) return;
-          // Corrupted cache entry: drop and refetch
           TTSCache.delete(cacheKey);
         }
 
-        // 3. Cache miss -> Fetch from APIs in order, cache for 7 days, and play
         for (let i = 0; i < this.apis.length; i++) {
           if (currentToken !== this._playToken) return;
           const src = this.buildUrl(this.apis[i], cleanText, voice);
@@ -1226,14 +1117,12 @@
             continue;
           }
 
-          // If fetch failed due to CORS (e.g. file://) rather than timeout, still try direct <audio> playback
           if (!timedOut) {
             const directPlayed = await this.playAudioSrc(src, currentToken, onPlay, onEnd);
             if (directPlayed || currentToken !== this._playToken) return;
           }
         }
 
-        // 4. All remote endpoints failed -> Local browser speech fallback
         this.playLocalFallback(cleanText, currentToken, onPlay, onEnd);
       }
     };
