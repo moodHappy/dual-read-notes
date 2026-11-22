@@ -30,15 +30,17 @@ def scan_summary_notes():
             # 统一路径分隔符为正斜杠，确保生成的 web 链接正确
             rel_path = file_full_path.replace("\\", "/")
 
-            # 解析 文件名格式: 英文标识符_timestamp.html
-            match = re.search(r"^(.*)_(\d{10,13})\.html$", file_name)
+            # 解析 文件名格式: 英文标识符[_red]_timestamp.html
+            match = re.search(r"^(.*?)(_red)?_(\d{10,13})\.html$", file_name)
             if match:
                 raw_title = match.group(1) # 英文标识符
-                ts_ms = int(match.group(2))
+                is_red = bool(match.group(2))
+                ts_ms = int(match.group(3))
                 dt = datetime.fromtimestamp(ts_ms / 1000.0, tz=tz_utc_8)
             else:
                 # 降级：使用文件系统的修改时间
                 raw_title = file_name.replace(".html", "")
+                is_red = False
                 mtime = os.path.getmtime(file_full_path)
                 ts_ms = int(mtime * 1000)
                 dt = datetime.fromtimestamp(mtime, tz=tz_utc_8)
@@ -70,13 +72,17 @@ def scan_summary_notes():
             if f_month not in archive_data[f_year]: archive_data[f_year][f_month] = {}
             if f_day not in archive_data[f_year][f_month]: archive_data[f_year][f_month][f_day] = []
 
-            archive_data[f_year][f_month][f_day].append({
+            item = {
                 "time": time_str,
                 "timestamp": ts_ms,
                 "path": rel_path,
                 "title": display_title,  # 展示 <title> 标题
                 "rawTitle": raw_title    # 保留填写的英文标识符作为原始参数
-            })
+            }
+            if is_red:
+                item["isRed"] = True
+
+            archive_data[f_year][f_month][f_day].append(item)
             total_count += 1
 
     # 按时间戳降序排列，确保当天“最新的文章排在最顶部”
@@ -159,6 +165,7 @@ def generate_hub_html(archive_data):
         .day-cell.today { background: #edf2f7; color: var(--text); }
         .dot { width: 6px; height: 6px; background-color: var(--primary); border-radius: 50%; position: absolute; bottom: 6px; display: none; }
         .day-cell.has-notes .dot { display: block; }
+        .day-cell.has-red-notes .dot { background-color: #e53e3e; }
 
         /* 文章列表 */
         .notes-section { padding: 0 16px; }
@@ -168,6 +175,7 @@ def generate_hub_html(archive_data):
             justify-content: space-between; align-items: center; text-decoration: none; color: var(--text);
             box-shadow: 0 2px 8px rgba(0,0,0,0.03); border-left: 4px solid var(--primary); transition: all 0.2s; overflow: hidden;
         }
+        .note-item.is-red { border-left-color: #e53e3e; }
         .note-item:active { transform: scale(0.98); background: #f7fafc; }
         .note-title { font-size: 15px; color: #2d3748; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: left; font-weight: bold; flex: 1; }
         .delete-btn {
@@ -240,9 +248,15 @@ def generate_hub_html(archive_data):
                 <textarea id="upContent" placeholder="在此粘贴杂志完整 HTML 代码..."></textarea>
             </div>
 
-            <div class="modal-actions">
-                <button class="btn btn-cancel" id="closeUploadBtn">取消</button>
-                <button class="btn btn-save" id="saveUploadBtn">推送至云端 🚀</button>
+            <div class="modal-actions" style="justify-content: space-between; align-items: center;">
+                <label style="display:flex; align-items:center; gap:6px; font-size:14px; font-weight:bold; color:var(--text); cursor:pointer; user-select:none;">
+                    <input type="checkbox" id="upIsRed" style="width:16px; height:16px; accent-color:#e53e3e; cursor:pointer;">
+                    <span>🔴 期刊</span>
+                </label>
+                <div style="display:flex; gap:10px;">
+                    <button class="btn btn-cancel" id="closeUploadBtn">取消</button>
+                    <button class="btn btn-save" id="saveUploadBtn">推送至云端 🚀</button>
+                </div>
             </div>
         </div>
     </div>
@@ -345,7 +359,12 @@ def generate_hub_html(archive_data):
                     const cell = document.createElement('div'); cell.className = 'day-cell'; cell.textContent = day;
                     const dot = document.createElement('div'); dot.className = 'dot'; cell.appendChild(dot);
                     
-                    if (monthData[day] && monthData[day].length > 0) cell.classList.add('has-notes'); else cell.classList.add('no-notes');
+                    if (monthData[day] && monthData[day].length > 0) {
+                        cell.classList.add('has-notes');
+                        if (monthData[day].some(n => n.isRed)) cell.classList.add('has-red-notes');
+                    } else {
+                        cell.classList.add('no-notes');
+                    }
                     if (AppState.year === today.getFullYear() && AppState.month === today.getMonth() + 1 && day === today.getDate()) cell.classList.add('today');
                     if (day === AppState.day) cell.classList.add('selected');
                     
@@ -371,7 +390,7 @@ def generate_hub_html(archive_data):
                     if (filtered.length > 0) {
                         filtered.forEach((note, index) => {
                             const wrapper = document.createElement('div'); wrapper.className = 'note-item-wrapper';
-                            const a = document.createElement('a'); a.href = note.path; a.className = 'note-item';
+                            const a = document.createElement('a'); a.href = note.path; a.className = 'note-item' + (note.isRed ? ' is-red' : '');
                             a.innerHTML = `<span class="note-title">${note.title}</span>`;
                             wrapper.appendChild(a);
 
@@ -416,6 +435,7 @@ def generate_hub_html(archive_data):
                 e.preventDefault();
                 document.getElementById('upFilename').value = '';
                 document.getElementById('upContent').value = '';
+                document.getElementById('upIsRed').checked = false;
                 document.getElementById('uploadModal').style.display = 'flex';
                 setTimeout(() => { document.getElementById('upContent').focus(); }, 100);
             }
@@ -464,6 +484,7 @@ def generate_hub_html(archive_data):
         document.getElementById('saveUploadBtn').addEventListener('click', async () => {
             let filename = document.getElementById('upFilename').value.trim();
             let content = document.getElementById('upContent').value.trim();
+            const isRed = document.getElementById('upIsRed').checked;
             
             if(!content) return alert("请粘贴 HTML 代码！");
             
@@ -482,8 +503,9 @@ def generate_hub_html(archive_data):
             const dayStr = String(now.getDate());
             const ts = now.getTime();
             
-            // 构建目标路径，自动匹配年月结构 Summary/2026/8/xxx_12345.html
-            const fullPath = `Summary/${yearStr}/${monthStr}/${filename}_${ts}.html`;
+            // 构建目标路径，自动匹配年月结构 Summary/2026/8/xxx[_red]_12345.html
+            const redSuffix = isRed ? '_red' : '';
+            const fullPath = `Summary/${yearStr}/${monthStr}/${filename}${redSuffix}_${ts}.html`;
             
             try {
                 const loadingBar = document.getElementById('loadingBar');
@@ -516,13 +538,15 @@ def generate_hub_html(archive_data):
                 if(!archiveData[yearStr][monthStr]) archiveData[yearStr][monthStr] = {};
                 if(!archiveData[yearStr][monthStr][dayStr]) archiveData[yearStr][monthStr][dayStr] = [];
 
-                archiveData[yearStr][monthStr][dayStr].push({
+                const newItem = {
                     time: timeStr,
                     timestamp: ts,
                     path: fullPath,
                     title: `📄 ${timeStr} ${htmlTitle}`,
                     rawTitle: filename
-                });
+                };
+                if (isRed) newItem.isRed = true;
+                archiveData[yearStr][monthStr][dayStr].push(newItem);
 
                 // 跳转到今天并重绘，让用户立刻看到新上传的文件
                 AppState.year = now.getFullYear();
