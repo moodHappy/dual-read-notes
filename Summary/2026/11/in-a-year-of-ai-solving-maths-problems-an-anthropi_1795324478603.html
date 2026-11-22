@@ -1,968 +1,951 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>In a year of AI solving maths problems, an Anthropic worker says he may have cracked the biggest</title>
-<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-<style id="core-style">
-/* ======================================================================
-   [AI TEMPLATE GUIDELINES - CSS 核心排版规范]
-   致其他 AI 助手：在生成此模板时，请严格遵守以下样式分配与内容提炼规则：
-   1. 序号规则：列表的 NO.01 序号由伪类 `::before` 自动生成且独占一行。千万不要在 HTML 中手动输入“NO.01”。
-   2. 标签规则：文章开头的标签胶囊纯文字即可，禁止带 `#` 号。类别标签严格限制在最多两个单词以内，以避免在移动端发生换行。
-   3. 胶囊高亮（.litit-badge）：仅用于第 1、2、3 板块（重点记忆、高价值表达、短语和固定搭配）的【短词组/单词】，表现为紫色渐变背景的内联胶囊。
-   4. 长句排版（.litit-en-sentence）：用于第 4 板块（值得学习的句子结构）和第 5 板块（最值得优先掌握的句型）的【长句/长句型】。严禁将长句型放入 .litit-badge 中，否则会导致折行错乱。并且中文解释中的括号补充内容需使用 <br> 另起一行。
-   5. 语法重点提炼规范：核心目标是“深度剖析语法结构”，绝对禁止单纯罗列生硬的语法术语。应结合文章具体语境灵活解析，重点提炼以下三个进阶维度：
-      - 维度1：长难句与从句嵌套（Complex Clause Structures）。考察和剖析主从复合句的主干提取、各类从句（定语/名词性/状语从句）的逻辑关系。
-      - 维度2：高级句式与特殊结构（Advanced Syntax）。剖析倒装句、强调句、虚拟语气、独立主格等高级语法现象在语境中的具体应用与修辞色彩。
-      - 维度3：非谓语动词与词法功能（Non-finite Verbs & Lexical Grammar）。解析分词、不定式、动名词在句中的具体功能（作定语、状语等）及其带来的语体效果。
-   6. 例句提取铁律（严禁提取定义句/释义句）：凡是在各板块（尤其是第 1、3 板块）为目标单词或短语（.litit-badge）搭配英文例句（.litit-en-sentence）时，所提取的英文例句中【必须直接出现该目标单词或短语本身】（允许合理的词形变化）。绝对禁止把原文中仅用于解释该词的“定义句”、“同位语解释”或“不包含该词本身的上下文”错当成例句提取出来！生成后必须逐条核对例句中是否真正包含目标词。
-   ====================================================================== */
-:root {
-  --bg-page: #ffffff;
-  --bg-card: #ffffff;
-  --text-main: #0f172a;
-  --text-sub: #334155;
-  --text-muted: #64748b;
-  --accent-primary: #4f46e5;
-  --border-subtle: #e2e8f0;
-  --font-serif: "Georgia", "Charter", "Source Han Serif SC", "Noto Serif CJK SC", serif;
-  --font-sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", Roboto, sans-serif;
-}
-body {
-  font-family: var(--font-sans);
-  padding: 12px 12px 36px 12px;
-  margin: 0 auto;
-  max-width: 780px;
-  background: var(--bg-page);
-  color: var(--text-main);
-  line-height: 1.75;
-  font-size: 16px;
-  word-wrap: break-word;
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-}
-* {
-  box-sizing: border-box;
-  max-width: 100%;
-}
-img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 8px;
-}
-#reading-progress {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 0%;
-  height: 3px;
-  background: linear-gradient(90deg, #4f46e5, #9333ea);
-  z-index: 9999;
-  transition: width 0.1s ease-out;
-}
-.litit-report {
-  background: var(--bg-card);
-  padding: 0;
-}
-.anno-toggle, .ai-toggle {
-  display: inline-block;
-  padding: 2px 5px;
-  margin-left: 5px;
-  cursor: pointer;
-  opacity: 0.45;
-  font-size: 0.85rem;
-  vertical-align: middle;
-  transition: all 0.2s;
-  user-select: none;
-  -webkit-tap-highlight-color: transparent;
-}
-.anno-toggle:hover, .ai-toggle:hover {
-  opacity: 1;
-  transform: scale(1.15);
-}
-.anno-toggle.has-anno {
-  opacity: 1;
-}
-.anno-toggle::after {
-  content: "🔴";
-}
-.ai-toggle {
-  opacity: 0.7;
-  padding: 2px 4px;
-}
-.ai-toggle::after {
-  content: "🤖";
-}
-.ai-toggle.loading::after {
-  content: "⏳";
-  display: inline-block;
-  animation: spin 1s linear infinite;
-}
-@keyframes spin {
-  100% { transform: rotate(360deg); }
-}
-.anno-box {
-  display: none;
-  margin-top: 10px;
-  background: #faf8ff;
-  border-left: 3px solid #7c3aed;
-  padding: 12px 14px;
-  border-radius: 0 8px 8px 0;
-  text-align: left;
-}
-.anno-view {
-  font-size: 0.95rem;
-  line-height: 1.65;
-  color: #334155;
-  min-height: 24px;
-}
-.anno-edit {
-  width: 100%;
-  min-height: 240px;
-  padding: 10px;
-  font-family: monospace;
-  font-size: 0.95rem;
-  border: 1px dashed #a78bfa;
-  border-radius: 6px;
-  resize: vertical;
-  display: none;
-  background: #fff;
-  color: #1e293b;
-  outline: none;
-}
-.anno-edit:focus {
-  border: 1px solid #7c3aed;
-  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.12);
-}
-.markdown-body p {
-  margin-top: 0;
-  margin-bottom: 8px;
-}
-.markdown-body p:last-child {
-  margin-bottom: 0;
-}
-.markdown-body h1, .markdown-body h2, .markdown-body h3 {
-  color: #5b21b6;
-  font-size: 1.05rem;
-  margin: 10px 0 6px 0;
-  border-bottom: 1px dashed #ddd6fe;
-  padding-bottom: 4px;
-}
-.markdown-body ul, .markdown-body ol {
-  margin: 0 0 8px 0;
-  padding-left: 18px;
-}
-.markdown-body blockquote {
-  margin: 0 0 10px 0;
-  padding: 8px 12px;
-  background: rgba(124, 58, 237, 0.06);
-  border-left: 3px solid #7c3aed;
-  color: #475569;
-}
-.section-header {
-  font-size: 16px;
-  color: #0f172a;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  background: linear-gradient(90deg, #f8fafc 0%, #ffffff 100%);
-  padding: 8px 12px;
-  border-left: 4px solid #4f46e5;
-  margin: 26px 0 14px 0;
-  border-radius: 0 6px 6px 0;
-  display: flex;
-  align-items: center;
-  box-shadow: inset 0 1px 0 #f1f5f9, inset 0 -1px 0 #f1f5f9;
-}
-details.litit-fold {
-  margin-bottom: 10px;
-  border: 1px solid #e2e8f0;
-  border-radius: 10px;
-  background: #ffffff;
-  overflow: hidden;
-  transition: border-color 0.2s ease;
-}
-details.litit-fold[open] {
-  border-color: #cbd5e1;
-}
-details.litit-fold summary {
-  cursor: pointer;
-  padding: 12px 14px;
-  outline: none;
-  list-style: none;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #f8fafc;
-  transition: background 0.2s;
-  user-select: none;
-  -webkit-tap-highlight-color: transparent;
-}
-details.litit-fold summary::-webkit-details-marker {
-  display: none;
-}
-details.litit-fold summary::after {
-  display: none;
-}
-details.litit-fold summary:hover {
-  background: #f1f5f9;
-}
-details.litit-fold[open] summary {
-  border-bottom: 1px solid #e2e8f0;
-  background: #f8fafc;
-  border-left: 3px solid #4f46e5;
-}
-.litit-fold-content {
-  padding: 10px 8px;
-  background: #f8fafc;
-}
-.litit-fold-content > ol, .litit-fold-content > ul {
-  list-style: none !important;
-  padding-left: 0 !important;
-  margin: 0 !important;
-  counter-reset: litit-counter;
-}
-.litit-fold-content > ol > li, .litit-fold-content > ul > li {
-  counter-increment: litit-counter;
-  position: relative;
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  padding: 12px 12px;
-  margin-bottom: 10px !important;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.015);
-}
-.litit-fold-content > ol > li:last-child, .litit-fold-content > ul > li:last-child {
-  margin-bottom: 0 !important;
-}
-.litit-fold-content > ol > li::before, .litit-fold-content > ul > li::before {
-  content: "NO." counter(litit-counter, decimal-leading-zero);
-  display: block;
-  width: max-content;
-  font-size: 10px;
-  font-weight: 800;
-  font-family: -apple-system, BlinkMacSystemFont, monospace;
-  color: #4f46e5;
-  background: #eef2ff;
-  padding: 1px 6px;
-  border-radius: 4px;
-  margin-bottom: 8px;
-  letter-spacing: 0.04em;
-}
-.litit-en-sentence {
-  display: block;
-  font-family: var(--font-serif);
-  font-size: 1.04rem;
-  font-weight: 600;
-  color: #0f172a;
-  line-height: 1.5;
-  margin-bottom: 6px;
-}
-.litit-zh-sentence {
-  display: block;
-  font-family: var(--font-sans);
-  font-size: 0.93rem;
-  color: #475569;
-  line-height: 1.55;
-  margin-bottom: 2px;
-}
-li.litit-target-sentence > br {
-  display: none;
-}
-.litit-badge {
-  display: inline-block;
-  background: linear-gradient(135deg, #eef2ff 0%, #f3e8ff 100%);
-  color: #4338ca;
-  padding: 2px 8px;
-  border-radius: 5px;
-  font-size: 0.92rem;
-  font-weight: 700;
-  margin-right: 4px;
-  margin-bottom: 6px;
-  border: 1px solid #e0e7ff;
-  vertical-align: middle;
-}
-li.litit-target-sentence > ul {
-  list-style: none !important;
-  margin: 10px 0 0 0 !important;
-  padding: 8px 10px !important;
-  background: #f8fafc;
-  border-radius: 6px;
-  border-left: 2.5px solid #94a3b8;
-}
-li.litit-target-sentence > ul > li {
-  position: relative;
-  padding-left: 10px;
-  margin-bottom: 5px !important;
-  font-size: 0.88rem;
-  color: #334155;
-  line-height: 1.5;
-}
-li.litit-target-sentence > ul > li:last-child {
-  margin-bottom: 0 !important;
-}
-li.litit-target-sentence > ul > li::before {
-  content: "·";
-  position: absolute;
-  left: 0;
-  top: 0;
-  color: #4f46e5;
-  font-weight: 900;
-}
-li.litit-target-sentence > ul > li > strong {
-  color: #0f172a;
-  font-weight: 600;
-  background: #e2e8f0;
-  padding: 1px 5px;
-  border-radius: 4px;
-  font-size: 0.84rem;
-  margin-right: 3px;
-}
-@media (max-width: 600px) {
-  body {
-    padding: 10px 10px 30px 10px;
-    font-size: 15px;
-  }
-  h1.litit-target-title {
-    font-size: 21px !important;
-  }
-  .litit-fold-content {
-    padding: 8px 6px;
-  }
-  .litit-fold-content > ol > li, .litit-fold-content > ul > li {
-    padding: 11px 10px;
-    margin-bottom: 8px !important;
-  }
-}
-</style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>In a year of AI solving maths problems, an Anthropic worker says he may have cracked the biggest</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style id="core-style">
+        :root {
+            --bg-page: #ffffff;
+            --bg-card: #ffffff;
+            --text-main: #0f172a;
+            --text-sub: #334155;
+            --text-muted: #64748b;
+            --accent-primary: #4f46e5;
+            --border-subtle: #e2e8f0;
+            --font-serif: "Georgia", "Charter", "Source Han Serif SC", "Noto Serif CJK SC", serif;
+            --font-sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", Roboto, sans-serif;
+        }
+        body {
+            font-family: var(--font-sans);
+            padding: 12px 12px 36px 12px;
+            margin: 0 auto;
+            max-width: 780px;
+            background: var(--bg-page);
+            color: var(--text-main);
+            line-height: 1.75;
+            font-size: 16px;
+            word-wrap: break-word;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+        * {
+            box-sizing: border-box;
+            max-width: 100%;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        #reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(90deg, #4f46e5, #9333ea);
+            z-index: 9999;
+            transition: width 0.1s ease-out;
+        }
+        .litit-report {
+            background: var(--bg-card);
+            padding: 0;
+        }
+        .anno-toggle, .ai-toggle {
+            display: inline-block;
+            padding: 2px 5px;
+            margin-left: 5px;
+            cursor: pointer;
+            opacity: 0.45;
+            font-size: 0.85rem;
+            vertical-align: middle;
+            transition: all 0.2s;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .anno-toggle:hover, .ai-toggle:hover {
+            opacity: 1;
+            transform: scale(1.15);
+        }
+        .anno-toggle.has-anno {
+            opacity: 1;
+        }
+        .anno-toggle::after {
+            content: "🔴";
+        }
+        .ai-toggle {
+            opacity: 0.7;
+            padding: 2px 4px;
+        }
+        .ai-toggle::after {
+            content: "🤖";
+        }
+        .ai-toggle.loading::after {
+            content: "⏳";
+            display: inline-block;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+        .anno-box {
+            display: none;
+            margin-top: 10px;
+            background: #faf8ff;
+            border-left: 3px solid #7c3aed;
+            padding: 12px 14px;
+            border-radius: 0 8px 8px 0;
+            text-align: left;
+        }
+        .anno-view {
+            font-size: 0.95rem;
+            line-height: 1.65;
+            color: #334155;
+            min-height: 24px;
+        }
+        .anno-edit {
+            width: 100%;
+            min-height: 240px;
+            padding: 10px;
+            font-family: monospace;
+            font-size: 0.95rem;
+            border: 1px dashed #a78bfa;
+            border-radius: 6px;
+            resize: vertical;
+            display: none;
+            background: #fff;
+            color: #1e293b;
+            outline: none;
+        }
+        .anno-edit:focus {
+            border: 1px solid #7c3aed;
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.12);
+        }
+        .markdown-body p {
+            margin-top: 0;
+            margin-bottom: 8px;
+        }
+        .markdown-body p:last-child {
+            margin-bottom: 0;
+        }
+        .markdown-body h1, .markdown-body h2, .markdown-body h3 {
+            color: #5b21b6;
+            font-size: 1.05rem;
+            margin: 10px 0 6px 0;
+            border-bottom: 1px dashed #ddd6fe;
+            padding-bottom: 4px;
+        }
+        .markdown-body ul, .markdown-body ol {
+            margin: 0 0 8px 0;
+            padding-left: 18px;
+        }
+        .markdown-body blockquote {
+            margin: 0 0 10px 0;
+            padding: 8px 12px;
+            background: rgba(124, 58, 237, 0.06);
+            border-left: 3px solid #7c3aed;
+            color: #475569;
+        }
+        .section-header {
+            font-size: 16px;
+            color: #0f172a;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            background: linear-gradient(90deg, #f8fafc 0%, #ffffff 100%);
+            padding: 8px 12px;
+            border-left: 4px solid #4f46e5;
+            margin: 26px 0 14px 0;
+            border-radius: 0 6px 6px 0;
+            display: flex;
+            align-items: center;
+            box-shadow: inset 0 1px 0 #f1f5f9, inset 0 -1px 0 #f1f5f9;
+        }
+        details.litit-fold {
+            margin-bottom: 10px;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            background: #ffffff;
+            overflow: hidden;
+            transition: border-color 0.2s ease;
+        }
+        details.litit-fold[open] {
+            border-color: #cbd5e1;
+        }
+        details.litit-fold summary {
+            cursor: pointer;
+            padding: 12px 14px;
+            outline: none;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f8fafc;
+            transition: background 0.2s;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        details.litit-fold summary::-webkit-details-marker {
+            display: none;
+        }
+        details.litit-fold summary::after {
+            display: none;
+        }
+        details.litit-fold summary:hover {
+            background: #f1f5f9;
+        }
+        details.litit-fold[open] summary {
+            border-bottom: 1px solid #e2e8f0;
+            background: #f8fafc;
+            border-left: 3px solid #4f46e5;
+        }
+        .litit-fold-content {
+            padding: 10px 8px;
+            background: #f8fafc;
+        }
+        .litit-fold-content > ol, .litit-fold-content > ul {
+            list-style: none !important;
+            padding-left: 0 !important;
+            margin: 0 !important;
+            counter-reset: litit-counter;
+        }
+        .litit-fold-content > ol > li, .litit-fold-content > ul > li {
+            counter-increment: litit-counter;
+            position: relative;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 12px 12px;
+            margin-bottom: 10px !important;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.015);
+        }
+        .litit-fold-content > ol > li:last-child, .litit-fold-content > ul > li:last-child {
+            margin-bottom: 0 !important;
+        }
+        .litit-fold-content > ol > li::before, .litit-fold-content > ul > li::before {
+            content: "NO." counter(litit-counter, decimal-leading-zero);
+            display: block;
+            width: max-content;
+            font-size: 10px;
+            font-weight: 800;
+            font-family: -apple-system, BlinkMacSystemFont, monospace;
+            color: #4f46e5;
+            background: #eef2ff;
+            padding: 1px 6px;
+            border-radius: 4px;
+            margin-bottom: 8px;
+            letter-spacing: 0.04em;
+        }
+        .litit-en-sentence {
+            display: block;
+            font-family: var(--font-serif);
+            font-size: 1.04rem;
+            font-weight: 600;
+            color: #0f172a;
+            line-height: 1.5;
+            margin-bottom: 6px;
+        }
+        .litit-zh-sentence {
+            display: block;
+            font-family: var(--font-sans);
+            font-size: 0.93rem;
+            color: #475569;
+            line-height: 1.55;
+            margin-bottom: 2px;
+        }
+        li.litit-target-sentence > br {
+            display: none;
+        }
+        .litit-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #eef2ff 0%, #f3e8ff 100%);
+            color: #4338ca;
+            padding: 2px 8px;
+            border-radius: 5px;
+            font-size: 0.92rem;
+            font-weight: 700;
+            margin-right: 4px;
+            margin-bottom: 6px;
+            border: 1px solid #e0e7ff;
+            vertical-align: middle;
+        }
+        li.litit-target-sentence > ul {
+            list-style: none !important;
+            margin: 10px 0 0 0 !important;
+            padding: 8px 10px !important;
+            background: #f8fafc;
+            border-radius: 6px;
+            border-left: 2.5px solid #94a3b8;
+        }
+        li.litit-target-sentence > ul > li {
+            position: relative;
+            padding-left: 10px;
+            margin-bottom: 5px !important;
+            font-size: 0.88rem;
+            color: #334155;
+            line-height: 1.5;
+        }
+        li.litit-target-sentence > ul > li:last-child {
+            margin-bottom: 0 !important;
+        }
+        li.litit-target-sentence > ul > li::before {
+            content: "·";
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: #4f46e5;
+            font-weight: 900;
+        }
+        li.litit-target-sentence > ul > li > strong {
+            color: #0f172a;
+            font-weight: 600;
+            background: #e2e8f0;
+            padding: 1px 5px;
+            border-radius: 4px;
+            font-size: 0.84rem;
+            margin-right: 3px;
+        }
+        @media (max-width: 600px) {
+            body { padding: 10px 10px 30px 10px; font-size: 15px; }
+            h1.litit-target-title { font-size: 21px !important; }
+            .litit-fold-content { padding: 8px 6px; }
+            .litit-fold-content > ol > li, .litit-fold-content > ul > li { padding: 11px 10px; margin-bottom: 8px !important; }
+        }
+    </style>
 </head>
 <body>
-<div id="reading-progress"></div>
-<div class="litit-report" style="width:100%; max-width:100%; box-sizing:border-box; overflow-x:hidden;">
-  
-  <div style="display:flex; justify-content:space-between; align-items:center; border-bottom: 2px solid #0f172a; padding-bottom: 6px; margin-bottom: 14px; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: #64748b; text-transform: uppercase;">
-    <span>The Global Dispatch · 深度双语精读</span>
-    <span>AI Breakthrough</span>
-  </div>
+    <div id="reading-progress"></div>
+    <div class="litit-report" style="width:100%; max-width:100%; box-sizing:border-box; overflow-x:hidden;">
+        
+        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom: 2px solid #0f172a; padding-bottom: 6px; margin-bottom: 14px; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: #64748b; text-transform: uppercase;">
+            <span>The Global Dispatch · 深度双语精读</span>
+            <span>Tech &amp; Science</span>
+        </div>
 
-  <div class="content-wrap" style="position:relative; margin-bottom: 16px;">
-    <h1 class="litit-target-title" style="color:#0f172a; font-size: 24px; line-height: 1.35; font-family: var(--font-serif); font-weight: 800; border-bottom: 1px solid #e2e8f0; padding-bottom: 14px; margin-top:0; margin-bottom:0; word-break:break-word;">
-      <span class="content litit-en-title" style="position:relative;">In a year of AI solving maths problems, an Anthropic worker says he may have cracked the biggest</span>
-      <br>
-      <span class="litit-zh-title" style="font-family: var(--font-sans); font-size: 17px; font-weight: 600; color: #475569; margin-top: 8px; display: inline-block; line-height: 1.45;">AI频破数学难题之年：Anthropic研究员宣称已用Claude攻克世纪最大悬案“黎曼猜想”</span>
-    </h1>
-    <div class="anno-box" style="display:none; margin-top: 10px;">
-      <div class="anno-view markdown-body"></div>
-      <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
-AI频破数学难题之年：Anthropic研究员宣称已用Claude攻克世纪最大悬案“黎曼猜想”
+        <div class="content-wrap" style="position:relative; margin-bottom: 16px;">
+            <h1 class="litit-target-title" style="color:#0f172a; font-size: 24px; line-height: 1.35; font-family: var(--font-serif); font-weight: 800; border-bottom: 1px solid #e2e8f0; padding-bottom: 14px; margin-top:0; margin-bottom:0; word-break:break-word;">
+                <span class="content litit-en-title" style="position:relative;">In a year of AI solving maths problems, an Anthropic worker says he may have cracked the biggest</span>
+                <br>
+                <span class="litit-zh-title" style="font-family: var(--font-sans); font-size: 17px; font-weight: 600; color: #475569; margin-top: 8px; display: inline-block; line-height: 1.45;">在AI攻克数学难题之年，Anthropic员工宣称可能破解了最难的黎曼猜想</span>
+            </h1>
+            <div class="anno-box" style="display:none; margin-top: 10px;">
+                <div class="anno-view markdown-body"></div>
+                <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea>
+            </div>
+        </div>
 
-### 📌 核心词汇 (Key Expressions)
-- **cracked the biggest** = 攻克了最重大的（难题）（crack 在此指破译、解决棘手难题）
-- **maths problems** = 数学难题（英式英语用法，BBC 报道习惯）
+        <p style="color:#334155; font-size: 15px; line-height: 1.75; margin-bottom:16px; font-weight:400; background: #f8fafc; padding: 12px 14px; border-radius: 8px; border: 1px solid #f1f5f9;">
+            就在Anthropic以1.5万亿美元估值登陆纳斯达克的次日，该公司员工兼数学家莱文特·阿尔珀格（Levent Alpöge）抛出了一枚震撼科学界的核弹：他宣称自己在过去六周内，借助非公开版本的Claude，完成了对悬而未决近170年的数学界“皇冠明珠”——黎曼猜想的证明。这份用数学验证语言Lean写就的完整证明长达惊人的25万页。面对外界关于“配合上市炒作”的质疑，阿尔珀格极力否认；而著名数学家陶哲轩则审慎指出，消化和验证这份庞大证明尚需时日。在OpenAI与Anthropic竞相拿“破解世纪难题”作为商业秀场的当下，传统数学界正发出严厉警告：这种将科研成果工具化的狂飙，正在威胁人类智力工作的本质。
+        </p>
 
-### 🔍 句子解析方式 (Parsing Method)
-- **[主干结构]**：句首介词短语 `In a year of AI solving maths problems`（内含 `of + 动名词复合结构`）交代宏大时代背景；主句 `an Anthropic worker says...` 接宾语从句，使用情态动词 `may have cracked` 体现 BBC 新闻对尚未经过同行评审的重大科学宣称的严谨审慎。
-- **[省略技巧]**：句尾 `the biggest` 省略了核心名词 `maths problem`，与前半句形成巧妙照应，简洁有力。</textarea>
-    </div>
-  </div>
+        <div style="margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+            <div style="display:flex; flex-wrap:wrap; gap:6px;">
+                <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;">人工智能</span>
+                <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;">黎曼猜想</span>
+                <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;">学术争议</span>
+            </div>
+            <a href="https://www.bbc.com/news/articles/c6pqr2g7w059o" target="_blank" style="font-size: 12.5px; color: #4f46e5; text-decoration: none; font-weight: 600; background: #eef2ff; padding: 5px 12px; border-radius: 16px; border: 1px solid #e0e7ff; display:inline-block;">🔗 来源: BBC ↗</a>
+        </div>
 
-  <p style="color:#334155; font-size: 15px; line-height: 1.75; margin-bottom:16px; font-weight:400; background: #f8fafc; padding: 12px 14px; border-radius: 8px; border: 1px solid #f1f5f9;">
-    就在 Anthropic 登陆美股市场次日，该公司数学家兼员工 Levent Alpöge 抛出重磅炸弹：他宣称历时约六周，借助公司未公开版 Claude 大模型，用形式化验证语言 Lean 写出了一份长达逾 25 万页的“黎曼猜想”完整证明。一旦经学界验证无误，这座困扰人类近 170 年、关乎素数分布规律的“数学界皇冠明珠”将被正式摘下。著名数学家陶哲轩表示验证过程尚需时日，但庆幸此次至少有懂数学的人类作者可供沟通；与此同时，学术界对 OpenAI 与 Anthropic 等科技巨头接连高调发布 AI 解题成果提出批评，担忧商业炒作正对纯粹数学研究造成伤害。
-  </p>
+        <h2 class="section-header" style="border-left-color: #f59e0b;">💬 最佳金句</h2>
+        <div class="content-wrap" style="position:relative; margin-bottom:24px;">
+            <blockquote class="litit-target-quote" style="border-left: 3.5px solid #f59e0b; background: linear-gradient(135deg, #fffbeb 0%, #ffffff 100%); padding: 14px 14px; margin: 0; color: #1e293b; border-radius: 0 10px 10px 0; border-top: 1px solid #fef3c7; border-right: 1px solid #fef3c7; border-bottom: 1px solid #fef3c7;">
+                <div class="content litit-en-quote" style="position:relative; margin:0 0 8px 0; font-family: var(--font-serif); font-style: italic; font-weight:600; font-size: 16.5px; line-height: 1.55; color:#0f172a; word-break:break-word;">
+                    "We are witnessing a general threat to intellectual work, with misalignment between the outcome of the use of AI and its initial purpose," the scholars said in a group letter.
+                </div>
+                <p class="litit-zh-quote" style="margin:0 0 8px 0; font-weight:400; font-size: 14.5px; line-height: 1.6; color:#475569; word-break:break-word;">
+                    “我们正在目睹一场针对人类智力工作的普遍威胁，使用人工智能产生的结果与其最初目的之间出现了严重错位，”学者们在联名信中写道。
+                </p>
+                <footer style="text-align:right; font-size:12px; color:#64748b; font-style:normal; font-weight:600;">—— 当AI巨头用未经充分同行评审的“海量证明”作为商业宣传的筹码时，纯粹的科学探索与资本狂热之间的裂痕正越撕越大。</footer>
+            </blockquote>
+            <div class="anno-box" style="display:none;">
+                <div class="anno-view markdown-body"></div>
+                <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea>
+            </div>
+        </div>
 
-  <div style="margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
-    <div style="display:flex; flex-wrap:wrap; gap:6px;">
-      <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;">Mathematics</span>
-      <span style="background:#f1f5f9; color:#334155; padding:4px 10px; border-radius:16px; font-size:12px; font-weight:600;">Claude</span>
-    </div>
-    <a href="https://www.bbc.com/news/articles/c6pqr2g7w059o" target="_blank" style="font-size: 12.5px; color: #4f46e5; text-decoration: none; font-weight: 600; background: #eef2ff; padding: 5px 12px; border-radius: 16px; border: 1px solid #e0e7ff; display:inline-block;">🔗 阅读原文 ↗</a>
-  </div>
+        <h2 class="section-header" style="border-left-color: #10b981;">📊 关键数字</h2>
+        <div style="display:grid; grid-template-columns: repeat(2, 1fr); gap:10px; margin:14px 0 24px 0;">
+            <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+                <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+                    170<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">年</span>
+                </div>
+                <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">黎曼猜想悬而未决的漫长岁月，它关乎素数分布规律，被公认为数学界最著名的难题。</div>
+            </div>
+            <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+                <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+                    25<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">万+页</span>
+                </div>
+                <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">阿尔珀格用Lean计算机语言提交的完整证明文本长度，令数学界消化验证极具挑战。</div>
+            </div>
+            <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+                <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+                    6<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">周</span>
+                </div>
+                <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">阿尔珀格声称使用非公开版Claude生成这一世纪证明所花费的惊人短时间。</div>
+            </div>
+            <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
+                <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
+                    372<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">个</span>
+                </div>
+                <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">OpenAI在宣称88小时攻克部分纳维-斯托克斯方程后，又密集发布的未解高等数学难题进展数。</div>
+            </div>
+        </div>
 
-  <h2 class="section-header" style="border-left-color: #f59e0b;">💬 最佳金句</h2>
-  <div class="content-wrap" style="position:relative; margin-bottom:24px;">
-    <blockquote class="litit-target-quote" style="border-left: 3.5px solid #f59e0b; background: linear-gradient(135deg, #fffbeb 0%, #ffffff 100%); padding: 14px 14px; margin: 0; color: #1e293b; border-radius: 0 10px 10px 0; border-top: 1px solid #fef3c7; border-right: 1px solid #fef3c7; border-bottom: 1px solid #fef3c7;">
-      <div class="content litit-en-quote" style="position:relative; margin:0 0 8px 0; font-family: var(--font-serif); font-style: italic; font-weight:600; font-size: 16.5px; line-height: 1.55; color:#0f172a; word-break:break-word;">
-        "We are witnessing a general threat to intellectual work, with misalignment between the outcome of the use of AI and its initial purpose."
-      </div>
-      <p class="litit-zh-quote" style="margin:0 0 8px 0; font-weight:400; font-size: 14.5px; line-height: 1.6; color:#475569; word-break:break-word;">
-        “我们正在目睹一场对人类脑力劳动的普遍威胁，人工智能使用所产生的结果与其最初的初衷之间出现了严重的错位。”
-      </p>
-      <footer style="text-align:right; font-size:12px; color:#64748b; font-style:normal; font-weight:600;">—— 数学界学者联名公开信对 AI 公司借破解数学难题进行商业造势的尖锐警示</footer>
-    </blockquote>
-    <div class="anno-box" style="display:none;">
-      <div class="anno-view markdown-body"></div>
-      <textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析...">### 📌 完整翻译
-“我们正在目睹一场对人类脑力劳动的普遍威胁，人工智能使用所产生的结果与其最初的初衷之间出现了严重的错位。”
-
-### 📌 核心词汇 (Key Expressions)
-- **intellectual work** = 脑力劳动 / 学术智力工作
-- **misalignment** = 错位 / 偏差 / 目标不一致
-- **initial purpose** = 最初目的 / 初衷
-
-### 🔍 句子解析方式 (Parsing Method)
-- **[介词伴随结构作补充说明]**：主句采用现在进行时 `We are witnessing a general threat...` 营造迫在眉睫的危机感；逗号后由 `with misalignment between A and B` 这一经典介词伴随短语精准点明学术界的深层忧虑——AI 本应辅助人类理解真理，如今却沦为生成海量晦涩代码以博取商业眼球的工具。</textarea>
-    </div>
-  </div>
-
-  <h2 class="section-header" style="border-left-color: #10b981;">📊 关键数字</h2>
-  <div style="display:grid; grid-template-columns: repeat(2, 1fr); gap:10px; margin:14px 0 24px 0;">
-    <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
-      <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
-        25<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">万页</span>
-      </div>
-      <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">Alpöge 使用形式化证明语言 Lean 编写的黎曼猜想完整文本证明长度</div>
-    </div>
-    <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
-      <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
-        170<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">年</span>
-      </div>
-      <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">黎曼猜想自1859年提出以来困扰全球顶尖数学家的漫长历史跨度</div>
-    </div>
-    <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
-      <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
-        6<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">周</span>
-      </div>
-      <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">研究员与未公开版 Claude 聊天机器人协同完成整套证明草案所耗费的时间</div>
-    </div>
-    <div style="background:#ffffff; border:1px solid #e2e8f0; padding:14px 10px; border-radius:10px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
-      <div style="font-size:26px; color:#4f46e5; font-weight:800; margin-bottom:4px; line-height:1.1; font-family: var(--font-serif);">
-        372<span style="font-size:14px; margin-left:2px; font-family: var(--font-sans); font-weight:600;">道难题</span>
-      </div>
-      <div style="font-size:12px; color:#64748b; font-weight:500; line-height:1.4;">竞争对手 OpenAI 在9月解决纳维-斯托克斯部分难题一个月后宣称取得突破的未解数学问题总数</div>
-    </div>
-  </div>
-
-  <h2 class="section-header" style="border-left-color: #3b82f6;">⏱️ 文章核心脉络</h2>
-  <ul style="padding-left:18px; line-height:1.8; color:#334155; font-size: 14.5px; margin-bottom:24px; word-break:break-word;">
-    <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">上市次日重磅官宣：</strong> Anthropic 员工兼数学家 Alpöge 宣称利用未公开版 Claude，历时六周攻克了素数领域最著名的黎曼猜想。</li>
-    <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">否认借势炒作股价：</strong> 面对外界对其恰逢公司上市次日公布成果的质疑，当事人坦言发布时机“糟糕透顶”，并坚称纯属个人科学冲动驱动。</li>
-    <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">陶哲轩审慎回应验证：</strong> 面对长达 25 万页的 Lean 语言代码证明，数学界泰斗陶哲轩指出核查工作仍需漫长消化期，但肯定有懂行的人类作者参与沟通是重要优势。</li>
-    <li><strong style="color:#1d4ed8;">学界反思商业化竞赛：</strong> 回顾今年 OpenAI 动用上万智能体在 88 小时内攻克流体力学部分难题及 372 项突破，多位数学家联名警告 AI 企业的“秀肌肉”式营销正损害数学科学纯洁性。</li>
-  </ul>
-
-  <h2 class="section-header" style="border-left-color: #8b5cf6;">✨ 本篇亮点与精读</h2>
-  <div style="margin: 14px 0 10px 0;">
-    
-    <details class="litit-fold">
-      <summary>
-        <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">一、重点记忆</h3>
-      </summary>
-      <div class="litit-fold-content">
-        <ul style="list-style-type: square; margin: 0; padding-left: 18px; line-height: 1.6;">
-          <li class="litit-target-sentence" style="margin-bottom: 10px;">
-            <strong class="litit-badge">eluded</strong>：难倒 / 逃避 / 未被（某人）理解或解决<br>
-            <strong class="litit-en-sentence">The claim comes as AI firms like OpenAI have in recent months announced scores of solutions to major higher maths problems that have eluded scholars for decades.</strong>
-            <span class="litit-zh-sentence">这一消息发布之际，OpenAI 等人工智能公司近几个月已宣布解决了数十道困扰学者数十年的重大高等数学难题。</span>
-          </li>
-          <li class="litit-target-sentence" style="margin-bottom: 10px;">
-            <strong class="litit-badge">bedrock</strong>：基石 / 根基<br>
-            <strong class="litit-en-sentence">Prime numbers are the bedrock of higher maths, leaving breakthroughs related to them to have broad impact.</strong>
-            <span class="litit-zh-sentence">素数是高等数学的基石，因此与之相关的任何突破都会产生广泛而深远的影响。</span>
-          </li>
-          <li class="litit-target-sentence" style="margin-bottom: 10px;">
-            <strong class="litit-badge">cynical</strong>：愤世嫉俗的 / 怀疑动机的 / 利己算计的<br>
-            <strong class="litit-en-sentence">There is an obvious cynical view, to do with the timing, but it is false.</strong>
-            <span class="litit-zh-sentence">针对公布时机，外界显然存在一种怀疑其别有用心的看法，但这种看法是错误的。</span>
-          </li>
-          <li class="litit-target-sentence" style="margin-bottom: 10px;">
-            <strong class="litit-badge">detrimental</strong>：有害的 / 不利的<br>
-            <strong class="litit-en-sentence">A group of maths scholars said AI companies boasting of major solutions to show how sophisticated their commercial products had become was "detrimental to the science of mathematics".</strong>
-            <span class="litit-zh-sentence">一群数学学者表示，人工智能公司为了炫耀其商业产品已变得多么先进而大肆吹嘘重大解题成果，这种做法“对数学科学是有害的”。</span>
-          </li>
-          <li class="litit-target-sentence" style="margin-bottom: 10px;">
-            <strong class="litit-badge">validity</strong>：有效性 / 正确性 / 站得住脚<br>
-            <strong class="litit-en-sentence">It will take months, if not longer, for those claims to be reviewed by experts to prove their validity.</strong>
-            <span class="litit-zh-sentence">专家们需要数月甚至更长时间来审查这些宣称，以证实其有效性。</span>
-          </li>
+        <h2 class="section-header" style="border-left-color: #3b82f6;">⏱️ 文章核心脉络</h2>
+        <ul style="padding-left:18px; line-height:1.8; color:#334155; font-size: 14.5px; margin-bottom:24px; word-break:break-word;">
+            <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">世纪难题告破？：</strong> Anthropic员工兼数学家阿尔珀格宣称用内部版Claude耗时六周证明了黎曼猜想，将其形容为“科学迈向更宏大未来的黎明”。</li>
+            <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">尴尬的发布时机：</strong> 这一重磅消息恰逢Anthropic美股上市次日；阿尔珀格自嘲“时机糟糕透顶”，但坚决否认这是配合IPO的公关炒作。</li>
+            <li style="margin-bottom: 6px;"><strong style="color:#1d4ed8;">25万页的验证高墙：</strong> 尽管证明采用Lean语言编写，著名数学家陶哲轩仍指出彻底验证尚需时日，并庆幸“至少这次还有一位人类作者可以沟通”。</li>
+            <li><strong style="color:#1d4ed8;">AI“刷榜”引发学术反噬：</strong> OpenAI此前动用超万个AI智能体在88小时内宣称攻克部分流体力学难题并抛出372项数学进展，引发数学界联名炮轰，指责商业炒作损害数学科学本身。</li>
         </ul>
-      </div>
-    </details>
 
-    <details class="litit-fold">
-      <summary>
-        <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">二、高价值表达</h3>
-      </summary>
-      <div class="litit-fold-content">
-        <ol style="margin: 0; padding-left: 18px;">
-          <li style="margin-bottom: 12px;">
-            <strong class="litit-badge">scores of</strong>：大量的 / 数十个。<br>
-            <span class="litit-zh-sentence" style="margin-top: 4px;">外刊书面语中极高频的数量表达（score 原指二十，scores of 意为“几十个、大批”），比单纯使用 many 或 dozens of 更显正式庄重。</span>
-          </li>
-          <li style="margin-bottom: 12px;">
-            <strong class="litit-badge">some way off</strong>：尚有一段距离 / 为时尚早。<br>
-            <strong class="litit-en-sentence" style="margin-top: 4px;">...verification of the proof is still some way off.</strong><br>
-            <span class="litit-zh-sentence" style="margin-top: 4px;">地道英式克制表达，既不轻易否定成果的潜在价值，又冷静指出距离最终尘埃落定仍需漫长周期。</span>
-          </li>
-        </ol>
-      </div>
-    </details>
+        <h2 class="section-header" style="border-left-color: #ec4899;">📖 双语正文精读</h2>
+        
+        <div class="content-wrap" style="position:relative; margin-bottom: 14px; background: #ffffff; padding: 14px; border-radius: 8px; border: 1px solid #e2e8f0;">
+            <div class="content" style="position:relative;">
+                <span class="litit-en-sentence">The claim comes as AI firms like OpenAI have in recent months announced scores of solutions to major higher maths problems that have eluded scholars for decades.</span>
+                <span class="litit-zh-sentence">这一说法出现之际，包括OpenAI在内的人工智能公司在近几个月里陆续宣布解决了数十个困扰学者们数十年的重大高等数学难题。</span>
+            </div>
+            <div class="anno-box"><div class="anno-view markdown-body"></div><textarea class="anno-edit" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea></div>
+        </div>
 
-    <details class="litit-fold">
-      <summary>
-        <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">三、短语和固定搭配</h3>
-      </summary>
-      <div class="litit-fold-content">
-        <ul style="list-style-type: square; margin: 0; padding-left: 18px; line-height: 1.6;">
-          <li class="litit-target-sentence" style="margin-bottom: 10px;">
-            <strong class="litit-badge">put forward</strong>：提出（理论、假说、方案或证明）<br>
-            <strong class="litit-en-sentence">As for the Riemann hypothesis proof put forward on Friday, it was found using a non-public version of Anthropic's Claude.</strong>
-            <span class="litit-zh-sentence">至于周五提出的黎曼猜想证明，它是使用 Anthropic 旗下 Claude 的非公开版本发现的。</span>
-          </li>
-          <li class="litit-target-sentence" style="margin-bottom: 10px;">
-            <strong class="litit-badge">set off</strong>：引发 / 激起（连锁反应或激烈批评）<br>
-            <strong class="litit-en-sentence">The proof that OpenAI released on Navier-Stokes has yet to be confirmed as accurate, and it set off criticism within academic and higher maths communities.</strong>
-            <span class="litit-zh-sentence">OpenAI 发布的关于纳维-斯托克斯方程的证明尚未被证实准确，且已在学术界和高等数学界内部引发了批评。</span>
-          </li>
+        <div class="content-wrap" style="position:relative; margin-bottom: 14px; background: #ffffff; padding: 14px; border-radius: 8px; border: 1px solid #e2e8f0;">
+            <div class="content" style="position:relative;">
+                <span class="litit-en-sentence">"I imagine the digestion process will take some time, though in this case at least we have a human author to communicate with to assist with this task," Tao said.</span>
+                <span class="litit-zh-sentence">陶哲轩说：“我估计消化和理解这一证明的过程将需要相当一段时间，不过在这起案例中，至少我们还有一位人类作者可以沟通，以协助完成这项验证工作。”</span>
+            </div>
+            <div class="anno-box"><div class="anno-view markdown-body"></div><textarea class="anno-edit" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea></div>
+        </div>
+
+        <div class="content-wrap" style="position:relative; margin-bottom: 14px; background: #ffffff; padding: 14px; border-radius: 8px; border: 1px solid #e2e8f0;">
+            <div class="content" style="position:relative;">
+                <span class="litit-en-sentence">A group of maths scholars said AI companies boasting of major solutions to show how sophisticated their commercial products had become was "detrimental to the science of mathematics".</span>
+                <span class="litit-zh-sentence">一群数学学者表示，人工智能公司为了展示其商业产品变得多么先进而大肆吹嘘攻克了重大难题，这种做法“对数学科学是有害的”。</span>
+            </div>
+            <div class="anno-box"><div class="anno-view markdown-body"></div><textarea class="anno-edit" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea></div>
+        </div>
+
+        <h2 class="section-header" style="border-left-color: #8b5cf6;">✨ 本篇亮点与精读</h2>
+        <div style="margin: 14px 0 10px 0;">
+            <details class="litit-fold">
+                <summary>
+                    <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">一、重点记忆</h3>
+                </summary>
+                <div class="litit-fold-content">
+                    <ul style="list-style-type: square; margin: 0; padding-left: 18px; line-height: 1.6;">
+                        <li class="litit-target-sentence content-wrap" style="margin-bottom: 10px;">
+                            <strong class="litit-badge">elude</strong>：难倒 / 令...无法理解（或捉摸不透）<br>
+                            <strong class="content litit-en-sentence">Major higher maths problems that have eluded scholars for decades.</strong>
+                            <span class="litit-zh-sentence">困扰（难倒）学者们数十年的重大高等数学难题。</span>
+                            <div class="anno-box" style="display:none;"><div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea></div>
+                        </li>
+                        <li class="litit-target-sentence content-wrap" style="margin-bottom: 10px;">
+                            <strong class="litit-badge">bedrock</strong>：基石 / 根基<br>
+                            <strong class="content litit-en-sentence">Prime numbers are the bedrock of higher maths.</strong>
+                            <span class="litit-zh-sentence">素数是高等数学的基石。</span>
+                            <div class="anno-box" style="display:none;"><div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea></div>
+                        </li>
+                        <li class="litit-target-sentence content-wrap" style="margin-bottom: 10px;">
+                            <strong class="litit-badge">unilaterally</strong>：单方面地<br>
+                            <strong class="content litit-en-sentence">I am clearly unilaterally responsible for feeling I just could not live if I waited even longer.</strong>
+                            <span class="litit-zh-sentence">我显然要单方面承担责任，因为我觉得如果再等下去我就受不了了。</span>
+                            <div class="anno-box" style="display:none;"><div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea></div>
+                        </li>
+                        <li class="litit-target-sentence content-wrap" style="margin-bottom: 10px;">
+                            <strong class="litit-badge">detrimental</strong>：有害的 / 不利的<br>
+                            <strong class="content litit-en-sentence">Was "detrimental to the science of mathematics".</strong>
+                            <span class="litit-zh-sentence">“对数学科学是有害的”。</span>
+                            <div class="anno-box" style="display:none;"><div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea></div>
+                        </li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="litit-fold">
+                <summary>
+                    <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">二、高价值表达</h3>
+                </summary>
+                <div class="litit-fold-content">
+                    <ol style="margin: 0; padding-left: 18px;">
+                        <li class="litit-target-sentence content-wrap" style="margin-bottom: 12px;">
+                            <strong class="litit-badge">crack a problem</strong>：破解难题<br>
+                            <strong class="content litit-en-sentence">An Anthropic worker says he may have cracked the biggest.</strong>
+                            <span class="litit-zh-sentence">一名Anthropic员工称他可能破解了最大的（数学）难题。<br>（比简单的 `solve` 更具突破感，常用于形容攻克极其坚固、长期未解的难关）。</span>
+                            <div class="anno-box" style="display:none;"><div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea></div>
+                        </li>
+                        <li class="litit-target-sentence content-wrap" style="margin-bottom: 12px;">
+                            <strong class="litit-badge">some way off</strong>：还有一段距离 / 尚需时日<br>
+                            <strong class="content litit-en-sentence">Verification of the proof is still some way off.</strong>
+                            <span class="litit-zh-sentence">该证明的验证工作还有一段距离（尚需时日）。<br>（非常地道且委婉的英式表达，用于给狂热的预期降温）。</span>
+                            <div class="anno-box" style="display:none;"><div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea></div>
+                        </li>
+                        <li class="litit-target-sentence content-wrap" style="margin-bottom: 12px;">
+                            <strong class="litit-badge">set off criticism</strong>：引发批评<br>
+                            <strong class="content litit-en-sentence">And it set off criticism within academic and higher maths communities.</strong>
+                            <span class="litit-zh-sentence">并在学术界和高等数学界引发了批评。<br>（`set off` 原意为“引爆、触发”，用于形容引发连锁反响和舆论风暴）。</span>
+                            <div class="anno-box" style="display:none;"><div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea></div>
+                        </li>
+                    </ol>
+                </div>
+            </details>
+
+            <details class="litit-fold">
+                <summary>
+                    <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">三、短语和固定搭配</h3>
+                </summary>
+                <div class="litit-fold-content">
+                    <ul style="list-style-type: square; margin: 0; padding-left: 18px; line-height: 1.6;">
+                        <li class="litit-target-sentence content-wrap" style="margin-bottom: 10px;">
+                            <strong class="litit-badge">put forward</strong>：提出（观点、证明、方案）<br>
+                            <strong class="content litit-en-sentence">The hypothesis puts forward that prime numbers have a determined order.</strong>
+                            <span class="litit-zh-sentence">该猜想提出，素数在数轴上遵循某种确定的排列规律。</span>
+                            <div class="anno-box" style="display:none;"><div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea></div>
+                        </li>
+                        <li class="litit-target-sentence content-wrap" style="margin-bottom: 10px;">
+                            <strong class="litit-badge">cynical view</strong>：愤世嫉俗的看法 / 带有阴谋论色彩的质疑<br>
+                            <strong class="content litit-en-sentence">There is an obvious cynical view, to do with the timing, but it is false.</strong>
+                            <span class="litit-zh-sentence">关于发布时机显然存在一种愤世嫉俗的质疑，但那是错误的。</span>
+                            <div class="anno-box" style="display:none;"><div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea></div>
+                        </li>
+                        <li class="litit-target-sentence content-wrap" style="margin-bottom: 10px;">
+                            <strong class="litit-badge">misalignment between</strong>：...之间的错位/背离<br>
+                            <strong class="content litit-en-sentence">With misalignment between the outcome of the use of AI and its initial purpose.</strong>
+                            <span class="litit-zh-sentence">使用AI的结果与其初衷之间出现了错位。</span>
+                            <div class="anno-box" style="display:none;"><div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea></div>
+                        </li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="litit-fold">
+                <summary>
+                    <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">四、值得学习的句子结构</h3>
+                </summary>
+                <div class="litit-fold-content">
+                    <ol style="margin: 0; padding-left: 18px;">
+                        <li class="litit-target-sentence content-wrap" style="margin-bottom: 12px;">
+                            <strong class="litit-badge">现在分词 leaving 引出自然推导的结果状语</strong><br>
+                            <strong class="content litit-en-sentence">Prime numbers are the bedrock of higher maths, leaving breakthroughs related to them to have broad impact.</strong>
+                            <span class="litit-zh-sentence">素数是高等数学的基石，这使得与之相关的任何突破都具有广泛而深远的影响。</span>
+                            <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
+                                <li style="margin-bottom: 3px;"><strong>词法功能解析</strong>：前半句用比喻 `bedrock` 点出素数的基础地位，逗号后用 `leaving + 宾语 + to do` 结构顺理成章地引出结果，比用 `so that` 或 `which makes` 更加紧凑优雅。</li>
+                                <li style="margin-bottom: 3px;"><strong>深度语法解析 (Parsing Method)</strong>：`related to them` 作为过去分词短语作后置定语修饰 `breakthroughs`，整句话逻辑链条严密，是科普与科技评论的典范句式。</li>
+                            </ul>
+                            <div class="anno-box" style="display:none;"><div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea></div>
+                        </li>
+                    </ol>
+                </div>
+            </details>
+
+            <details class="litit-fold">
+                <summary>
+                    <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">五、万能实用语料库</h3>
+                </summary>
+                <div class="litit-fold-content">
+                    <ol style="margin: 0; padding-left: 18px;">
+                        <li class="litit-target-sentence content-wrap" style="margin-bottom: 12px;">
+                            <strong class="litit-badge">over the course of</strong>：在...期间 / 历时<br>
+                            <strong class="content litit-en-sentence">Over the course of about six weeks, he used Claude to create a detailed proof.</strong>
+                            <span class="litit-zh-sentence">在大约六周的时间里，他使用Claude完成了一份详尽的证明。<br>（实用词块：替代简单的 `during`，强调时间跨度内的持续进展）。</span>
+                            <div class="anno-box" style="display:none;"><div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea></div>
+                        </li>
+                        <li class="litit-target-sentence content-wrap" style="margin-bottom: 12px;">
+                            <strong class="litit-badge">scores of</strong>：数十个 / 大量的<br>
+                            <strong class="content litit-en-sentence">Announced scores of solutions to major higher maths problems.</strong>
+                            <span class="litit-zh-sentence">宣布了数十个重大高等数学难题的解答。<br>（实用词块：score 本意为“二十”，scores of 意为“几十个”，外刊极高频）。</span>
+                            <div class="anno-box" style="display:none;"><div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea></div>
+                        </li>
+                        <li class="litit-target-sentence content-wrap" style="margin-bottom: 12px;">
+                            <strong class="litit-badge">if not longer</strong>：甚至更久<br>
+                            <strong class="content litit-en-sentence">It will take months, if not longer, for those claims to be reviewed.</strong>
+                            <span class="litit-zh-sentence">专家们审查这些说法需要数月甚至更长时间。<br>（实用词块：严谨的插入语，用来增强对时间或程度的保守估计）。</span>
+                            <div class="anno-box" style="display:none;"><div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 智能解析..."></textarea></div>
+                        </li>
+                    </ol>
+                </div>
+            </details>
+        </div>
+
+        <h2 class="section-header" style="border-left-color: #0d9488;">💡 幕后冷知识 (Fun Facts)</h2>
+        <ul style="padding-left:18px; line-height:1.8; color:#334155; font-size:14.5px; margin:0 0 24px 0; word-break:break-word;">
+            <li style="margin-bottom: 8px;"><strong>数学界的“百万美元皇冠”：</strong> 黎曼猜想由德国数学家伯恩哈德·黎曼于1859年提出，是克雷数学研究所悬赏100万美元的七大“千禧年大奖难题”中最著名的一个。它不仅关乎纯数学中素数的分布，更直接关系到现代互联网赖以生存的RSA加密算法的安全性。</li>
+            <li style="margin-bottom: 8px;"><strong>为什么Lean验证过还不够？：</strong> Lean是一种形式化定理证明语言，只要代码编译通过，就意味着每一步逻辑推导都绝对无误。但数学家依然需要“消化”这25万页——因为必须确认作者在最初输入公理和定义时，没有无意中引入微小偏差（即“证明了一个看似像黎曼猜想、实则偷换了前提的命题”）。</li>
+            <li><strong>陶哲轩的潜台词：</strong> 菲尔兹奖得主陶哲轩一直是数学界最积极拥抱AI辅助研究的先驱之一。他特意提到“至少这次还有一位人类作者可以沟通”，其实是在暗讽OpenAI今年9月动用上万个全自动AI智能体生成的纳维-斯托克斯证明——面对一堆没有人类能解释清楚的“黑盒代码”，学术界根本无从下手审稿。</li>
         </ul>
-      </div>
-    </details>
 
-    <details class="litit-fold">
-      <summary>
-        <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">四、值得学习的句子结构</h3>
-      </summary>
-      <div class="litit-fold-content">
-        <ol style="margin: 0; padding-left: 18px;">
-          <li class="litit-target-sentence" style="margin-bottom: 12px;">
-            <strong class="litit-badge">主语从句（动名词复合结构）与宾语从句多层嵌套</strong><br>
-            <strong class="litit-en-sentence">A group of maths scholars said AI companies boasting of major solutions to show how sophisticated their commercial products had become was "detrimental to the science of mathematics".</strong>
-            <span class="litit-zh-sentence">一群数学学者表示，人工智能公司为了炫耀其商业产品已变得多么先进而大肆吹嘘重大解题成果，这种做法“对数学科学是有害的”。</span>
-            <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
-              <li style="margin-bottom: 3px;"><strong>词法与主干解析</strong>：主句主干为 `A group of maths scholars said...`；省略 `that` 的宾语从句内部，真正主语是动名词复合结构 `AI companies boasting of major solutions`（AI公司大肆吹嘘重大成果这一行为），因此系动词使用单数 `was`，表语为 `"detrimental to..."`；其中不定式 `to show how sophisticated...` 作目的状语并嵌套感叹语序宾语从句。</li>
-              <li style="margin-bottom: 3px;"><strong>深度语法解析 (Parsing Method)</strong>：外刊深度报道中信息密度极高的核心长句。初读时极易误以为 `AI companies` 是复数主语，实则必须向后找到动名词 `boasting` 才能锁定单数动作主语，精准传达了学者抨击的是“商业吹嘘行径”而非公司本身。</li>
-            </ul>
-          </li>
-          <li class="litit-target-sentence" style="margin-bottom: 12px;">
-            <strong class="litit-badge">形式主语与插入语让步修饰结构</strong><br>
-            <strong class="litit-en-sentence">It will take months, if not longer, for those claims to be reviewed by experts to prove their validity.</strong>
-            <span class="litit-zh-sentence">专家们需要数月甚至更长时间来审查这些宣称，以证实其有效性。</span>
-            <ul style="list-style-type: circle; margin: 4px 0 0 0; padding-left: 16px;">
-              <li style="margin-bottom: 3px;"><strong>从句与特殊句型解析</strong>：采用经典句型 `It will take + 时间 + for sb./sth. to do sth.`，其中 `It` 为形式主语，真正主语为不定式被动复合结构 `for those claims to be reviewed by experts`；中间插入省略式条件状语 `if not longer`（如果不是更久的话），增强时间的弹性与不确定感。</li>
-              <li style="margin-bottom: 3px;"><strong>深度语法解析 (Parsing Method)</strong>：新闻收尾段极具克制力与严谨度的总结句式。通过被动不定式强调证明材料必须接受外部独立专家的严苛审视，与前文 AI 企业的高调宣称形成冷静对比。</li>
-            </ul>
-          </li>
-        </ol>
-      </div>
-    </details>
+        <h2 class="section-header" style="border-left-color: #e11d48;">🎯 全片锐评</h2>
+        <p style="line-height:1.75; color:#1e293b; font-weight:500; background:linear-gradient(135deg, #fff1f2 0%, #ffffff 100%); padding:14px 16px; border-radius:10px; font-size:14.5px; margin:0 0 12px 0; border:1px solid #ffe4e6; word-break:break-word;">
+            在Anthropic以1.5万亿美元天价敲钟的次日，一份长达25万页的“黎曼猜想证明”横空出世，这出戏码无论怎么看都充满了硅谷式的戏剧张力。如果这份由Claude协助完成的证明最终经受住了考验，它无疑将是人类科学史上比肩阿波罗登月的里程碑；但如果其中暗藏瑕疵，它便会沦为AI资本狂热期最尴尬的泡沫注脚。更值得深思的是文章后半段揭示的深层冲突：当OpenAI和Anthropic开始像“刷跑分”一样，动辄在几天内批量抛出数百个未经同行评审的世纪难题解答时，科技巨头的商业宣发节奏，已经与纯数学界讲究慢工出细活、追求人类直觉理解的传统发生了剧烈碰撞。AI或许能吐出25万页无懈可击的代码，但如果人类自己都看不懂它为什么是对的，那究竟是科学的黎明，还是人类智力主权的黄昏？
+        </p>
 
-    <details class="litit-fold">
-      <summary>
-        <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #1e293b;">五、最值得优先掌握的句型</h3>
-      </summary>
-      <div class="litit-fold-content">
-        <ol style="margin: 0; padding-left: 18px;">
-          <li class="litit-target-sentence" style="margin-bottom: 12px;">
-            <strong class="litit-en-sentence" style="color: #4338ca;">The claim comes as [某行业巨头] have in recent months announced scores of breakthroughs in [某前沿领域] that have eluded scholars for decades.</strong>
-            <span class="litit-zh-sentence">这一宣称发布之际，[某行业巨头]近几个月已宣布在[某前沿领域]取得了数十项困扰学者数十年的重大突破。<br>（非常地道的科技新闻背景引入句式，能够迅速将单点突发事件嵌入整个行业技术竞赛的宏大脉络之中）。</span>
-          </li>
-        </ol>
-      </div>
-    </details>
-  </div>
+    </div>
 
-  <h2 class="section-header" style="border-left-color: #0d9488;">💡 幕后冷知识 (Fun Facts)</h2>
-  <ul style="padding-left:18px; line-height:1.8; color:#334155; font-size:14.5px; margin:0 0 24px 0; word-break:break-word;">
-    <li style="margin-bottom: 8px;"><strong>黎曼猜想与现代互联网加密的生死绑定：</strong> 德国数学家伯恩哈德·黎曼于 1859 年在论文《论小于给定数值的素数个数》中提出该猜想，核心探讨黎曼 ζ 函数非平凡零点的分布规律。它不仅是美国克雷数学研究所悬赏 100 万美元的“千禧年七大难题”之一，更直接关联到素数分布的精确预测——而现代银行转账、区块链与 HTTPS 加密算法（RSA）的安全性，恰恰建立在人类尚无法快速分解超大素数乘积的数学假设之上。</li>
-    <li style="margin-bottom: 8px;"><strong>为何 AI 数学家偏爱“Lean 形式化语言”？</strong> 文中提到的 Lean 是一款由微软研究院发起的开源定理证明器与编程语言。传统自然语言编写的数学论文往往包含大量“显然可得”的跳跃步骤，人类审稿人极易遗漏隐蔽漏洞；而 Lean 要求将每一步逻辑推演转化为计算机编译器能逐行校验的形式化代码。理论上，只要代码能通过 Lean 内核编译且无任何作弊公理（如 `sorry` 占位符），证明在逻辑上便是绝对无懈可击的——但审稿人仍需核查“计算机验证的命题定义本身”是否完全等价于数学家所理解的原始黎曼猜想，这正是长达 25 万页代码仍需人类专家耗费数月消化的关键原因。</li>
-    <li><strong>从“数学竞赛金牌”到“科研无人区”的跃迁：</strong> 就在两年前，大语言模型还在为初中几何题和小学算术算错位数而遭人调侃；而随着强化学习与形式化验证闭环（RLVR）的成熟，前沿模型在2026年已直接闯入人类顶尖大脑苦思百年未果的数学无人区。</li>
-  </ul>
+    <script id="core-engine">
+        let syncTimeout = null;
+        const AI_PROMPT = "请分析以下英文段落，并严格按照以下 Markdown 格式输出（不要输出任何额外的废话）：\n\n### 📌 完整翻译\n\n[此处填写完整翻译]\n\n### 📌 Key Expressions\n\n- **[单词或短语]**\n  = [中文释义]\n  （[可选的补充说明，如倒装结构或语境等]）\n\n段落内容：\n";
 
-  <h2 class="section-header" style="border-left-color: #e11d48;">🎯 全片锐评</h2>
-  <p style="line-height:1.75; color:#1e293b; font-weight:500; background:linear-gradient(135deg, #fff1f2 0%, #ffffff 100%); padding:14px 16px; border-radius:10px; font-size:14.5px; margin:0 0 12px 0; border:1px solid #ffe4e6; word-break:break-word;">
-    前脚 Anthropic 刚刚敲响纳斯达克上市钟声、募资近千亿美元，后脚自家研究员便宣布用非公开版 Claude 攻克了困扰人类 170 年的“数学界皇冠”黎曼猜想——尽管当事人极力辩解公布时机“糟糕透顶、纯属巧合”，但在华尔街的资本放大镜下，这记重磅炸弹无疑是最具含金量的估值助推器。然而，真正耐人寻味的并非这 25 万页 Lean 代码最终能否经受住陶哲轩等顶尖数学家的逐行审判，而是科研范式正在发生的剧烈断裂：当 AI 公司习惯于动用上万智能体在几天内输出几十万页人类肉眼根本无法通读的“机器证明”，并用其为商业股价背书时，数学究竟是在加速迈向真理的黎明，还是正在沦为硅谷资本军备竞赛中又一块炫目的广告牌？在专家真正消化完那 25 万页代码之前，人类或许更该警惕学术界公开信里的那句忠告——别让算力的狂飙，异化了人类探索智慧的初衷。
-  </p>
-
-</div>
-
-<script id="core-engine">
-let syncTimeout = null;
-const AI_PROMPT = "请分析以下英文段落，并严格按照以下 Markdown 格式输出（不要输出任何额外的废话）：\n\n### 📌 完整翻译\n\n[此处填写完整翻译]\n\n### 📌 Key Expressions\n\n- **[单词或短语]**\n = [中文释义]\n （[可选的补充说明，如倒装结构或语境等]）\n\n段落内容：\n";
-
-function initProgressBar() {
-  const progressBar = document.getElementById('reading-progress');
-  if (!progressBar) return;
-  window.addEventListener('scroll', () => {
-    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-    const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    if (scrollHeight <= 0) return;
-    const scrollPercent = (scrollTop / scrollHeight) * 100;
-    progressBar.style.width = scrollPercent + '%';
-  }, { passive: true });
-}
-
-async function fetchGroq(text, apiKey, modelName) {
-  const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-    method: 'POST',
-    headers: {
-      'Authorization': 'Bearer ' + apiKey,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      model: modelName || 'llama-3.3-70b-versatile',
-      messages: [
-        { role: 'system', content: 'You are an English teacher. Output EXACTLY in the requested Markdown format.' },
-        { role: 'user', content: AI_PROMPT + '"' + text + '"' }
-      ],
-      temperature: 0.3
-    })
-  });
-  if (!res.ok) throw new Error('Groq Error: ' + res.status);
-  const json = await res.json();
-  return json.choices[0].message.content.trim();
-}
-
-async function fetchCustomAI(text, url, apiKey, modelName) {
-  let headers = { 'Content-Type': 'application/json' };
-  let bodyData = {};
-  if (url.includes('anthropic.com')) {
-    headers['x-api-key'] = apiKey;
-    headers['anthropic-version'] = '2023-06-01';
-    headers['anthropic-dangerous-direct-browser-access'] = 'true';
-    bodyData = {
-      model: modelName || 'claude-3-5-sonnet-20241022',
-      max_tokens: 2000,
-      messages: [{ role: 'user', content: AI_PROMPT + '"' + text + '"' }]
-    };
-  } else if (url.includes('generativelanguage.googleapis.com')) {
-    let targetUrl = url;
-    if (!targetUrl.includes('key=')) {
-      targetUrl += (targetUrl.includes('?') ? '&' : '?') + 'key=' + apiKey;
-    }
-    const res = await fetch(targetUrl, {
-      method: 'POST',
-      headers: headers,
-      body: JSON.stringify({
-        contents: [{ parts: [{ text: AI_PROMPT + '"' + text + '"' }] }]
-      })
-    });
-    if (!res.ok) throw new Error('Gemini Error: ' + res.status);
-    const json = await res.json();
-    return json.candidates[0].content.parts[0].text.trim();
-  } else {
-    headers['Authorization'] = 'Bearer ' + apiKey;
-    bodyData = {
-      model: modelName || 'gpt-4o-mini',
-      messages: [
-        { role: 'system', content: 'You are an English teacher. Output EXACTLY in the requested Markdown format.' },
-        { role: 'user', content: AI_PROMPT + '"' + text + '"' }
-      ],
-      temperature: 0.3
-    };
-  }
-  const res = await fetch(url, {
-    method: 'POST',
-    headers: headers,
-    body: JSON.stringify(bodyData)
-  });
-  if (!res.ok) throw new Error('AI Interface Error: ' + res.status);
-  const json = await res.json();
-  if (json.choices && json.choices.length > 0) return json.choices[0].message.content.trim();
-  throw new Error('AI 返回数据异常');
-}
-
-async function executeAIPipeline(text) {
-  const customUrl = localStorage.getItem('CUSTOM_API_URL') || '';
-  const customKey = localStorage.getItem('CUSTOM_API_KEY') || '';
-  const customModel = localStorage.getItem('CUSTOM_MODEL') || '';
-  const groqKey = localStorage.getItem('GROQ_API_KEY') || '';
-  const groqModel = localStorage.getItem('GROQ_MODEL') || '';
-
-  if (customUrl && customKey) {
-    try {
-      return await fetchCustomAI(text, customUrl, customKey, customModel);
-    } catch (err) {
-      if (groqKey) return await fetchGroq(text, groqKey, groqModel);
-      throw err;
-    }
-  } else if (groqKey) {
-    return await fetchGroq(text, groqKey, groqModel);
-  } else {
-    const userKey = prompt('⚠️ 当前页面未检测到 AI Key！\n为了安全，密匙只储存在您本地浏览器中。\n\n请输入您的 API Key (如 sk-xxx 或 gsk_xxx):');
-    if (userKey && userKey.trim()) {
-      const cleanKey = userKey.trim();
-      if (cleanKey.startsWith('gsk_')) {
-        localStorage.setItem('GROQ_API_KEY', cleanKey);
-      } else {
-        localStorage.setItem('CUSTOM_API_KEY', cleanKey);
-        localStorage.setItem('CUSTOM_API_URL', 'https://api.chatanywhere.tech/v1/chat/completions');
-      }
-    }
-    throw new Error('未设置 AI API Key');
-  }
-}
-
-function getPurifiedFallbackHTML() {
-  const clone = document.documentElement.cloneNode(true);
-  const foreignSelectors = [
-    'relingo-app', 'relin-highlight', 'relin-hc', '[class*="relingo"]',
-    '[data-relin-paragraph]', 'grammarly-extension', '[data-grammarly-part]',
-    '[class*="immersive-translate"]', '[data-immersive-translate]'
-  ].join(',');
-  clone.querySelectorAll(foreignSelectors).forEach(el => el.remove());
-  clone.querySelectorAll('relin-highlight, relin-hc').forEach(t => {
-    const frag = document.createDocumentFragment();
-    while(t.firstChild) frag.appendChild(t.firstChild);
-    t.parentNode.replaceChild(frag, t);
-  });
-  clone.querySelectorAll('script').forEach(s => {
-    if (!s.src.includes('marked.min.js') && s.id !== 'core-engine') s.remove();
-  });
-  clone.querySelectorAll('style').forEach(s => {
-    if (s.id !== 'core-style') s.remove();
-  });
-  const liveTAs = document.querySelectorAll('.anno-edit');
-  clone.querySelectorAll('.anno-edit').forEach((ta, i) => {
-    if(liveTAs[i]) ta.textContent = liveTAs[i].value.trim();
-    const box = ta.closest('.anno-box');
-    if (box) box.style.display = 'none';
-    const view = box ? box.querySelector('.anno-view') : null;
-    if (view) view.innerHTML = '';
-  });
-  return '<!DOCTYPE html>\n<html lang="zh-CN">\n' + clone.innerHTML + '\n</html>';
-}
-
-async function syncToCloud() {
-  const ghToken = localStorage.getItem('LITIT_GH_TOKEN') || localStorage.getItem('GH_TOKEN');
-  const ghOwner = 'moodHappy';
-  const ghRepo = 'dual-read-notes';
-  if (!ghToken) return;
-
-  const pathParts = window.location.pathname.split('/');
-  const fileName = pathParts.pop();
-  const month = pathParts.pop();
-  const year = pathParts.pop();
-  if(!fileName || !month || !year) return;
-
-  const fileRelPath = 'Summary/' + year + '/' + month + '/' + fileName;
-  try {
-    const getRes = await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath + '?t=' + Date.now(), {
-      headers: { 'Authorization': 'Bearer ' + ghToken },
-      cache: 'no-store'
-    });
-
-    let finalHTML = '';
-    let sha = '';
-    if (getRes.ok) {
-      const fileData = await getRes.json();
-      sha = fileData.sha;
-      const cleanRawHTML = decodeURIComponent(escape(atob(fileData.content.replace(/\n/g, ''))));
-      const parser = new DOMParser();
-      const cleanDoc = parser.parseFromString(cleanRawHTML, 'text/html');
-
-      const liveTAs = document.querySelectorAll('.anno-edit');
-      const cleanTAs = cleanDoc.querySelectorAll('.anno-edit');
-      liveTAs.forEach((liveTa, index) => {
-        if (cleanTAs[index]) {
-          const val = liveTa.value.trim();
-          cleanTAs[index].textContent = val;
-          const box = cleanTAs[index].closest('.anno-box');
-          if (box) box.style.display = 'none';
-          const view = box ? box.querySelector('.anno-view') : null;
-          if (view) view.innerHTML = '';
-        }
-      });
-
-      cleanDoc.querySelectorAll('.anno-toggle').forEach(t => {
-        t.classList.remove('has-anno');
-        const ta = t.closest('.content-wrap, .litit-highlight-block')?.querySelector('.anno-edit');
-        if (ta && ta.textContent.trim()) t.classList.add('has-anno');
-      });
-      finalHTML = '<!DOCTYPE html>\n<html lang="zh-CN">\n' + cleanDoc.documentElement.innerHTML + '\n</html>';
-    } else {
-      finalHTML = getPurifiedFallbackHTML();
-    }
-
-    await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath, {
-      method: 'PUT',
-      headers: {
-        'Authorization': 'Bearer ' + ghToken,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        message: 'Silent purified annotation update',
-        content: btoa(unescape(encodeURIComponent(finalHTML))),
-        sha: sha || undefined
-      })
-    });
-    console.log('✅ [My Litit] 纯净无污染批注已静默同步至 GitHub');
-  } catch(e) {
-    console.warn('❌ [My Litit] 同步跳过或失败:', e);
-  }
-}
-
-function scheduleSync() {
-  if (syncTimeout) clearTimeout(syncTimeout);
-  syncTimeout = setTimeout(() => {
-    syncToCloud();
-  }, 3000);
-}
-
-function initAnnotations() {
-  document.querySelectorAll('.litit-highlight-block, .content-wrap').forEach(wrap => {
-    let content = wrap.querySelector('.content');
-    if (!content) {
-      const pText = wrap.querySelector('p');
-      if (pText) {
-        content = document.createElement('div');
-        content.className = 'content';
-        content.style.cssText = 'position:relative; margin:0 0 6px 0; color:#1a202c; font-family:Georgia, serif; line-height:1.7; font-size:15px; word-break:break-word;';
-        content.innerHTML = pText.innerHTML;
-        pText.parentNode.replaceChild(content, pText);
-      }
-    }
-    if (!content) return;
-
-    if (!content.querySelector('.anno-toggle')) {
-      const toggle = document.createElement('span');
-      toggle.className = 'anno-toggle';
-      toggle.title = '手写批注/笔记';
-      content.appendChild(toggle);
-    }
-    if (!content.querySelector('.ai-toggle')) {
-      const aiToggle = document.createElement('span');
-      aiToggle.className = 'ai-toggle';
-      aiToggle.title = 'AI智能二次解析';
-      content.appendChild(aiToggle);
-    }
-
-    let box = wrap.querySelector('.anno-box');
-    if (!box) {
-      box = document.createElement('div');
-      box.className = 'anno-box';
-      box.style.display = 'none';
-      box.innerHTML = '<div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 解析..."></textarea>';
-      wrap.appendChild(box);
-    }
-
-    const view = box.querySelector('.anno-view');
-    const edit = box.querySelector('.anno-edit');
-    const toggle = content.querySelector('.anno-toggle');
-    const aiToggle = content.querySelector('.ai-toggle');
-
-    if (edit && edit.value.trim()) {
-      toggle.classList.add('has-anno');
-      try {
-        view.innerHTML = (typeof marked !== 'undefined') ? marked.parse(edit.value.trim()) : edit.value.trim();
-      } catch(e){}
-    }
-
-    if (aiToggle) {
-      aiToggle.onclick = async (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        if (aiToggle.classList.contains('loading')) return;
-
-        if (edit && edit.value.trim() !== '') {
-          const confirmOverwrite = confirm('⚠️ 已经存在批注内容。点击"确定"将使用 AI 解析覆盖现有内容。是否继续？');
-          if (!confirmOverwrite) return;
+        function initProgressBar() {
+            const progressBar = document.getElementById('reading-progress');
+            if (!progressBar) return;
+            window.addEventListener('scroll', () => {
+                const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+                const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                if (scrollHeight <= 0) return;
+                const scrollPercent = (scrollTop / scrollHeight) * 100;
+                progressBar.style.width = scrollPercent + '%';
+            }, { passive: true });
         }
 
-        const pClone = content.cloneNode(true);
-        pClone.querySelectorAll('.anno-toggle, .ai-toggle').forEach(el => el.remove());
-        let pText = pClone.textContent.replace(/https?:\/\/\S+/g, '').trim();
-        if (!pText) return;
-
-        aiToggle.classList.add('loading');
-        try {
-          const aiContent = await executeAIPipeline(pText);
-          box.style.display = 'block';
-          view.style.display = 'none';
-          edit.style.display = 'block';
-          edit.value = aiContent;
-          edit.focus();
-          edit.blur();
-        } catch (err) {
-          console.error(err);
-        } finally {
-          aiToggle.classList.remove('loading');
+        async function fetchGroq(text, apiKey, modelName) {
+            const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + apiKey,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    model: modelName || 'llama-3.3-70b-versatile',
+                    messages: [
+                        { role: 'system', content: 'You are an English teacher. Output EXACTLY in the requested Markdown format.' },
+                        { role: 'user', content: AI_PROMPT + '"' + text + '"' }
+                    ],
+                    temperature: 0.3
+                })
+            });
+            if (!res.ok) throw new Error('Groq Error: ' + res.status);
+            const json = await res.json();
+            return json.choices[0].message.content.trim();
         }
-      };
-    }
 
-    if (toggle) {
-      toggle.onclick = (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        if (box.style.display === 'block') {
-          box.style.display = 'none';
-        } else {
-          box.style.display = 'block';
-          if (!edit.value.trim()) {
-            view.style.display = 'none';
-            edit.style.display = 'block';
-            setTimeout(() => { edit.focus(); }, 150);
-          } else {
-            view.style.display = 'block';
-            edit.style.display = 'none';
-          }
+        async function fetchCustomAI(text, url, apiKey, modelName) {
+            let headers = { 'Content-Type': 'application/json' };
+            let bodyData = {};
+            if (url.includes('anthropic.com')) {
+                headers['x-api-key'] = apiKey;
+                headers['anthropic-version'] = '2023-06-01';
+                headers['anthropic-dangerous-direct-browser-access'] = 'true';
+                bodyData = {
+                    model: modelName || 'claude-3-5-sonnet-20241022',
+                    max_tokens: 2000,
+                    messages: [{ role: 'user', content: AI_PROMPT + '"' + text + '"' }]
+                };
+            } else if (url.includes('generativelanguage.googleapis.com')) {
+                let targetUrl = url;
+                if (!targetUrl.includes('key=')) {
+                    targetUrl += (targetUrl.includes('?') ? '&' : '?') + 'key=' + apiKey;
+                }
+                const res = await fetch(targetUrl, {
+                    method: 'POST',
+                    headers: headers,
+                    body: JSON.stringify({ contents: [{ parts: [{ text: AI_PROMPT + '"' + text + '"' }] }] })
+                });
+                if (!res.ok) throw new Error('Gemini Error: ' + res.status);
+                const json = await res.json();
+                return json.candidates[0].content.parts[0].text.trim();
+            } else {
+                headers['Authorization'] = 'Bearer ' + apiKey;
+                bodyData = {
+                    model: modelName || 'gpt-4o-mini',
+                    messages: [
+                        { role: 'system', content: 'You are an English teacher. Output EXACTLY in the requested Markdown format.' },
+                        { role: 'user', content: AI_PROMPT + '"' + text + '"' }
+                    ],
+                    temperature: 0.3
+                };
+            }
+            const res = await fetch(url, { method: 'POST', headers: headers, body: JSON.stringify(bodyData) });
+            if (!res.ok) throw new Error('AI Interface Error: ' + res.status);
+            const json = await res.json();
+            if (json.choices && json.choices.length > 0) return json.choices[0].message.content.trim();
+            throw new Error('AI 返回数据异常');
         }
-      };
-    }
 
-    const triggerEdit = (e) => {
-      if(e) {
-        e.preventDefault();
-        e.stopPropagation();
-      }
-      view.style.display = 'none';
-      edit.style.display = 'block';
-      edit.value = edit.value;
-      setTimeout(() => { edit.focus(); }, 150);
-    };
-
-    view.addEventListener('dblclick', triggerEdit);
-
-    let lastTap = 0;
-    view.addEventListener('touchstart', e => {
-      if (e.touches.length === 2) {
-        triggerEdit(e);
-      } else if (e.touches.length === 1) {
-        const currentTime = new Date().getTime();
-        if (currentTime - lastTap < 500 && currentTime - lastTap > 0) {
-          e.preventDefault();
-          box.style.display = 'none';
+        async function executeAIPipeline(text) {
+            const customUrl = localStorage.getItem('CUSTOM_API_URL') || '';
+            const customKey = localStorage.getItem('CUSTOM_API_KEY') || '';
+            const customModel = localStorage.getItem('CUSTOM_MODEL') || '';
+            const groqKey = localStorage.getItem('GROQ_API_KEY') || '';
+            const groqModel = localStorage.getItem('GROQ_MODEL') || '';
+            if (customUrl && customKey) {
+                try {
+                    return await fetchCustomAI(text, customUrl, customKey, customModel);
+                } catch (err) {
+                    if (groqKey) return await fetchGroq(text, groqKey, groqModel);
+                    throw err;
+                }
+            } else if (groqKey) {
+                return await fetchGroq(text, groqKey, groqModel);
+            } else {
+                const userKey = prompt('⚠️ 当前页面未检测到 AI Key！\n为了安全，密匙只储存在您本地浏览器中。\n\n请输入您的 API Key (如 sk-xxx 或 gsk_xxx):');
+                if (userKey && userKey.trim()) {
+                    const cleanKey = userKey.trim();
+                    if (cleanKey.startsWith('gsk_')) {
+                        localStorage.setItem('GROQ_API_KEY', cleanKey);
+                    } else {
+                        localStorage.setItem('CUSTOM_API_KEY', cleanKey);
+                        localStorage.setItem('CUSTOM_API_URL', 'https://api.chatanywhere.tech/v1/chat/completions');
+                    }
+                }
+                throw new Error('未设置 AI API Key');
+            }
         }
-        lastTap = currentTime;
-      }
-    }, {passive: false});
 
-    if (edit && view) {
-      edit.onblur = () => {
-        setTimeout(() => {
-          const newVal = edit.value.trim();
-          try {
-            view.innerHTML = newVal ? ((typeof marked !== 'undefined') ? marked.parse(newVal) : newVal) : '';
-          } catch(e){}
-          
-          edit.style.display = 'none';
-          if (newVal) {
-            view.style.display = 'block';
-            toggle.classList.add('has-anno');
-          } else {
-            view.style.display = 'none';
-            box.style.display = 'none';
-            toggle.classList.remove('has-anno');
-          }
+        function getPurifiedFallbackHTML() {
+            const clone = document.documentElement.cloneNode(true);
+            const foreignSelectors = [
+                'relingo-app', 'relin-highlight', 'relin-hc', '[class*="relingo"]',
+                '[data-relin-paragraph]', 'grammarly-extension', '[data-grammarly-part]',
+                '[class*="immersive-translate"]', '[data-immersive-translate]'
+            ].join(',');
+            clone.querySelectorAll(foreignSelectors).forEach(el => el.remove());
+            clone.querySelectorAll('relin-highlight, relin-hc').forEach(t => {
+                const frag = document.createDocumentFragment();
+                while(t.firstChild) frag.appendChild(t.firstChild);
+                t.parentNode.replaceChild(frag, t);
+            });
+            clone.querySelectorAll('script').forEach(s => {
+                if (!s.src.includes('marked.min.js') && s.id !== 'core-engine') s.remove();
+            });
+            clone.querySelectorAll('style').forEach(s => {
+                if (s.id !== 'core-style') s.remove();
+            });
+            const liveTAs = document.querySelectorAll('.anno-edit');
+            clone.querySelectorAll('.anno-edit').forEach((ta, i) => {
+                if(liveTAs[i]) ta.textContent = liveTAs[i].value.trim();
+                const box = ta.closest('.anno-box');
+                if (box) box.style.display = 'none';
+                const view = box ? box.querySelector('.anno-view') : null;
+                if (view) view.innerHTML = '';
+            });
+            return '<!DOCTYPE html>\n<html lang="zh-CN">\n' + clone.innerHTML + '\n</html>';
+        }
 
-          if (edit.getAttribute('data-old-val') !== newVal) {
-            edit.setAttribute('data-old-val', newVal);
-            scheduleSync();
-          }
-        }, 150);
-      };
-      edit.setAttribute('data-old-val', edit.value.trim());
-    }
-  });
-}
+        async function syncToCloud() {
+            const ghToken = localStorage.getItem('LITIT_GH_TOKEN') || localStorage.getItem('GH_TOKEN');
+            const ghOwner = 'moodHappy';
+            const ghRepo = 'dual-read-notes';
+            if (!ghToken) return;
+            const pathParts = window.location.pathname.split('/');
+            const fileName = pathParts.pop();
+            const month = pathParts.pop();
+            const year = pathParts.pop();
+            if(!fileName || !month || !year) return;
+            const fileRelPath = 'Summary/' + year + '/' + month + '/' + fileName;
+            try {
+                const getRes = await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath + '?t=' + Date.now(), {
+                    headers: { 'Authorization': 'Bearer ' + ghToken },
+                    cache: 'no-store'
+                });
+                let finalHTML = '';
+                let sha = '';
+                if (getRes.ok) {
+                    const fileData = await getRes.json();
+                    sha = fileData.sha;
+                    const cleanRawHTML = decodeURIComponent(escape(atob(fileData.content.replace(/\n/g, ''))));
+                    const parser = new DOMParser();
+                    const cleanDoc = parser.parseFromString(cleanRawHTML, 'text/html');
+                    const liveTAs = document.querySelectorAll('.anno-edit');
+                    const cleanTAs = cleanDoc.querySelectorAll('.anno-edit');
+                    liveTAs.forEach((liveTa, index) => {
+                        if (cleanTAs[index]) {
+                            const val = liveTa.value.trim();
+                            cleanTAs[index].textContent = val;
+                            const box = cleanTAs[index].closest('.anno-box');
+                            if (box) box.style.display = 'none';
+                            const view = box ? box.querySelector('.anno-view') : null;
+                            if (view) view.innerHTML = '';
+                        }
+                    });
+                    cleanDoc.querySelectorAll('.anno-toggle').forEach(t => {
+                        t.classList.remove('has-anno');
+                        const ta = t.closest('.content-wrap, .litit-highlight-block')?.querySelector('.anno-edit');
+                        if (ta && ta.textContent.trim()) t.classList.add('has-anno');
+                    });
+                    finalHTML = '<!DOCTYPE html>\n<html lang="zh-CN">\n' + cleanDoc.documentElement.innerHTML + '\n</html>';
+                } else {
+                    finalHTML = getPurifiedFallbackHTML();
+                }
+                await fetch('https://api.github.com/repos/' + ghOwner + '/' + ghRepo + '/contents/' + fileRelPath, {
+                    method: 'PUT',
+                    headers: { 'Authorization': 'Bearer ' + ghToken, 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        message: 'Silent purified annotation update',
+                        content: btoa(unescape(encodeURIComponent(finalHTML))),
+                        sha: sha || undefined
+                    })
+                });
+                console.log('✅ [My Litit] 纯净无污染批注已静默同步至 GitHub');
+            } catch(e) {
+                console.warn('❌ [My Litit] 同步跳过或失败:', e);
+            }
+        }
 
-window.addEventListener('DOMContentLoaded', () => {
-  initProgressBar();
-  initAnnotations();
-});
-window.addEventListener('load', () => {
-  initAnnotations();
-});
-</script>
+        function scheduleSync() {
+            if (syncTimeout) clearTimeout(syncTimeout);
+            syncTimeout = setTimeout(() => { syncToCloud(); }, 3000);
+        }
+
+        function initAnnotations() {
+            document.querySelectorAll('.litit-highlight-block, .content-wrap').forEach(wrap => {
+                let content = wrap.querySelector('.content');
+                if (!content) {
+                    const pText = wrap.querySelector('p');
+                    if (pText) {
+                        content = document.createElement('div');
+                        content.className = 'content';
+                        content.style.cssText = 'position:relative; margin:0 0 6px 0; color:#1a202c; font-family:Georgia, serif; line-height:1.7; font-size:15px; word-break:break-word;';
+                        content.innerHTML = pText.innerHTML;
+                        pText.parentNode.replaceChild(content, pText);
+                    }
+                }
+                if (!content) return;
+                
+                let appendTarget = content.querySelector('.litit-en-sentence') || content.querySelector('.litit-en-quote') || content.querySelector('.litit-en-title') || content;
+
+                if (!content.querySelector('.anno-toggle')) {
+                    const toggle = document.createElement('span');
+                    toggle.className = 'anno-toggle';
+                    toggle.title = '手写批注/笔记';
+                    appendTarget.appendChild(toggle);
+                }
+                if (!content.querySelector('.ai-toggle')) {
+                    const aiToggle = document.createElement('span');
+                    aiToggle.className = 'ai-toggle';
+                    aiToggle.title = 'AI智能二次解析';
+                    appendTarget.appendChild(aiToggle);
+                }
+
+                let box = wrap.querySelector('.anno-box');
+                if (!box) {
+                    box = document.createElement('div');
+                    box.className = 'anno-box';
+                    box.style.display = 'none';
+                    box.innerHTML = '<div class="anno-view markdown-body"></div><textarea class="anno-edit" style="display:none;" placeholder="在此写下笔记或使用 AI 解析..."></textarea>';
+                    wrap.appendChild(box);
+                }
+
+                const view = box.querySelector('.anno-view');
+                const edit = box.querySelector('.anno-edit');
+                const toggle = content.querySelector('.anno-toggle');
+                const aiToggle = content.querySelector('.ai-toggle');
+
+                if (edit && edit.value.trim()) {
+                    toggle.classList.add('has-anno');
+                    try {
+                        view.innerHTML = (typeof marked !== 'undefined') ? marked.parse(edit.value.trim()) : edit.value.trim();
+                    } catch(e){}
+                }
+
+                if (aiToggle) {
+                    aiToggle.onclick = async (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        if (aiToggle.classList.contains('loading')) return;
+                        if (edit && edit.value.trim() !== '') {
+                            const confirmOverwrite = confirm('⚠️ 已经存在批注内容。点击"确定"将使用 AI 解析覆盖现有内容。是否继续？');
+                            if (!confirmOverwrite) return;
+                        }
+                        const pClone = content.cloneNode(true);
+                        pClone.querySelectorAll('.anno-toggle, .ai-toggle').forEach(el => el.remove());
+                        let pText = pClone.textContent.replace(/https?:\/\/\S+/g, '').trim();
+                        if (!pText) return;
+                        
+                        aiToggle.classList.add('loading');
+                        try {
+                            const aiContent = await executeAIPipeline(pText);
+                            box.style.display = 'block';
+                            view.style.display = 'none';
+                            edit.style.display = 'block';
+                            edit.value = aiContent;
+                            edit.focus();
+                            edit.blur();
+                        } catch (err) {
+                            console.error(err);
+                        } finally {
+                            aiToggle.classList.remove('loading');
+                        }
+                    };
+                }
+
+                if (toggle) {
+                    toggle.onclick = (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        if (box.style.display === 'block') {
+                            box.style.display = 'none';
+                        } else {
+                            box.style.display = 'block';
+                            if (!edit.value.trim()) {
+                                view.style.display = 'none';
+                                edit.style.display = 'block';
+                                setTimeout(() => { edit.focus(); }, 150);
+                            } else {
+                                view.style.display = 'block';
+                                edit.style.display = 'none';
+                            }
+                        }
+                    };
+                }
+
+                const triggerEdit = (e) => {
+                    if(e) { e.preventDefault(); e.stopPropagation(); }
+                    view.style.display = 'none';
+                    edit.style.display = 'block';
+                    edit.value = edit.value;
+                    setTimeout(() => { edit.focus(); }, 150);
+                };
+
+                view.addEventListener('dblclick', triggerEdit);
+                let lastTap = 0;
+                view.addEventListener('touchstart', e => {
+                    if (e.touches.length === 2) {
+                        triggerEdit(e);
+                    } else if (e.touches.length === 1) {
+                        const currentTime = new Date().getTime();
+                        if (currentTime - lastTap < 500 && currentTime - lastTap > 0) {
+                            e.preventDefault();
+                            box.style.display = 'none';
+                        }
+                        lastTap = currentTime;
+                    }
+                }, {passive: false});
+
+                if (edit && view) {
+                    edit.onblur = () => {
+                        setTimeout(() => {
+                            const newVal = edit.value.trim();
+                            try {
+                                view.innerHTML = newVal ? ((typeof marked !== 'undefined') ? marked.parse(newVal) : newVal) : '';
+                            } catch(e){}
+                            edit.style.display = 'none';
+                            if (newVal) {
+                                view.style.display = 'block';
+                                toggle.classList.add('has-anno');
+                            } else {
+                                view.style.display = 'none';
+                                box.style.display = 'none';
+                                toggle.classList.remove('has-anno');
+                            }
+                            if (edit.getAttribute('data-old-val') !== newVal) {
+                                edit.setAttribute('data-old-val', newVal);
+                                scheduleSync();
+                            }
+                        }, 150);
+                    };
+                    edit.setAttribute('data-old-val', edit.value.trim());
+                }
+            });
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            initProgressBar();
+            initAnnotations();
+        });
+        window.addEventListener('load', () => {
+            initAnnotations();
+        });
+    </script>
 </body>
 </html>
